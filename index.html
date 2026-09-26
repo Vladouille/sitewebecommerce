@@ -35,7 +35,7 @@
         <img src="assets/AUTOFLOW.png" alt="Autoflow" width="160" height="32" onload="this.parentNode.classList.add('logo--img')">
         <span class="logo__text" aria-hidden="true">AUTOFLOW<span class="tri"></span></span>
       </a>
-      <a class="btn btn--small js-book" href="#reserver">Réserver mon audit offert</a>
+      <a class="btn btn--small" href="#audit">Réserver mon audit gratuit</a>
     </div>
   </header>
 
@@ -47,8 +47,8 @@
         <div class="hero__copy">
           <h1>Tes visiteurs repartent avec des questions. Autoflow les transforme en ventes.</h1>
           <p class="hero__sub">Un vendeur IA sur ta boutique Shopify qui répond, rassure et relance tes paniers, 24h/24. En ligne en 7 jours. Tu ne paies que s'il rapporte plus qu'il ne coûte.</p>
-          <a class="btn btn--large js-book" href="#reserver">Réserver mon audit offert</a>
-          <p class="hero__note">Un appel d'une heure. On te montre où ta boutique perd des ventes.</p>
+          <a class="btn btn--large" href="#audit">Réserver mon audit gratuit</a>
+          <p class="hero__note">Gratuit et sans engagement. Réponse sous 48 h ouvrées.</p>
         </div>
 
         <figure class="chat" aria-label="Exemple de conversation entre un visiteur et le vendeur Autoflow">
@@ -178,14 +178,79 @@
       </div>
     </section>
 
-    <!-- Prix : généré depuis config.js -->
-    <section class="section" id="prix" aria-labelledby="price-title">
-      <div class="wrap">
-        <h2 id="price-title">Prix</h2>
-        <p class="lead lead--small">Même budget pub, plus de ventes. Choisis le niveau d'accompagnement.</p>
-        <div class="pricing" id="pricing"></div>
-        <noscript><p>Active JavaScript pour afficher la grille de prix, ou réserve ton audit pour la recevoir.</p></noscript>
-        <ul class="pricing__notes" id="pricing-notes"></ul>
+    <!-- Formulaire d'audit gratuit : la clé d'envoi se règle dans config.js -->
+    <section class="section audit" id="audit" aria-labelledby="audit-title">
+      <div class="wrap audit__grid">
+        <div class="audit__intro">
+          <h2 id="audit-title">Découvre combien de ventes ta boutique perd.</h2>
+          <p class="lead lead--small">Remplis ce formulaire. On analyse ta boutique et on te montre où partent tes ventes. C'est gratuit et sans engagement.</p>
+        </div>
+
+        <div class="audit__box">
+          <form class="form" id="audit-form" novalidate>
+            <div class="field">
+              <label for="f-firstname">Prénom</label>
+              <input id="f-firstname" name="firstname" type="text" autocomplete="given-name" required aria-describedby="e-firstname">
+              <p class="field__error" id="e-firstname"></p>
+            </div>
+
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="e-email">
+              <p class="field__error" id="e-email"></p>
+            </div>
+
+            <div class="field">
+              <label for="f-phone">Téléphone <span class="field__optional">(facultatif)</span></label>
+              <input id="f-phone" name="phone" type="tel" autocomplete="tel" aria-describedby="e-phone">
+              <p class="field__error" id="e-phone"></p>
+            </div>
+
+            <div class="field">
+              <label for="f-shop">Lien de ta boutique</label>
+              <input id="f-shop" name="shop" type="text" inputmode="url" autocomplete="url" placeholder="maboutique.com" required aria-describedby="e-shop">
+              <p class="field__error" id="e-shop"></p>
+            </div>
+
+            <div class="field">
+              <label for="f-revenue">Chiffre d'affaires mensuel</label>
+              <select id="f-revenue" name="revenue" required aria-describedby="e-revenue">
+                <option value="">Choisis une tranche</option>
+                <option>Moins de 30 k€</option>
+                <option>30 à 100 k€</option>
+                <option>100 à 300 k€</option>
+                <option>Plus de 300 k€</option>
+              </select>
+              <p class="field__error" id="e-revenue"></p>
+            </div>
+
+            <div class="field">
+              <label for="f-problem">Principal problème constaté <span class="field__optional">(facultatif)</span></label>
+              <textarea id="f-problem" name="problem" rows="4" placeholder="Ex. : beaucoup de trafic pub, peu de ventes. Beaucoup de paniers abandonnés."></textarea>
+            </div>
+
+            <div class="field field--check">
+              <input id="f-consent" name="consent" type="checkbox" required aria-describedby="e-consent">
+              <label for="f-consent">J'accepte qu'Autoflow utilise ces informations pour me recontacter au sujet de mon audit.</label>
+              <p class="field__error" id="e-consent"></p>
+            </div>
+
+            <!-- Piège à robots : invisible pour les humains -->
+            <div class="hp" aria-hidden="true">
+              <label for="f-botcheck">Ne pas remplir</label>
+              <input id="f-botcheck" name="botcheck" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <button class="btn btn--large btn--submit" type="submit">Réserver mon audit gratuit</button>
+            <p class="form__status" id="form-status" role="alert"></p>
+            <p class="form__privacy">Tes informations servent uniquement à préparer ton audit. <a href="confidentialite.html">Politique de confidentialité</a>.</p>
+          </form>
+
+          <div class="form__success" id="form-success" tabindex="-1" hidden>
+            <span class="tri" aria-hidden="true"></span>
+            <p>Demande envoyée. On revient vers toi sous 48 h ouvrées avec ton audit.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -235,6 +300,10 @@
             <p>Si après 30 jours les ventes attribuées à l'agent ne couvrent pas son coût, le mois est offert. <a href="#garantie">Voir la garantie</a>.</p>
           </details>
           <details>
+            <summary>Combien ça coûte ?</summary>
+            <p>Le tarif dépend de la taille de ta boutique et de tes besoins. On te le présente après l'audit, sans engagement.</p>
+          </details>
+          <details>
             <summary>Pouvez-vous garantir un taux de conversion ?</summary>
             <p>Non, et personne d'honnête ne le peut : il dépend aussi de ton trafic, de tes prix et de tes fiches produits. On garantit que l'agent rapporte plus qu'il ne coûte, sinon le mois est offert.</p>
           </details>
@@ -243,10 +312,10 @@
     </section>
 
     <!-- Appel final -->
-    <section class="final" id="reserver">
+    <section class="final">
       <div class="wrap final__inner">
         <h2>Combien de ventes ta boutique perd-elle cette nuit&nbsp;?</h2>
-        <a class="btn btn--large btn--inverse js-book" href="#reserver">Réserver mon audit offert</a>
+        <a class="btn btn--large btn--inverse" href="#audit">Réserver mon audit gratuit</a>
       </div>
     </section>
   </main>
@@ -257,7 +326,7 @@
         <img src="assets/AUTOFLOW.png" alt="Autoflow" width="120" height="24" onload="this.parentNode.classList.add('logo--img')">
         <span class="logo__text" aria-hidden="true">AUTOFLOW<span class="tri"></span></span>
       </span>
-      <a class="js-email" href="mailto:contact@autoflow.fr">contact@autoflow.fr</a>
+      <a href="mailto:contact.autoflow1@gmail.com">contact.autoflow1@gmail.com</a>
       <nav class="site-footer__legal" aria-label="Informations légales">
         <a href="mentions-legales.html">Mentions légales</a>
         <a href="confidentialite.html">Politique de confidentialité</a>

@@ -2,59 +2,8 @@
   'use strict';
 
   const config = window.AUTOFLOW_CONFIG || {};
+  const contactEmail = config.contactEmail || 'contact.autoflow1@gmail.com';
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* ---- Lien de réservation : un seul réglage pour tous les boutons ---- */
-  const bookingHref = config.bookingUrl
-    || `mailto:${config.contactEmail}?subject=${encodeURIComponent('Audit Autoflow offert')}`;
-  document.querySelectorAll('.js-book').forEach((link) => {
-    link.href = bookingHref;
-    if (config.bookingUrl) {
-      link.target = '_blank';
-      link.rel = 'noopener';
-    }
-  });
-
-  /* ---- Email de contact ---- */
-  document.querySelectorAll('.js-email').forEach((link) => {
-    link.href = `mailto:${config.contactEmail}`;
-    link.textContent = config.contactEmail;
-  });
-
-  /* ---- Grille de prix générée depuis config.js ---- */
-  const formatPrice = (n) => new Intl.NumberFormat('fr-FR', {
-    style: 'currency', currency: 'EUR', maximumFractionDigits: 0,
-  }).format(n);
-
-  const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  })[c]);
-
-  const renderValue = (value) => {
-    if (value === true) return '<span class="plan__value">Oui</span>';
-    if (value === false || value == null) return '<span class="plan__value plan__value--no">Non</span>';
-    return `<span class="plan__value">${escapeHtml(value)}</span>`;
-  };
-
-  const pricing = document.getElementById('pricing');
-  if (pricing && Array.isArray(config.plans)) {
-    pricing.innerHTML = config.plans.map((plan) => `
-      <article class="plan${plan.recommended ? ' plan--recommended' : ''}">
-        ${plan.recommended ? '<span class="plan__tag"><span class="tri"></span> Recommandé</span>' : ''}
-        <h3 class="plan__name">${escapeHtml(plan.name)}</h3>
-        <p class="plan__price">${formatPrice(plan.price)} <small>/mois</small></p>
-        <ul class="plan__features">
-          ${config.features.map((f) => `<li><span>${escapeHtml(f.label)}</span>${renderValue(plan.values[f.key])}</li>`).join('')}
-        </ul>
-        <a class="btn" href="${escapeHtml(bookingHref)}"${config.bookingUrl ? ' target="_blank" rel="noopener"' : ''}>Réserver mon audit offert</a>
-      </article>
-    `).join('');
-  }
-
-  const notes = document.getElementById('pricing-notes');
-  if (notes && Array.isArray(config.pricingNotes)) {
-    notes.innerHTML = config.pricingNotes.map((n) => `<li>${escapeHtml(n)}</li>`).join('');
-  }
 
   /* ---- Conversation du hero : lecture unique, message par message ---- */
   const chat = document.getElementById('chat');
@@ -77,4 +26,136 @@
   } else if (chat) {
     chat.querySelector('.msg--typing')?.remove();
   }
+
+  /* ---- Formulaire d'audit ---- */
+  const form = document.getElementById('audit-form');
+  if (!form) return;
+
+  const success = document.getElementById('form-success');
+  const status = document.getElementById('form-status');
+  const submit = form.querySelector('button[type="submit"]');
+  const submitLabel = submit.textContent;
+
+  // Accepte « maboutique.com » comme « https://maboutique.com »
+  const normalizeUrl = (value) => {
+    const v = value.trim();
+    if (!v) return '';
+    return /^https?:\/\//i.test(v) ? v : `https://${v}`;
+  };
+  const isValidShopUrl = (value) => {
+    try {
+      const url = new URL(normalizeUrl(value));
+      return /^[^.\s]+(\.[^.\s]+)+$/.test(url.hostname);
+    } catch {
+      return false;
+    }
+  };
+
+  const rules = {
+    firstname: (f) => (f.value.trim() ? '' : 'Indique ton prénom.'),
+    email: (f) => {
+      if (!f.value.trim()) return 'Indique ton email.';
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.value.trim()) ? '' : 'Cet email ne semble pas valide. Exemple : prenom@maboutique.com';
+    },
+    phone: (f) => {
+      if (!f.value.trim()) return '';
+      return /^[+\d][\d\s().-]{7,}$/.test(f.value.trim()) ? '' : 'Ce numéro ne semble pas valide.';
+    },
+    shop: (f) => {
+      if (!f.value.trim()) return 'Indique le lien de ta boutique.';
+      return isValidShopUrl(f.value) ? '' : 'Ce lien ne semble pas valide. Exemple : maboutique.com';
+    },
+    revenue: (f) => (f.value ? '' : 'Choisis une tranche de chiffre d\'affaires.'),
+    consent: (f) => (f.checked ? '' : 'Coche cette case pour qu\'on puisse te recontacter.'),
+  };
+
+  const validateField = (field) => {
+    const rule = rules[field.name];
+    if (!rule) return true;
+    const message = rule(field);
+    const error = document.getElementById(`e-${field.name}`);
+    error.textContent = message;
+    field.setAttribute('aria-invalid', message ? 'true' : 'false');
+    field.closest('.field').classList.toggle('field--invalid', Boolean(message));
+    return !message;
+  };
+
+  // Après une première erreur, on revalide pendant la saisie
+  Object.keys(rules).forEach((name) => {
+    const field = form.elements[name];
+    const evt = field.type === 'checkbox' || field.tagName === 'SELECT' ? 'change' : 'input';
+    field.addEventListener(evt, () => {
+      if (field.getAttribute('aria-invalid') === 'true') validateField(field);
+    });
+    field.addEventListener('blur', () => {
+      if (field.value.trim() || field.getAttribute('aria-invalid')) validateField(field);
+    });
+  });
+
+  const setSending = (sending) => {
+    submit.disabled = sending;
+    submit.textContent = sending ? 'Envoi en cours' : submitLabel;
+    form.setAttribute('aria-busy', String(sending));
+  };
+
+  const showSuccess = () => {
+    form.hidden = true;
+    success.hidden = false;
+    success.focus();
+  };
+
+  const showFailure = () => {
+    status.innerHTML = `L'envoi n'a pas fonctionné. Réessaie dans un instant, ou écris-nous directement à <a href="mailto:${contactEmail}">${contactEmail}</a>.`;
+  };
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    status.textContent = '';
+
+    const fields = Object.keys(rules).map((name) => form.elements[name]);
+    const invalid = fields.filter((field) => !validateField(field));
+    if (invalid.length) {
+      invalid[0].focus();
+      return;
+    }
+
+    // Robot détecté : on fait comme si tout s'était bien passé, sans rien envoyer
+    if (form.elements.botcheck.value) {
+      showSuccess();
+      return;
+    }
+
+    const shop = normalizeUrl(form.elements.shop.value);
+    const payload = {
+      access_key: config.web3formsKey,
+      subject: `Nouvelle demande d'audit : ${shop}`,
+      from_name: 'Site Autoflow',
+      replyto: form.elements.email.value.trim(),
+      'Prénom': form.elements.firstname.value.trim(),
+      'Email': form.elements.email.value.trim(),
+      'Téléphone': form.elements.phone.value.trim() || 'Non renseigné',
+      'Boutique': shop,
+      "Chiffre d'affaires mensuel": form.elements.revenue.value,
+      'Principal problème': form.elements.problem.value.trim() || 'Non renseigné',
+      'Consentement RGPD': 'Oui',
+    };
+
+    setSending(true);
+    try {
+      if (!config.web3formsKey) throw new Error('Clé Web3Forms manquante dans config.js');
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.success) throw new Error(result.message || `HTTP ${response.status}`);
+      showSuccess();
+    } catch (error) {
+      console.error('Envoi du formulaire impossible :', error);
+      showFailure();
+    } finally {
+      setSending(false);
+    }
+  });
 })();
