@@ -39,7 +39,7 @@ L'ordre suit les questions que se pose le prospect. Les textes sont des brouillo
 ### Hero
 - **Titre** : Tes visiteurs repartent avec des questions. Autoflow les transforme en ventes.
 - **Sous-titre** : Un vendeur IA sur ta boutique Shopify qui répond, rassure et relance tes paniers, 24h/24. En ligne en 7 jours. Tu ne paies que s'il rapporte plus qu'il ne coûte.
-- **Bouton principal** : Réserver mon audit gratuit (fait défiler jusqu'au formulaire)
+- **Bouton principal** : Réserver mon audit gratuit (ouvre le formulaire Google)
 - **Visuel** : maquette de conversation, par exemple :
   - Visiteur (23h14) : « Je fais du 38, je prends quelle taille sur ce jean ? »
   - Autoflow : « Ce modèle taille petit : on te conseille le 40. 92 % des clientes en 38 l'ont pris en 40 et l'ont gardé. Livraison en 48 h et retours gratuits sous 30 jours. Je l'ajoute à ton panier ? »
@@ -64,10 +64,10 @@ Vendeur IA sur ton site, déclenchement au bon moment (fiche produit, sortie de 
 ### Garantie
 Reprendre les deux garanties de la section 2, formulées simplement et mises en valeur.
 
-### Formulaire « audit gratuit » (ancre `#audit`)
-Titre : Découvre combien de ventes ta boutique perd.
-Texte : Remplis ce formulaire, on analyse ta boutique et on te montre où partent tes ventes. C'est gratuit et sans engagement.
-Le formulaire lui-même est détaillé en section 5.
+### Bloc « audit gratuit » (ancre `#audit`)
+Titre : Découvre combien de ventes ta boutique perd chaque mois.
+Texte : Remplis ce formulaire en 1 minute, on analyse ta boutique gratuitement et on te montre où partent tes ventes.
+Bouton : Réserver mon audit gratuit (ouvre le formulaire Google, voir section 5).
 
 ### Packs et prix (section `#packs`, placée juste avant le formulaire)
 Titre : Choisis ton vendeur. Sous-titre : Mise en ligne en 7 jours, sans engagement de durée.
@@ -86,21 +86,20 @@ Titre : Choisis ton vendeur. Sous-titre : Mise en ligne en 7 jours, sans engagem
 | Plusieurs langues ou plusieurs boutiques | Non | Non | Oui |
 | Interlocuteur dédié | Non | Non | Oui, réponse sous 24 h |
 | Mise en ligne | 7 jours | 7 jours | 5 jours |
-| Frais de mise en place | 190 € | Offerts (valeur 190 €) | Offerts (valeur 190 €) |
 | Garantie « rentabilisé en 30 jours ou mois offert » | Non | Oui | Oui |
 
-Sous le tableau : « Paiement annuel : 2 mois offerts sur tous les packs. » et une option complémentaire : « Refonte de 10 fiches produits à partir des objections de tes clients : 290 € ».
+Sous le tableau, une option complémentaire : « Refonte de 10 fiches produits à partir des objections de tes clients : 290 € ».
 
 Règles d'affichage : pricing « pop-corn » renforcé (à respecter, sans changer les prix) :
+- **Aucune promotion** : pas de réduction, pas de prix barré, pas de « X mois offerts », pas de frais « offerts », pas de bascule mensuel/annuel. Uniquement les prix mensuels fixes : 280 €, 480 €, 1 780 €. Les garanties (« mois offert » si non rentabilisé ou si retard de mise en ligne) restent : ce sont des garanties, pas des promotions.
 - **Ordre des cartes** : Scale à gauche, Croissance au centre, Essentiel à droite, sur ordinateur comme sur mobile (sur mobile, empilées dans cet ordre). Le visiteur voit d'abord 1 780 € : c'est l'ancre, et 480 € paraît petit juste après.
 - **Croissance est la vedette** : au centre, légèrement plus grande, bordure marquée, badge « Recommandé ». Ne jamais écrire « le plus choisi » ni « le plus populaire » tant qu'il n'y a pas de clients.
 - **Effet pop-corn par le prix unitaire** : afficher sous chaque prix le coût par conversation. Essentiel : 0,56 € par conversation (280 € / 500). Croissance : 0,16 € par conversation (480 € / 3 000), avec la mention « 3,5 fois moins cher par conversation qu'Essentiel ». Scale : « conversations illimitées ». Comme au cinéma, le grand format paraît être la vraie bonne affaire.
-- **Rendre l'écart minuscule** : sur la carte Croissance, écrire « Seulement 200 € de plus qu'Essentiel : 6 fois plus de conversations, la relance des paniers, la garantie et la mise en place offerte. Le premier mois, la différence n'est que de 10 €. »
+- **Rendre l'écart minuscule** : sur la carte Croissance, écrire « Seulement 200 € de plus qu'Essentiel : 6 fois plus de conversations, la relance des paniers et la garantie. »
 - **Aversion à la perte sur Essentiel** : lister toutes les lignes du comparatif, y compris celles qu'Essentiel n'a pas, avec une croix visible et un texte grisé (« Relance des paniers abandonnés », « Garantie rentabilisé ou mois offert »). Le visiteur doit voir ce qu'il perd.
 - **Recadrage quotidien** : Croissance « soit 16 € par jour, moins qu'une vente perdue ». Scale « soit 59 € par jour, moins qu'un salarié à temps plein pour répondre à tes clients ».
-- **Bascule mensuel / annuel** au-dessus des cartes, avec « Annuel : 2 mois offerts ». En annuel, afficher le prix mensuel normal barré à côté de l'équivalent mensuel annuel : Essentiel 233 €, Croissance 400 €, Scale 1 483 € par mois, facturé à l'année. Les prix de base ne changent pas. Afficher la bascule sur « Annuel » par défaut, en indiquant clairement « facturé annuellement ».
 - **Garantie répétée** juste sous le bouton de Croissance et de Scale : « Rentabilisé en 30 jours ou mois offert ».
-- Chaque carte a un bouton « Choisir Essentiel », « Choisir Croissance », « Choisir Scale » qui fait défiler jusqu'au formulaire et transmet le pack choisi.
+- Chaque carte a un bouton « Choisir Essentiel », « Choisir Croissance », « Choisir Scale » qui ouvre le formulaire Google.
 - Les prix et contenus des packs sont stockés dans une seule source de données, faciles à modifier.
 
 ### À propos / pourquoi Autoflow
@@ -117,7 +116,7 @@ Court paragraphe crédible (pas encore de clients) : une agence spécialisée da
 - Pouvez-vous garantir un taux de conversion ? Non, et personne d'honnête ne le peut. On garantit que l'agent rapporte plus qu'il ne coûte, sinon le mois est offert.
 
 ### Appel final
-Titre : Combien de ventes ta boutique perd-elle cette nuit ? Bouton : Réserver mon audit gratuit (fait défiler jusqu'au formulaire).
+Titre : Combien de ventes ta boutique perd-elle cette nuit ? Bouton : Réserver mon audit gratuit (ouvre le formulaire Google).
 
 ### Pied de page
 Logo, email de contact contact.autoflow1@gmail.com, mentions légales, politique de confidentialité.
@@ -126,14 +125,12 @@ Logo, email de contact contact.autoflow1@gmail.com, mentions légales, politique
 
 - Page unique, statique, très rapide. HTML/CSS/JS simple ou Astro ; pas de framework lourd sans raison.
 - **Mobile d'abord** : la majorité des e-commerçants la verront sur téléphone. Tester à 375 px de large.
-- **Formulaire d'audit gratuit : Tally, intégré dans la page** (pas de code d'envoi d'email à écrire).
-  - Le formulaire est créé par le fondateur sur tally.so avec le compte contact.autoflow1@gmail.com. Les réponses sont visibles dans le tableau de bord Tally et une notification est envoyée par email sur cette adresse à chaque nouvelle demande.
-  - Sur le site, intégrer le formulaire avec le code d'intégration fourni par Tally (« Embed », mode intégré dans la page, hauteur dynamique) dans la section `#audit`. L'identifiant du formulaire est stocké dans une seule variable de configuration (`TALLY_FORM_ID`).
-  - Tous les boutons « Réserver mon audit gratuit » font défiler jusqu'à `#audit`. Les boutons des packs font de même et transmettent le pack choisi à Tally par paramètre d'URL (champ caché ou pré-rempli nommé `pack`, par exemple `?pack=Croissance`).
-  - Adapter l'apparence de l'intégration au site (fond transparent, alignement) sans modifier le formulaire lui-même.
-  - Champs à créer dans Tally : prénom (obligatoire), email (obligatoire), téléphone (facultatif), lien de la boutique (obligatoire), chiffre d'affaires mensuel (obligatoire : moins de 30 k€, 30 à 100 k€, 100 à 300 k€, plus de 300 k€), pack qui t'intéresse (Essentiel, Croissance, Scale, Je ne sais pas encore ; pré-rempli par le paramètre `pack`), principal problème constaté (facultatif), consentement RGPD obligatoire.
-  - Message de fin dans Tally : « Demande envoyée. On revient vers toi sous 48 h ouvrées avec ton audit. »
-  - Faire un envoi test après la mise en ligne et vérifier qu'il apparaît dans Tally et dans la boîte mail.
+- **Formulaire d'audit gratuit : lien Google Forms** : https://forms.gle/VtS7yDsHmgn86Yu2A
+  - Stocker ce lien dans une seule variable de configuration (`AUDIT_FORM_URL`).
+  - **Tous** les boutons « Réserver mon audit gratuit » (hero, bloc `#audit`, appel final) ouvrent ce lien dans un nouvel onglet (`target="_blank"` et `rel="noopener"`).
+  - Les boutons des packs (« Choisir Essentiel », « Choisir Croissance », « Choisir Scale ») ouvrent aussi ce même lien. Pas de pré-sélection du pack pour l'instant : le prospect choisit son pack dans le formulaire.
+  - Ne pas intégrer le formulaire en iframe : un lien court forms.gle ne s'intègre pas de façon fiable, et le lien direct est plus simple à maintenir.
+  - Après la mise en ligne, cliquer sur chaque bouton pour vérifier qu'il ouvre bien le formulaire, puis faire un envoi test.
 - SEO de base : balise title, meta description, Open Graph (image avec le logo), balises Hn propres, favicon (triangle ou « A▲ »).
 - Accessibilité : contrastes suffisants, focus clavier visible, respect de prefers-reduced-motion, textes alternatifs.
 - Analytics respectueux du RGPD (Plausible ou équivalent), sans bandeau cookies si possible.

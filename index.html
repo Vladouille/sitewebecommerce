@@ -35,7 +35,7 @@
         <img src="assets/AUTOFLOW.png" alt="Autoflow" width="160" height="32" onload="this.parentNode.classList.add('logo--img')">
         <span class="logo__text" aria-hidden="true">AUTOFLOW<span class="tri"></span></span>
       </a>
-      <a class="btn btn--small" href="#audit">Réserver mon audit gratuit</a>
+      <a class="btn btn--small js-form" href="#audit">Réserver mon audit gratuit</a>
     </div>
   </header>
 
@@ -47,7 +47,7 @@
         <div class="hero__copy">
           <h1>Tes visiteurs repartent avec des questions. Autoflow les transforme en ventes.</h1>
           <p class="hero__sub">Un vendeur IA sur ta boutique Shopify qui répond, rassure et relance tes paniers, 24h/24. En ligne en 7 jours. Tu ne paies que s'il rapporte plus qu'il ne coûte.</p>
-          <a class="btn btn--large" href="#audit">Réserver mon audit gratuit</a>
+          <a class="btn btn--large js-form" href="#audit">Réserver mon audit gratuit</a>
           <p class="hero__note">Gratuit et sans engagement. Réponse sous 48 h ouvrées.</p>
         </div>
 
@@ -183,39 +183,18 @@
       <div class="wrap">
         <h2 id="packs-title">Choisis ton vendeur.</h2>
         <p class="lead lead--small">Mise en ligne en 7 jours, sans engagement de durée.</p>
-        <fieldset class="billing" id="billing">
-          <legend class="visually-hidden">Période de facturation</legend>
-          <label class="billing__option">
-            <input type="radio" name="billing" value="monthly">
-            <span>Mensuel</span>
-          </label>
-          <label class="billing__option">
-            <input type="radio" name="billing" value="annual" checked>
-            <span>Annuel : 2 mois offerts</span>
-          </label>
-        </fieldset>
         <div class="packs" id="packs-grid"></div>
         <noscript><p>Active JavaScript pour afficher les packs, ou remplis le formulaire ci-dessous pour les recevoir.</p></noscript>
         <ul class="packs__notes" id="packs-notes"></ul>
       </div>
     </section>
 
-    <!-- Formulaire d'audit gratuit : la clé d'envoi se règle dans config.js -->
+    <!-- Audit gratuit : le lien du formulaire Google se règle dans config.js (AUDIT_FORM_URL) -->
     <section class="section audit" id="audit" aria-labelledby="audit-title">
-      <div class="wrap audit__grid">
-        <div class="audit__intro">
-          <h2 id="audit-title">Découvre combien de ventes ta boutique perd.</h2>
-          <p class="lead lead--small">Remplis ce formulaire. On analyse ta boutique et on te montre où partent tes ventes. C'est gratuit et sans engagement.</p>
-        </div>
-
-        <div class="audit__box">
-          <!-- Formulaire Tally : l'identifiant se règle dans config.js (TALLY_FORM_ID) -->
-          <div class="tally" id="tally"></div>
-          <div class="audit__fallback" id="audit-fallback" hidden>
-            <p>Le formulaire arrive très bientôt. En attendant, écris-nous en précisant le lien de ta boutique et le pack qui t'intéresse.</p>
-            <a class="btn btn--large" id="audit-mail" href="mailto:contact.autoflow1@gmail.com">Écrire à contact.autoflow1@gmail.com</a>
-          </div>
-        </div>
+      <div class="wrap audit__inner">
+        <h2 id="audit-title">Découvre combien de ventes ta boutique perd chaque mois.</h2>
+        <p class="lead lead--small">Remplis ce formulaire en 1 minute. On analyse ta boutique gratuitement et on te montre où partent tes ventes.</p>
+        <a class="btn btn--large js-form" href="#audit">Réserver mon audit gratuit</a>
       </div>
     </section>
 
@@ -280,7 +259,7 @@
     <section class="final">
       <div class="wrap final__inner">
         <h2>Combien de ventes ta boutique perd-elle cette nuit&nbsp;?</h2>
-        <a class="btn btn--large btn--inverse" href="#audit">Réserver mon audit gratuit</a>
+        <a class="btn btn--large btn--inverse js-form" href="#audit">Réserver mon audit gratuit</a>
       </div>
     </section>
   </main>

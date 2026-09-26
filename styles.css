@@ -182,14 +182,6 @@ h3 { font-size: 1.35rem; }
 .btn--ghost:hover { background: var(--ink); color: var(--paper); }
 .packs-section { border-top: 1px solid var(--line); }
 
-/* Bascule mensuel / annuel */
-.billing { display: inline-flex; border: 1px solid var(--ink); margin-top: 28px; padding: 0; min-width: 0; }
-.billing__option { position: relative; cursor: pointer; }
-.billing__option input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
-.billing__option span { display: block; padding: 10px 16px; font-size: .92rem; font-weight: 600; }
-.billing__option input:checked + span { background: var(--ink); color: var(--paper); }
-.billing__option input:focus-visible + span { outline: 3px solid var(--ink); outline-offset: 2px; }
-
 .packs { display: grid; gap: 24px; margin-top: 28px; }
 .pack { border: 1px solid var(--ink); padding: 24px 20px; display: flex; flex-direction: column; background: var(--paper); }
 .pack--recommended { box-shadow: 0 0 0 2px var(--ink); background: var(--soft); }
@@ -203,11 +195,9 @@ h3 { font-size: 1.35rem; }
 .pack--recommended .pack__name { font-size: 1.9rem; }
 .pack__for { color: var(--muted); font-size: .95rem; margin-top: 4px; }
 .pack__pricing { padding-bottom: 16px; }
-.pack__price { font-family: var(--serif); font-size: 2.6rem; line-height: 1.1; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 10px; }
+.pack__price { font-family: var(--serif); font-size: 2.6rem; line-height: 1.1; }
 .pack--recommended .pack__price { font-size: 3rem; }
-.pack__was { font-size: 1.3rem; color: var(--muted); text-decoration-thickness: 2px; }
 .pack__price small { font-family: var(--sans); font-size: .95rem; color: var(--muted); }
-.pack__billing { font-size: .85rem; color: var(--muted); margin-top: 2px; }
 .pack__unit { font-weight: 600; margin-top: 12px; }
 .pack__unit-compare { font-size: .92rem; margin-top: 2px; }
 .pack__daily { font-size: .92rem; color: var(--muted); margin-top: 8px; }
@@ -232,13 +222,10 @@ h3 { font-size: 1.35rem; }
   background: var(--ink); clip-path: polygon(50% 0, 100% 100%, 0 100%);
 }
 
-/* Formulaire d'audit (Tally intégré) */
+/* Bloc audit gratuit */
 .audit { border-top: 1px solid var(--line); }
-.audit__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
-.audit__box { border: 1px solid var(--ink); padding: 24px 20px; }
-.tally iframe { display: block; width: 100%; min-height: 400px; border: 0; }
-.audit__fallback { display: flex; flex-direction: column; gap: 20px; }
-.audit__fallback .btn { width: 100%; overflow-wrap: anywhere; }
+.audit__inner { max-width: 760px; }
+.audit__inner .lead { margin-bottom: 28px; }
 
 /* FAQ */
 .faq { border-top: 1px solid var(--ink); }
@@ -290,8 +277,6 @@ h3 { font-size: 1.35rem; }
   .pack__row { grid-template-columns: 16px 1fr; }
   .pack__value { grid-column: 2; text-align: left; max-width: none; }
   .pack__cta { align-self: end; }
-  .audit__grid { grid-template-columns: 1fr 1.3fr; gap: 64px; align-items: start; }
-  .audit__box { padding: 36px 32px; }
   .final__inner { grid-template-columns: 1.4fr 1fr; align-items: end; }
   .final .btn { justify-self: end; }
   .site-footer__inner { flex-direction: row; justify-content: space-between; align-items: center; }
