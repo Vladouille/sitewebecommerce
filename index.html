@@ -183,6 +183,17 @@
       <div class="wrap">
         <h2 id="packs-title">Choisis ton vendeur.</h2>
         <p class="lead lead--small">Mise en ligne en 7 jours, sans engagement de durée.</p>
+        <fieldset class="billing" id="billing">
+          <legend class="visually-hidden">Période de facturation</legend>
+          <label class="billing__option">
+            <input type="radio" name="billing" value="monthly">
+            <span>Mensuel</span>
+          </label>
+          <label class="billing__option">
+            <input type="radio" name="billing" value="annual" checked>
+            <span>Annuel : 2 mois offerts</span>
+          </label>
+        </fieldset>
         <div class="packs" id="packs-grid"></div>
         <noscript><p>Active JavaScript pour afficher les packs, ou remplis le formulaire ci-dessous pour les recevoir.</p></noscript>
         <ul class="packs__notes" id="packs-notes"></ul>
@@ -198,78 +209,11 @@
         </div>
 
         <div class="audit__box">
-          <form class="form" id="audit-form" novalidate>
-            <div class="field">
-              <label for="f-firstname">Prénom</label>
-              <input id="f-firstname" name="firstname" type="text" autocomplete="given-name" required aria-describedby="e-firstname">
-              <p class="field__error" id="e-firstname"></p>
-            </div>
-
-            <div class="field">
-              <label for="f-email">Email</label>
-              <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="e-email">
-              <p class="field__error" id="e-email"></p>
-            </div>
-
-            <div class="field">
-              <label for="f-phone">Téléphone <span class="field__optional">(facultatif)</span></label>
-              <input id="f-phone" name="phone" type="tel" autocomplete="tel" aria-describedby="e-phone">
-              <p class="field__error" id="e-phone"></p>
-            </div>
-
-            <div class="field">
-              <label for="f-shop">Lien de ta boutique</label>
-              <input id="f-shop" name="shop" type="text" inputmode="url" autocomplete="url" placeholder="maboutique.com" required aria-describedby="e-shop">
-              <p class="field__error" id="e-shop"></p>
-            </div>
-
-            <div class="field">
-              <label for="f-revenue">Chiffre d'affaires mensuel</label>
-              <select id="f-revenue" name="revenue" required aria-describedby="e-revenue">
-                <option value="">Choisis une tranche</option>
-                <option>Moins de 30 k€</option>
-                <option>30 à 100 k€</option>
-                <option>100 à 300 k€</option>
-                <option>Plus de 300 k€</option>
-              </select>
-              <p class="field__error" id="e-revenue"></p>
-            </div>
-
-            <div class="field">
-              <label for="f-pack">Pack qui t'intéresse</label>
-              <select id="f-pack" name="pack">
-                <option>Essentiel</option>
-                <option selected>Croissance</option>
-                <option>Scale</option>
-                <option>Je ne sais pas encore</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="f-problem">Principal problème constaté <span class="field__optional">(facultatif)</span></label>
-              <textarea id="f-problem" name="problem" rows="4" placeholder="Ex. : beaucoup de trafic pub, peu de ventes. Beaucoup de paniers abandonnés."></textarea>
-            </div>
-
-            <div class="field field--check">
-              <input id="f-consent" name="consent" type="checkbox" required aria-describedby="e-consent">
-              <label for="f-consent">J'accepte qu'Autoflow utilise ces informations pour me recontacter au sujet de mon audit.</label>
-              <p class="field__error" id="e-consent"></p>
-            </div>
-
-            <!-- Piège à robots : invisible pour les humains -->
-            <div class="hp" aria-hidden="true">
-              <label for="f-botcheck">Ne pas cocher</label>
-              <input id="f-botcheck" name="botcheck" type="checkbox" tabindex="-1" autocomplete="off">
-            </div>
-
-            <button class="btn btn--large btn--submit" type="submit">Réserver mon audit gratuit</button>
-            <p class="form__status" id="form-status" role="alert"></p>
-            <p class="form__privacy">Tes informations servent uniquement à préparer ton audit. <a href="confidentialite.html">Politique de confidentialité</a>.</p>
-          </form>
-
-          <div class="form__success" id="form-success" tabindex="-1" hidden>
-            <span class="tri" aria-hidden="true"></span>
-            <p>Demande envoyée. On revient vers toi sous 48 h ouvrées avec ton audit.</p>
+          <!-- Formulaire Tally : l'identifiant se règle dans config.js (TALLY_FORM_ID) -->
+          <div class="tally" id="tally"></div>
+          <div class="audit__fallback" id="audit-fallback" hidden>
+            <p>Le formulaire arrive très bientôt. En attendant, écris-nous en précisant le lien de ta boutique et le pack qui t'intéresse.</p>
+            <a class="btn btn--large" id="audit-mail" href="mailto:contact.autoflow1@gmail.com">Écrire à contact.autoflow1@gmail.com</a>
           </div>
         </div>
       </div>

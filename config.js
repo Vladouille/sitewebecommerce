@@ -3,16 +3,18 @@
  * C'est le seul fichier à modifier pour brancher le formulaire, changer l'email ou modifier les packs.
  */
 
-// Clé d'accès Web3Forms : à générer sur https://app.web3forms.com/forms avec l'adresse
-// contact.autoflow1@gmail.com (elle est aussi envoyée par email à cette adresse).
-// Tant qu'elle est vide, le formulaire affiche le message d'échec avec l'email de secours.
-const WEB3FORMS_ACCESS_KEY = '';
+// Identifiant du formulaire Tally (créé sur tally.so avec contact.autoflow1@gmail.com).
+// C'est la fin du lien de partage : https://tally.so/r/w4ABcD  ->  'w4ABcD'.
+// Tant qu'il est vide, la section #audit propose d'écrire à contactEmail.
+const TALLY_FORM_ID = '';
 
 window.AUTOFLOW_CONFIG = {
-  WEB3FORMS_ACCESS_KEY,
+  TALLY_FORM_ID,
 
-  // Adresse affichée sur le site et proposée en secours si l'envoi du formulaire échoue.
   contactEmail: 'contact.autoflow1@gmail.com',
+
+  // Paiement annuel : nombre de mois offerts sur 12. Le prix annuel affiché est calculé à partir de ce réglage.
+  annualFreeMonths: 2,
 
   // Lignes comparées dans chaque pack, dans l'ordre d'affichage.
   rows: [
@@ -30,25 +32,39 @@ window.AUTOFLOW_CONFIG = {
     { key: 'guarantee', label: 'Garantie « rentabilisé en 30 jours ou mois offert »' },
   ],
 
-  // true = Oui, false = Non, texte = affiché tel quel.
-  // `name` doit correspondre à une option de la liste « Pack qui t'intéresse » du formulaire.
+  // Les packs s'affichent dans cet ordre (Scale en premier : c'est l'ancre de prix).
+  //   conversations : nombre par mois, ou null si illimitées (sert au coût par conversation)
+  //   setupFee      : frais de mise en place réellement payés (sert à l'écart du premier mois)
+  //   dailyNote     : fin de la phrase « soit X € par jour, … » (absent = pas de phrase)
+  //   compareTo     : pack de référence pour les comparaisons de la carte recommandée
+  //   values        : true = Oui, false = Non (croix et texte grisé), texte = affiché tel quel
+  // `name` doit correspondre à l'option « pack » du formulaire Tally.
   packs: [
     {
-      name: 'Essentiel',
-      price: 280,
-      forWho: 'Tester un vendeur IA sur ton site',
+      name: 'Scale',
+      price: 1780,
+      conversations: null,
+      setupFee: 0,
+      forWho: 'Boutiques à fort trafic ou multi-boutiques',
+      dailyNote: "moins qu'un salarié à temps plein pour répondre à tes clients",
+      guaranteeUnderButton: true,
       values: {
-        agent: true, conversations: "Jusqu'à 500", proactive: false, recovery: false,
-        report: 'Rapport simple', objections: false, audit: false, multi: false, contact: false,
-        launch: '7 jours', setup: '190 €', guarantee: false,
+        agent: true, conversations: 'Illimitées', proactive: true, recovery: true,
+        report: 'Oui, hebdomadaire', objections: true, audit: true, multi: true, contact: 'Oui, réponse sous 24 h',
+        launch: '5 jours', setup: 'Offerts (valeur 190 €)', guarantee: true,
       },
     },
     {
       name: 'Croissance',
       price: 480,
+      conversations: 3000,
+      setupFee: 0,
       recommended: true,
-      reframe: "Soit 16 € par jour, moins qu'une vente perdue.",
       forWho: 'Récupérer un maximum de ventes perdues',
+      dailyNote: "moins qu'une vente perdue",
+      compareTo: 'Essentiel',
+      pitchExtras: 'la relance des paniers, la garantie et la mise en place offerte',
+      guaranteeUnderButton: true,
       values: {
         agent: true, conversations: "Jusqu'à 3 000", proactive: true, recovery: true,
         report: 'Oui, mensuel', objections: true, audit: false, multi: false, contact: false,
@@ -56,16 +72,20 @@ window.AUTOFLOW_CONFIG = {
       },
     },
     {
-      name: 'Scale',
-      price: 1780,
-      forWho: 'Boutiques à fort trafic ou multi-boutiques',
+      name: 'Essentiel',
+      price: 280,
+      conversations: 500,
+      setupFee: 190,
+      forWho: 'Tester un vendeur IA sur ton site',
       values: {
-        agent: true, conversations: 'Illimitées', proactive: true, recovery: true,
-        report: 'Oui, hebdomadaire', objections: true, audit: true, multi: true, contact: 'Oui, réponse sous 24 h',
-        launch: '5 jours', setup: 'Offerts (valeur 190 €)', guarantee: true,
+        agent: true, conversations: "Jusqu'à 500", proactive: false, recovery: false,
+        report: 'Rapport simple', objections: false, audit: false, multi: false, contact: false,
+        launch: '7 jours', setup: '190 €', guarantee: false,
       },
     },
   ],
+
+  guaranteeLine: 'Rentabilisé en 30 jours ou mois offert',
 
   pricingNotes: [
     'Paiement annuel : 2 mois offerts sur tous les packs.',

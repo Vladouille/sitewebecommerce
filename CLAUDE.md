@@ -91,12 +91,16 @@ Titre : Choisis ton vendeur. Sous-titre : Mise en ligne en 7 jours, sans engagem
 
 Sous le tableau : « Paiement annuel : 2 mois offerts sur tous les packs. » et une option complémentaire : « Refonte de 10 fiches produits à partir des objections de tes clients : 290 € ».
 
-Règles d'affichage (psychologie du prix, à respecter) :
-- Croissance est au centre, visuellement mis en avant (bordure, fond légèrement différent, badge « Recommandé »). Ne jamais écrire « le plus choisi » ni « le plus populaire » tant qu'il n'y a pas de clients : ce serait une fausse preuve sociale.
-- Essentiel est volontairement limité : il n'a ni la relance des paniers, ni le déclenchement proactif, ni la garantie, et ses frais de mise en place sont payants. Pour 200 € de plus, Croissance donne tout cela et offre les 190 € de mise en place : il doit paraître évident.
-- Scale sert d'ancre : sa présence fait paraître 480 € raisonnable. Il doit rester crédible et désirable, pas ridicule.
-- Sous le prix de Croissance, ajouter une ligne de recadrage : « Soit 16 € par jour, moins qu'une vente perdue. »
-- Chaque carte a un bouton « Choisir Essentiel », « Choisir Croissance », « Choisir Scale » qui fait défiler jusqu'au formulaire et présélectionne le pack correspondant.
+Règles d'affichage : pricing « pop-corn » renforcé (à respecter, sans changer les prix) :
+- **Ordre des cartes** : Scale à gauche, Croissance au centre, Essentiel à droite, sur ordinateur comme sur mobile (sur mobile, empilées dans cet ordre). Le visiteur voit d'abord 1 780 € : c'est l'ancre, et 480 € paraît petit juste après.
+- **Croissance est la vedette** : au centre, légèrement plus grande, bordure marquée, badge « Recommandé ». Ne jamais écrire « le plus choisi » ni « le plus populaire » tant qu'il n'y a pas de clients.
+- **Effet pop-corn par le prix unitaire** : afficher sous chaque prix le coût par conversation. Essentiel : 0,56 € par conversation (280 € / 500). Croissance : 0,16 € par conversation (480 € / 3 000), avec la mention « 3,5 fois moins cher par conversation qu'Essentiel ». Scale : « conversations illimitées ». Comme au cinéma, le grand format paraît être la vraie bonne affaire.
+- **Rendre l'écart minuscule** : sur la carte Croissance, écrire « Seulement 200 € de plus qu'Essentiel : 6 fois plus de conversations, la relance des paniers, la garantie et la mise en place offerte. Le premier mois, la différence n'est que de 10 €. »
+- **Aversion à la perte sur Essentiel** : lister toutes les lignes du comparatif, y compris celles qu'Essentiel n'a pas, avec une croix visible et un texte grisé (« Relance des paniers abandonnés », « Garantie rentabilisé ou mois offert »). Le visiteur doit voir ce qu'il perd.
+- **Recadrage quotidien** : Croissance « soit 16 € par jour, moins qu'une vente perdue ». Scale « soit 59 € par jour, moins qu'un salarié à temps plein pour répondre à tes clients ».
+- **Bascule mensuel / annuel** au-dessus des cartes, avec « Annuel : 2 mois offerts ». En annuel, afficher le prix mensuel normal barré à côté de l'équivalent mensuel annuel : Essentiel 233 €, Croissance 400 €, Scale 1 483 € par mois, facturé à l'année. Les prix de base ne changent pas. Afficher la bascule sur « Annuel » par défaut, en indiquant clairement « facturé annuellement ».
+- **Garantie répétée** juste sous le bouton de Croissance et de Scale : « Rentabilisé en 30 jours ou mois offert ».
+- Chaque carte a un bouton « Choisir Essentiel », « Choisir Croissance », « Choisir Scale » qui fait défiler jusqu'au formulaire et transmet le pack choisi.
 - Les prix et contenus des packs sont stockés dans une seule source de données, faciles à modifier.
 
 ### À propos / pourquoi Autoflow
@@ -122,14 +126,14 @@ Logo, email de contact contact.autoflow1@gmail.com, mentions légales, politique
 
 - Page unique, statique, très rapide. HTML/CSS/JS simple ou Astro ; pas de framework lourd sans raison.
 - **Mobile d'abord** : la majorité des e-commerçants la verront sur téléphone. Tester à 375 px de large.
-- **Formulaire d'audit gratuit** : tous les boutons « Réserver mon audit gratuit » font défiler la page jusqu'à la section `#audit`.
-  - Champs : prénom (obligatoire), email (obligatoire), téléphone (facultatif), lien de la boutique (obligatoire), chiffre d'affaires mensuel (obligatoire, liste : moins de 30 k€, 30 à 100 k€, 100 à 300 k€, plus de 300 k€), pack qui t'intéresse (liste : Essentiel, Croissance, Scale, Je ne sais pas encore ; présélectionné par les boutons des packs, Croissance par défaut sinon), principal problème constaté (facultatif, zone de texte), case de consentement RGPD obligatoire (« J'accepte qu'Autoflow utilise ces informations pour me recontacter au sujet de mon audit »).
-  - Envoi : un site statique ne peut pas envoyer d'email seul. Utiliser **Web3Forms** (gratuit) : la clé d'accès est générée sur web3forms.com avec l'adresse **contact.autoflow1@gmail.com** et reçue par email sur cette adresse. Stocker la clé dans une seule variable de configuration (`WEB3FORMS_ACCESS_KEY`). Ne jamais laisser de texte d'exemple à la place de la clé. Envoyer en POST vers `https://api.web3forms.com/submit` avec `Content-Type: application/json` et `Accept: application/json`, et afficher la réponse du service dans la console pour faciliter le débogage.
-  - Anti-spam : utiliser le champ honeypot de Web3Forms nommé `botcheck` (case à cocher cachée, `autocomplete="off"`), pour que la saisie automatique du navigateur ne le remplisse jamais.
-  - Sujet de l'email reçu : « Nouvelle demande d'audit : [pack] – [lien de la boutique] ».
-  - Validation côté navigateur avec messages d'erreur clairs sous chaque champ.
-  - États : pendant l'envoi, le bouton affiche « Envoi en cours » et se désactive ; en cas de succès, remplacer le formulaire par « Demande envoyée. On revient vers toi sous 48 h ouvrées avec ton audit. » ; en cas d'échec, afficher un message explicite et l'adresse contact.autoflow1@gmail.com en solution de secours.
-  - Tester un envoi réel avant la mise en ligne et vérifier que l'email n'arrive pas dans les spams.
+- **Formulaire d'audit gratuit : Tally, intégré dans la page** (pas de code d'envoi d'email à écrire).
+  - Le formulaire est créé par le fondateur sur tally.so avec le compte contact.autoflow1@gmail.com. Les réponses sont visibles dans le tableau de bord Tally et une notification est envoyée par email sur cette adresse à chaque nouvelle demande.
+  - Sur le site, intégrer le formulaire avec le code d'intégration fourni par Tally (« Embed », mode intégré dans la page, hauteur dynamique) dans la section `#audit`. L'identifiant du formulaire est stocké dans une seule variable de configuration (`TALLY_FORM_ID`).
+  - Tous les boutons « Réserver mon audit gratuit » font défiler jusqu'à `#audit`. Les boutons des packs font de même et transmettent le pack choisi à Tally par paramètre d'URL (champ caché ou pré-rempli nommé `pack`, par exemple `?pack=Croissance`).
+  - Adapter l'apparence de l'intégration au site (fond transparent, alignement) sans modifier le formulaire lui-même.
+  - Champs à créer dans Tally : prénom (obligatoire), email (obligatoire), téléphone (facultatif), lien de la boutique (obligatoire), chiffre d'affaires mensuel (obligatoire : moins de 30 k€, 30 à 100 k€, 100 à 300 k€, plus de 300 k€), pack qui t'intéresse (Essentiel, Croissance, Scale, Je ne sais pas encore ; pré-rempli par le paramètre `pack`), principal problème constaté (facultatif), consentement RGPD obligatoire.
+  - Message de fin dans Tally : « Demande envoyée. On revient vers toi sous 48 h ouvrées avec ton audit. »
+  - Faire un envoi test après la mise en ligne et vérifier qu'il apparaît dans Tally et dans la boîte mail.
 - SEO de base : balise title, meta description, Open Graph (image avec le logo), balises Hn propres, favicon (triangle ou « A▲ »).
 - Accessibilité : contrastes suffisants, focus clavier visible, respect de prefers-reduced-motion, textes alternatifs.
 - Analytics respectueux du RGPD (Plausible ou équivalent), sans bandeau cookies si possible.

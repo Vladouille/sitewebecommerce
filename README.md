@@ -14,18 +14,25 @@ python3 -m http.server 8000
 ```
 puis va sur http://localhost:8000.
 
-## Brancher le formulaire (Web3Forms, gratuit)
-1. Connecte-toi sur https://app.web3forms.com avec **contact.autoflow1@gmail.com** et crée un formulaire.
-   La clé d'accès s'affiche et arrive aussi par email sur cette adresse.
-2. Colle-la dans `WEB3FORMS_ACCESS_KEY`, en haut de `config.js`.
-3. Envoie une vraie demande depuis le site en ligne. Vérifie qu'elle arrive dans la boîte de réception et pas dans les spams.
-   Le sujet reçu est : « Nouvelle demande d'audit : [pack] – [lien de la boutique] ».
-   La réponse de Web3Forms s'affiche dans la console du navigateur pour faciliter le débogage.
+## Brancher le formulaire (Tally, gratuit)
+1. Sur https://tally.so, connecté avec **contact.autoflow1@gmail.com**, crée le formulaire avec ces champs :
+   prénom (obligatoire), email (obligatoire), téléphone (facultatif), lien de la boutique (obligatoire),
+   chiffre d'affaires mensuel (obligatoire : moins de 30 k€, 30 à 100 k€, 100 à 300 k€, plus de 300 k€),
+   pack qui t'intéresse (Essentiel, Croissance, Scale, Je ne sais pas encore),
+   principal problème constaté (facultatif), consentement RGPD obligatoire
+   (« J'accepte qu'Autoflow utilise ces informations pour me recontacter au sujet de mon audit »).
+2. Pour que les boutons « Choisir … » pré-remplissent le pack : ajoute un champ caché (Hidden field) nommé `pack`,
+   ou active le pré-remplissage de la question « pack » avec le paramètre d'URL `pack`.
+3. Message de fin : « Demande envoyée. On revient vers toi sous 48 h ouvrées avec ton audit. »
+4. Active la notification email à chaque nouvelle réponse (Intégrations → Email notifications).
+5. Publie le formulaire et copie son identifiant (la fin du lien `https://tally.so/r/XXXXXX`)
+   dans `TALLY_FORM_ID`, en haut de `config.js`.
+6. Après la mise en ligne, fais un envoi test : il doit apparaître dans Tally et dans la boîte mail, pas dans les spams.
 
-Tant que la clé est vide, le formulaire affiche le message d'échec avec l'adresse email de secours.
+Tant que `TALLY_FORM_ID` est vide, la section `#audit` propose d'écrire à l'adresse de contact.
 
 ## À faire avant la mise en ligne
-- [ ] Renseigner la clé Web3Forms (voir ci-dessus) et tester un envoi réel.
+- [ ] Créer le formulaire Tally, renseigner `TALLY_FORM_ID` et tester un envoi réel (voir ci-dessus).
 - [ ] Déposer le logo dans `assets/AUTOFLOW.png`. Il remplace automatiquement le logo texte provisoire.
 - [ ] Créer `assets/og-image.png` (1200 × 630, avec le logo) pour les aperçus de partage,
       puis mettre une URL absolue dans `og:image` une fois le domaine connu.
