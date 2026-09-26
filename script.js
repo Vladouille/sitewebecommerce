@@ -13,7 +13,7 @@
     figure.classList.add('chat--play');
 
     // Délai avant chaque élément (ms)
-    const delays = [300, 700, 1600, 1400, 900];
+    const delays = [300, 700, 1500, 1300, 1500, 1300, 900];
     let t = 0;
     messages.forEach((msg, i) => {
       t += delays[i] || 800;
@@ -67,17 +67,16 @@
       lines.push(`<p class="pack__unit">${euros(pack.price / pack.conversations, 2)} par conversation</p>`);
       const ref = byName(pack.compareTo);
       if (ref && ref.conversations) {
-        const ratio = (ref.price / ref.conversations) / (pack.price / pack.conversations);
+        // Arrondi au demi pour un message lisible (ex. 2,92 -> 3 ; 3,5 -> 3,5)
+        const ratio = Math.round(((ref.price / ref.conversations) / (pack.price / pack.conversations)) * 2) / 2;
         lines.push(`<p class="pack__unit-compare">${number(ratio)} fois moins cher par conversation qu'${escapeHtml(ref.name)}</p>`);
       }
     } else {
       lines.push('<p class="pack__unit">Conversations illimitées</p>');
     }
 
-    // Recadrage quotidien
-    if (pack.dailyNote) {
-      lines.push(`<p class="pack__daily">Soit ${euros(Math.round(pack.price / 30))} par jour, ${escapeHtml(pack.dailyNote)}.</p>`);
-    }
+    // Recadrage en résultat
+    if (pack.reframe) lines.push(`<p class="pack__daily">${escapeHtml(pack.reframe)}</p>`);
     return lines.join('');
   };
 

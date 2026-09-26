@@ -1,144 +1,224 @@
-# Autoflow — brief de la landing page
+# Autoflow — brief de la landing page (version coachs)
 
-Ce fichier donne à Claude Code tout le contexte du projet. Lis-le entièrement avant de coder.
+Ce fichier donne à Claude Code tout le contexte du projet. Lis-le entièrement avant de coder. Il **remplace entièrement** l'ancienne version destinée aux e-commerçants : reprends la même base technique et le même style, mais tous les textes, l'offre et les packs changent.
 
 ## 1. Le projet
 
-Autoflow est une agence qui installe un **vendeur IA** sur les boutiques Shopify. L'agent répond aux questions des visiteurs (tailles, délais, retours, compatibilité), les rassure, les guide vers le panier, et relance les paniers abandonnés par WhatsApp et email.
+Autoflow remplit l'agenda des coachs en ligne d'**appels de vente qualifiés**. Un agent IA répond à chaque message privé et à chaque commentaire Instagram en quelques secondes, 24h/24, qualifie le prospect (objectif, motivation, budget) et réserve l'appel dans l'agenda du coach. Des setters humains relancent les prospects hésitants.
 
-- **Cible** : e-commerçants Shopify qui font entre 30 000 et 300 000 € de chiffre d'affaires par mois, qui paient de la publicité mais convertissent mal.
-- **Désir profond du client** : gagner plus avec le même budget pub (baisser son coût d'acquisition).
-- **On ne vend pas de l'IA, on vend des ventes récupérées.** Le mot « IA » n'est jamais l'argument principal.
-- **Objectif unique de la page** : faire remplir le formulaire de demande d'audit gratuit (voir section 5), idéalement avec un pack déjà choisi. Les prix sont affichés (section « Packs et prix ») mais il n'y a pas de paiement en ligne : le paiement se fait après l'audit.
-- **Email de l'entreprise** : contact.autoflow1@gmail.com (reçoit les demandes du formulaire).
+- **Cible (avatar précis)** : coachs en ligne en transformation physique (perte de poids, prise de muscle, nutrition) qui vendent un accompagnement entre 1 500 et 5 000 € via un appel de vente, font déjà entre 10 000 et 50 000 € par mois, publient du contenu, mais n'ont pas assez d'appels qualifiés dans leur agenda.
+- **Désir profond du client** : signer plus de clients chaque mois, avoir des revenus prévisibles, et ne plus perdre de prospects faute de réponse rapide.
+- **On ne vend pas de l'IA, on vend des appels qualifiés et des clients signés.** Le mot « IA » n'est jamais l'argument principal.
+- **Objectif unique de la page** : faire remplir le formulaire de demande d'audit gratuit (lien Google Forms, section 5). Pas de paiement en ligne : le paiement se fait après l'audit.
+- **Email de l'entreprise** : contact.autoflow1@gmail.com
 
 ## 2. L'offre (à reprendre fidèlement)
 
 | Brique | Contenu |
 |---|---|
-| Promesse | On récupère les ventes que ta boutique Shopify perd chaque jour, grâce à un vendeur IA qui répond, rassure et relance tes visiteurs 24h/24. |
-| Délai | En ligne en 7 jours, puis optimisé chaque mois à partir des vraies conversations. |
-| Garantie | Si l'agent n'est pas en ligne au jour 7, le premier mois est offert. Si après 30 jours les ventes attribuées à l'agent (mesurées en A/B test) ne couvrent pas son coût, le mois est offert. |
-| Bénéfices | Même budget pub, plus de ventes. Plus aucune question sans réponse la nuit ou le week-end. Des paniers récupérés sans brader la marge avec des codes promo. Un rapport mensuel qui chiffre les ventes récupérées et révèle les objections à corriger sur les fiches produits. |
+| Promesse | On remplit ton agenda d'appels de vente avec des prospects qualifiés, prêts à investir dans ton accompagnement. |
+| Délai | Système en place en 7 jours, premiers appels réservés dans les 14 jours. |
+| Garantie | Si l'objectif d'appels qualifiés fixé ensemble lors de l'audit n'est pas atteint le premier mois, on continue gratuitement jusqu'à l'atteindre. Si le système n'est pas en ligne au jour 7, le premier mois n'est pas facturé. |
+| Bénéfices | Plus aucun message laissé sans réponse, même la nuit. Un agenda rempli et prévisible. Tu ne fais plus que tes appels de vente et ton accompagnement. Chaque mois, tu sais combien d'appels et de clients le système t'a apportés. |
 
-**Ce qu'on ne garantit pas** (à dire clairement dans la FAQ) : un taux de conversion précis, car il dépend aussi du trafic, des prix et des fiches produits.
+**Ce qu'on ne garantit pas** (à dire clairement dans la FAQ) : un chiffre de revenu ou un nombre de clients signés, car la signature dépend aussi de l'offre et de l'appel de vente du coach. On garantit des appels qualifiés, qu'on mesure et qu'on contrôle.
 
-## 3. Identité visuelle
+## 3. Identité visuelle (inchangée)
 
-- **Logo** : fichier `AUTOFLOW.png` (à placer dans `public/` ou `assets/`). « AUTOFLOW » en capitales à empattements, noir sur blanc, suivi d'un petit triangle noir plein (symbole de croissance). Le logo est validé : ne pas le redessiner.
-- **Direction** : dériver le design du logo. Monochrome noir et blanc, sobre, premium, éditorial. Une typographie serif pour les titres (proche du logo) et une sans-serif lisible pour le texte courant.
-- **Un seul élément marquant** : le hero montre une vraie conversation entre un visiteur et le vendeur Autoflow (voir section 4). C'est lui qui « montre au lieu de dire ».
-- Le triangle du logo peut servir de motif discret (puces, indicateur de croissance), pas de décoration partout.
-- **À éviter** : fond crème + accent terracotta, fond noir + accent vert acide, cartes arrondies identiques avec ombres grises, dégradés décoratifs, labels en capitales au-dessus de chaque titre, animations d'entrée sur chaque section, flèches « → » ajoutées aux boutons.
+- **Logo** : fichier `AUTOFLOW.png` (dans `public/` ou `assets/`). « AUTOFLOW » en capitales à empattements, noir sur blanc, suivi d'un petit triangle noir plein (symbole de croissance). Logo validé : ne pas le redessiner.
+- **Direction** : dériver le design du logo. Monochrome noir et blanc, sobre, premium, éditorial. Serif pour les titres (proche du logo), sans-serif lisible pour le texte courant.
+- **Un seul élément marquant** : le hero montre une vraie conversation Instagram entre un prospect et l'assistant Autoflow du coach, qui se termine par un appel réservé (voir section 4). C'est lui qui « montre au lieu de dire ».
+- Le triangle du logo peut servir de motif discret (puces, indicateur de croissance).
+- **À éviter** : fond crème + accent terracotta, fond noir + accent vert acide, cartes arrondies identiques avec ombres grises, dégradés décoratifs, labels en capitales au-dessus de chaque titre, animations d'entrée sur chaque section, flèches « → » ajoutées aux boutons, photos de corps avant/après.
 - Suivre le skill frontend-design s'il est disponible : plan de design (palette en 4 à 6 hex, typographies, wireframe) avant de coder.
 
 ## 4. Structure et textes de la page
 
-L'ordre suit les questions que se pose le prospect. Les textes sont des brouillons : on peut les resserrer, mais sans changer les promesses.
+L'ordre suit les questions que se pose le prospect. Tutoiement partout. Les textes sont des brouillons : on peut les resserrer, sans changer les promesses.
 
 ### Hero
-- **Titre** : Tes visiteurs repartent avec des questions. Autoflow les transforme en ventes.
-- **Sous-titre** : Un vendeur IA sur ta boutique Shopify qui répond, rassure et relance tes paniers, 24h/24. En ligne en 7 jours. Tu ne paies que s'il rapporte plus qu'il ne coûte.
+- **Titre** : Tes prospects t'écrivent. Autoflow les transforme en appels de vente.
+- **Sous-titre** : Chaque message privé et chaque commentaire reçoit une réponse en quelques secondes, 24h/24. Les prospects sont qualifiés, l'appel est réservé dans ton agenda. Système en place en 7 jours.
 - **Bouton principal** : Réserver mon audit gratuit (ouvre le formulaire Google)
-- **Visuel** : maquette de conversation, par exemple :
-  - Visiteur (23h14) : « Je fais du 38, je prends quelle taille sur ce jean ? »
-  - Autoflow : « Ce modèle taille petit : on te conseille le 40. 92 % des clientes en 38 l'ont pris en 40 et l'ont gardé. Livraison en 48 h et retours gratuits sous 30 jours. Je l'ajoute à ton panier ? »
-  - (le chiffre de la maquette est fictif et doit être présenté comme un exemple de conversation, pas comme une statistique Autoflow)
+- **Visuel** : maquette d'une conversation Instagram, par exemple :
+  - Prospect (23 h 41) : « Salut ! C'est combien ton coaching ? »
+  - Assistant : « Hello ! Avant de te parler du prix, dis-moi ton objectif : perdre du poids, prendre du muscle, ou les deux ? »
+  - Prospect : « Perdre 10 kilos avant l'été, j'ai déjà tout essayé. »
+  - Assistant : « Tu es exactement le type de profil que [Prénom du coach] accompagne. Le plus simple, c'est un appel de 20 minutes avec lui pour voir si c'est fait pour toi. Demain 18 h ou jeudi 12 h ? »
+  - Prospect : « Demain 18 h 👍 »
+  - Bandeau : « Appel réservé »
+  (conversation d'exemple, à présenter comme telle)
 
 ### Le problème
-Tu paies chaque visiteur en pub. La plupart repartent sans acheter, souvent pour une question restée sans réponse : la taille, le délai, les retours. Et un code promo ne règle pas un doute.
+Tu passes des heures à créer du contenu. Les messages arrivent, mais tu réponds entre deux séances, parfois le lendemain. Pendant ce temps, le prospect refroidit, scrolle, et finit chez un autre coach. Ce n'est pas un problème d'audience : c'est un problème de réponse.
 
 ### Avant / avec Autoflow
-- **Avant** : des questions sans réponse le soir et le week-end, des paniers abandonnés relancés avec un code promo qui mange la marge, un SAV qui répète les mêmes réponses, aucune idée de ce qui bloque les clients.
-- **Avec Autoflow** : chaque visiteur a une réponse en quelques secondes, les paniers sont relancés par une vraie conversation, les ventes récupérées sont chiffrées chaque mois, les objections de tes clients remontent noir sur blanc.
+- **Avant** : des messages qui attendent des heures, des « c'est combien ? » qui ne mènent nulle part, des relances oubliées, un setter payé à la commission qui répond quand il peut, un agenda vide certaines semaines.
+- **Avec Autoflow** : chaque prospect reçoit une réponse en quelques secondes, les curieux sont filtrés, les prospects motivés réservent directement leur appel, les hésitants sont relancés, et tu sais chaque mois combien d'appels le système t'a apportés.
 
 ### Comment ça marche (vraie séquence, la numérotation est justifiée)
-1. **Audit (jours 1-2)** : on analyse ta boutique et on repère où tu perds des ventes.
-2. **Configuration (jours 3-5)** : on connecte l'agent à ton catalogue, tes délais et ta politique de retour, et on l'aligne sur le ton de ta marque.
-3. **Mise en ligne (jour 7)** : l'agent est actif sur une partie de ton trafic, en A/B test, pour mesurer son vrai impact.
-4. **Chaque mois** : rapport des ventes récupérées, objections repérées, optimisations.
+1. **Audit (jours 1-2)** : on analyse ton compte, tes messages et ton offre, et on fixe ensemble ton objectif d'appels.
+2. **Configuration (jours 3-5)** : on entraîne l'assistant sur ton offre, ta façon de parler et tes critères de qualification.
+3. **Mise en ligne (jour 7)** : l'assistant répond à tes messages et commentaires, qualifie et réserve les appels dans ton agenda.
+4. **Chaque mois** : rapport des conversations, des appels réservés et des objections de tes prospects, puis optimisation.
 
 ### Ce que tu reçois
-Vendeur IA sur ton site, déclenchement au bon moment (fiche produit, sortie de page, panier), relance des paniers par WhatsApp et email (clients ayant donné leur accord), rapport mensuel chiffré, recommandations pour tes fiches produits.
+Assistant qui répond aux messages privés et aux commentaires Instagram, qualification selon tes critères, réservation directe dans ton agenda, relance des prospects hésitants, rapport mensuel chiffré (conversations, appels réservés, objections).
 
 ### Garantie
 Reprendre les deux garanties de la section 2, formulées simplement et mises en valeur.
 
-### Bloc « audit gratuit » (ancre `#audit`)
-Titre : Découvre combien de ventes ta boutique perd chaque mois.
-Texte : Remplis ce formulaire en 1 minute, on analyse ta boutique gratuitement et on te montre où partent tes ventes.
-Bouton : Réserver mon audit gratuit (ouvre le formulaire Google, voir section 5).
-
-### Packs et prix (section `#packs`, placée juste avant le formulaire)
-Titre : Choisis ton vendeur. Sous-titre : Mise en ligne en 7 jours, sans engagement de durée.
+### Packs et prix (section `#packs`, juste avant le bloc audit)
+Titre : Choisis ton système. Sous-titre : Mise en place en 7 jours, sans engagement de durée.
 
 | | Essentiel | Croissance (badge « Recommandé ») | Scale |
 |---|---|---|---|
 | Prix | 280 €/mois | 480 €/mois | 1 780 €/mois |
-| Pour qui | Tester un vendeur IA sur ton site | Récupérer un maximum de ventes perdues | Boutiques à fort trafic ou multi-boutiques |
-| Vendeur IA 24h/24 sur ton catalogue (tailles, délais, retours) | Oui | Oui | Oui |
-| Conversations par mois | Jusqu'à 500 | Jusqu'à 3 000 | Illimitées |
-| Déclenchement au bon moment (fiche produit, sortie de page, panier) | Non | Oui | Oui |
-| Relance des paniers abandonnés par WhatsApp et email | Non | Oui | Oui |
-| A/B test et rapport des ventes récupérées | Rapport simple | Oui, mensuel | Oui, hebdomadaire |
-| Rapport des objections de tes clients | Non | Oui | Oui |
-| Audit conversion mensuel et recommandations sur tes fiches produits | Non | Non | Oui |
-| Plusieurs langues ou plusieurs boutiques | Non | Non | Oui |
+| Pour qui | Tester le système sur tes messages privés | Remplir ton agenda chaque semaine | Coachs à forte audience ou avec une équipe |
+| Réponse en quelques secondes aux messages privés, 24h/24 | Oui | Oui | Oui |
+| Réponse aux commentaires qui mènent en message privé | Non | Oui | Oui |
+| Conversations par mois | Jusqu'à 300 | Jusqu'à 1 500 | Illimitées |
+| Qualification et réservation directe dans ton agenda | Oui | Oui | Oui |
+| Relance des prospects hésitants | Non | Oui | Oui |
+| Setter humain pour les conversations délicates | Non | Non | Oui |
+| Rapport mensuel appels et objections | Rapport simple | Oui | Oui, hebdomadaire |
 | Interlocuteur dédié | Non | Non | Oui, réponse sous 24 h |
-| Mise en ligne | 7 jours | 7 jours | 5 jours |
-| Garantie « rentabilisé en 30 jours ou mois offert » | Non | Oui | Oui |
+| Mise en place | 7 jours | 7 jours | 5 jours |
+| Garantie « objectif d'appels atteint ou on continue gratuitement » | Non | Oui | Oui |
 
-Sous le tableau, une option complémentaire : « Refonte de 10 fiches produits à partir des objections de tes clients : 290 € ».
+Sous le tableau, une option : « Script de vente pour tes appels, construit à partir des objections de tes prospects : 290 € ».
 
-Règles d'affichage : pricing « pop-corn » renforcé (à respecter, sans changer les prix) :
-- **Aucune promotion** : pas de réduction, pas de prix barré, pas de « X mois offerts », pas de frais « offerts », pas de bascule mensuel/annuel. Uniquement les prix mensuels fixes : 280 €, 480 €, 1 780 €. Les garanties (« mois offert » si non rentabilisé ou si retard de mise en ligne) restent : ce sont des garanties, pas des promotions.
-- **Ordre des cartes** : Scale à gauche, Croissance au centre, Essentiel à droite, sur ordinateur comme sur mobile (sur mobile, empilées dans cet ordre). Le visiteur voit d'abord 1 780 € : c'est l'ancre, et 480 € paraît petit juste après.
+Règles d'affichage : pricing « pop-corn » renforcé (sans changer les prix) :
+- **Aucune promotion** : pas de réduction, pas de prix barré, pas de « X mois offerts », pas de frais « offerts », pas de bascule mensuel/annuel. Uniquement les prix mensuels fixes : 280 €, 480 €, 1 780 €. Les garanties restent : ce sont des garanties, pas des promotions.
+- **Ordre des cartes** : Scale à gauche, Croissance au centre, Essentiel à droite (sur mobile, empilées dans cet ordre). Le visiteur voit d'abord 1 780 € : c'est l'ancre.
 - **Croissance est la vedette** : au centre, légèrement plus grande, bordure marquée, badge « Recommandé ». Ne jamais écrire « le plus choisi » ni « le plus populaire » tant qu'il n'y a pas de clients.
-- **Effet pop-corn par le prix unitaire** : afficher sous chaque prix le coût par conversation. Essentiel : 0,56 € par conversation (280 € / 500). Croissance : 0,16 € par conversation (480 € / 3 000), avec la mention « 3,5 fois moins cher par conversation qu'Essentiel ». Scale : « conversations illimitées ». Comme au cinéma, le grand format paraît être la vraie bonne affaire.
-- **Rendre l'écart minuscule** : sur la carte Croissance, écrire « Seulement 200 € de plus qu'Essentiel : 6 fois plus de conversations, la relance des paniers et la garantie. »
-- **Aversion à la perte sur Essentiel** : lister toutes les lignes du comparatif, y compris celles qu'Essentiel n'a pas, avec une croix visible et un texte grisé (« Relance des paniers abandonnés », « Garantie rentabilisé ou mois offert »). Le visiteur doit voir ce qu'il perd.
-- **Recadrage quotidien** : Croissance « soit 16 € par jour, moins qu'une vente perdue ». Scale « soit 59 € par jour, moins qu'un salarié à temps plein pour répondre à tes clients ».
-- **Garantie répétée** juste sous le bouton de Croissance et de Scale : « Rentabilisé en 30 jours ou mois offert ».
+- **Effet pop-corn par le prix unitaire** : sous chaque prix, le coût par conversation. Essentiel : 0,93 € par conversation (280 € / 300). Croissance : 0,32 € par conversation (480 € / 1 500), avec « 3 fois moins cher par conversation qu'Essentiel ». Scale : « conversations illimitées ».
+- **Rendre l'écart minuscule** : sur la carte Croissance : « Seulement 200 € de plus qu'Essentiel : 5 fois plus de conversations, les commentaires, la relance des hésitants et la garantie. »
+- **Recadrage en résultat** : sous Croissance : « Un seul client signé à 1 500 € rembourse plus de 3 mois. » Sous Scale : « Moins qu'un setter à temps plein, sans jamais dormir. »
+- **Aversion à la perte sur Essentiel** : lister toutes les lignes, y compris celles qu'Essentiel n'a pas, avec une croix visible et un texte grisé.
+- **Garantie répétée** sous les boutons de Croissance et de Scale.
 - Chaque carte a un bouton « Choisir Essentiel », « Choisir Croissance », « Choisir Scale » qui ouvre le formulaire Google.
-- Les prix et contenus des packs sont stockés dans une seule source de données, faciles à modifier.
+- Prix et contenus des packs stockés dans une seule source de données, faciles à modifier.
+
+### Bloc « audit gratuit » (ancre `#audit`)
+Titre : Découvre combien d'appels ton compte laisse passer chaque mois.
+Texte : Remplis ce formulaire en 1 minute. On analyse ton compte gratuitement et on te montre combien de prospects tu perds, et pourquoi.
+Bouton : Réserver mon audit gratuit (ouvre le formulaire Google).
 
 ### À propos / pourquoi Autoflow
-Court paragraphe crédible (pas encore de clients) : une agence spécialisée dans les agents comportementaux, qui applique aux boutiques en ligne ce qu'un bon vendeur fait en magasin. Emplacement prévu pour de futurs témoignages et études de cas, masqué tant qu'il n'y en a pas.
+Court paragraphe crédible (pas encore de clients) : une agence spécialisée dans les agents comportementaux, qui fait pour les coachs ce qu'un excellent setter ferait, mais en quelques secondes et à toute heure. Emplacement prévu pour de futurs témoignages et études de cas, masqué tant qu'il n'y en a pas.
 
 ### FAQ
-- L'agent peut-il dire n'importe quoi ? Non : il ne répond qu'avec les données de ta boutique. S'il ne sait pas, il passe la main à un humain.
-- Mes clients sauront-ils que c'est une IA ? Oui, c'est indiqué clairement, c'est une obligation légale et ça n'empêche pas de vendre.
-- Ça marche avec mon thème Shopify ? L'agent s'installe sur tous les thèmes Shopify.
-- Et les données de mes clients (RGPD) ? Données hébergées et traitées conformément au RGPD ; les relances WhatsApp et SMS ne concernent que les clients qui ont donné leur accord.
+- L'assistant va-t-il parler à ma place n'importe comment ? Non : il est entraîné sur ton offre et ta façon de parler, et respecte tes critères. Pour une question délicate, il te passe la main.
+- Mes prospects sauront-ils que c'est un assistant IA ? Oui, c'est indiqué clairement : c'est une obligation légale, et ça n'empêche pas de réserver des appels.
+- Est-ce que mon compte Instagram risque quelque chose ? On passe uniquement par les outils officiels de Meta pour la messagerie, jamais par des robots non autorisés.
+- Je dois changer ma façon de faire du contenu ? Non. Tu continues à publier, on transforme simplement tes messages en appels.
 - Combien de temps ça me prend ? Un appel d'une heure pour l'audit, puis quelques validations pendant la semaine de configuration.
-- Et si ça ne rapporte rien ? Voir la garantie.
 - Je peux changer de pack ? Oui, à tout moment, sans engagement de durée.
-- Pouvez-vous garantir un taux de conversion ? Non, et personne d'honnête ne le peut. On garantit que l'agent rapporte plus qu'il ne coûte, sinon le mois est offert.
+- Pouvez-vous garantir un nombre de clients ou un revenu ? Non, et personne d'honnête ne le peut. On garantit ton objectif d'appels qualifiés, sinon on continue gratuitement.
 
 ### Appel final
-Titre : Combien de ventes ta boutique perd-elle cette nuit ? Bouton : Réserver mon audit gratuit (ouvre le formulaire Google).
+Titre : Combien de prospects attendent ta réponse en ce moment ? Bouton : Réserver mon audit gratuit (ouvre le formulaire Google).
 
 ### Pied de page
-Logo, email de contact contact.autoflow1@gmail.com, mentions légales, politique de confidentialité.
+Logo, email de contact contact.autoflow1@gmail.com, liens vers les trois pages légales : Mentions légales, Politique de confidentialité, Conditions générales de vente (section 7).
 
 ## 5. Contraintes techniques
 
-- Page unique, statique, très rapide. HTML/CSS/JS simple ou Astro ; pas de framework lourd sans raison.
-- **Mobile d'abord** : la majorité des e-commerçants la verront sur téléphone. Tester à 375 px de large.
+- Reprendre la base technique existante : page unique, statique, très rapide (HTML/CSS/JS simple ou Astro).
+- **Mobile d'abord** : les coachs vivent sur leur téléphone. Tester à 375 px de large.
 - **Formulaire d'audit gratuit : lien Google Forms** : https://forms.gle/VtS7yDsHmgn86Yu2A
-  - Stocker ce lien dans une seule variable de configuration (`AUDIT_FORM_URL`).
-  - **Tous** les boutons « Réserver mon audit gratuit » (hero, bloc `#audit`, appel final) ouvrent ce lien dans un nouvel onglet (`target="_blank"` et `rel="noopener"`).
-  - Les boutons des packs (« Choisir Essentiel », « Choisir Croissance », « Choisir Scale ») ouvrent aussi ce même lien. Pas de pré-sélection du pack pour l'instant : le prospect choisit son pack dans le formulaire.
-  - Ne pas intégrer le formulaire en iframe : un lien court forms.gle ne s'intègre pas de façon fiable, et le lien direct est plus simple à maintenir.
-  - Après la mise en ligne, cliquer sur chaque bouton pour vérifier qu'il ouvre bien le formulaire, puis faire un envoi test.
+  - Stocker ce lien dans une seule variable de configuration (`AUDIT_FORM_URL`) : le fondateur pourra le remplacer par un nouveau formulaire adapté aux coachs.
+  - **Tous** les boutons « Réserver mon audit gratuit » et les boutons des packs ouvrent ce lien dans un nouvel onglet (`target="_blank"` et `rel="noopener"`).
+  - Pas d'intégration en iframe.
+  - Après la mise en ligne, cliquer sur chaque bouton pour vérifier qu'il ouvre bien le formulaire.
 - SEO de base : balise title, meta description, Open Graph (image avec le logo), balises Hn propres, favicon (triangle ou « A▲ »).
 - Accessibilité : contrastes suffisants, focus clavier visible, respect de prefers-reduced-motion, textes alternatifs.
 - Analytics respectueux du RGPD (Plausible ou équivalent), sans bandeau cookies si possible.
-- Déploiement sur Vercel ou Netlify, avec le domaine d'Autoflow (disponibilité à vérifier).
+- Déploiement sur Vercel ou Netlify, avec le domaine d'Autoflow.
 
 ## 6. Règles de contenu à ne jamais enfreindre
 
-- Ne jamais inventer de clients, témoignages, logos de marques, chiffres de résultats ou statistiques. Tout élément de preuve absent reste un emplacement vide clairement marqué.
-- Pas de fausse urgence ni de fausse rareté (« plus que 2 places ») : ça fait arnaque sur ce marché.
+- Ne jamais inventer de clients, témoignages, captures de résultats, nombres d'appels ou chiffres de revenus. Tout élément de preuve absent reste un emplacement vide clairement marqué.
+- Pas de fausse urgence ni de fausse rareté.
+- Pas de promesse de revenu (« fais 20 k€ par mois ») : on promet des appels qualifiés.
+- Pas de photos avant/après de corps.
 - Pas de liens sortants inutiles : un seul objectif, le formulaire d'audit, avec le même bouton répété.
 - Tutoiement partout, phrases courtes, voix active.
+
+## 7. Pages légales
+
+Créer trois pages séparées, dans le même style que la landing (même en-tête, même pied de page), lisibles sur mobile, avec la date de dernière mise à jour en haut : `/mentions-legales`, `/confidentialite`, `/cgv`.
+
+Règles impératives :
+- **Ne jamais inventer** d'informations d'identification (nom, adresse, SIRET, téléphone, hébergeur). Toute information inconnue reste sous la forme `[À COMPLÉTER : ...]`, bien visible.
+- En bas de chaque page, en commentaire HTML (non visible) : « Modèle à faire valider par un professionnel du droit ».
+
+### 7.1 Mentions légales
+
+**Éditeur du site**
+- Nom commercial : Autoflow
+- Exploitant : [À COMPLÉTER : prénom et nom], entrepreneur individuel (micro-entreprise)
+- Adresse : [À COMPLÉTER : adresse postale ou adresse de domiciliation]
+- SIRET : [À COMPLÉTER]
+- Email : contact.autoflow1@gmail.com
+- Téléphone : [À COMPLÉTER]
+- TVA : TVA non applicable, article 293 B du Code général des impôts [à retirer si l'entreprise devient assujettie à la TVA]
+- Directeur de la publication : [À COMPLÉTER : prénom et nom]
+
+**Hébergement** : [À COMPLÉTER selon l'hébergeur retenu : raison sociale, adresse et téléphone, par exemple Vercel Inc. ou Netlify Inc.]
+
+**Propriété intellectuelle** : le nom Autoflow, le logo, les textes et les visuels du site sont la propriété de l'éditeur. Toute reproduction sans autorisation écrite est interdite.
+
+**Responsabilité** : l'éditeur s'efforce de fournir des informations exactes mais ne peut garantir l'absence d'erreurs. Les liens vers des sites tiers (dont le formulaire Google) n'engagent pas sa responsabilité quant à leur contenu.
+
+**Données personnelles** : voir la page Politique de confidentialité.
+
+### 7.2 Politique de confidentialité
+
+**Responsable du traitement** : Autoflow, [À COMPLÉTER : prénom, nom et adresse], contact.autoflow1@gmail.com.
+
+**Données collectées** : via le formulaire de demande d'audit (hébergé par Google Forms) : les informations saisies par le coach (prénom, email, compte Instagram, informations sur son activité, pack qui l'intéresse, message facultatif, consentement). Le site lui-même ne collecte aucune autre donnée personnelle.
+
+**Finalités** : répondre à la demande d'audit, recontacter le coach au sujet de l'offre Autoflow et suivre la relation commerciale.
+
+**Base légale** : le consentement donné dans le formulaire, puis l'intérêt légitime d'Autoflow à assurer le suivi commercial de la demande.
+
+**Destinataires** : uniquement Autoflow. Les réponses sont stockées sur les services de Google (Google Forms et Google Sheets), qui agit comme sous-traitant ; ces données peuvent être transférées hors de l'Union européenne, avec les garanties prévues par Google (clauses contractuelles types). Aucune donnée n'est vendue ni cédée.
+
+**Durée de conservation** : 3 ans à compter du dernier contact, puis suppression. Pour les clients, pendant la durée du contrat puis selon les obligations légales (notamment comptables).
+
+**Tes droits** : accès, rectification, effacement, opposition, limitation et portabilité, ainsi que le retrait de ton consentement à tout moment, en écrivant à contact.autoflow1@gmail.com (réponse sous un mois). Tu peux aussi saisir la CNIL (cnil.fr).
+
+**Cookies** : le site n'utilise pas de cookies publicitaires. [Si un outil de mesure d'audience est installé : préciser lequel ; si c'est un outil sans cookie comme Plausible, l'indiquer ; sinon, ajouter un bandeau de consentement.]
+
+### 7.3 Conditions générales de vente (clients professionnels)
+
+**1. Objet** : fourniture par Autoflow d'un service d'assistant conversationnel de qualification et de prise de rendez-vous pour coachs, à destination exclusivement de clients professionnels.
+
+**2. Offres** : trois formules mensuelles, Essentiel, Croissance et Scale, dont le contenu est décrit sur le site au jour de la souscription. Toute prestation complémentaire (par exemple le script de vente) fait l'objet d'un devis.
+
+**3. Prix** : 280 €, 480 € et 1 780 € par mois selon la formule, [HT / TVA non applicable, art. 293 B du CGI]. Autoflow peut modifier ses prix en prévenant le client au moins 30 jours avant l'échéance suivante.
+
+**4. Commande** : la souscription intervient après l'audit, par acceptation écrite (email ou signature) d'une proposition commerciale reprenant la formule choisie et l'objectif d'appels qualifiés.
+
+**5. Durée et résiliation** : abonnement mensuel sans engagement de durée, renouvelé automatiquement. Résiliation à tout moment par email, avec effet à la fin du mois en cours.
+
+**6. Paiement** : mensuel, d'avance, [À COMPLÉTER : moyen de paiement]. En cas de retard : pénalités au taux légal et indemnité forfaitaire de 40 € pour frais de recouvrement ; le service peut être suspendu après relance restée sans effet.
+
+**7. Mise en ligne et garanties** :
+- Mise en ligne en 7 jours ouvrés (5 pour Scale) à compter de la réception des accès et informations nécessaires. En cas de retard imputable à Autoflow, le premier mois n'est pas facturé.
+- Garantie « objectif d'appels » (formules Croissance et Scale) : si l'objectif d'appels qualifiés défini par écrit lors de l'audit n'est pas atteint au terme du premier mois, Autoflow poursuit le service sans facturation jusqu'à ce qu'il soit atteint. La garantie suppose que le client maintienne son activité de publication habituelle, laisse l'assistant actif et honore les appels réservés.
+- Autoflow ne garantit ni un nombre de clients signés ni un chiffre d'affaires.
+
+**8. Obligations du client** : fournir les accès nécessaires (compte professionnel Instagram, agenda), des informations exactes sur son offre et ses critères de qualification, et informer Autoflow de tout changement. Le client reste seul responsable de son offre, de ses prix, de ses promesses commerciales et de son accompagnement.
+
+**9. Conformité des plateformes** : Autoflow utilise uniquement les outils de messagerie officiels et autorisés par Meta. Le client s'engage à respecter les conditions d'utilisation d'Instagram. Autoflow n'est pas responsable des décisions de Meta (restrictions, suspensions) ni des interruptions des services tiers.
+
+**10. Responsabilité** : obligation de moyens. Responsabilité limitée aux montants payés par le client au cours des 3 derniers mois.
+
+**11. Données personnelles** : pour les données des prospects du coach, Autoflow agit comme sous-traitant du client au sens du RGPD. Un accord de traitement des données est annexé à la proposition commerciale. L'assistant indique clairement aux prospects qu'ils échangent avec une IA.
+
+**12. Propriété** : les contenus et la marque du coach restent sa propriété. La technologie, les méthodes et les modèles de l'assistant restent la propriété d'Autoflow.
+
+**13. Droit applicable** : droit français. En cas de litige, après tentative de résolution amiable, compétence des tribunaux du ressort du siège d'Autoflow.

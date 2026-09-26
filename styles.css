@@ -119,6 +119,7 @@ h3 { font-size: 1.35rem; }
 .msg--typing span:nth-child(2) { animation-delay: .15s; }
 .msg--typing span:nth-child(3) { animation-delay: .3s; }
 @keyframes blink { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+.slot { border-bottom: 1px dashed currentColor; font-style: italic; }
 .chat figcaption { font-size: .78rem; color: var(--muted); padding: 10px 18px; border-top: 1px solid var(--ink); }
 
 /* Animation de la conversation (seule animation de la page) */
@@ -176,6 +177,7 @@ h3 { font-size: 1.35rem; }
 .guarantee__item { background: var(--ink); padding: 28px 22px; }
 .guarantee__day { display: block; font-family: var(--serif); font-size: clamp(2.4rem, 8vw, 3.4rem); line-height: 1; margin-bottom: 14px; }
 .guarantee__item p { font-size: 1.1rem; }
+.guarantee__item .guarantee__scope { font-size: .9rem; margin-top: 10px; opacity: .8; }
 
 /* Packs et prix */
 .btn--ghost { background: var(--paper); color: var(--ink); }
@@ -288,6 +290,11 @@ h3 { font-size: 1.35rem; }
 }
 
 /* Pages légales */
-.legal h1 { margin-bottom: 2rem; }
-.legal h2 { font-size: 1.4rem; margin: 2rem 0 .5rem; }
-.legal p { color: var(--muted); }
+.legal { padding-top: 48px; padding-bottom: 72px; }
+.legal h1 { font-size: clamp(2rem, 6vw, 2.8rem); margin-bottom: .5rem; }
+.legal__updated { color: var(--muted); font-size: .92rem; margin-bottom: 2.5rem; }
+.legal h2 { font-size: 1.4rem; margin: 2.2rem 0 .6rem; }
+.legal p, .legal li { margin-bottom: .6rem; }
+.legal ul { padding-left: 1.2rem; }
+.legal a { overflow-wrap: anywhere; }
+.todo { background: var(--soft); border: 1px dashed var(--ink); padding: 0 4px; font-weight: 600; }

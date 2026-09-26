@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mentions légales — Autoflow</title>
+  <meta name="description" content="Mentions légales du site Autoflow.">
   <meta name="robots" content="noindex">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,27 +13,66 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
   <header class="site-header">
     <div class="wrap site-header__inner">
       <a href="index.html" class="logo" aria-label="Autoflow, accueil">
         <img src="assets/AUTOFLOW.png" alt="Autoflow" width="160" height="32" onload="this.parentNode.classList.add('logo--img')">
         <span class="logo__text" aria-hidden="true">AUTOFLOW<span class="tri"></span></span>
       </a>
+      <a class="btn btn--small js-form" href="index.html#audit">Réserver mon audit gratuit</a>
     </div>
   </header>
-  <main class="section">
-    <div class="wrap wrap--text legal">
+
+  <main id="contenu" class="legal">
+    <div class="wrap wrap--text">
       <h1>Mentions légales</h1>
-    <h2>Éditeur du site</h2>
-    <p>[À COMPLÉTER] Raison sociale, forme juridique, capital, adresse du siège, numéro SIREN/RCS, numéro de TVA.</p>
-    <h2>Directeur de la publication</h2>
-    <p>[À COMPLÉTER] Nom du responsable.</p>
-    <h2>Hébergeur</h2>
-    <p>[À COMPLÉTER] Nom, adresse et téléphone de l'hébergeur (Vercel, Netlify…).</p>
-    <h2>Contact</h2>
-    <p><a href="mailto:contact.autoflow1@gmail.com">contact.autoflow1@gmail.com</a></p>
-      <p><a href="index.html">Retour à l'accueil</a></p>
+      <p class="legal__updated">Dernière mise à jour : 26 septembre 2026</p>
+
+      <h2>Éditeur du site</h2>
+      <ul>
+        <li>Nom commercial : Autoflow</li>
+        <li>Exploitant : <span class="todo">[À COMPLÉTER : prénom et nom]</span>, entrepreneur individuel (micro-entreprise)</li>
+        <li>Adresse : <span class="todo">[À COMPLÉTER : adresse postale ou adresse de domiciliation]</span></li>
+        <li>SIRET : <span class="todo">[À COMPLÉTER]</span></li>
+        <li>Email : <a href="mailto:contact.autoflow1@gmail.com">contact.autoflow1@gmail.com</a></li>
+        <li>Téléphone : <span class="todo">[À COMPLÉTER]</span></li>
+        <li>TVA : TVA non applicable, article 293 B du Code général des impôts<!-- À retirer si l'entreprise devient assujettie à la TVA --></li>
+        <li>Directeur de la publication : <span class="todo">[À COMPLÉTER : prénom et nom]</span></li>
+      </ul>
+
+      <h2>Hébergement</h2>
+      <p><span class="todo">[À COMPLÉTER : selon l'hébergeur retenu : raison sociale, adresse et téléphone, par exemple Vercel Inc. ou Netlify Inc.]</span></p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>Le nom Autoflow, le logo, les textes et les visuels du site sont la propriété de l'éditeur. Toute reproduction sans autorisation écrite est interdite.</p>
+
+      <h2>Responsabilité</h2>
+      <p>L'éditeur s'efforce de fournir des informations exactes mais ne peut garantir l'absence d'erreurs. Les liens vers des sites tiers (dont le formulaire Google) n'engagent pas sa responsabilité quant à leur contenu.</p>
+
+      <h2>Données personnelles</h2>
+      <p>Voir la page <a href="confidentialite.html">Politique de confidentialité</a>.</p>
     </div>
   </main>
+
+  <footer class="site-footer">
+    <div class="wrap site-footer__inner">
+      <a href="index.html" class="logo logo--footer" aria-label="Autoflow, accueil">
+        <img src="assets/AUTOFLOW.png" alt="Autoflow" width="120" height="24" onload="this.parentNode.classList.add('logo--img')">
+        <span class="logo__text" aria-hidden="true">AUTOFLOW<span class="tri"></span></span>
+      </a>
+      <a href="mailto:contact.autoflow1@gmail.com">contact.autoflow1@gmail.com</a>
+      <nav class="site-footer__legal" aria-label="Informations légales">
+        <a href="mentions-legales.html" aria-current="page">Mentions légales</a>
+        <a href="confidentialite.html">Politique de confidentialité</a>
+        <a href="cgv.html">Conditions générales de vente</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+  <!-- Modèle à faire valider par un professionnel du droit -->
 </body>
 </html>

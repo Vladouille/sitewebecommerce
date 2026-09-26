@@ -1,10 +1,10 @@
 /*
  * Autoflow — réglages de la landing page.
- * C'est le seul fichier à modifier pour brancher le formulaire, changer l'email ou modifier les packs.
+ * C'est le seul fichier à modifier pour changer le lien du formulaire ou les packs.
  */
 
 // Lien du formulaire Google d'audit gratuit. Tous les boutons « Réserver mon audit gratuit »
-// et « Choisir … » ouvrent ce lien dans un nouvel onglet.
+// et « Choisir … » ouvrent ce lien dans un nouvel onglet. À remplacer par le formulaire adapté aux coachs.
 const AUDIT_FORM_URL = 'https://forms.gle/VtS7yDsHmgn86Yu2A';
 
 window.AUTOFLOW_CONFIG = {
@@ -14,22 +14,21 @@ window.AUTOFLOW_CONFIG = {
 
   // Lignes comparées dans chaque pack, dans l'ordre d'affichage.
   rows: [
-    { key: 'agent', label: 'Vendeur IA 24h/24 sur ton catalogue (tailles, délais, retours)' },
+    { key: 'dm', label: 'Réponse en quelques secondes aux messages privés, 24h/24' },
+    { key: 'comments', label: 'Réponse aux commentaires qui mènent en message privé' },
     { key: 'conversations', label: 'Conversations par mois' },
-    { key: 'proactive', label: 'Déclenchement au bon moment (fiche produit, sortie de page, panier)' },
-    { key: 'recovery', label: 'Relance des paniers abandonnés par WhatsApp et email' },
-    { key: 'report', label: 'A/B test et rapport des ventes récupérées' },
-    { key: 'objections', label: 'Rapport des objections de tes clients' },
-    { key: 'audit', label: 'Audit conversion mensuel et recommandations sur tes fiches produits' },
-    { key: 'multi', label: 'Plusieurs langues ou plusieurs boutiques' },
+    { key: 'booking', label: 'Qualification et réservation directe dans ton agenda' },
+    { key: 'followup', label: 'Relance des prospects hésitants' },
+    { key: 'setter', label: 'Setter humain pour les conversations délicates' },
+    { key: 'report', label: 'Rapport mensuel appels et objections' },
     { key: 'contact', label: 'Interlocuteur dédié' },
-    { key: 'launch', label: 'Mise en ligne' },
-    { key: 'guarantee', label: 'Garantie « rentabilisé en 30 jours ou mois offert »' },
+    { key: 'launch', label: 'Mise en place' },
+    { key: 'guarantee', label: "Garantie « objectif d'appels atteint ou on continue gratuitement »" },
   ],
 
   // Les packs s'affichent dans cet ordre (Scale en premier : c'est l'ancre de prix).
   //   conversations : nombre par mois, ou null si illimitées (sert au coût par conversation)
-  //   dailyNote     : fin de la phrase « soit X € par jour, … » (absent = pas de phrase)
+  //   reframe       : phrase de recadrage affichée sous le prix (absent = pas de phrase)
   //   compareTo     : pack de référence pour les comparaisons de la carte recommandée
   //   values        : true = Oui, false = Non (croix et texte grisé), texte = affiché tel quel
   packs: [
@@ -37,47 +36,47 @@ window.AUTOFLOW_CONFIG = {
       name: 'Scale',
       price: 1780,
       conversations: null,
-      forWho: 'Boutiques à fort trafic ou multi-boutiques',
-      dailyNote: "moins qu'un salarié à temps plein pour répondre à tes clients",
+      forWho: 'Coachs à forte audience ou avec une équipe',
+      reframe: "Moins qu'un setter à temps plein, sans jamais dormir.",
       guaranteeUnderButton: true,
       values: {
-        agent: true, conversations: 'Illimitées', proactive: true, recovery: true,
-        report: 'Oui, hebdomadaire', objections: true, audit: true, multi: true, contact: 'Oui, réponse sous 24 h',
+        dm: true, comments: true, conversations: 'Illimitées', booking: true, followup: true,
+        setter: true, report: 'Oui, hebdomadaire', contact: 'Oui, réponse sous 24 h',
         launch: '5 jours', guarantee: true,
       },
     },
     {
       name: 'Croissance',
       price: 480,
-      conversations: 3000,
+      conversations: 1500,
       recommended: true,
-      forWho: 'Récupérer un maximum de ventes perdues',
-      dailyNote: "moins qu'une vente perdue",
+      forWho: 'Remplir ton agenda chaque semaine',
+      reframe: 'Un seul client signé à 1 500 € rembourse plus de 3 mois.',
       compareTo: 'Essentiel',
-      pitchExtras: 'la relance des paniers et la garantie',
+      pitchExtras: 'les commentaires, la relance des hésitants et la garantie',
       guaranteeUnderButton: true,
       values: {
-        agent: true, conversations: "Jusqu'à 3 000", proactive: true, recovery: true,
-        report: 'Oui, mensuel', objections: true, audit: false, multi: false, contact: false,
+        dm: true, comments: true, conversations: "Jusqu'à 1 500", booking: true, followup: true,
+        setter: false, report: 'Oui', contact: false,
         launch: '7 jours', guarantee: true,
       },
     },
     {
       name: 'Essentiel',
       price: 280,
-      conversations: 500,
-      forWho: 'Tester un vendeur IA sur ton site',
+      conversations: 300,
+      forWho: 'Tester le système sur tes messages privés',
       values: {
-        agent: true, conversations: "Jusqu'à 500", proactive: false, recovery: false,
-        report: 'Rapport simple', objections: false, audit: false, multi: false, contact: false,
+        dm: true, comments: false, conversations: "Jusqu'à 300", booking: true, followup: false,
+        setter: false, report: 'Rapport simple', contact: false,
         launch: '7 jours', guarantee: false,
       },
     },
   ],
 
-  guaranteeLine: 'Rentabilisé en 30 jours ou mois offert',
+  guaranteeLine: "Objectif d'appels atteint ou on continue gratuitement",
 
   pricingNotes: [
-    'Option : refonte de 10 fiches produits à partir des objections de tes clients, 290 €.',
+    'Option : script de vente pour tes appels, construit à partir des objections de tes prospects, 290 €.',
   ],
 };

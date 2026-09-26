@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Autoflow — Récupère les ventes que ta boutique Shopify perd chaque jour</title>
-  <meta name="description" content="Un vendeur IA sur ta boutique Shopify qui répond, rassure et relance tes paniers, 24h/24. En ligne en 7 jours. Tu ne paies que s'il rapporte plus qu'il ne coûte.">
+  <title>Autoflow — Des appels de vente qualifiés dans l'agenda des coachs en ligne</title>
+  <meta name="description" content="Chaque message privé et chaque commentaire Instagram reçoit une réponse en quelques secondes, 24h/24. Tes prospects sont qualifiés et l'appel est réservé dans ton agenda. Système en place en 7 jours.">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:site_name" content="Autoflow">
-  <meta property="og:title" content="Autoflow — Tes visiteurs repartent avec des questions. On les transforme en ventes.">
-  <meta property="og:description" content="Un vendeur IA sur ta boutique Shopify qui répond, rassure et relance tes paniers, 24h/24. En ligne en 7 jours.">
+  <meta property="og:title" content="Autoflow — Tes prospects t'écrivent. On les transforme en appels de vente.">
+  <meta property="og:description" content="Réponse en quelques secondes à chaque message privé et commentaire, 24h/24. Prospects qualifiés, appels réservés dans ton agenda. En place en 7 jours.">
   <meta property="og:image" content="assets/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -22,7 +22,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Analytics sans cookies (Plausible). Décommenter et remplacer le domaine une fois celui-ci réservé.
+  <!-- Analytics sans cookies (Plausible). Décommenter et remplacer le domaine une fois celui-ci réservé,
+       puis mettre à jour le paragraphe « Cookies » de confidentialite.html.
   <script defer data-domain="autoflow.fr" src="https://plausible.io/js/script.js"></script>
   -->
 </head>
@@ -45,36 +46,44 @@
     <section class="hero">
       <div class="wrap hero__grid">
         <div class="hero__copy">
-          <h1>Tes visiteurs repartent avec des questions. Autoflow les transforme en ventes.</h1>
-          <p class="hero__sub">Un vendeur IA sur ta boutique Shopify qui répond, rassure et relance tes paniers, 24h/24. En ligne en 7 jours. Tu ne paies que s'il rapporte plus qu'il ne coûte.</p>
+          <h1>Tes prospects t'écrivent. Autoflow les transforme en appels de vente.</h1>
+          <p class="hero__sub">Chaque message privé et chaque commentaire reçoit une réponse en quelques secondes, 24h/24. Les prospects sont qualifiés, l'appel est réservé dans ton agenda. Système en place en 7 jours.</p>
           <a class="btn btn--large js-form" href="#audit">Réserver mon audit gratuit</a>
           <p class="hero__note">Gratuit et sans engagement. Réponse sous 48 h ouvrées.</p>
         </div>
 
-        <figure class="chat" aria-label="Exemple de conversation entre un visiteur et le vendeur Autoflow">
+        <figure class="chat" aria-label="Exemple de conversation Instagram entre un prospect et l'assistant Autoflow d'un coach">
           <div class="chat__head">
-            <span class="chat__shop">Ta boutique</span>
-            <span class="chat__status">Vendeur Autoflow · assistant IA</span>
+            <span class="chat__shop">Messages Instagram</span>
+            <span class="chat__status">Assistant Autoflow de ton compte · assistant IA</span>
           </div>
           <ol class="chat__thread" id="chat">
             <li class="msg msg--visitor">
-              <span class="msg__meta">Visiteur · 23h14</span>
-              <p>Je fais du 38, je prends quelle taille sur ce jean ?</p>
+              <span class="msg__meta">Prospect · 23 h 41</span>
+              <p>Salut ! C'est combien ton coaching ?</p>
             </li>
             <li class="msg msg--typing" aria-hidden="true"><span></span><span></span><span></span></li>
             <li class="msg msg--agent">
-              <span class="msg__meta">Autoflow · 23h14</span>
-              <p>Ce modèle taille petit : on te conseille le 40. 92&nbsp;% des clientes en 38 l'ont pris en 40 et l'ont gardé. Livraison en 48&nbsp;h et retours gratuits sous 30 jours. Je l'ajoute à ton panier&nbsp;?</p>
+              <span class="msg__meta">Assistant · 23 h 41</span>
+              <p>Hello ! Avant de te parler du prix, dis-moi ton objectif : perdre du poids, prendre du muscle, ou les deux ?</p>
             </li>
             <li class="msg msg--visitor">
-              <span class="msg__meta">Visiteur · 23h15</span>
-              <p>Oui, en 40 stp.</p>
+              <span class="msg__meta">Prospect · 23 h 42</span>
+              <p>Perdre 10 kilos avant l'été, j'ai déjà tout essayé.</p>
+            </li>
+            <li class="msg msg--agent">
+              <span class="msg__meta">Assistant · 23 h 42</span>
+              <p>Tu es exactement le type de profil que <span class="slot">ton prénom</span> accompagne. Le plus simple, c'est un appel de 20 minutes avec lui pour voir si c'est fait pour toi. Demain 18 h ou jeudi 12 h ?</p>
+            </li>
+            <li class="msg msg--visitor">
+              <span class="msg__meta">Prospect · 23 h 43</span>
+              <p>Demain 18 h 👍</p>
             </li>
             <li class="msg msg--event">
-              <span class="tri"></span> Jean taille 40 ajouté au panier
+              <span class="tri"></span> Appel réservé
             </li>
           </ol>
-          <figcaption>Exemple de conversation. Les chiffres cités sont fictifs.</figcaption>
+          <figcaption>Exemple de conversation.</figcaption>
         </figure>
       </div>
     </section>
@@ -82,8 +91,8 @@
     <!-- Problème -->
     <section class="section problem">
       <div class="wrap wrap--text">
-        <h2>Tu paies chaque visiteur. La plupart repartent sans acheter.</h2>
-        <p class="lead">Souvent pour une question restée sans réponse : la taille, le délai, les retours. Et un code promo ne règle pas un doute.</p>
+        <h2>Ce n'est pas un problème d'audience. C'est un problème de réponse.</h2>
+        <p class="lead">Tu passes des heures à créer du contenu. Les messages arrivent, mais tu réponds entre deux séances, parfois le lendemain. Pendant ce temps, le prospect refroidit, scrolle, et finit chez un autre coach.</p>
       </div>
     </section>
 
@@ -95,19 +104,21 @@
           <div class="compare__col compare__col--before">
             <h3>Avant</h3>
             <ul class="list">
-              <li>Des questions sans réponse le soir et le week-end.</li>
-              <li>Des paniers abandonnés relancés avec un code promo qui mange la marge.</li>
-              <li>Un SAV qui répète les mêmes réponses.</li>
-              <li>Aucune idée de ce qui bloque tes clients.</li>
+              <li>Des messages qui attendent des heures.</li>
+              <li>Des « c'est combien ? » qui ne mènent nulle part.</li>
+              <li>Des relances oubliées.</li>
+              <li>Un setter payé à la commission qui répond quand il peut.</li>
+              <li>Un agenda vide certaines semaines.</li>
             </ul>
           </div>
           <div class="compare__col compare__col--after">
             <h3>Avec Autoflow</h3>
             <ul class="list list--tri">
-              <li>Chaque visiteur a une réponse en quelques secondes.</li>
-              <li>Tes paniers sont relancés par une vraie conversation.</li>
-              <li>Les ventes récupérées sont chiffrées chaque mois.</li>
-              <li>Les objections de tes clients remontent noir sur blanc.</li>
+              <li>Chaque prospect reçoit une réponse en quelques secondes.</li>
+              <li>Les curieux sont filtrés.</li>
+              <li>Les prospects motivés réservent directement leur appel.</li>
+              <li>Les hésitants sont relancés.</li>
+              <li>Chaque mois, tu sais combien d'appels le système t'a apportés.</li>
             </ul>
           </div>
         </div>
@@ -123,25 +134,25 @@
             <span class="step__num">1</span>
             <span class="step__when">Jours 1-2</span>
             <h3>Audit</h3>
-            <p>On analyse ta boutique et on repère où tu perds des ventes.</p>
+            <p>On analyse ton compte, tes messages et ton offre. On fixe ensemble ton objectif d'appels.</p>
           </li>
           <li class="step">
             <span class="step__num">2</span>
             <span class="step__when">Jours 3-5</span>
             <h3>Configuration</h3>
-            <p>On connecte l'agent à ton catalogue, tes délais et ta politique de retour. On l'aligne sur le ton de ta marque.</p>
+            <p>On entraîne l'assistant sur ton offre, ta façon de parler et tes critères de qualification.</p>
           </li>
           <li class="step">
             <span class="step__num">3</span>
             <span class="step__when">Jour 7</span>
             <h3>Mise en ligne</h3>
-            <p>L'agent est actif sur une partie de ton trafic, en A/B test, pour mesurer son vrai impact.</p>
+            <p>L'assistant répond à tes messages et commentaires, qualifie et réserve les appels dans ton agenda.</p>
           </li>
           <li class="step">
             <span class="step__num">4</span>
             <span class="step__when">Chaque mois</span>
             <h3>Rapport et optimisation</h3>
-            <p>Tu reçois les ventes récupérées, les objections repérées et les optimisations faites.</p>
+            <p>Tu reçois les conversations, les appels réservés et les objections de tes prospects. On optimise.</p>
           </li>
         </ol>
       </div>
@@ -152,11 +163,11 @@
       <div class="wrap get">
         <h2 id="get-title">Ce que tu reçois</h2>
         <ul class="list list--tri get__list">
-          <li><strong>Un vendeur IA sur ton site</strong>, qui connaît ton catalogue, tes délais et tes conditions de retour.</li>
-          <li><strong>Un déclenchement au bon moment</strong> : sur la fiche produit, à la sortie de page, dans le panier.</li>
-          <li><strong>La relance des paniers par WhatsApp et email</strong>, auprès des clients qui ont donné leur accord.</li>
-          <li><strong>Un rapport mensuel chiffré</strong> des ventes récupérées.</li>
-          <li><strong>Des recommandations pour tes fiches produits</strong>, à partir des vraies questions de tes clients.</li>
+          <li><strong>Un assistant qui répond à tes messages privés et à tes commentaires Instagram</strong>, en quelques secondes, à toute heure.</li>
+          <li><strong>Une qualification selon tes critères</strong> : objectif, motivation, budget.</li>
+          <li><strong>La réservation directe dans ton agenda</strong>, sans aller-retour.</li>
+          <li><strong>La relance des prospects hésitants.</strong></li>
+          <li><strong>Un rapport mensuel chiffré</strong> : conversations, appels réservés, objections.</li>
         </ul>
       </div>
     </section>
@@ -168,11 +179,12 @@
         <div class="guarantee__grid">
           <div class="guarantee__item">
             <span class="guarantee__day">Jour 7</span>
-            <p>Si ton agent n'est pas en ligne au jour 7, ton premier mois est offert.</p>
+            <p>Si le système n'est pas en ligne au jour 7, ton premier mois n'est pas facturé.</p>
           </div>
           <div class="guarantee__item">
-            <span class="guarantee__day">Jour 30</span>
-            <p>Si après 30 jours les ventes attribuées à l'agent, mesurées en A/B test, ne couvrent pas son coût, le mois est offert.</p>
+            <span class="guarantee__day">Mois 1</span>
+            <p>Si l'objectif d'appels qualifiés fixé ensemble lors de l'audit n'est pas atteint le premier mois, on continue gratuitement jusqu'à l'atteindre.</p>
+            <p class="guarantee__scope">Packs Croissance et Scale.</p>
           </div>
         </div>
       </div>
@@ -181,10 +193,10 @@
     <!-- Packs et prix : générés depuis config.js -->
     <section class="section packs-section" id="packs" aria-labelledby="packs-title">
       <div class="wrap">
-        <h2 id="packs-title">Choisis ton vendeur.</h2>
-        <p class="lead lead--small">Mise en ligne en 7 jours, sans engagement de durée.</p>
+        <h2 id="packs-title">Choisis ton système.</h2>
+        <p class="lead lead--small">Mise en place en 7 jours, sans engagement de durée.</p>
         <div class="packs" id="packs-grid"></div>
-        <noscript><p>Active JavaScript pour afficher les packs, ou remplis le formulaire ci-dessous pour les recevoir.</p></noscript>
+        <noscript><p>Active JavaScript pour afficher les packs.</p></noscript>
         <ul class="packs__notes" id="packs-notes"></ul>
       </div>
     </section>
@@ -192,8 +204,8 @@
     <!-- Audit gratuit : le lien du formulaire Google se règle dans config.js (AUDIT_FORM_URL) -->
     <section class="section audit" id="audit" aria-labelledby="audit-title">
       <div class="wrap audit__inner">
-        <h2 id="audit-title">Découvre combien de ventes ta boutique perd chaque mois.</h2>
-        <p class="lead lead--small">Remplis ce formulaire en 1 minute. On analyse ta boutique gratuitement et on te montre où partent tes ventes.</p>
+        <h2 id="audit-title">Découvre combien d'appels ton compte laisse passer chaque mois.</h2>
+        <p class="lead lead--small">Remplis ce formulaire en 1 minute. On analyse ton compte gratuitement et on te montre combien de prospects tu perds, et pourquoi.</p>
         <a class="btn btn--large js-form" href="#audit">Réserver mon audit gratuit</a>
       </div>
     </section>
@@ -202,7 +214,7 @@
     <section class="section section--rule" aria-labelledby="about-title">
       <div class="wrap wrap--text">
         <h2 id="about-title">Pourquoi Autoflow</h2>
-        <p class="lead lead--small">Autoflow est une agence spécialisée dans les agents comportementaux. On applique à ta boutique en ligne ce qu'un bon vendeur fait en magasin : il écoute, il répond à la vraie question, il lève le doute, puis il propose. Sans brader ta marge.</p>
+        <p class="lead lead--small">Autoflow est une agence spécialisée dans les agents comportementaux. On fait pour les coachs ce qu'un excellent setter ferait : écouter, poser les bonnes questions, filtrer les curieux et proposer l'appel au bon moment. Mais en quelques secondes, et à toute heure.</p>
       </div>
     </section>
 
@@ -220,36 +232,32 @@
         <h2 id="faq-title">Questions fréquentes</h2>
         <div class="faq">
           <details>
-            <summary>L'agent peut-il dire n'importe quoi ?</summary>
-            <p>Non. Il ne répond qu'avec les données de ta boutique. S'il ne sait pas, il passe la main à un humain.</p>
+            <summary>L'assistant va-t-il parler à ma place n'importe comment ?</summary>
+            <p>Non. Il est entraîné sur ton offre et ta façon de parler, et respecte tes critères. Pour une question délicate, il te passe la main.</p>
           </details>
           <details>
-            <summary>Mes clients sauront-ils que c'est une IA ?</summary>
-            <p>Oui, c'est indiqué clairement. C'est une obligation légale, et ça n'empêche pas de vendre.</p>
+            <summary>Mes prospects sauront-ils que c'est un assistant IA ?</summary>
+            <p>Oui, c'est indiqué clairement. C'est une obligation légale, et ça n'empêche pas de réserver des appels.</p>
           </details>
           <details>
-            <summary>Ça marche avec mon thème Shopify ?</summary>
-            <p>Oui. L'agent s'installe sur tous les thèmes Shopify.</p>
+            <summary>Est-ce que mon compte Instagram risque quelque chose ?</summary>
+            <p>On passe uniquement par les outils officiels de Meta pour la messagerie, jamais par des robots non autorisés.</p>
           </details>
           <details>
-            <summary>Et les données de mes clients (RGPD) ?</summary>
-            <p>Les données sont hébergées et traitées conformément au RGPD. Les relances WhatsApp et SMS ne concernent que les clients qui ont donné leur accord.</p>
+            <summary>Je dois changer ma façon de faire du contenu ?</summary>
+            <p>Non. Tu continues à publier. On transforme simplement tes messages en appels.</p>
           </details>
           <details>
             <summary>Combien de temps ça me prend ?</summary>
             <p>Un appel d'une heure pour l'audit, puis quelques validations pendant la semaine de configuration.</p>
           </details>
           <details>
-            <summary>Et si ça ne rapporte rien ?</summary>
-            <p>Si après 30 jours les ventes attribuées à l'agent ne couvrent pas son coût, le mois est offert. <a href="#garantie">Voir la garantie</a>.</p>
-          </details>
-          <details>
             <summary>Je peux changer de pack ?</summary>
             <p>Oui, à tout moment, sans engagement de durée.</p>
           </details>
           <details>
-            <summary>Pouvez-vous garantir un taux de conversion ?</summary>
-            <p>Non, et personne d'honnête ne le peut : il dépend aussi de ton trafic, de tes prix et de tes fiches produits. On garantit que l'agent rapporte plus qu'il ne coûte, sinon le mois est offert.</p>
+            <summary>Pouvez-vous garantir un nombre de clients ou un revenu ?</summary>
+            <p>Non, et personne d'honnête ne le peut : la signature dépend aussi de ton offre et de ton appel de vente. On garantit ton objectif d'appels qualifiés, sinon on continue gratuitement.</p>
           </details>
         </div>
       </div>
@@ -258,7 +266,7 @@
     <!-- Appel final -->
     <section class="final">
       <div class="wrap final__inner">
-        <h2>Combien de ventes ta boutique perd-elle cette nuit&nbsp;?</h2>
+        <h2>Combien de prospects attendent ta réponse en ce moment&nbsp;?</h2>
         <a class="btn btn--large btn--inverse js-form" href="#audit">Réserver mon audit gratuit</a>
       </div>
     </section>
@@ -274,6 +282,7 @@
       <nav class="site-footer__legal" aria-label="Informations légales">
         <a href="mentions-legales.html">Mentions légales</a>
         <a href="confidentialite.html">Politique de confidentialité</a>
+        <a href="cgv.html">Conditions générales de vente</a>
       </nav>
     </div>
   </footer>

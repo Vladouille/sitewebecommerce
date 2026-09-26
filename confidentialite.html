@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Politique de confidentialité — Autoflow</title>
+  <meta name="description" content="Comment Autoflow traite les données du formulaire de demande d'audit.">
   <meta name="robots" content="noindex">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,27 +13,66 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
   <header class="site-header">
     <div class="wrap site-header__inner">
       <a href="index.html" class="logo" aria-label="Autoflow, accueil">
         <img src="assets/AUTOFLOW.png" alt="Autoflow" width="160" height="32" onload="this.parentNode.classList.add('logo--img')">
         <span class="logo__text" aria-hidden="true">AUTOFLOW<span class="tri"></span></span>
       </a>
+      <a class="btn btn--small js-form" href="index.html#audit">Réserver mon audit gratuit</a>
     </div>
   </header>
-  <main class="section">
-    <div class="wrap wrap--text legal">
+
+  <main id="contenu" class="legal">
+    <div class="wrap wrap--text">
       <h1>Politique de confidentialité</h1>
-    <h2>Données collectées</h2>
-    <p>[À COMPLÉTER] Ce site ne dépose pas de cookie. La mesure d'audience, si elle est activée, est anonyme et sans cookie.</p>
-    <h2>Formulaire de demande d'audit</h2>
-    <p>Le formulaire de demande d'audit est un formulaire Google Forms. Les informations que tu y saisis (par exemple ton prénom, ton email, le lien de ta boutique, ta tranche de chiffre d'affaires et le pack qui t'intéresse) sont enregistrées dans le compte Google d'Autoflow.</p>
-    <p>Elles servent uniquement à préparer ton audit et à te recontacter à ce sujet, sur la base de ton consentement.</p>
-    <p>[À COMPLÉTER] Durée de conservation des demandes.</p>
-    <h2>Tes droits</h2>
-    <p>Tu peux demander l'accès, la rectification ou la suppression de tes données en écrivant à <a href="mailto:contact.autoflow1@gmail.com">contact.autoflow1@gmail.com</a>. Tu peux aussi saisir la CNIL.</p>
-      <p><a href="index.html">Retour à l'accueil</a></p>
+      <p class="legal__updated">Dernière mise à jour : 26 septembre 2026</p>
+
+      <h2>Responsable du traitement</h2>
+      <p>Autoflow, <span class="todo">[À COMPLÉTER : prénom, nom et adresse]</span>, <a href="mailto:contact.autoflow1@gmail.com">contact.autoflow1@gmail.com</a>.</p>
+
+      <h2>Données collectées</h2>
+      <p>Via le formulaire de demande d'audit (hébergé par Google Forms) : les informations que tu saisis (prénom, email, compte Instagram, informations sur ton activité, pack qui t'intéresse, message facultatif, consentement). Le site lui-même ne collecte aucune autre donnée personnelle.</p>
+
+      <h2>Finalités</h2>
+      <p>Répondre à ta demande d'audit, te recontacter au sujet de l'offre Autoflow et suivre la relation commerciale.</p>
+
+      <h2>Base légale</h2>
+      <p>Le consentement donné dans le formulaire, puis l'intérêt légitime d'Autoflow à assurer le suivi commercial de ta demande.</p>
+
+      <h2>Destinataires</h2>
+      <p>Uniquement Autoflow. Les réponses sont stockées sur les services de Google (Google Forms et Google Sheets), qui agit comme sous-traitant. Ces données peuvent être transférées hors de l'Union européenne, avec les garanties prévues par Google (clauses contractuelles types). Aucune donnée n'est vendue ni cédée.</p>
+
+      <h2>Durée de conservation</h2>
+      <p>3 ans à compter du dernier contact, puis suppression. Pour les clients : pendant la durée du contrat, puis selon les obligations légales (notamment comptables).</p>
+
+      <h2>Tes droits</h2>
+      <p>Tu disposes d'un droit d'accès, de rectification, d'effacement, d'opposition, de limitation et de portabilité, ainsi que du droit de retirer ton consentement à tout moment. Écris à <a href="mailto:contact.autoflow1@gmail.com">contact.autoflow1@gmail.com</a> : on te répond sous un mois. Tu peux aussi saisir la CNIL (<a href="https://www.cnil.fr" rel="noopener">cnil.fr</a>).</p>
+
+      <h2>Cookies</h2>
+      <p>Le site n'utilise pas de cookies publicitaires. <span class="todo">[À COMPLÉTER : si un outil de mesure d'audience est installé, préciser lequel ; si c'est un outil sans cookie comme Plausible, l'indiquer ; sinon, ajouter un bandeau de consentement]</span></p>
     </div>
   </main>
+
+  <footer class="site-footer">
+    <div class="wrap site-footer__inner">
+      <a href="index.html" class="logo logo--footer" aria-label="Autoflow, accueil">
+        <img src="assets/AUTOFLOW.png" alt="Autoflow" width="120" height="24" onload="this.parentNode.classList.add('logo--img')">
+        <span class="logo__text" aria-hidden="true">AUTOFLOW<span class="tri"></span></span>
+      </a>
+      <a href="mailto:contact.autoflow1@gmail.com">contact.autoflow1@gmail.com</a>
+      <nav class="site-footer__legal" aria-label="Informations légales">
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="confidentialite.html" aria-current="page">Politique de confidentialité</a>
+        <a href="cgv.html">Conditions générales de vente</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+  <!-- Modèle à faire valider par un professionnel du droit -->
 </body>
 </html>
