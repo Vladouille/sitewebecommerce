@@ -178,6 +178,17 @@
       </div>
     </section>
 
+    <!-- Packs et prix : générés depuis config.js -->
+    <section class="section packs-section" id="packs" aria-labelledby="packs-title">
+      <div class="wrap">
+        <h2 id="packs-title">Choisis ton vendeur.</h2>
+        <p class="lead lead--small">Mise en ligne en 7 jours, sans engagement de durée.</p>
+        <div class="packs" id="packs-grid"></div>
+        <noscript><p>Active JavaScript pour afficher les packs, ou remplis le formulaire ci-dessous pour les recevoir.</p></noscript>
+        <ul class="packs__notes" id="packs-notes"></ul>
+      </div>
+    </section>
+
     <!-- Formulaire d'audit gratuit : la clé d'envoi se règle dans config.js -->
     <section class="section audit" id="audit" aria-labelledby="audit-title">
       <div class="wrap audit__grid">
@@ -225,6 +236,16 @@
             </div>
 
             <div class="field">
+              <label for="f-pack">Pack qui t'intéresse</label>
+              <select id="f-pack" name="pack">
+                <option>Essentiel</option>
+                <option selected>Croissance</option>
+                <option>Scale</option>
+                <option>Je ne sais pas encore</option>
+              </select>
+            </div>
+
+            <div class="field">
               <label for="f-problem">Principal problème constaté <span class="field__optional">(facultatif)</span></label>
               <textarea id="f-problem" name="problem" rows="4" placeholder="Ex. : beaucoup de trafic pub, peu de ventes. Beaucoup de paniers abandonnés."></textarea>
             </div>
@@ -237,8 +258,8 @@
 
             <!-- Piège à robots : invisible pour les humains -->
             <div class="hp" aria-hidden="true">
-              <label for="f-botcheck">Ne pas remplir</label>
-              <input id="f-botcheck" name="botcheck" type="text" tabindex="-1" autocomplete="off">
+              <label for="f-botcheck">Ne pas cocher</label>
+              <input id="f-botcheck" name="botcheck" type="checkbox" tabindex="-1" autocomplete="off">
             </div>
 
             <button class="btn btn--large btn--submit" type="submit">Réserver mon audit gratuit</button>
@@ -300,8 +321,8 @@
             <p>Si après 30 jours les ventes attribuées à l'agent ne couvrent pas son coût, le mois est offert. <a href="#garantie">Voir la garantie</a>.</p>
           </details>
           <details>
-            <summary>Combien ça coûte ?</summary>
-            <p>Le tarif dépend de la taille de ta boutique et de tes besoins. On te le présente après l'audit, sans engagement.</p>
+            <summary>Je peux changer de pack ?</summary>
+            <p>Oui, à tout moment, sans engagement de durée.</p>
           </details>
           <details>
             <summary>Pouvez-vous garantir un taux de conversion ?</summary>

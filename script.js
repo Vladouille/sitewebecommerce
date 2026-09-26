@@ -27,9 +27,56 @@
     chat.querySelector('.msg--typing')?.remove();
   }
 
+  /* ---- Packs et prix : générés depuis config.js ---- */
+  const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  })[c]);
+  const formatPrice = (n) => new Intl.NumberFormat('fr-FR', {
+    style: 'currency', currency: 'EUR', maximumFractionDigits: 0,
+  }).format(n);
+  const renderValue = (value) => {
+    if (value === true) return '<span class="pack__value">Oui</span>';
+    if (value === false || value == null) return '<span class="pack__value pack__value--no">Non</span>';
+    return `<span class="pack__value">${escapeHtml(value)}</span>`;
+  };
+
+  const packsGrid = document.getElementById('packs-grid');
+  if (packsGrid && Array.isArray(config.packs)) {
+    const rows = config.rows || [];
+    packsGrid.style.setProperty('--pack-rows', rows.length + 3);
+    packsGrid.innerHTML = config.packs.map((pack) => `
+      <article class="pack${pack.recommended ? ' pack--recommended' : ''}" aria-labelledby="pack-${escapeHtml(pack.name)}">
+        <div class="pack__head">
+          ${pack.recommended ? '<span class="pack__badge"><span class="tri" aria-hidden="true"></span> Recommandé</span>' : ''}
+          <h3 class="pack__name" id="pack-${escapeHtml(pack.name)}">${escapeHtml(pack.name)}</h3>
+          <p class="pack__for">${escapeHtml(pack.forWho)}</p>
+        </div>
+        <div class="pack__pricing">
+          <p class="pack__price">${formatPrice(pack.price)} <small>/mois</small></p>
+          ${pack.reframe ? `<p class="pack__reframe">${escapeHtml(pack.reframe)}</p>` : ''}
+        </div>
+        ${rows.map((row) => `<div class="pack__row"><span class="pack__label">${escapeHtml(row.label)}</span>${renderValue(pack.values[row.key])}</div>`).join('')}
+        <a class="btn ${pack.recommended ? '' : 'btn--ghost'} pack__cta" href="#audit" data-pack="${escapeHtml(pack.name)}">Choisir ${escapeHtml(pack.name)}</a>
+      </article>
+    `).join('');
+  }
+
+  const packsNotes = document.getElementById('packs-notes');
+  if (packsNotes && Array.isArray(config.pricingNotes)) {
+    packsNotes.innerHTML = config.pricingNotes.map((note) => `<li>${escapeHtml(note)}</li>`).join('');
+  }
+
   /* ---- Formulaire d'audit ---- */
   const form = document.getElementById('audit-form');
   if (!form) return;
+
+  // Les boutons « Choisir … » présélectionnent le pack (le lien #audit fait défiler)
+  document.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-pack]');
+    if (!button) return;
+    const select = form.elements.pack;
+    if ([...select.options].some((o) => o.value === button.dataset.pack)) select.value = button.dataset.pack;
+  });
 
   const success = document.getElementById('form-success');
   const status = document.getElementById('form-status');
@@ -120,15 +167,17 @@
     }
 
     // Robot détecté : on fait comme si tout s'était bien passé, sans rien envoyer
-    if (form.elements.botcheck.value) {
+    if (form.elements.botcheck.checked) {
       showSuccess();
       return;
     }
 
     const shop = normalizeUrl(form.elements.shop.value);
+    const pack = form.elements.pack.value;
     const payload = {
-      access_key: config.web3formsKey,
-      subject: `Nouvelle demande d'audit : ${shop}`,
+      access_key: config.WEB3FORMS_ACCESS_KEY,
+      subject: `Nouvelle demande d'audit : ${pack} – ${shop}`,
+      botcheck: false,
       from_name: 'Site Autoflow',
       replyto: form.elements.email.value.trim(),
       'Prénom': form.elements.firstname.value.trim(),
@@ -136,19 +185,21 @@
       'Téléphone': form.elements.phone.value.trim() || 'Non renseigné',
       'Boutique': shop,
       "Chiffre d'affaires mensuel": form.elements.revenue.value,
+      'Pack qui l\'intéresse': pack,
       'Principal problème': form.elements.problem.value.trim() || 'Non renseigné',
       'Consentement RGPD': 'Oui',
     };
 
     setSending(true);
     try {
-      if (!config.web3formsKey) throw new Error('Clé Web3Forms manquante dans config.js');
+      if (!config.WEB3FORMS_ACCESS_KEY) throw new Error('WEB3FORMS_ACCESS_KEY est vide dans config.js');
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(payload),
       });
       const result = await response.json().catch(() => ({}));
+      console.log('Réponse Web3Forms :', response.status, result);
       if (!response.ok || !result.success) throw new Error(result.message || `HTTP ${response.status}`);
       showSuccess();
     } catch (error) {

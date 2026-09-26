@@ -9,7 +9,7 @@ Autoflow est une agence qui installe un **vendeur IA** sur les boutiques Shopify
 - **Cible** : e-commerçants Shopify qui font entre 30 000 et 300 000 € de chiffre d'affaires par mois, qui paient de la publicité mais convertissent mal.
 - **Désir profond du client** : gagner plus avec le même budget pub (baisser son coût d'acquisition).
 - **On ne vend pas de l'IA, on vend des ventes récupérées.** Le mot « IA » n'est jamais l'argument principal.
-- **Objectif unique de la page** : faire remplir le formulaire de demande d'audit gratuit (voir section 5). Aucun prix n'est affiché sur la page et il n'y a pas de paiement en ligne.
+- **Objectif unique de la page** : faire remplir le formulaire de demande d'audit gratuit (voir section 5), idéalement avec un pack déjà choisi. Les prix sont affichés (section « Packs et prix ») mais il n'y a pas de paiement en ligne : le paiement se fait après l'audit.
 - **Email de l'entreprise** : contact.autoflow1@gmail.com (reçoit les demandes du formulaire).
 
 ## 2. L'offre (à reprendre fidèlement)
@@ -69,6 +69,36 @@ Titre : Découvre combien de ventes ta boutique perd.
 Texte : Remplis ce formulaire, on analyse ta boutique et on te montre où partent tes ventes. C'est gratuit et sans engagement.
 Le formulaire lui-même est détaillé en section 5.
 
+### Packs et prix (section `#packs`, placée juste avant le formulaire)
+Titre : Choisis ton vendeur. Sous-titre : Mise en ligne en 7 jours, sans engagement de durée.
+
+| | Essentiel | Croissance (badge « Recommandé ») | Scale |
+|---|---|---|---|
+| Prix | 280 €/mois | 480 €/mois | 1 780 €/mois |
+| Pour qui | Tester un vendeur IA sur ton site | Récupérer un maximum de ventes perdues | Boutiques à fort trafic ou multi-boutiques |
+| Vendeur IA 24h/24 sur ton catalogue (tailles, délais, retours) | Oui | Oui | Oui |
+| Conversations par mois | Jusqu'à 500 | Jusqu'à 3 000 | Illimitées |
+| Déclenchement au bon moment (fiche produit, sortie de page, panier) | Non | Oui | Oui |
+| Relance des paniers abandonnés par WhatsApp et email | Non | Oui | Oui |
+| A/B test et rapport des ventes récupérées | Rapport simple | Oui, mensuel | Oui, hebdomadaire |
+| Rapport des objections de tes clients | Non | Oui | Oui |
+| Audit conversion mensuel et recommandations sur tes fiches produits | Non | Non | Oui |
+| Plusieurs langues ou plusieurs boutiques | Non | Non | Oui |
+| Interlocuteur dédié | Non | Non | Oui, réponse sous 24 h |
+| Mise en ligne | 7 jours | 7 jours | 5 jours |
+| Frais de mise en place | 190 € | Offerts (valeur 190 €) | Offerts (valeur 190 €) |
+| Garantie « rentabilisé en 30 jours ou mois offert » | Non | Oui | Oui |
+
+Sous le tableau : « Paiement annuel : 2 mois offerts sur tous les packs. » et une option complémentaire : « Refonte de 10 fiches produits à partir des objections de tes clients : 290 € ».
+
+Règles d'affichage (psychologie du prix, à respecter) :
+- Croissance est au centre, visuellement mis en avant (bordure, fond légèrement différent, badge « Recommandé »). Ne jamais écrire « le plus choisi » ni « le plus populaire » tant qu'il n'y a pas de clients : ce serait une fausse preuve sociale.
+- Essentiel est volontairement limité : il n'a ni la relance des paniers, ni le déclenchement proactif, ni la garantie, et ses frais de mise en place sont payants. Pour 200 € de plus, Croissance donne tout cela et offre les 190 € de mise en place : il doit paraître évident.
+- Scale sert d'ancre : sa présence fait paraître 480 € raisonnable. Il doit rester crédible et désirable, pas ridicule.
+- Sous le prix de Croissance, ajouter une ligne de recadrage : « Soit 16 € par jour, moins qu'une vente perdue. »
+- Chaque carte a un bouton « Choisir Essentiel », « Choisir Croissance », « Choisir Scale » qui fait défiler jusqu'au formulaire et présélectionne le pack correspondant.
+- Les prix et contenus des packs sont stockés dans une seule source de données, faciles à modifier.
+
 ### À propos / pourquoi Autoflow
 Court paragraphe crédible (pas encore de clients) : une agence spécialisée dans les agents comportementaux, qui applique aux boutiques en ligne ce qu'un bon vendeur fait en magasin. Emplacement prévu pour de futurs témoignages et études de cas, masqué tant qu'il n'y en a pas.
 
@@ -79,7 +109,7 @@ Court paragraphe crédible (pas encore de clients) : une agence spécialisée da
 - Et les données de mes clients (RGPD) ? Données hébergées et traitées conformément au RGPD ; les relances WhatsApp et SMS ne concernent que les clients qui ont donné leur accord.
 - Combien de temps ça me prend ? Un appel d'une heure pour l'audit, puis quelques validations pendant la semaine de configuration.
 - Et si ça ne rapporte rien ? Voir la garantie.
-- Combien ça coûte ? Le tarif dépend de la taille de ta boutique et de tes besoins : on te le présente après l'audit, sans engagement.
+- Je peux changer de pack ? Oui, à tout moment, sans engagement de durée.
 - Pouvez-vous garantir un taux de conversion ? Non, et personne d'honnête ne le peut. On garantit que l'agent rapporte plus qu'il ne coûte, sinon le mois est offert.
 
 ### Appel final
@@ -93,10 +123,11 @@ Logo, email de contact contact.autoflow1@gmail.com, mentions légales, politique
 - Page unique, statique, très rapide. HTML/CSS/JS simple ou Astro ; pas de framework lourd sans raison.
 - **Mobile d'abord** : la majorité des e-commerçants la verront sur téléphone. Tester à 375 px de large.
 - **Formulaire d'audit gratuit** : tous les boutons « Réserver mon audit gratuit » font défiler la page jusqu'à la section `#audit`.
-  - Champs : prénom (obligatoire), email (obligatoire), téléphone (facultatif), lien de la boutique (obligatoire), chiffre d'affaires mensuel (obligatoire, liste : moins de 30 k€, 30 à 100 k€, 100 à 300 k€, plus de 300 k€), principal problème constaté (facultatif, zone de texte), case de consentement RGPD obligatoire (« J'accepte qu'Autoflow utilise ces informations pour me recontacter au sujet de mon audit »).
-  - Envoi : un site statique ne peut pas envoyer d'email seul. Utiliser un service de formulaire (Web3Forms ou Formspree, offre gratuite) configuré pour livrer chaque demande à **contact.autoflow1@gmail.com**. La clé du service est stockée dans une seule variable de configuration, facile à remplacer. Si le site est déployé sur Netlify, Netlify Forms avec notification vers cette adresse est une alternative.
-  - Sujet de l'email reçu : « Nouvelle demande d'audit : [lien de la boutique] ».
-  - Validation côté navigateur avec messages d'erreur clairs sous chaque champ, champ « honeypot » invisible contre le spam.
+  - Champs : prénom (obligatoire), email (obligatoire), téléphone (facultatif), lien de la boutique (obligatoire), chiffre d'affaires mensuel (obligatoire, liste : moins de 30 k€, 30 à 100 k€, 100 à 300 k€, plus de 300 k€), pack qui t'intéresse (liste : Essentiel, Croissance, Scale, Je ne sais pas encore ; présélectionné par les boutons des packs, Croissance par défaut sinon), principal problème constaté (facultatif, zone de texte), case de consentement RGPD obligatoire (« J'accepte qu'Autoflow utilise ces informations pour me recontacter au sujet de mon audit »).
+  - Envoi : un site statique ne peut pas envoyer d'email seul. Utiliser **Web3Forms** (gratuit) : la clé d'accès est générée sur web3forms.com avec l'adresse **contact.autoflow1@gmail.com** et reçue par email sur cette adresse. Stocker la clé dans une seule variable de configuration (`WEB3FORMS_ACCESS_KEY`). Ne jamais laisser de texte d'exemple à la place de la clé. Envoyer en POST vers `https://api.web3forms.com/submit` avec `Content-Type: application/json` et `Accept: application/json`, et afficher la réponse du service dans la console pour faciliter le débogage.
+  - Anti-spam : utiliser le champ honeypot de Web3Forms nommé `botcheck` (case à cocher cachée, `autocomplete="off"`), pour que la saisie automatique du navigateur ne le remplisse jamais.
+  - Sujet de l'email reçu : « Nouvelle demande d'audit : [pack] – [lien de la boutique] ».
+  - Validation côté navigateur avec messages d'erreur clairs sous chaque champ.
   - États : pendant l'envoi, le bouton affiche « Envoi en cours » et se désactive ; en cas de succès, remplacer le formulaire par « Demande envoyée. On revient vers toi sous 48 h ouvrées avec ton audit. » ; en cas d'échec, afficher un message explicite et l'adresse contact.autoflow1@gmail.com en solution de secours.
   - Tester un envoi réel avant la mise en ligne et vérifier que l'email n'arrive pas dans les spams.
 - SEO de base : balise title, meta description, Open Graph (image avec le logo), balises Hn propres, favicon (triangle ou « A▲ »).
@@ -109,5 +140,4 @@ Logo, email de contact contact.autoflow1@gmail.com, mentions légales, politique
 - Ne jamais inventer de clients, témoignages, logos de marques, chiffres de résultats ou statistiques. Tout élément de preuve absent reste un emplacement vide clairement marqué.
 - Pas de fausse urgence ni de fausse rareté (« plus que 2 places ») : ça fait arnaque sur ce marché.
 - Pas de liens sortants inutiles : un seul objectif, le formulaire d'audit, avec le même bouton répété.
-- Aucun prix affiché nulle part sur la page.
 - Tutoiement partout, phrases courtes, voix active.
