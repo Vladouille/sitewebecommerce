@@ -1,31 +1,31 @@
-# Nexa Agents — Site vitrine
+# Autoflow — landing page
 
-Site web pour vendre à des e-commerçants des **clients et des résultats générés par des agents IA**
-(prospection, relance de paniers abandonnés, vendeur/SAV, publicité, fidélisation, avis).
+Landing page d'Autoflow, l'agence qui installe un vendeur IA sur les boutiques Shopify.
+Le brief complet (offre, textes, identité, règles de contenu) est dans [`CLAUDE.md`](CLAUDE.md).
 
-## Contenu
-- Hero avec tableau de bord animé (flux de ventes en temps réel simulé)
-- Chiffres clés animés
-- Présentation des 6 agents IA
-- Fonctionnement en 4 étapes
-- Simulateur de gains interactif
-- Études de cas / témoignages
-- Tarifs orientés résultats (commission, abonnement, prix par client)
-- FAQ et formulaire de demande d'audit gratuit
+Site statique : HTML, CSS et JavaScript, sans dépendance ni étape de build.
 
-## Lancer en local
-Aucune dépendance : ouvrez `index.html` dans un navigateur, ou :
+## Voir le site en local
+Ouvre `index.html` dans ton navigateur, ou lance :
 ```bash
 python3 -m http.server 8000
 ```
+puis va sur http://localhost:8000.
 
-## Personnaliser
-- **Nom / textes** : `index.html` (marque « Nexa Agents » à remplacer par la vôtre)
-- **Couleurs** : variables CSS en haut de `styles.css`
-- **Hypothèses du simulateur** : constantes `UPLIFT_CONVERSION`, `PROSPECTION_BONUS`, `COMMISSION`, `FIXED_FEE` dans `script.js`
-- **Formulaire** : à brancher sur Formspree, HubSpot, Calendly, etc. (voir le `TODO` dans `script.js`)
+## Réglages (`config.js`)
+C'est le seul fichier à modifier pour :
+- **`bookingUrl`** : le lien Cal.com ou Calendly. Tant qu'il est vide, les boutons ouvrent un email.
+- **`contactEmail`** : l'adresse affichée dans le pied de page.
+- **`plans` / `features` / `pricingNotes`** : la grille de prix.
 
-> Les chiffres, témoignages et études de cas sont des exemples à remplacer par vos données réelles.
+## À faire avant la mise en ligne
+- [ ] Déposer le logo dans `assets/AUTOFLOW.png`. Il remplace automatiquement le logo texte provisoire.
+- [ ] Créer `assets/og-image.png` (1200 × 630, avec le logo) pour les aperçus de partage,
+      puis mettre une URL absolue dans `og:image` une fois le domaine connu.
+- [ ] Renseigner `bookingUrl` et vérifier `contactEmail` dans `config.js`.
+- [ ] Compléter `mentions-legales.html` et `confidentialite.html` (repères `[À COMPLÉTER]`).
+- [ ] Activer Plausible (balise commentée dans le `<head>` de `index.html`) avec le bon domaine.
+- [ ] Quand il y aura de vrais clients : remplir la section `#temoignages` et retirer son attribut `hidden`.
 
 ## Déploiement
-Site 100 % statique : GitHub Pages, Netlify ou Vercel fonctionnent directement.
+Vercel ou Netlify : importe le dépôt, sans commande de build, dossier de publication = racine.

@@ -2,443 +2,270 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexa Agents — Des clients et des ventes pour votre e-commerce, générés par l'IA</title>
-  <meta name="description" content="Nexa Agents déploie des agents IA qui trouvent des clients, relancent vos paniers abandonnés et augmentent votre chiffre d'affaires. Vous ne payez que les résultats.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Autoflow — Récupère les ventes que ta boutique Shopify perd chaque jour</title>
+  <meta name="description" content="Un vendeur IA sur ta boutique Shopify qui répond, rassure et relance tes paniers, 24h/24. En ligne en 7 jours. Tu ne paies que s'il rapporte plus qu'il ne coûte.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Autoflow">
+  <meta property="og:title" content="Autoflow — Tes visiteurs repartent avec des questions. On les transforme en ventes.">
+  <meta property="og:description" content="Un vendeur IA sur ta boutique Shopify qui répond, rassure et relance tes paniers, 24h/24. En ligne en 7 jours.">
+  <meta property="og:image" content="assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+
+  <!-- Analytics sans cookies (Plausible). Décommenter et remplacer le domaine une fois celui-ci réservé.
+  <script defer data-domain="autoflow.fr" src="https://plausible.io/js/script.js"></script>
+  -->
 </head>
 <body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-  <!-- ===== En-tête ===== -->
-  <header class="header" id="header">
-    <div class="container header__inner">
-      <a href="#" class="logo"><span class="logo__mark">⚡</span> Nexa<span class="logo__accent">Agents</span></a>
-      <nav class="nav" id="nav">
-        <a href="#agents">Agents IA</a>
-        <a href="#fonctionnement">Fonctionnement</a>
-        <a href="#resultats">Résultats</a>
-        <a href="#tarifs">Tarifs</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact" class="btn btn--primary btn--sm">Audit gratuit</a>
-      </nav>
-      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a href="#" class="logo" aria-label="Autoflow, retour en haut">
+        <img src="assets/AUTOFLOW.png" alt="Autoflow" width="160" height="32" onload="this.parentNode.classList.add('logo--img')">
+        <span class="logo__text" aria-hidden="true">AUTOFLOW<span class="tri"></span></span>
+      </a>
+      <a class="btn btn--small js-book" href="#reserver">Réserver mon audit offert</a>
     </div>
   </header>
 
-  <main>
-    <!-- ===== Hero ===== -->
+  <main id="contenu">
+
+    <!-- Hero -->
     <section class="hero">
-      <div class="container hero__inner">
-        <div class="hero__content reveal">
-          <span class="badge">🤖 Agents IA autonomes · 24h/24 · 7j/7</span>
-          <h1>Des <span class="gradient-text">clients</span> et des <span class="gradient-text">ventes</span> pour votre boutique en ligne. Générés par l'IA.</h1>
-          <p class="hero__lead">
-            Nos agents IA prospectent, convertissent et fidélisent vos clients à votre place.
-            Vous ne payez que pour les <strong>résultats obtenus</strong> : nouveaux clients, ventes récupérées, chiffre d'affaires additionnel.
-          </p>
-          <div class="hero__cta">
-            <a href="#contact" class="btn btn--primary btn--lg">Obtenir mon audit gratuit →</a>
-            <a href="#simulateur" class="btn btn--ghost btn--lg">Simuler mes gains</a>
-          </div>
-          <ul class="hero__trust">
-            <li>✓ Sans engagement</li>
-            <li>✓ Mise en place en 7 jours</li>
-            <li>✓ Compatible Shopify, WooCommerce, PrestaShop</li>
-          </ul>
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <h1>Tes visiteurs repartent avec des questions. Autoflow les transforme en ventes.</h1>
+          <p class="hero__sub">Un vendeur IA sur ta boutique Shopify qui répond, rassure et relance tes paniers, 24h/24. En ligne en 7 jours. Tu ne paies que s'il rapporte plus qu'il ne coûte.</p>
+          <a class="btn btn--large js-book" href="#reserver">Réserver mon audit offert</a>
+          <p class="hero__note">Un appel d'une heure. On te montre où ta boutique perd des ventes.</p>
         </div>
 
-        <div class="hero__visual reveal">
-          <div class="dashboard">
-            <div class="dashboard__top">
-              <span class="dot dot--red"></span><span class="dot dot--yellow"></span><span class="dot dot--green"></span>
-              <span class="dashboard__title">Tableau de bord — ce mois-ci</span>
-            </div>
-            <div class="dashboard__stats">
-              <div class="stat-card">
-                <span class="stat-card__label">CA généré par l'IA</span>
-                <span class="stat-card__value" data-count="48750" data-suffix=" €">0 €</span>
-                <span class="stat-card__trend up">▲ +32 %</span>
-              </div>
-              <div class="stat-card">
-                <span class="stat-card__label">Nouveaux clients</span>
-                <span class="stat-card__value" data-count="612">0</span>
-                <span class="stat-card__trend up">▲ +18 %</span>
-              </div>
-            </div>
-            <div class="chart">
-              <div class="chart__bar" style="--h:35%"></div>
-              <div class="chart__bar" style="--h:48%"></div>
-              <div class="chart__bar" style="--h:42%"></div>
-              <div class="chart__bar" style="--h:60%"></div>
-              <div class="chart__bar" style="--h:55%"></div>
-              <div class="chart__bar" style="--h:74%"></div>
-              <div class="chart__bar" style="--h:68%"></div>
-              <div class="chart__bar" style="--h:88%"></div>
-              <div class="chart__bar" style="--h:95%"></div>
-            </div>
-            <ul class="feed" id="feed">
-              <li><span class="feed__icon">🛒</span> Panier récupéré — <strong>129 €</strong><span class="feed__time">il y a 2 min</span></li>
-              <li><span class="feed__icon">🎯</span> Nouveau client via Instagram — <strong>74 €</strong><span class="feed__time">il y a 5 min</span></li>
-              <li><span class="feed__icon">💬</span> Question SAV résolue → vente — <strong>210 €</strong><span class="feed__time">il y a 9 min</span></li>
+        <figure class="chat" aria-label="Exemple de conversation entre un visiteur et le vendeur Autoflow">
+          <div class="chat__head">
+            <span class="chat__shop">Ta boutique</span>
+            <span class="chat__status">Vendeur Autoflow · assistant IA</span>
+          </div>
+          <ol class="chat__thread" id="chat">
+            <li class="msg msg--visitor">
+              <span class="msg__meta">Visiteur · 23h14</span>
+              <p>Je fais du 38, je prends quelle taille sur ce jean ?</p>
+            </li>
+            <li class="msg msg--typing" aria-hidden="true"><span></span><span></span><span></span></li>
+            <li class="msg msg--agent">
+              <span class="msg__meta">Autoflow · 23h14</span>
+              <p>Ce modèle taille petit : on te conseille le 40. 92&nbsp;% des clientes en 38 l'ont pris en 40 et l'ont gardé. Livraison en 48&nbsp;h et retours gratuits sous 30 jours. Je l'ajoute à ton panier&nbsp;?</p>
+            </li>
+            <li class="msg msg--visitor">
+              <span class="msg__meta">Visiteur · 23h15</span>
+              <p>Oui, en 40 stp.</p>
+            </li>
+            <li class="msg msg--event">
+              <span class="tri"></span> Jean taille 40 ajouté au panier
+            </li>
+          </ol>
+          <figcaption>Exemple de conversation. Les chiffres cités sont fictifs.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Problème -->
+    <section class="section problem">
+      <div class="wrap wrap--text">
+        <h2>Tu paies chaque visiteur. La plupart repartent sans acheter.</h2>
+        <p class="lead">Souvent pour une question restée sans réponse : la taille, le délai, les retours. Et un code promo ne règle pas un doute.</p>
+      </div>
+    </section>
+
+    <!-- Avant / avec -->
+    <section class="section compare" aria-labelledby="compare-title">
+      <div class="wrap">
+        <h2 id="compare-title" class="visually-hidden">Avant et avec Autoflow</h2>
+        <div class="compare__grid">
+          <div class="compare__col compare__col--before">
+            <h3>Avant</h3>
+            <ul class="list">
+              <li>Des questions sans réponse le soir et le week-end.</li>
+              <li>Des paniers abandonnés relancés avec un code promo qui mange la marge.</li>
+              <li>Un SAV qui répète les mêmes réponses.</li>
+              <li>Aucune idée de ce qui bloque tes clients.</li>
+            </ul>
+          </div>
+          <div class="compare__col compare__col--after">
+            <h3>Avec Autoflow</h3>
+            <ul class="list list--tri">
+              <li>Chaque visiteur a une réponse en quelques secondes.</li>
+              <li>Tes paniers sont relancés par une vraie conversation.</li>
+              <li>Les ventes récupérées sont chiffrées chaque mois.</li>
+              <li>Les objections de tes clients remontent noir sur blanc.</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== Logos / plateformes ===== -->
-    <section class="logos">
-      <div class="container">
-        <p class="logos__title">Nos agents se connectent à vos outils en quelques clics</p>
-        <div class="logos__row">
-          <span>Shopify</span><span>WooCommerce</span><span>PrestaShop</span><span>Wix</span><span>Meta Ads</span><span>Google Ads</span><span>Klaviyo</span><span>WhatsApp</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== Chiffres clés ===== -->
-    <section class="kpis">
-      <div class="container kpis__grid">
-        <div class="kpi reveal"><span class="kpi__value" data-count="12" data-prefix="+" data-suffix=" M€">0</span><span class="kpi__label">de CA généré pour nos clients</span></div>
-        <div class="kpi reveal"><span class="kpi__value" data-count="340" data-suffix="+">0</span><span class="kpi__label">e-commerçants accompagnés</span></div>
-        <div class="kpi reveal"><span class="kpi__value" data-count="27" data-suffix=" %">0</span><span class="kpi__label">de paniers abandonnés récupérés en moyenne</span></div>
-        <div class="kpi reveal"><span class="kpi__value" data-count="8" data-prefix="x">0</span><span class="kpi__label">retour sur investissement moyen</span></div>
-      </div>
-    </section>
-
-    <!-- ===== Agents ===== -->
-    <section class="section" id="agents">
-      <div class="container">
-        <div class="section__head reveal">
-          <span class="eyebrow">Nos agents IA</span>
-          <h2>Une équipe commerciale complète, qui ne dort jamais</h2>
-          <p>Chaque agent est spécialisé sur un levier de croissance. Activez ceux dont vous avez besoin, ils travaillent ensemble pour maximiser vos ventes.</p>
-        </div>
-
-        <div class="agents">
-          <article class="agent-card reveal">
-            <div class="agent-card__icon">🎯</div>
-            <h3>Agent Prospection</h3>
-            <p>Identifie vos clients idéaux sur les réseaux sociaux et le web, engage la conversation et les amène jusqu'à votre boutique.</p>
-            <ul><li>Ciblage par audience lookalike</li><li>Messages personnalisés à grande échelle</li><li>Qualification automatique des leads</li></ul>
-            <span class="agent-card__result">Résultat : nouveaux clients</span>
-          </article>
-
-          <article class="agent-card reveal">
-            <div class="agent-card__icon">🛒</div>
-            <h3>Agent Relance Paniers</h3>
-            <p>Relance chaque panier abandonné par email, SMS ou WhatsApp avec le bon message, au bon moment, et la bonne offre.</p>
-            <ul><li>Séquences multicanales intelligentes</li><li>Offres dynamiques selon le profil</li><li>Réponses aux objections en direct</li></ul>
-            <span class="agent-card__result">Résultat : ventes récupérées</span>
-          </article>
-
-          <article class="agent-card reveal">
-            <div class="agent-card__icon">💬</div>
-            <h3>Agent Vendeur & SAV</h3>
-            <p>Un conseiller disponible 24h/24 sur votre site qui répond aux questions, recommande les bons produits et conclut la vente.</p>
-            <ul><li>Connaît tout votre catalogue</li><li>Upsell & cross-sell automatiques</li><li>Suivi de commande instantané</li></ul>
-            <span class="agent-card__result">Résultat : taux de conversion ↑</span>
-          </article>
-
-          <article class="agent-card reveal">
-            <div class="agent-card__icon">📣</div>
-            <h3>Agent Publicité</h3>
-            <p>Crée, teste et optimise vos campagnes Meta et Google Ads en continu pour réduire votre coût d'acquisition.</p>
-            <ul><li>Génération de visuels & textes</li><li>A/B tests automatiques</li><li>Réallocation du budget en temps réel</li></ul>
-            <span class="agent-card__result">Résultat : CAC ↓, ROAS ↑</span>
-          </article>
-
-          <article class="agent-card reveal">
-            <div class="agent-card__icon">🔁</div>
-            <h3>Agent Fidélisation</h3>
-            <p>Transforme vos acheteurs ponctuels en clients réguliers grâce à des campagnes de réachat ultra-personnalisées.</p>
-            <ul><li>Prédiction du prochain achat</li><li>Programmes VIP automatisés</li><li>Réactivation des clients inactifs</li></ul>
-            <span class="agent-card__result">Résultat : valeur client ↑</span>
-          </article>
-
-          <article class="agent-card reveal">
-            <div class="agent-card__icon">⭐</div>
-            <h3>Agent Avis & Réputation</h3>
-            <p>Collecte des avis clients, répond à chacun et transforme la preuve sociale en argument de vente.</p>
-            <ul><li>Demandes d'avis au moment idéal</li><li>Réponses automatiques et soignées</li><li>Détection des clients mécontents</li></ul>
-            <span class="agent-card__result">Résultat : confiance & conversions</span>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== Fonctionnement ===== -->
-    <section class="section section--alt" id="fonctionnement">
-      <div class="container">
-        <div class="section__head reveal">
-          <span class="eyebrow">Comment ça marche</span>
-          <h2>De l'audit aux premières ventes en 7 jours</h2>
-        </div>
+    <!-- Comment ça marche -->
+    <section class="section" aria-labelledby="how-title">
+      <div class="wrap">
+        <h2 id="how-title">Comment ça marche</h2>
         <ol class="steps">
-          <li class="step reveal">
+          <li class="step">
             <span class="step__num">1</span>
-            <h3>Audit gratuit</h3>
-            <p>Nous analysons votre boutique, votre trafic et vos données pour identifier les ventes que vous laissez passer.</p>
+            <span class="step__when">Jours 1-2</span>
+            <h3>Audit</h3>
+            <p>On analyse ta boutique et on repère où tu perds des ventes.</p>
           </li>
-          <li class="step reveal">
+          <li class="step">
             <span class="step__num">2</span>
-            <h3>Connexion & entraînement</h3>
-            <p>Nos agents se connectent à votre boutique et apprennent votre catalogue, votre ton et vos clients.</p>
+            <span class="step__when">Jours 3-5</span>
+            <h3>Configuration</h3>
+            <p>On connecte l'agent à ton catalogue, tes délais et ta politique de retour. On l'aligne sur le ton de ta marque.</p>
           </li>
-          <li class="step reveal">
+          <li class="step">
             <span class="step__num">3</span>
-            <h3>Lancement</h3>
-            <p>Les agents se mettent au travail : prospection, relances, conversations, campagnes. 24h/24.</p>
+            <span class="step__when">Jour 7</span>
+            <h3>Mise en ligne</h3>
+            <p>L'agent est actif sur une partie de ton trafic, en A/B test, pour mesurer son vrai impact.</p>
           </li>
-          <li class="step reveal">
+          <li class="step">
             <span class="step__num">4</span>
-            <h3>Vous encaissez</h3>
-            <p>Suivez chaque client et chaque euro généré en temps réel. Vous ne payez qu'une commission sur les résultats.</p>
+            <span class="step__when">Chaque mois</span>
+            <h3>Rapport et optimisation</h3>
+            <p>Tu reçois les ventes récupérées, les objections repérées et les optimisations faites.</p>
           </li>
         </ol>
       </div>
     </section>
 
-    <!-- ===== Simulateur ROI ===== -->
-    <section class="section" id="simulateur">
-      <div class="container simulator">
-        <div class="simulator__intro reveal">
-          <span class="eyebrow">Simulateur</span>
-          <h2>Combien nos agents peuvent-ils vous rapporter ?</h2>
-          <p>Renseignez vos chiffres actuels. L'estimation est basée sur les résultats moyens constatés chez nos clients.</p>
-        </div>
-        <form class="simulator__form reveal" id="simForm" onsubmit="return false;">
-          <label>
-            <span>Visiteurs par mois <output id="visitorsOut">20 000</output></span>
-            <input type="range" id="visitors" min="1000" max="200000" step="1000" value="20000">
-          </label>
-          <label>
-            <span>Panier moyen <output id="basketOut">65 €</output></span>
-            <input type="range" id="basket" min="15" max="500" step="5" value="65">
-          </label>
-          <label>
-            <span>Taux de conversion actuel <output id="convOut">1,5 %</output></span>
-            <input type="range" id="conv" min="0.3" max="5" step="0.1" value="1.5">
-          </label>
-          <div class="simulator__result">
-            <div>
-              <span class="simulator__label">CA additionnel estimé / mois</span>
-              <span class="simulator__value" id="simRevenue">—</span>
-            </div>
-            <div>
-              <span class="simulator__label">Nouveaux clients estimés / mois</span>
-              <span class="simulator__value simulator__value--sm" id="simClients">—</span>
-            </div>
-            <div>
-              <span class="simulator__label">Ce qui vous reste après notre commission</span>
-              <span class="simulator__value simulator__value--sm" id="simNet">—</span>
-            </div>
-            <a href="#contact" class="btn btn--primary btn--block">Obtenir ces résultats →</a>
-          </div>
-        </form>
+    <!-- Ce que tu reçois -->
+    <section class="section section--rule" aria-labelledby="get-title">
+      <div class="wrap get">
+        <h2 id="get-title">Ce que tu reçois</h2>
+        <ul class="list list--tri get__list">
+          <li><strong>Un vendeur IA sur ton site</strong>, qui connaît ton catalogue, tes délais et tes conditions de retour.</li>
+          <li><strong>Un déclenchement au bon moment</strong> : sur la fiche produit, à la sortie de page, dans le panier.</li>
+          <li><strong>La relance des paniers par WhatsApp et email</strong>, auprès des clients qui ont donné leur accord.</li>
+          <li><strong>Un rapport mensuel chiffré</strong> des ventes récupérées.</li>
+          <li><strong>Des recommandations pour tes fiches produits</strong>, à partir des vraies questions de tes clients.</li>
+        </ul>
       </div>
     </section>
 
-    <!-- ===== Résultats / études de cas ===== -->
-    <section class="section section--alt" id="resultats">
-      <div class="container">
-        <div class="section__head reveal">
-          <span class="eyebrow">Résultats clients</span>
-          <h2>Ils nous ont confié leur croissance</h2>
-        </div>
-        <div class="cases">
-          <article class="case reveal">
-            <div class="case__tag">Mode · Shopify</div>
-            <div class="case__metric">+187 %</div>
-            <p class="case__metric-label">de chiffre d'affaires en 4 mois</p>
-            <blockquote>« L'agent de relance a récupéré plus de ventes en un mois que notre ancienne agence en un an. Et on ne paie que sur les résultats. »</blockquote>
-            <p class="case__author"><strong>Camille R.</strong> — Fondatrice, marque de prêt-à-porter</p>
-          </article>
-          <article class="case reveal">
-            <div class="case__tag">Cosmétique · WooCommerce</div>
-            <div class="case__metric">1 240</div>
-            <p class="case__metric-label">nouveaux clients le premier trimestre</p>
-            <blockquote>« L'agent vendeur répond à nos clientes la nuit et le week-end. Notre taux de conversion a doublé. »</blockquote>
-            <p class="case__author"><strong>Sofiane B.</strong> — CEO, cosmétiques naturels</p>
-          </article>
-          <article class="case reveal">
-            <div class="case__tag">Maison & Déco · PrestaShop</div>
-            <div class="case__metric">-42 %</div>
-            <p class="case__metric-label">de coût d'acquisition client</p>
-            <blockquote>« L'agent publicité optimise nos campagnes en continu. On a coupé notre budget pub et vendu plus. »</blockquote>
-            <p class="case__author"><strong>Julie M.</strong> — Directrice e-commerce, déco</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== Tarifs ===== -->
-    <section class="section" id="tarifs">
-      <div class="container">
-        <div class="section__head reveal">
-          <span class="eyebrow">Tarifs</span>
-          <h2>Vous payez les résultats. Pas les promesses.</h2>
-          <p>Choisissez le modèle qui vous convient. Tous les plans sont sans engagement.</p>
-        </div>
-
-        <div class="pricing">
-          <div class="plan reveal">
-            <h3>Performance</h3>
-            <p class="plan__desc">100 % au résultat, idéal pour démarrer sans risque.</p>
-            <div class="plan__price">0 €<span>/mois</span></div>
-            <p class="plan__commission">+ 15 % du CA généré par les agents</p>
-            <ul>
-              <li>Agent Relance Paniers</li>
-              <li>Agent Vendeur & SAV</li>
-              <li>Tableau de bord temps réel</li>
-              <li>Support par email</li>
-            </ul>
-            <a href="#contact" class="btn btn--ghost btn--block" data-plan="Performance">Commencer</a>
+    <!-- Garantie -->
+    <section class="section guarantee" id="garantie" aria-labelledby="guarantee-title">
+      <div class="wrap">
+        <h2 id="guarantee-title">Deux garanties, écrites noir sur blanc.</h2>
+        <div class="guarantee__grid">
+          <div class="guarantee__item">
+            <span class="guarantee__day">Jour 7</span>
+            <p>Si ton agent n'est pas en ligne au jour 7, ton premier mois est offert.</p>
           </div>
-
-          <div class="plan plan--featured reveal">
-            <span class="plan__badge">Le plus choisi</span>
-            <h3>Croissance</h3>
-            <p class="plan__desc">Pour accélérer l'acquisition de nouveaux clients.</p>
-            <div class="plan__price">490 €<span>/mois</span></div>
-            <p class="plan__commission">+ 8 % du CA généré par les agents</p>
-            <ul>
-              <li>Tout le plan Performance</li>
-              <li>Agent Prospection</li>
-              <li>Agent Publicité</li>
-              <li>Agent Fidélisation</li>
-              <li>Account manager dédié</li>
-            </ul>
-            <a href="#contact" class="btn btn--primary btn--block" data-plan="Croissance">Choisir Croissance</a>
-          </div>
-
-          <div class="plan reveal">
-            <h3>Garantie Clients</h3>
-            <p class="plan__desc">Nous vendons directement des clients qualifiés.</p>
-            <div class="plan__price">Sur devis</div>
-            <p class="plan__commission">Prix fixe par nouveau client acquis</p>
-            <ul>
-              <li>Tous les agents IA</li>
-              <li>Volume de clients garanti</li>
-              <li>Remboursé si objectif non atteint</li>
-              <li>Stratégie sur mesure</li>
-            </ul>
-            <a href="#contact" class="btn btn--ghost btn--block" data-plan="Garantie Clients">Demander un devis</a>
+          <div class="guarantee__item">
+            <span class="guarantee__day">Jour 30</span>
+            <p>Si après 30 jours les ventes attribuées à l'agent, mesurées en A/B test, ne couvrent pas son coût, le mois est offert.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== FAQ ===== -->
-    <section class="section section--alt" id="faq">
-      <div class="container container--narrow">
-        <div class="section__head reveal">
-          <span class="eyebrow">FAQ</span>
-          <h2>Questions fréquentes</h2>
-        </div>
+    <!-- Prix : généré depuis config.js -->
+    <section class="section" id="prix" aria-labelledby="price-title">
+      <div class="wrap">
+        <h2 id="price-title">Prix</h2>
+        <p class="lead lead--small">Même budget pub, plus de ventes. Choisis le niveau d'accompagnement.</p>
+        <div class="pricing" id="pricing"></div>
+        <noscript><p>Active JavaScript pour afficher la grille de prix, ou réserve ton audit pour la recevoir.</p></noscript>
+        <ul class="pricing__notes" id="pricing-notes"></ul>
+      </div>
+    </section>
+
+    <!-- À propos -->
+    <section class="section section--rule" aria-labelledby="about-title">
+      <div class="wrap wrap--text">
+        <h2 id="about-title">Pourquoi Autoflow</h2>
+        <p class="lead lead--small">Autoflow est une agence spécialisée dans les agents comportementaux. On applique à ta boutique en ligne ce qu'un bon vendeur fait en magasin : il écoute, il répond à la vraie question, il lève le doute, puis il propose. Sans brader ta marge.</p>
+      </div>
+    </section>
+
+    <!-- Témoignages : masqué tant qu'il n'y a pas de vrais clients. Retirer l'attribut hidden pour l'afficher. -->
+    <section class="section" id="temoignages" hidden aria-labelledby="proof-title">
+      <div class="wrap">
+        <h2 id="proof-title">Ils l'utilisent</h2>
+        <!-- [EMPLACEMENT] Témoignages et études de cas réels uniquement. -->
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section--rule" id="faq" aria-labelledby="faq-title">
+      <div class="wrap wrap--text">
+        <h2 id="faq-title">Questions fréquentes</h2>
         <div class="faq">
-          <details class="reveal">
-            <summary>Comment mesurez-vous le chiffre d'affaires généré par vos agents ?</summary>
-            <p>Chaque interaction de nos agents (message, relance, campagne, conversation) est tracée. Une vente est attribuée à un agent uniquement si le client a interagi avec lui avant son achat. Tout est visible et vérifiable dans votre tableau de bord.</p>
+          <details>
+            <summary>L'agent peut-il dire n'importe quoi ?</summary>
+            <p>Non. Il ne répond qu'avec les données de ta boutique. S'il ne sait pas, il passe la main à un humain.</p>
           </details>
-          <details class="reveal">
-            <summary>Faut-il des compétences techniques pour installer les agents ?</summary>
-            <p>Non. Notre équipe s'occupe de tout. Il vous suffit de nous donner un accès à votre boutique ; la connexion prend quelques minutes sur Shopify, WooCommerce, PrestaShop ou Wix.</p>
+          <details>
+            <summary>Mes clients sauront-ils que c'est une IA ?</summary>
+            <p>Oui, c'est indiqué clairement. C'est une obligation légale, et ça n'empêche pas de vendre.</p>
           </details>
-          <details class="reveal">
-            <summary>Les messages envoyés sont-ils conformes au RGPD ?</summary>
-            <p>Oui. Nos agents respectent le RGPD : consentement, désinscription en un clic, hébergement des données en Europe et aucune revente de vos données clients.</p>
+          <details>
+            <summary>Ça marche avec mon thème Shopify ?</summary>
+            <p>Oui. L'agent s'installe sur tous les thèmes Shopify.</p>
           </details>
-          <details class="reveal">
-            <summary>Les agents parlent-ils avec le ton de ma marque ?</summary>
-            <p>Absolument. Pendant la phase d'entraînement, les agents apprennent votre catalogue, vos conditions de vente et votre style de communication. Vous validez les messages avant le lancement.</p>
+          <details>
+            <summary>Et les données de mes clients (RGPD) ?</summary>
+            <p>Les données sont hébergées et traitées conformément au RGPD. Les relances WhatsApp et SMS ne concernent que les clients qui ont donné leur accord.</p>
           </details>
-          <details class="reveal">
-            <summary>Que se passe-t-il si les résultats ne sont pas au rendez-vous ?</summary>
-            <p>Sur le plan Performance, vous ne payez rien. Sur le plan Garantie Clients, nous vous remboursons si l'objectif contractuel n'est pas atteint. Et tous nos plans sont sans engagement.</p>
+          <details>
+            <summary>Combien de temps ça me prend ?</summary>
+            <p>Un appel d'une heure pour l'audit, puis quelques validations pendant la semaine de configuration.</p>
+          </details>
+          <details>
+            <summary>Et si ça ne rapporte rien ?</summary>
+            <p>Si après 30 jours les ventes attribuées à l'agent ne couvrent pas son coût, le mois est offert. <a href="#garantie">Voir la garantie</a>.</p>
+          </details>
+          <details>
+            <summary>Pouvez-vous garantir un taux de conversion ?</summary>
+            <p>Non, et personne d'honnête ne le peut : il dépend aussi de ton trafic, de tes prix et de tes fiches produits. On garantit que l'agent rapporte plus qu'il ne coûte, sinon le mois est offert.</p>
           </details>
         </div>
       </div>
     </section>
 
-    <!-- ===== Contact ===== -->
-    <section class="section cta" id="contact">
-      <div class="container cta__inner">
-        <div class="cta__text reveal">
-          <h2>Prêt à laisser l'IA remplir votre carnet de commandes ?</h2>
-          <p>Réservez votre audit gratuit de 30 minutes. Nous vous montrons précisément combien de ventes vos agents peuvent générer.</p>
-          <ul class="cta__list">
-            <li>✓ Analyse de votre boutique offerte</li>
-            <li>✓ Estimation chiffrée de votre potentiel</li>
-            <li>✓ Aucune carte bancaire requise</li>
-          </ul>
-        </div>
-
-        <form class="contact-form reveal" id="contactForm" novalidate>
-          <div class="form-row">
-            <label>Prénom et nom<input type="text" name="name" required placeholder="Camille Durand"></label>
-          </div>
-          <div class="form-row form-row--2">
-            <label>Email professionnel<input type="email" name="email" required placeholder="camille@maboutique.fr"></label>
-            <label>Téléphone<input type="tel" name="phone" placeholder="06 12 34 56 78"></label>
-          </div>
-          <div class="form-row">
-            <label>URL de votre boutique<input type="url" name="shop" required placeholder="https://maboutique.fr"></label>
-          </div>
-          <div class="form-row form-row--2">
-            <label>CA mensuel actuel
-              <select name="revenue">
-                <option>Moins de 10 k€</option>
-                <option selected>10 k€ – 50 k€</option>
-                <option>50 k€ – 200 k€</option>
-                <option>Plus de 200 k€</option>
-              </select>
-            </label>
-            <label>Offre souhaitée
-              <select name="plan" id="planSelect">
-                <option>Performance</option>
-                <option selected>Croissance</option>
-                <option>Garantie Clients</option>
-                <option>Je ne sais pas encore</option>
-              </select>
-            </label>
-          </div>
-          <div class="form-row">
-            <label>Votre objectif principal<textarea name="message" rows="3" placeholder="Ex : trouver plus de nouveaux clients, récupérer mes paniers abandonnés…"></textarea></label>
-          </div>
-          <button type="submit" class="btn btn--primary btn--block btn--lg">Réserver mon audit gratuit</button>
-          <p class="form-note">🔒 Vos données restent confidentielles.</p>
-          <div class="form-success" id="formSuccess" hidden>
-            <strong>Merci !</strong> Votre demande a bien été envoyée. Un expert vous contacte sous 24 h.
-          </div>
-        </form>
+    <!-- Appel final -->
+    <section class="final" id="reserver">
+      <div class="wrap final__inner">
+        <h2>Combien de ventes ta boutique perd-elle cette nuit&nbsp;?</h2>
+        <a class="btn btn--large btn--inverse js-book" href="#reserver">Réserver mon audit offert</a>
       </div>
     </section>
   </main>
 
-  <!-- ===== Pied de page ===== -->
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div>
-        <a href="#" class="logo"><span class="logo__mark">⚡</span> Nexa<span class="logo__accent">Agents</span></a>
-        <p class="footer__tagline">Des agents IA qui vendent pour les e-commerçants.</p>
-      </div>
-      <div class="footer__links">
-        <a href="#agents">Agents IA</a>
-        <a href="#tarifs">Tarifs</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <p class="footer__copy">© <span id="year"></span> Nexa Agents. Tous droits réservés. · Mentions légales · Confidentialité</p>
+  <footer class="site-footer">
+    <div class="wrap site-footer__inner">
+      <span class="logo logo--footer">
+        <img src="assets/AUTOFLOW.png" alt="Autoflow" width="120" height="24" onload="this.parentNode.classList.add('logo--img')">
+        <span class="logo__text" aria-hidden="true">AUTOFLOW<span class="tri"></span></span>
+      </span>
+      <a class="js-email" href="mailto:contact@autoflow.fr">contact@autoflow.fr</a>
+      <nav class="site-footer__legal" aria-label="Informations légales">
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="confidentialite.html">Politique de confidentialité</a>
+      </nav>
     </div>
   </footer>
 
+  <script src="config.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
