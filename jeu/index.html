@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>La Lanterne d'Ilia</title>
-  <meta name="description" content="Fais pivoter les cristaux pour guider la lumière d'Ilia jusqu'aux graines endormies et réveiller le Grand Chêne. 14 énigmes, une histoire.">
+  <meta name="description" content="Guide la lumière d'Ilia à travers 30 énigmes, restaure le village, accomplis les missions des villageois et relève les défis du jour.">
   <meta name="theme-color" content="#120c10">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23120c10%22/%3E%3Crect x=%2210%22 y=%228%22 width=%2212%22 height=%2216%22 rx=%222%22 fill=%22%23f2a63b%22/%3E%3Crect x=%228%22 y=%226%22 width=%2216%22 height=%223%22 fill=%22%238a5a2b%22/%3E%3Crect x=%228%22 y=%2224%22 width=%2216%22 height=%223%22 fill=%22%238a5a2b%22/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,13 +14,13 @@
 </head>
 <body>
   <main class="stage">
-    <canvas id="scene" aria-label="Plateau de jeu : grotte, cristaux et graines"></canvas>
+    <canvas id="scene" aria-label="Le village de Brume-sous-Chêne et les grottes sous ses racines"></canvas>
 
     <!-- Barre du niveau -->
     <header class="topbar" id="topbar" hidden>
       <button class="chip" id="btn-map" type="button">Village</button>
       <div class="lvl-title"><small id="lvl-chapter"></small><span id="lvl-name"></span></div>
-      <div class="moves"><strong id="moves">0</strong><small>gestes</small></div>
+      <div class="moves"><strong id="moves">0</strong><small id="moves-lbl">gestes</small></div>
     </header>
     <footer class="bottombar" id="bottombar" hidden>
       <p class="tip" id="tip"></p>
@@ -30,19 +30,54 @@
       </div>
     </footer>
 
-    <!-- Village : choix des énigmes -->
+    <!-- Village -->
     <section class="sheet" id="menu" hidden>
-      <h1>La Lanterne d'Ilia</h1>
-      <p class="oda" id="oda"></p>
-      <p class="progress" id="progress"></p>
-      <button class="btn-main" id="btn-play" type="button">Continuer</button>
-      <div id="chapters"></div>
-      <details class="book">
-        <summary>Carnet d'Ilia</summary>
-        <div id="journal"></div>
-      </details>
-      <button class="btn-link" id="btn-reset" type="button">Recommencer l'histoire</button>
+      <div class="sheet-head">
+        <h1>La Lanterne d'Ilia</h1>
+        <div class="wallet">
+          <span title="Éclats de lumière"><strong id="eclats">0</strong> éclats</span>
+          <span><strong id="hints">0</strong> indices</span>
+        </div>
+      </div>
+      <nav class="tabs" role="tablist" aria-label="Sections du village">
+        <button type="button" role="tab" id="tabbtn-enigmes" data-tab="enigmes" aria-selected="true">Énigmes</button>
+        <button type="button" role="tab" id="tabbtn-village" data-tab="village" aria-selected="false">Village</button>
+        <button type="button" role="tab" id="tabbtn-missions" data-tab="missions" aria-selected="false">Missions <span class="badge" id="mission-badge" hidden></span></button>
+        <button type="button" role="tab" id="tabbtn-defis" data-tab="defis" aria-selected="false">Défis</button>
+      </nav>
+
+      <div class="tab" id="tab-enigmes" role="tabpanel" aria-labelledby="tabbtn-enigmes">
+        <p class="oda" id="oda"></p>
+        <p class="progress" id="progress"></p>
+        <button class="btn-main" id="btn-play" type="button">Commencer</button>
+        <div id="chapters"></div>
+        <details class="book">
+          <summary>Carnet d'Ilia</summary>
+          <div id="journal"></div>
+        </details>
+        <button class="btn-link" id="btn-reset" type="button">Recommencer l'histoire</button>
+      </div>
+
+      <div class="tab" id="tab-village" role="tabpanel" aria-labelledby="tabbtn-village" hidden>
+        <p class="oda">Chaque bâtiment restauré ramène un peu de vie au village, et t'aide sous terre.</p>
+        <div class="buildings" id="buildings"></div>
+        <h2 class="sub">Style de lanterne</h2>
+        <div class="styles" id="styles"></div>
+      </div>
+
+      <div class="tab" id="tab-missions" role="tabpanel" aria-labelledby="tabbtn-missions" hidden>
+        <p class="oda">Les villageois ont besoin de toi. Réclame ta récompense quand une mission est accomplie.</p>
+        <ul class="missions" id="missions"></ul>
+      </div>
+
+      <div class="tab" id="tab-defis" role="tabpanel" aria-labelledby="tabbtn-defis" hidden>
+        <div class="defi" id="daily"></div>
+        <div class="defi" id="free"></div>
+        <p class="progress" id="defi-stats"></p>
+      </div>
     </section>
+
+    <p class="toast" id="toast" hidden role="status"></p>
 
     <!-- Pages de l'histoire -->
     <div class="overlay" id="story" hidden role="dialog" aria-modal="true" aria-labelledby="story-title">
@@ -60,11 +95,17 @@
         <p class="kicker" id="win-kicker"></p>
         <h2 id="win-title"></h2>
         <p class="win-stats" id="win-stats"></p>
+        <ul class="rewards" id="win-rewards"></ul>
         <div class="card-actions">
           <button class="btn-main" id="win-next" type="button">Énigme suivante</button>
           <button class="btn-link" id="win-replay" type="button">Rejouer cette énigme</button>
         </div>
       </div>
+    </div>
+
+    <!-- Préparation d'un défi -->
+    <div class="overlay" id="loading" hidden>
+      <div class="card"><p class="story-text">Les cristaux se réarrangent…</p></div>
     </div>
   </main>
   <script src="jeu.js"></script>

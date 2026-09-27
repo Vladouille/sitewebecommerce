@@ -164,6 +164,126 @@ button:focus-visible, summary:focus-visible { outline: 3px solid var(--mousse); 
 .chapter h3 { margin: 0; font: italic 18px var(--titre); color: var(--ambre); }
 .chapter p { margin: 4px 0 0; font-size: 15px; color: var(--pale); }
 
+/* En-tête du village, onglets */
+.sheet-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+.wallet { display: flex; gap: 14px; font-size: 15px; color: var(--pale); font-variant-numeric: tabular-nums; }
+.wallet strong { color: var(--ambre); font-size: 18px; }
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin-top: 14px;
+  padding: 4px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+}
+.tabs button {
+  position: relative;
+  padding: 9px 2px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--pale);
+  font-weight: 700;
+  font-size: 15px;
+}
+.tabs button[aria-selected="true"] { background: rgba(242, 166, 59, 0.18); color: var(--parchemin); }
+.badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: #8fd46b;
+  color: #13200b;
+  font-size: 12px;
+  font-weight: 800;
+}
+.tab > * + * { margin-top: 12px; }
+.tab { margin-top: 14px; }
+h2.sub { font-size: 22px; margin-top: 22px; }
+
+/* Bâtiments */
+.buildings { display: grid; gap: 4px; }
+.building {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 12px;
+  align-items: center;
+  padding: 10px 2px;
+  border-bottom: 1px solid rgba(189, 169, 138, 0.2);
+}
+.building h3 { margin: 0; font-size: 17px; }
+.building h3 small { font-weight: 400; color: var(--pale); font-size: 14px; }
+.building p { margin: 0; font-size: 14px; color: var(--pale); }
+.building .pips { display: flex; gap: 3px; margin-top: 4px; }
+.building .pips i { width: 16px; height: 5px; border-radius: 2px; background: rgba(189, 169, 138, 0.25); }
+.building .pips i.on { background: var(--ambre); }
+.building button, .mission button, .defi button.small {
+  grid-row: 1 / span 3;
+  grid-column: 2;
+  min-width: 100px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--ambre);
+  background: transparent;
+  color: var(--ambre);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.building button:disabled, .mission button:disabled { border-color: rgba(189, 169, 138, 0.3); color: rgba(189, 169, 138, 0.55); cursor: default; }
+.styles { display: flex; flex-wrap: wrap; gap: 8px; }
+.styles button { display: flex; align-items: center; gap: 8px; }
+.styles button[aria-pressed="true"] { border-color: var(--ambre); color: var(--ambre); }
+.styles i { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
+
+/* Missions */
+.missions { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; }
+.mission {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 12px;
+  align-items: center;
+  padding: 10px 2px;
+  border-bottom: 1px solid rgba(189, 169, 138, 0.2);
+}
+.mission .who { font-size: 13px; color: var(--pale); letter-spacing: 0.04em; }
+.mission .what { font-size: 16px; }
+.mission .bar { height: 5px; border-radius: 3px; background: rgba(189, 169, 138, 0.2); overflow: hidden; margin-top: 4px; }
+.mission .bar i { display: block; height: 100%; background: var(--ambre); }
+.mission.ready button { background: var(--ambre); color: #2a1606; }
+.mission.claimed { opacity: 0.55; }
+
+/* Défis */
+.defi { padding: 14px; border: 1px solid rgba(189, 169, 138, 0.25); border-radius: 14px; }
+.defi h2 { font-size: 22px; }
+.defi p { margin: 6px 0 12px; color: var(--pale); font-size: 15px; }
+.defi .row { display: flex; flex-wrap: wrap; gap: 8px; }
+.defi .row .chip { flex: 1; min-width: 90px; }
+
+/* Récompenses et notifications */
+.rewards { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 4px; }
+.rewards li { display: flex; justify-content: space-between; gap: 12px; font-size: 16px; }
+.rewards li span:last-child { color: var(--ambre); font-weight: 800; }
+.toast {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  right: 16px;
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #8fd46b;
+  background: rgba(20, 30, 14, 0.95);
+  color: var(--parchemin);
+  font-size: 15px;
+  z-index: 5;
+  animation: toast 4s ease forwards;
+  pointer-events: none;
+}
+@keyframes toast { 0% { opacity: 0; transform: translateY(-8px); } 10%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+
 /* Histoire et victoire */
 .overlay {
   position: absolute;
@@ -191,6 +311,6 @@ button:focus-visible, summary:focus-visible { outline: 3px solid var(--mousse); 
 @keyframes page { from { opacity: 0; transform: translateY(10px); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .card { animation: none; }
+  .card, .toast { animation: none; }
   .btn-main:active { transform: none; }
 }
