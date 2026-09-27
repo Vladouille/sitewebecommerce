@@ -46,9 +46,10 @@ sont calculés automatiquement à partir des prix et des volumes de conversation
 Vercel ou Netlify : importe le dépôt, sans commande de build, dossier de publication = racine.
 
 ## Mini-jeu « La Lanterne d'Ilia » (`jeu/`)
-Jeu de descente et de remontée, indépendant de la landing (aucun lien depuis la page). Ouvre http://localhost:8000/jeu/.
-Histoire : le Grand Chêne du village a perdu ses feuilles. Ilia descend dans le vieux puits pour rapporter le Cœur-Graine (1 050 m).
-Descends sans rien toucher, puis attrape lucioles, graines, champignons-lunes, perles, cristaux et braises en remontant.
-Attention aux araignées et aux chauves-souris. Cinq zones, un chapitre par zone découverte, et un village qui reverdit.
-Chez le forgeron : corde, lanterne (rayon de lumière), panier, charme d'écorce (bouclier) et poulie.
-Réglages et textes de l'histoire : constantes en haut de `jeu/jeu.js`. Progression sauvegardée dans le navigateur.
+Jeu d'énigmes de lumière, indépendant de la landing (aucun lien depuis la page). Ouvre http://localhost:8000/jeu/.
+Histoire : le Grand Chêne a perdu ses feuilles. Ilia descend sous ses racines et réveille les graines endormies avec la lumière de sa lanterne.
+On fait pivoter des cristaux pour guider le rayon. 14 énigmes en 5 chapitres, chacun avec une nouvelle mécanique :
+miroirs, cristaux enracinés et cristaux doubles, lumière de lune (bleue), cloches qui ouvrent des portes de racines,
+et le Cœur-Graine qui demande les deux lumières. Indices, nombre minimal de gestes, feuille « parfait » par énigme.
+Les niveaux et la légende des symboles sont en haut de `jeu/jeu.js`. Chaque niveau a été vérifié par un solveur
+(au moins une solution ; `par` = nombre minimal de gestes). Progression sauvegardée dans le navigateur.

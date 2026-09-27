@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>La Lanterne d'Ilia</title>
-  <meta name="description" content="Descends dans le vieux puits avec la lanterne d'Ilia, rapporte les trésors des racines et rends la vie au Grand Chêne.">
+  <meta name="description" content="Fais pivoter les cristaux pour guider la lumière d'Ilia jusqu'aux graines endormies et réveiller le Grand Chêne. 14 énigmes, une histoire.">
   <meta name="theme-color" content="#120c10">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23120c10%22/%3E%3Crect x=%2210%22 y=%228%22 width=%2212%22 height=%2216%22 rx=%222%22 fill=%22%23f2a63b%22/%3E%3Crect x=%228%22 y=%226%22 width=%2216%22 height=%223%22 fill=%22%238a5a2b%22/%3E%3Crect x=%228%22 y=%2224%22 width=%2216%22 height=%223%22 fill=%22%238a5a2b%22/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,55 +14,56 @@
 </head>
 <body>
   <main class="stage">
-    <canvas id="scene" aria-label="Le puits et les grottes sous le Grand Chêne"></canvas>
+    <canvas id="scene" aria-label="Plateau de jeu : grotte, cristaux et graines"></canvas>
 
-    <div class="hud" id="hud" hidden>
-      <div><strong id="hud-depth">0</strong> m <span class="hud-label">/ <span id="hud-max">0</span> m</span></div>
-      <div><span class="hud-label">Panier</span> <strong id="hud-hold">0/0</strong></div>
-      <div><span class="hud-label">Écorce</span> <strong id="hud-shield">0</strong></div>
-    </div>
-    <p class="toast" id="toast" hidden><small id="toast-sub"></small><span id="toast-name"></span></p>
-    <p class="hint" id="hint" hidden></p>
+    <!-- Barre du niveau -->
+    <header class="topbar" id="topbar" hidden>
+      <button class="chip" id="btn-map" type="button">Village</button>
+      <div class="lvl-title"><small id="lvl-chapter"></small><span id="lvl-name"></span></div>
+      <div class="moves"><strong id="moves">0</strong><small>gestes</small></div>
+    </header>
+    <footer class="bottombar" id="bottombar" hidden>
+      <p class="tip" id="tip"></p>
+      <div class="actions">
+        <button class="chip" id="btn-hint" type="button">Indice</button>
+        <button class="chip" id="btn-restart" type="button">Recommencer</button>
+      </div>
+    </footer>
 
-    <!-- Village : écran principal et forgeron -->
+    <!-- Village : choix des énigmes -->
     <section class="sheet" id="menu" hidden>
       <h1>La Lanterne d'Ilia</h1>
       <p class="oda" id="oda"></p>
-      <p class="purse">Bourse : <strong id="purse">0</strong> sous</p>
-      <button class="btn-main" id="btn-dive" type="button">Descendre dans le puits</button>
-      <p class="controls">Glisse le doigt ou utilise ← → pour guider la lanterne.</p>
-
-      <h2>Chez le forgeron</h2>
-      <div class="shop" id="shop"></div>
-
+      <p class="progress" id="progress"></p>
+      <button class="btn-main" id="btn-play" type="button">Continuer</button>
+      <div id="chapters"></div>
       <details class="book">
         <summary>Carnet d'Ilia</summary>
         <div id="journal"></div>
       </details>
-      <details class="book">
-        <summary>Trouvailles <span id="codex-count"></span></summary>
-        <ul class="list" id="codex"></ul>
-      </details>
-      <p class="records" id="records"></p>
       <button class="btn-link" id="btn-reset" type="button">Recommencer l'histoire</button>
     </section>
 
-    <!-- Bilan de la descente -->
-    <section class="sheet" id="result" hidden>
-      <h2 id="result-title">De retour au village</h2>
-      <p class="oda" id="result-sub"></p>
-      <ul class="list" id="haul"></ul>
-      <p class="total">Le marché t'en donne <strong id="haul-total">0</strong> sous</p>
-      <button class="btn-main" id="btn-back" type="button">Continuer</button>
-    </section>
-
     <!-- Pages de l'histoire -->
-    <div class="story" id="story" hidden role="dialog" aria-modal="true" aria-labelledby="story-title">
-      <div class="story-card">
-        <p class="story-kicker" id="story-kicker"></p>
+    <div class="overlay" id="story" hidden role="dialog" aria-modal="true" aria-labelledby="story-title">
+      <div class="card">
+        <p class="kicker" id="story-kicker"></p>
         <h2 id="story-title"></h2>
-        <p id="story-text"></p>
+        <p class="story-text" id="story-text"></p>
         <button class="btn-main" id="story-next" type="button">Continuer</button>
+      </div>
+    </div>
+
+    <!-- Énigme résolue -->
+    <div class="overlay" id="win" hidden role="dialog" aria-modal="true" aria-labelledby="win-title">
+      <div class="card">
+        <p class="kicker" id="win-kicker"></p>
+        <h2 id="win-title"></h2>
+        <p class="win-stats" id="win-stats"></p>
+        <div class="card-actions">
+          <button class="btn-main" id="win-next" type="button">Énigme suivante</button>
+          <button class="btn-link" id="win-replay" type="button">Rejouer cette énigme</button>
+        </div>
       </div>
     </div>
   </main>
