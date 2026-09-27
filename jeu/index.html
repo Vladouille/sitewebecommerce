@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Pêcheur d'étoiles</title>
+  <meta name="description" content="Descends ta sonde au fond de la nébuleuse, remonte en attrapant des étoiles, améliore ton vaisseau.">
+  <meta name="theme-color" content="#0b0820">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230b0820%22/%3E%3Cpath d=%22M16 4l3 9 9 3-9 3-3 9-3-9-9-3 9-3z%22 fill=%22%23ffd66b%22/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="jeu.css">
+</head>
+<body>
+  <main class="stage" id="stage">
+    <canvas id="ciel" aria-label="Zone de jeu : la nébuleuse"></canvas>
+
+    <div class="hud" id="hud" hidden>
+      <div><span class="hud-label">Profondeur</span> <strong id="hud-depth">0</strong> m <span class="hud-dim">/ <span id="hud-max">0</span></span></div>
+      <div><span class="hud-label">Soute</span> <strong id="hud-hold">0/0</strong></div>
+      <div><span class="hud-label">Bouclier</span> <strong id="hud-shield">0</strong></div>
+    </div>
+    <p class="hint" id="hint" hidden></p>
+
+    <!-- Hangar : écran principal et boutique -->
+    <section class="panel" id="menu">
+      <h1>Pêcheur d'étoiles</h1>
+      <p class="lead">Descends ta sonde dans la nébuleuse <strong>sans rien toucher</strong>.
+        Dès qu'elle heurte quelque chose ou arrive au bout du câble, elle remonte :
+        <strong>attrape tout ce que tu peux</strong> sur le chemin du retour.</p>
+      <p class="credits">Poussière d'or : <strong id="credits">0</strong> ✦</p>
+      <button class="btn-main" id="btn-dive" type="button">Lancer la sonde</button>
+      <p class="controls">Glisse le doigt ou utilise ← → pour diriger la sonde.</p>
+
+      <h2>Atelier</h2>
+      <div class="shop" id="shop"></div>
+
+      <details class="codex">
+        <summary>Carnet d'observation <span id="codex-count"></span></summary>
+        <ul id="codex"></ul>
+      </details>
+      <p class="records" id="records"></p>
+      <button class="btn-link" id="btn-reset" type="button">Effacer la partie</button>
+    </section>
+
+    <!-- Bilan de la plongée -->
+    <section class="panel" id="result" hidden>
+      <h2 id="result-title">Retour au vaisseau</h2>
+      <p id="result-sub" class="lead"></p>
+      <ul class="haul" id="haul"></ul>
+      <p class="total">Total : <strong id="haul-total">0</strong> ✦</p>
+      <button class="btn-main" id="btn-back" type="button">Retour à l'atelier</button>
+    </section>
+  </main>
+  <script src="jeu.js"></script>
+</body>
+</html>

@@ -44,3 +44,10 @@ sont calculés automatiquement à partir des prix et des volumes de conversation
 
 ## Déploiement
 Vercel ou Netlify : importe le dépôt, sans commande de build, dossier de publication = racine.
+
+## Mini-jeu « Pêcheur d'étoiles » (`jeu/`)
+Jeu de pêche en descente/remontée, sur le thème de l'espace, indépendant de la landing (aucun lien depuis la page).
+Ouvre http://localhost:8000/jeu/. Descends la sonde sans rien toucher, puis attrape étoiles, cristaux, comètes…
+en remontant (attention aux débris de satellite). Revends ta pêche pour améliorer câble, soute, bouclier et propulseurs,
+jusqu'à rapporter le Cœur de la nébuleuse (1 050 m). Progression sauvegardée dans le navigateur.
+Réglages (prix, objets, vitesses) : constantes en haut de `jeu/jeu.js`.
