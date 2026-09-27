@@ -1,4 +1,6 @@
+/* Jeu volontairement sombre (ciel de nuit), quel que soit le thème */
 :root {
+  color-scheme: dark;
   --nuit: #0b0820;
   --encre: #f4f0ff;
   --pale: #b9b0dd;
@@ -23,8 +25,7 @@ html, body {
 .stage {
   position: relative;
   max-width: 520px;
-  height: 100vh;
-  height: 100dvh;
+  height: 100%;
   margin: 0 auto;
   overflow: hidden;
   touch-action: none;

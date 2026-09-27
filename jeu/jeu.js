@@ -482,8 +482,18 @@
 
   $('btn-dive').addEventListener('click', startDive);
   $('btn-back').addEventListener('click', () => { setState('menu'); $('btn-dive').focus(); });
-  $('btn-reset').addEventListener('click', () => {
-    if (!confirm('Effacer toute ta progression ?')) return;
+  // Confirmation en deux clics, dans la page (pas de boîte de dialogue du navigateur)
+  const resetBtn = $('btn-reset');
+  let resetArmed = false;
+  resetBtn.addEventListener('click', () => {
+    if (!resetArmed) {
+      resetArmed = true;
+      resetBtn.textContent = 'Toucher encore pour tout effacer';
+      setTimeout(() => { resetArmed = false; resetBtn.textContent = 'Effacer la partie'; }, 3000);
+      return;
+    }
+    resetArmed = false;
+    resetBtn.textContent = 'Effacer la partie';
     save = fresh(); persist(); renderMenu();
   });
 
