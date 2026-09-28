@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Les Bâtisseurs de Clairval</title>
+  <meta name="description" content="Récolte du bois, de la pierre, de l'eau et de la nourriture, construis ton village et veille à ce que chaque habitant mange, boive et reste au chaud.">
+  <meta name="theme-color" content="#1c2a1f">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231c2a1f%22/%3E%3Cpath d=%22M6 26V15l10-8 10 8v11z%22 fill=%22%23e0a35a%22/%3E%3Crect x=%2213%22 y=%2218%22 width=%226%22 height=%228%22 fill=%22%231c2a1f%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,600;1,500&family=Nunito+Sans:wght@400;700;800&display=swap">
+  <link rel="stylesheet" href="village.css">
+</head>
+<body>
+  <main class="stage">
+    <canvas id="scene" aria-label="Le village de Clairval, sa forêt, ses rochers et sa rivière"></canvas>
+
+    <!-- Ressources et temps -->
+    <header class="hud">
+      <div class="res-row" id="res-row"></div>
+      <div class="meta-row">
+        <span id="pop-chip" class="meta"></span>
+        <span id="happy-chip" class="meta"></span>
+        <span id="time-chip" class="meta"></span>
+        <div class="speed" role="group" aria-label="Vitesse du temps">
+          <button type="button" data-speed="0" aria-label="Pause">II</button>
+          <button type="button" data-speed="1" aria-label="Vitesse normale">x1</button>
+          <button type="button" data-speed="3" aria-label="Vitesse rapide">x3</button>
+        </div>
+      </div>
+    </header>
+
+    <p class="gather-hint" id="gather-hint">Touche les arbres, les rochers, les buissons et la rivière pour récolter. Fais glisser pour te déplacer.</p>
+
+    <!-- Panneau du bas -->
+    <section class="sheet" id="sheet">
+      <nav class="tabs" role="tablist" aria-label="Gestion du village">
+        <button type="button" role="tab" id="tb-build" data-tab="build" aria-selected="true">Construire</button>
+        <button type="button" role="tab" id="tb-people" data-tab="people" aria-selected="false">Habitants <span class="badge" id="idle-badge" hidden></span></button>
+        <button type="button" role="tab" id="tb-goals" data-tab="goals" aria-selected="false">Objectifs <span class="badge" id="goal-badge" hidden></span></button>
+        <button type="button" role="tab" id="tb-log" data-tab="log" aria-selected="false">Journal</button>
+      </nav>
+      <div class="tab" id="tab-build" role="tabpanel" aria-labelledby="tb-build"></div>
+      <div class="tab" id="tab-people" role="tabpanel" aria-labelledby="tb-people" hidden></div>
+      <div class="tab" id="tab-goals" role="tabpanel" aria-labelledby="tb-goals" hidden></div>
+      <div class="tab" id="tab-log" role="tabpanel" aria-labelledby="tb-log" hidden>
+        <p class="save-status" id="save-status" data-state="local">Sauvegardé sur cet appareil</p>
+        <ul class="log" id="log"></ul>
+        <details class="save-box">
+          <summary>Sauvegarde</summary>
+          <p class="help">Le village se sauvegarde tout seul : sur ton compte quand c'est possible, sinon sur cet appareil. Pour continuer ailleurs, copie ton code et colle-le sur l'autre appareil.</p>
+          <div class="row">
+            <button class="chip" id="btn-save" type="button">Sauvegarder maintenant</button>
+            <button class="chip" id="btn-export" type="button">Copier mon code</button>
+          </div>
+          <label class="help" for="save-code">Code de sauvegarde</label>
+          <textarea id="save-code" rows="3" spellcheck="false" placeholder="Colle ici un code de sauvegarde"></textarea>
+          <div class="row">
+            <button class="chip" id="btn-import" type="button">Charger ce code</button>
+            <button class="chip danger" id="btn-reset" type="button">Recommencer un village</button>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <p class="toast" id="toast" hidden role="status"></p>
+
+    <!-- Cartes : histoire, événements, absence -->
+    <div class="overlay" id="card" hidden role="dialog" aria-modal="true" aria-labelledby="card-title">
+      <div class="card">
+        <p class="kicker" id="card-kicker"></p>
+        <h2 id="card-title"></h2>
+        <p class="card-text" id="card-text"></p>
+        <div class="card-actions" id="card-actions"></div>
+      </div>
+    </div>
+  </main>
+  <script src="village.js"></script>
+</body>
+</html>

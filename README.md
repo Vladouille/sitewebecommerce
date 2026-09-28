@@ -61,3 +61,15 @@ Jeu d'énigmes de lumière avec progression, indépendant de la landing (aucun l
 - **Sauvegarde** : automatique après chaque action, dans le navigateur ; sur le compte claude.ai quand la page est publiée
   comme Artifact (capacités `db` + `user`, document privé `data/users/<id>/save`) ; et code de sauvegarde à copier-coller.
 Niveaux, bâtiments, missions et textes : constantes en haut de `jeu/jeu.js`.
+
+## Jeu « Les Bâtisseurs de Clairval » (`village/`)
+Jeu de gestion de village, indépendant de la landing. Ouvre http://localhost:8000/village/.
+- **Récolte à la main** : touche les arbres (bois), rochers (pierre), buissons (baies) et la rivière (eau).
+- **Construction** de 12 bâtiments qui apparaissent dans le village : maisons, bûcheron, carrière, puits, pêcheur, champs,
+  grenier, place, guérisseuse, taverne, atelier, beffroi.
+- **Habitants** : chacun mange 1 et boit 1 par jour, et brûle du bois l'hiver. On leur donne un métier (cueilleur, porteur d'eau,
+  bûcheron, tailleur de pierre, fermier, pêcheur). Le bonheur fait venir ou partir des habitants.
+- **Jour/nuit et saisons** (5 jours chacune), événements aléatoires (marchand, tempête, fièvre, loups…), 11 objectifs.
+- **Sauvegarde** : navigateur, compte claude.ai (capacité `db`, document privé `data/users/<id>/clairval`), code à copier ;
+  gains hors ligne (moitié du rythme, 2 jours maximum).
+Réglages : constantes en haut de `village/village.js` (durée du jour, métiers, bâtiments, objectifs, événements).
