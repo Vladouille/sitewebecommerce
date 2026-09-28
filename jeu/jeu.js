@@ -117,10 +117,10 @@
   ];
 
   const STYLES = {
-    laiton: { name: 'Laiton', frame: '#8a5a2b', spark: 'rgba(255,255,240,0.8)', need: 0 },
-    argent: { name: 'Argent', frame: '#9aa3ad', spark: 'rgba(230,245,255,0.9)', need: 1 },
-    rose: { name: 'Or rose', frame: '#b0677a', spark: 'rgba(255,200,220,0.9)', need: 2 },
-    aurore: { name: 'Aurore', frame: '#3f6b5a', spark: null, need: 3 },
+    laiton: { name: 'Laiton', frame: '#8a5a2b', glass: '#f2c46b', spark: 'rgba(255,255,240,0.8)', dash: [2, 0.45], need: 0 },
+    argent: { name: 'Argent', frame: '#b8c2cc', glass: '#e6f2ff', spark: 'rgba(230,245,255,0.95)', dash: [1.5, 0.22], need: 1 },
+    rose: { name: 'Or rose', frame: '#c77a8c', glass: '#ffc2d6', spark: 'rgba(255,190,215,0.95)', dash: [5, 0.32], need: 2 },
+    aurore: { name: 'Aurore', frame: '#3f8a70', glass: '#c9f5e8', spark: null, dash: [3, 0.26], need: 3 },
   };
   const sparkColor = (col) => STYLES[save.style].spark || `hsla(${(time * 90) % 360},90%,75%,0.9)`;
 
@@ -424,7 +424,70 @@
       save = Object.assign(f, s, { build: Object.assign(f.build, s.build), stats: Object.assign(f.stats, s.stats) });
     }
   } catch (e) { /* stockage indisponible : partie non sauvegardée */ }
-  const persist = () => { try { localStorage.setItem(SAVE_KEY, JSON.stringify(save)); } catch (e) { /* ignore */ } };
+  // Sauvegarde à trois niveaux : ce navigateur (localStorage), ton compte claude.ai quand
+  // la page tourne comme Artifact (capacité `db`, dossier privé data/users/<id>/save),
+  // et un code de sauvegarde à copier-coller pour changer d'appareil à la main.
+  let cloudRef = null, cloudBusy = false, cloudPending = false, cloudTimer = 0, saveStatus = 'local';
+  function persist() {
+    save.updatedAt = Date.now();
+    try { localStorage.setItem(SAVE_KEY, JSON.stringify(save)); } catch (e) { /* stockage indisponible */ }
+    if (cloudRef) { clearTimeout(cloudTimer); cloudTimer = setTimeout(pushCloud, 1200); setSaveStatus('saving'); }
+    else setSaveStatus('local');
+  }
+  async function pushCloud() {
+    if (!cloudRef) return;
+    if (cloudBusy) { cloudPending = true; return; }
+    cloudBusy = true;
+    try {
+      await cloudRef.set(JSON.parse(JSON.stringify(save)));
+      setSaveStatus('cloud');
+    } catch (e) {
+      if (e && (e.code === 'invalid_argument' || e.code === 'revoked' || e.code === 'not_granted')) { cloudRef = null; setSaveStatus('local'); }
+      else setSaveStatus('error');
+    }
+    cloudBusy = false;
+    if (cloudPending) { cloudPending = false; pushCloud(); }
+  }
+  function mergeSave(s) {
+    const f = fresh();
+    return Object.assign(f, s, { build: Object.assign(f.build, s.build), stats: Object.assign(f.stats, s.stats) });
+  }
+  async function initCloud() {
+    try {
+      if (!window.claude || !window.claude.use) return;
+      const [db, user] = await Promise.all([window.claude.use('db'), window.claude.use('user')]);
+      if (!db || !user) return;
+      const uid = await user.id();
+      if (!uid) return;
+      const ref = db.doc(`data/users/${uid}/save`);
+      const snap = await ref.get();
+      cloudRef = ref;
+      const remote = snap.exists ? snap.data() : null;
+      if (remote && (remote.updatedAt || 0) > (save.updatedAt || 0)) {
+        save = mergeSave(remote);
+        try { localStorage.setItem(SAVE_KEY, JSON.stringify(save)); } catch (e) { /* ignore */ }
+        onSaveLoaded('Partie récupérée depuis ton compte.');
+        setSaveStatus('cloud');
+      } else if (save.intro) {
+        await pushCloud();
+      } else setSaveStatus('cloud');
+    } catch (e) { cloudRef = null; setSaveStatus('local'); }
+  }
+  function setSaveStatus(st) {
+    saveStatus = st;
+    const el = document.getElementById('save-status');
+    if (!el) return;
+    el.textContent = { cloud: 'Sauvegardé sur ton compte', saving: 'Sauvegarde…', local: 'Sauvegardé sur cet appareil', error: 'Sauvegarde en attente' }[st];
+    el.dataset.state = st;
+  }
+  function exportCode() { return btoa(unescape(encodeURIComponent(JSON.stringify(save)))); }
+  function importCode(code) {
+    const s = JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
+    if (!s || typeof s !== 'object' || !s.best || !s.build) throw new Error('bad');
+    save = mergeSave(s);
+    persist();
+    onSaveLoaded('Partie chargée depuis le code.');
+  }
 
   const solvedCount = () => Object.keys(save.best).length;
   const perfectCount = () => Object.keys(save.perfect).length;
@@ -441,7 +504,7 @@
   // ---------- DOM ----------
   const $ = (id) => document.getElementById(id);
   const canvas = $('scene');
-  const ctx = canvas.getContext('2d');
+  let ctx = canvas.getContext('2d');
   const dark = document.createElement('canvas');
   const dctx = dark.getContext('2d');
   const ui = {
@@ -752,6 +815,7 @@
   function renderMenu() {
     $('eclats').textContent = save.eclats;
     $('hints').textContent = `${save.hints}/${maxHints()}`;
+    ui.menu.classList.toggle('compact', tab === 'village');
     for (const b of document.querySelectorAll('.tabs button')) {
       const on = b.dataset.tab === tab;
       b.setAttribute('aria-selected', on);
@@ -814,16 +878,20 @@
       const l = save.build[b.id], maxed = l >= b.costs.length, cost = maxed ? 0 : b.costs[l];
       const d = document.createElement('div');
       d.className = 'building';
-      d.innerHTML = `<h3>${b.name} <small>· ${b.who}</small></h3>
+      d.innerHTML = `<button type="button" class="preview" aria-label="Voir ${b.name} dans le village"><canvas></canvas><span>${maxed ? 'Niveau maximum' : `Maintenant → niveau ${l + 1}`}</span></button>
+        <h3>${b.name} <small>· ${b.who}</small></h3>
         <p>${b.perk(l)}${maxed ? '' : `<br>Ensuite : ${b.perk(l + 1)}`}</p>
         <div class="pips">${b.costs.map((_, i) => `<i class="${i < l ? 'on' : ''}"></i>`).join('')}</div>
-        <button type="button" id="build-${b.id}" ${maxed || save.eclats < cost ? 'disabled' : ''}>${maxed ? 'Restauré' : `${l ? 'Améliorer' : 'Restaurer'} · ${cost}`}</button>`;
-      d.querySelector('button').addEventListener('click', () => {
+        <button type="button" class="buy" id="build-${b.id}" ${maxed || save.eclats < cost ? 'disabled' : ''}>${maxed ? 'Restauré' : `${l ? 'Améliorer' : 'Restaurer'} · ${cost}`}</button>`;
+      d.querySelector('.preview').addEventListener('click', () => panTo(b.id));
+      requestAnimationFrame(() => drawPreview(d.querySelector('canvas'), b.id, l, maxed ? null : l + 1));
+      d.querySelector('.buy').addEventListener('click', () => {
         if (maxed || save.eclats < cost) return;
         save.eclats -= cost;
         save.build[b.id]++;
         if (b.id === 'forge') save.hints = Math.min(maxHints(), save.hints + 1);
         persist();
+        celebrate(b.id);
         showToast(`${b.name} : ${b.perk(save.build[b.id])}.`);
         checkMissions();
         renderMenu();
@@ -1080,7 +1148,7 @@
     const frameCol = blue ? '#4b5d7a' : STYLES[save.style].frame;
     ctx.fillStyle = frameCol;
     ctx.beginPath(); ctx.moveTo(-9, -9); ctx.lineTo(9, -9); ctx.lineTo(5, -14); ctx.lineTo(-5, -14); ctx.fill();
-    ctx.fillStyle = blue ? 'rgba(160,210,255,0.45)' : 'rgba(255,214,140,0.45)'; ctx.fillRect(-7, -9, 14, 16);
+    ctx.fillStyle = blue ? 'rgba(160,210,255,0.45)' : STYLES[save.style].glass; ctx.globalAlpha = blue ? 1 : 0.55; ctx.fillRect(-7, -9, 14, 16); ctx.globalAlpha = 1;
     ctx.fillStyle = blue ? '#e6f5ff' : '#fff1c2';
     ctx.beginPath(); ctx.ellipse(0, 0, 2.8 * flick, 5.5 * flick, 0, 0, TAU); ctx.fill();
     ctx.fillStyle = blue ? '#7fc8ff' : '#f2a63b';
@@ -1209,7 +1277,8 @@
     }
     // étincelles qui suivent le rayon
     if (!reduced) {
-      ctx.setLineDash([2, cell * 0.45]);
+      const sd = STYLES[save.style].dash;
+      ctx.setLineDash([sd[0], cell * sd[1]]);
       ctx.lineDashOffset = -time * cell * 2;
       ctx.lineWidth = Math.max(3, cell * 0.08);
       for (const [x0, y0, x1, y1, col] of sim.segs) {
@@ -1282,59 +1351,237 @@
   }
 
 
-  // Bâtiment : en ruine au niveau 0, puis de plus en plus vivant
-  function drawBuilding(kind, x, w, h, gy, level, dawn) {
-    const body = level ? (dawn ? '#3b2c3a' : '#1f1628') : '#141017';
-    const roof = level ? (dawn ? '#5a3a3a' : '#2c1c26') : '#1a1318';
-    const lightCol = { forge: 'rgba(255,120,50,', four: 'rgba(242,166,59,', verre: 'rgba(127,214,196,', obs: 'rgba(180,160,255,' }[kind];
-    if (kind === 'obs') {
-      // tour de l'observatoire
-      ctx.fillStyle = body; ctx.fillRect(x, gy - h, w, h);
-      if (level) {
-        ctx.fillStyle = roof; ctx.beginPath(); ctx.arc(x + w / 2, gy - h, w / 2 + 3, Math.PI, 0); ctx.fill();
-        if (level >= 2) { ctx.strokeStyle = '#8a7a9a'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x + w / 2, gy - h - 6); ctx.lineTo(x + w / 2 + 14, gy - h - 16); ctx.stroke(); }
-        if (level >= 3 && !reduced) {
-          ctx.strokeStyle = `rgba(200,190,255,${0.25 + 0.15 * Math.sin(time * 2)})`; ctx.lineWidth = 2;
-          ctx.beginPath(); ctx.moveTo(x + w / 2 + 14, gy - h - 16); ctx.lineTo(x + w / 2 + 60, gy - h - 90); ctx.stroke();
-        }
-      } else {
-        ctx.fillStyle = roof; ctx.beginPath(); ctx.moveTo(x - 2, gy - h); ctx.lineTo(x + w * 0.4, gy - h - 8); ctx.lineTo(x + w * 0.5, gy - h); ctx.fill();
-      }
-    } else {
-      ctx.fillStyle = body; ctx.fillRect(x, gy - h, w, h);
-      ctx.fillStyle = roof;
-      if (level) {
-        ctx.beginPath(); ctx.moveTo(x - 4, gy - h); ctx.lineTo(x + w / 2, gy - h - 18); ctx.lineTo(x + w + 4, gy - h); ctx.fill();
-      } else {
-        // toit effondré
-        ctx.beginPath(); ctx.moveTo(x - 3, gy - h); ctx.lineTo(x + w * 0.35, gy - h - 12); ctx.lineTo(x + w * 0.45, gy - h + 2); ctx.fill();
-        ctx.beginPath(); ctx.moveTo(x + w * 0.6, gy - h + 3); ctx.lineTo(x + w * 0.8, gy - h - 6); ctx.lineTo(x + w + 3, gy - h + 2); ctx.fill();
-      }
-      if (level >= 2 && !reduced) {
-        // fumée de cheminée
-        ctx.fillStyle = roof; ctx.fillRect(x + w * 0.7, gy - h - 16, 5, 10);
-        for (let k = 0; k < 3; k++) {
-          const ph = (time * 0.3 + k / 3) % 1;
-          ctx.fillStyle = `rgba(200,190,190,${0.25 * (1 - ph)})`;
-          circle(x + w * 0.72 + 2 + Math.sin(ph * 6 + k) * 4, gy - h - 18 - ph * 30, 3 + ph * 5);
-        }
-      }
-    }
-    const wx = x + w / 2 - 4, wy = kind === 'obs' ? gy - h * 0.6 : gy - h / 2 - 4;
-    if (level && lightCol) {
-      glow(wx + 4, wy + 4, 16 + level * 4, lightCol + (0.25 + level * 0.08) + ')');
-      ctx.fillStyle = lightCol + '1)'; ctx.fillRect(wx, wy, 8, 8);
-      if (level >= 3) { glow(x + w + 2, gy - h * 0.8, 10, lightCol + '0.6)'); ctx.fillStyle = lightCol + '1)'; circle(x + w + 2, gy - h * 0.8, 2.5); }
-    } else {
-      // fenêtre condamnée
-      ctx.strokeStyle = '#4a3322'; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(wx, wy); ctx.lineTo(wx + 8, wy + 8); ctx.moveTo(wx + 8, wy); ctx.lineTo(wx, wy + 8); ctx.stroke();
+
+  // ---------- Village panoramique ----------
+  // Le village est plus large que l'écran : on le fait glisser au doigt, et la caméra
+  // vient se placer sur un bâtiment quand on le sélectionne ou l'améliore.
+  const VW = 800;
+  const SPOTS = { forge: 70, four: 185, verre: 300, puits: 410, jardin: 525, arbre: 640, obs: 745 };
+  let camX = SPOTS.puits, camTarget = SPOTS.puits;
+  let focus = null, focusUntil = 0; // bâtiment mis en valeur
+  let burst = []; // éclats lors d'une amélioration
+  let bounce = { id: null, t0: -9 };
+
+  function panTo(id, hold) {
+    camTarget = SPOTS[id];
+    camTarget = clampCam(camTarget);
+    focus = id; focusUntil = time + (hold || 3.5);
+  }
+  function celebrate(id) {
+    panTo(id, 4);
+    bounce = { id, t0: time };
+    for (let i = 0; i < 46; i++) {
+      const a = Math.random() * TAU, v = 40 + Math.random() * 120;
+      burst.push({ id, x: 0, y: -40, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 80, life: 1 + Math.random() * 0.8, hue: 30 + Math.random() * 30 });
     }
   }
 
+  // Petits outils de construction
+  function roofTri(x, w, y, h, col) { ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(x - 5, y); ctx.lineTo(x + w / 2, y - h); ctx.lineTo(x + w + 5, y); ctx.fill(); }
+  function litWindow(x, y, w, h, col, a) {
+    if (a < 0.5) { ctx.fillStyle = '#15121c'; ctx.fillRect(x, y, w, h); return; }
+    glow(x + w / 2, y + h / 2, Math.max(w, h) * 1.6, col.replace('1)', `${0.35 * a})`));
+    ctx.fillStyle = col; ctx.fillRect(x, y, w, h);
+    ctx.fillStyle = 'rgba(40,25,15,0.8)'; ctx.fillRect(x + w / 2 - 0.5, y, 1, h); ctx.fillRect(x, y + h / 2 - 0.5, w, 1);
+  }
+  function boarded(x, y, w, h) {
+    ctx.fillStyle = '#0c090b'; ctx.fillRect(x, y, w, h);
+    ctx.strokeStyle = '#5a3d27'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(x - 1, y + 2); ctx.lineTo(x + w + 1, y + h - 2); ctx.moveTo(x + w + 1, y + 2); ctx.lineTo(x - 1, y + h - 2); ctx.stroke();
+  }
+  function ruin(x, gy, w, h) {
+    ctx.fillStyle = '#17121a';
+    ctx.beginPath(); ctx.moveTo(x, gy);
+    ctx.lineTo(x, gy - h * 0.7); ctx.lineTo(x + w * 0.2, gy - h); ctx.lineTo(x + w * 0.35, gy - h * 0.62);
+    ctx.lineTo(x + w * 0.55, gy - h * 0.8); ctx.lineTo(x + w * 0.75, gy - h * 0.45); ctx.lineTo(x + w, gy - h * 0.55); ctx.lineTo(x + w, gy);
+    ctx.fill();
+    ctx.strokeStyle = '#3b2a1e'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(x + w * 0.15, gy - h * 0.9); ctx.lineTo(x + w * 0.7, gy - h * 0.3); ctx.stroke();
+    boarded(x + w * 0.38, gy - h * 0.45, 12, 12);
+    ctx.fillStyle = '#2a2227';
+    for (let i = 0; i < 5; i++) circle(x + w * (0.1 + i * 0.22), gy - 2, 3 + rnd(i + x) * 3);
+  }
+  function stars(cx, cy, n, r, col) {
+    for (let i = 0; i < n; i++) {
+      const a = time * 0.6 + (i / n) * TAU, rr = r * (0.7 + 0.3 * Math.sin(time * 2 + i));
+      ctx.fillStyle = col; circle(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr * 0.6, 1.6);
+    }
+  }
+
+  // Chaque bâtiment a 4 apparences : 0 ruine, 1 réparé, 2 animé, 3 magnifique.
+  function drawBuilding(kind, cx, gy, level) {
+    const still = reduced;
+    if (kind === 'forge') {
+      const w = 74, x = cx - w / 2;
+      if (!level) { ruin(x, gy, w, 44); return; }
+      const h = 46 + (level >= 3 ? 8 : 0);
+      ctx.fillStyle = level >= 3 ? '#4a3f46' : '#342a30'; ctx.fillRect(x, gy - h, w, h);
+      for (let r = 0; r < h / 9; r++) for (let c = 0; c < 6; c++) { ctx.fillStyle = 'rgba(0,0,0,0.18)'; ctx.fillRect(x + c * 12.5 + (r % 2) * 6, gy - h + r * 9, 11, 1); }
+      ctx.fillStyle = '#20171c'; ctx.fillRect(x + w - 18, gy - h - 26, 12, 28); // cheminée
+      roofTri(x, w, gy - h, 20, level >= 3 ? '#3a2430' : '#261a20');
+      // porte de la forge et feu
+      const f = still ? 0.8 : 0.7 + 0.3 * Math.sin(time * 9) * Math.sin(time * 5.3);
+      const fireR = [0, 14, 22, 30][level];
+      glow(x + 22, gy - 14, fireR * 2 * f, `rgba(255,120,40,${0.35 + 0.1 * level})`);
+      ctx.fillStyle = '#1a0e08'; ctx.beginPath(); ctx.moveTo(x + 12, gy); ctx.lineTo(x + 12, gy - 20); ctx.arc(x + 22, gy - 20, 10, Math.PI, 0); ctx.lineTo(x + 32, gy); ctx.fill();
+      ctx.fillStyle = `rgba(255,${120 + 60 * f},50,1)`; ctx.beginPath(); ctx.ellipse(x + 22, gy - 6, 6 + level * 1.5, 5 + level * 2 * f, 0, 0, TAU); ctx.fill();
+      // enclume
+      ctx.fillStyle = '#5b5e66'; ctx.fillRect(x - 16, gy - 12, 16, 5); ctx.fillRect(x - 12, gy - 7, 8, 7);
+      if (level >= 2 && !still) {
+        for (let i = 0; i < 6; i++) {
+          const ph = (time * 0.8 + i / 6) % 1;
+          ctx.fillStyle = `rgba(255,${150 + 80 * (1 - ph)},60,${1 - ph})`;
+          circle(x + w - 12 + Math.sin(i * 3 + time * 3) * 6 * ph, gy - h - 28 - ph * 40, 1.6);
+        }
+        for (let k = 0; k < 3; k++) { const ph = (time * 0.25 + k / 3) % 1; ctx.fillStyle = `rgba(190,180,185,${0.22 * (1 - ph)})`; circle(x + w - 12 + ph * 14, gy - h - 34 - ph * 46, 4 + ph * 8); }
+      }
+      if (level >= 3) {
+        // enseigne au marteau et lanternes
+        ctx.fillStyle = '#6b4526'; ctx.fillRect(x + w + 2, gy - h - 4, 3, h + 4); ctx.fillRect(x + w - 2, gy - h - 4, 20, 3);
+        ctx.fillStyle = '#c9a36b'; ctx.fillRect(x + w + 6, gy - h, 14, 12);
+        ctx.fillStyle = '#3a2418'; ctx.fillRect(x + w + 12, gy - h + 3, 2, 7); ctx.fillRect(x + w + 9, gy - h + 2, 8, 3);
+        for (const lx of [x - 6, x + w / 2]) { glow(lx, gy - h - 2, 12, 'rgba(242,166,59,0.6)'); ctx.fillStyle = '#ffd98a'; circle(lx, gy - h - 2, 2.5); }
+      }
+      return;
+    }
+    if (kind === 'four') {
+      const w = 80, x = cx - w / 2;
+      if (!level) { ruin(x, gy, w, 48); return; }
+      const h = level >= 3 ? 70 : 50;
+      ctx.fillStyle = '#5a4436'; ctx.fillRect(x, gy - h, w, h);
+      ctx.strokeStyle = '#3a2a20'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(x, gy - h + 2); ctx.lineTo(x + w, gy - h + 2); ctx.moveTo(x + w / 2, gy - h); ctx.lineTo(x + w / 2, gy); ctx.stroke();
+      if (level >= 2) { ctx.fillStyle = '#2c1f1a'; ctx.fillRect(x + 10, gy - h - 22, 10, 20); }
+      roofTri(x, w, gy - h, 24, level >= 3 ? '#8a3b2a' : '#5e2a20');
+      litWindow(x + 8, gy - 30, 14, 14, 'rgba(242,176,80,1)', 1);
+      if (level >= 2) litWindow(x + w - 22, gy - 30, 14, 14, 'rgba(242,176,80,1)', 1);
+      if (level >= 3) { litWindow(x + 12, gy - h + 12, 12, 12, 'rgba(242,176,80,1)', 1); litWindow(x + w - 24, gy - h + 12, 12, 12, 'rgba(242,176,80,1)', 1); }
+      ctx.fillStyle = '#2a1a12'; ctx.fillRect(x + w / 2 - 7, gy - 22, 14, 22); // porte
+      if (level >= 2) {
+        // étal de pains
+        ctx.fillStyle = '#7a5236'; ctx.fillRect(x + w + 2, gy - 12, 26, 4); ctx.fillRect(x + w + 4, gy - 8, 3, 8); ctx.fillRect(x + w + 23, gy - 8, 3, 8);
+        ctx.fillStyle = '#e0a35a'; for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.ellipse(x + w + 8 + i * 8, gy - 15, 4, 2.6, 0, 0, TAU); ctx.fill(); }
+        if (!still) for (let k = 0; k < 3; k++) { const ph = (time * 0.3 + k / 3) % 1; ctx.fillStyle = `rgba(210,200,200,${0.25 * (1 - ph)})`; circle(x + 15 - ph * 6, gy - h - 26 - ph * 40, 4 + ph * 7); }
+      }
+      if (level >= 3) {
+        // auvent rayé, jardinières et enseigne
+        for (let i = 0; i < 8; i++) { ctx.fillStyle = i % 2 ? '#efe3c8' : '#b8452f'; ctx.beginPath(); ctx.moveTo(x + i * 10, gy - 36); ctx.lineTo(x + i * 10 + 10, gy - 36); ctx.lineTo(x + i * 10 + 12, gy - 28); ctx.lineTo(x + i * 10 + 2, gy - 28); ctx.fill(); }
+        for (const fx of [x + 8, x + w - 22]) { ctx.fillStyle = '#5a3a22'; ctx.fillRect(fx, gy - 15, 14, 3); ctx.fillStyle = '#ff9fcb'; circle(fx + 3, gy - 17, 2); ctx.fillStyle = '#ffd98a'; circle(fx + 8, gy - 17, 2); ctx.fillStyle = '#b48cff'; circle(fx + 12, gy - 17, 2); }
+        ctx.fillStyle = '#c9a36b'; circle(cx, gy - h - 8, 8); ctx.fillStyle = '#8a5a2b'; ctx.beginPath(); ctx.ellipse(cx, gy - h - 8, 5, 3, 0, 0, TAU); ctx.fill();
+      }
+      return;
+    }
+    if (kind === 'verre') {
+      const w = 66, x = cx - w / 2;
+      if (!level) { ruin(x, gy, w, 40); return; }
+      const h = 44;
+      ctx.fillStyle = '#2b2a3a'; ctx.fillRect(x, gy - h, w, h);
+      roofTri(x, w, gy - h, 18, '#1f1e2c');
+      const cols = ['rgba(127,214,196,1)', 'rgba(255,140,190,1)', 'rgba(255,190,90,1)'];
+      const n = level >= 2 ? 3 : 1;
+      for (let i = 0; i < n; i++) {
+        const wx = n === 1 ? cx - 7 : x + 6 + i * 20;
+        const pulse = still ? 1 : 0.8 + 0.2 * Math.sin(time * 2 + i * 2);
+        glow(wx + 7, gy - 26, 22, cols[i].replace('1)', `${0.35 * pulse})`));
+        ctx.fillStyle = cols[i]; ctx.beginPath(); ctx.moveTo(wx, gy - 18); ctx.lineTo(wx, gy - 30); ctx.arc(wx + 7, gy - 30, 7, Math.PI, 0); ctx.lineTo(wx + 14, gy - 18); ctx.fill();
+      }
+      if (level >= 2) {
+        ctx.fillStyle = '#4a3a2a'; ctx.fillRect(x - 20, gy - 10, 18, 3);
+        const bottles = ['#7fd6c4', '#ff9fcb', '#ffd98a', '#b48cff'];
+        bottles.forEach((c, i) => { ctx.fillStyle = c; ctx.fillRect(x - 19 + i * 4.5, gy - 17, 3, 7); });
+      }
+      if (level >= 3) {
+        // dôme de verre arc-en-ciel et carillons
+        const g = ctx.createLinearGradient(cx - 18, 0, cx + 18, 0);
+        const hshift = still ? 0 : time * 40;
+        g.addColorStop(0, `hsla(${170 + hshift},80%,70%,0.75)`); g.addColorStop(0.5, `hsla(${290 + hshift},80%,75%,0.75)`); g.addColorStop(1, `hsla(${40 + hshift},90%,70%,0.75)`);
+        glow(cx, gy - h - 22, 40, 'rgba(200,170,255,0.35)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, gy - h - 12, 16, Math.PI, 0); ctx.fill();
+        for (let i = 0; i < 3; i++) {
+          const sx = x + w + 4 + i * 6, sw = still ? 0 : Math.sin(time * 2 + i) * 3;
+          ctx.strokeStyle = 'rgba(220,210,255,0.6)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(sx, gy - h); ctx.lineTo(sx + sw, gy - h + 12 + i * 3); ctx.stroke();
+          ctx.fillStyle = '#d9c7ff'; ctx.beginPath(); ctx.moveTo(sx + sw, gy - h + 12 + i * 3); ctx.lineTo(sx + sw + 2, gy - h + 16 + i * 3); ctx.lineTo(sx + sw, gy - h + 20 + i * 3); ctx.lineTo(sx + sw - 2, gy - h + 16 + i * 3); ctx.fill();
+        }
+      }
+      return;
+    }
+    if (kind === 'jardin') {
+      const w = 96, x = cx - w / 2;
+      ctx.fillStyle = level ? '#2a1c12' : '#241e1c';
+      ctx.beginPath(); ctx.ellipse(cx, gy - 1, w / 2, 7, 0, Math.PI, 0); ctx.fill();
+      if (!level) {
+        ctx.strokeStyle = '#4a3a30'; ctx.lineWidth = 2;
+        for (let i = 0; i < 4; i++) { const sx = x + 18 + i * 20; ctx.beginPath(); ctx.moveTo(sx, gy - 2); ctx.lineTo(sx + 3, gy - 16); ctx.lineTo(sx + 7, gy - 20); ctx.stroke(); }
+        return;
+      }
+      // clôture
+      ctx.fillStyle = '#6b4a2e';
+      const posts = level >= 2 ? 9 : 4;
+      for (let i = 0; i < posts; i++) ctx.fillRect(x + i * (w / (posts - 1)) - 1, gy - 14, 3, 14);
+      ctx.fillRect(x, gy - 11, level >= 2 ? w : w * 0.4, 2);
+      if (level >= 2) {
+        // arche de treillage
+        ctx.strokeStyle = '#6b4a2e'; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(cx - 14, gy); ctx.lineTo(cx - 14, gy - 34); ctx.arc(cx, gy - 34, 14, Math.PI, 0); ctx.lineTo(cx + 14, gy); ctx.stroke();
+        ctx.fillStyle = '#4f8a3a'; for (let i = 0; i < 12; i++) { const a = Math.PI + (i / 11) * Math.PI; circle(cx + Math.cos(a) * 14, gy - 34 + Math.sin(a) * 14, 3.5); }
+        ctx.fillStyle = '#5aa04a'; for (let i = 0; i < 4; i++) circle(x + 10 + i * 8, gy - 5, 3.5);
+      }
+      const flowers = [0, 7, 16, 26][level];
+      const cols = ['#ff9fcb', '#ffd98a', '#b48cff', '#ffffff', '#ff7a6b'];
+      for (let i = 0; i < flowers; i++) {
+        const fx = x + 6 + rnd(i * 7 + 3) * (w - 12), fy = gy - 4 - rnd(i * 3 + 1) * 8;
+        if (level >= 2 && Math.abs(fx - cx) < 16) continue;
+        ctx.strokeStyle = '#3f6b2a'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(fx, gy - 1); ctx.lineTo(fx, fy); ctx.stroke();
+        if (level >= 3) glow(fx, fy, 7, 'rgba(255,230,160,0.35)');
+        ctx.fillStyle = cols[i % cols.length]; circle(fx, fy, level >= 3 ? 2.8 : 2.2);
+      }
+      if (level >= 3) {
+        ctx.fillStyle = '#ffd98a'; for (let i = 0; i < 12; i++) { const a = Math.PI + (i / 11) * Math.PI; glow(cx + Math.cos(a) * 14, gy - 34 + Math.sin(a) * 14, 6, 'rgba(255,220,150,0.5)'); }
+        ctx.fillStyle = '#6b4a2e'; ctx.fillRect(x + w - 26, gy - 8, 20, 3); ctx.fillRect(x + w - 24, gy - 5, 2, 5); ctx.fillRect(x + w - 10, gy - 5, 2, 5);
+        if (!still) for (let i = 0; i < 7; i++) { const fx = cx + Math.sin(time * 0.7 + i * 2) * 50, fy = gy - 30 - rnd(i + 5) * 30 + Math.sin(time + i) * 8; glow(fx, fy, 7, `rgba(216,255,122,${0.45 + 0.3 * Math.sin(time * 4 + i)})`); }
+      }
+      return;
+    }
+    if (kind === 'obs') {
+      const w = 34, x = cx - w / 2;
+      if (!level) {
+        ctx.fillStyle = '#17121a'; ctx.beginPath(); ctx.moveTo(x, gy); ctx.lineTo(x, gy - 40); ctx.lineTo(x + 10, gy - 48); ctx.lineTo(x + 20, gy - 36); ctx.lineTo(x + w, gy - 44); ctx.lineTo(x + w, gy); ctx.fill();
+        boarded(x + 11, gy - 30, 10, 10); return;
+      }
+      const h = 96;
+      ctx.fillStyle = '#2a2436'; ctx.fillRect(x, gy - h, w, h);
+      for (let r = 0; r < 4; r++) litWindow(x + 12, gy - h + 16 + r * 20, 9, 9, 'rgba(190,170,255,1)', r < level + 1 ? 1 : 0.2);
+      const domeCol = level >= 3 ? '#5b4a8a' : '#3a3050';
+      ctx.fillStyle = domeCol; ctx.beginPath(); ctx.arc(cx, gy - h, w / 2 + 4, Math.PI, 0); ctx.fill();
+      if (level >= 2) {
+        ctx.fillStyle = '#0c0a14'; ctx.fillRect(cx - 2, gy - h - w / 2 - 3, 5, w / 2);
+        const ang = still ? -0.9 : -0.9 + 0.1 * Math.sin(time * 0.5);
+        ctx.save(); ctx.translate(cx, gy - h - 8); ctx.rotate(ang);
+        ctx.fillStyle = '#9aa3ad'; ctx.fillRect(0, -3, 30, 6); ctx.fillStyle = '#c9a36b'; ctx.fillRect(26, -4, 5, 8);
+        ctx.restore();
+      }
+      if (level >= 3) {
+        const tx = cx + Math.cos(-0.9) * 32, ty = gy - h - 8 + Math.sin(-0.9) * 32;
+        ctx.globalCompositeOperation = 'lighter';
+        const g = ctx.createLinearGradient(tx, ty, tx + 90, ty - 120);
+        g.addColorStop(0, 'rgba(200,190,255,0.45)'); g.addColorStop(1, 'rgba(200,190,255,0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(tx - 3, ty); ctx.lineTo(tx + 70, ty - 130); ctx.lineTo(tx + 110, ty - 110); ctx.lineTo(tx + 3, ty + 3); ctx.fill();
+        ctx.globalCompositeOperation = 'source-over';
+        stars(cx, gy - h - 10, 6, 34, 'rgba(255,245,220,0.9)');
+        ctx.fillStyle = '#b8452f'; ctx.fillRect(x + w, gy - h - 2, 2, -18); ctx.beginPath(); ctx.moveTo(x + w + 2, gy - h - 20); ctx.lineTo(x + w + 14, gy - h - 16); ctx.lineTo(x + w + 2, gy - h - 12); ctx.fill();
+      }
+    }
+  }
+
+  let zoom = 1;
   function drawVillage() {
-    const gy = Math.round(H * 0.38);
+    // Dans l'onglet Village, la scène se rapproche pour bien voir les bâtiments
+    const close = tab === 'village' && !ui.menu.hidden;
+    zoom += ((close ? 1.45 : 1) - zoom) * 0.1;
+    const gy = Math.round(H * (0.4 + (zoom - 1) * 0.18));
     const dawn = save.ending;
+    camX += (camTarget - camX) * 0.08;
+    const off = W / 2 - camX; // décalage monde -> écran
     const sky = ctx.createLinearGradient(0, 0, 0, gy);
     sky.addColorStop(0, dawn ? '#355a8c' : '#101230');
     sky.addColorStop(0.6, dawn ? '#9a88b8' : '#35264d');
@@ -1343,80 +1590,134 @@
     if (!dawn) {
       for (const s of skyStars) {
         ctx.fillStyle = `rgba(255,245,220,${reduced ? 0.6 : 0.35 + 0.35 * Math.sin(time * 1.5 + s.t)})`;
-        ctx.fillRect(s.x * W, s.y * gy * 0.7, 1.6, 1.6);
+        ctx.fillRect(((s.x * VW * 1.2 + off * 0.2) % W + W) % W, s.y * gy * 0.7, 1.6, 1.6);
       }
-      glow(W * 0.2, gy * 0.3, 40, 'rgba(255,240,210,0.25)');
-      ctx.fillStyle = '#f4ead2'; circle(W * 0.2, gy * 0.3, 13);
-      ctx.fillStyle = '#35264d'; circle(W * 0.2 + 6, gy * 0.3 - 3, 11);
-    } else glow(W * 0.25, gy - 20, 120, 'rgba(255,220,150,0.5)');
-
+      const mx = W * 0.2 + off * 0.1;
+      glow(mx, gy * 0.3, 40, 'rgba(255,240,210,0.25)');
+      ctx.fillStyle = '#f4ead2'; circle(mx, gy * 0.3, 13);
+      ctx.fillStyle = '#35264d'; circle(mx + 6, gy * 0.3 - 3, 11);
+    } else glow(W * 0.25 + off * 0.1, gy - 20, 120, 'rgba(255,220,150,0.5)');
+    // collines (parallaxe)
     ctx.fillStyle = dawn ? '#6b6488' : '#24193a';
     ctx.beginPath(); ctx.moveTo(0, gy);
-    for (let x = 0; x <= W; x += 12) ctx.lineTo(x, gy - 40 - 18 * Math.sin(x * 0.012 + 1) - 10 * Math.sin(x * 0.031));
+    for (let sx = 0; sx <= W; sx += 12) { const wx = sx - off * 0.5; ctx.lineTo(sx, gy - 40 - 18 * Math.sin(wx * 0.012 + 1) - 10 * Math.sin(wx * 0.031)); }
     ctx.lineTo(W, gy); ctx.fill();
 
+    ctx.save(); ctx.translate(W / 2, gy); ctx.scale(zoom, zoom); ctx.translate(-camX, -gy);
     const B = save.build;
-    drawBuilding('obs', W * 0.9, 20, 66, gy, B.obs, dawn);
-    drawTree(W * 0.78, gy, Math.min(220, H * 0.3), dawn ? 1 : (solvedCount() / LEVELS.length) * 0.85, dawn);
-    drawBuilding('forge', W * 0.02, 32, 28, gy, B.forge, dawn);
-    drawBuilding('four', W * 0.13, 36, 34, gy, B.four, dawn);
-    drawBuilding('verre', W * 0.245, 28, 24, gy, B.verre, dawn);
-
-    // Sous terre : les racines, et une lueur par graine réveillée
+    const order = ['obs', 'forge', 'four', 'verre', 'jardin'];
+    drawTree(SPOTS.arbre, gy, Math.min(230, H * 0.32), dawn ? 1 : (solvedCount() / LEVELS.length) * 0.85, dawn);
+    for (const id of order) {
+      let s = 1;
+      const bt = time - bounce.t0;
+      if (bounce.id === id && bt < 1.2) s = 1 + 0.18 * Math.sin(bt * 12) * Math.exp(-bt * 3);
+      ctx.save(); ctx.translate(SPOTS[id], gy); ctx.scale(s, s); ctx.translate(-SPOTS[id], -gy);
+      drawBuilding(id, SPOTS[id], gy, B[id]);
+      ctx.restore();
+    }
+    // Sous terre : racines et graines réveillées
     const soil = ctx.createLinearGradient(0, gy, 0, H);
     soil.addColorStop(0, '#24170f'); soil.addColorStop(1, '#0d0806');
-    ctx.fillStyle = soil; ctx.fillRect(0, gy, W, H - gy);
+    ctx.fillStyle = soil; ctx.fillRect(-400, gy, VW + 800, H);
     ctx.strokeStyle = '#3a2618'; ctx.lineCap = 'round'; ctx.lineWidth = 2.5;
     for (let i = 0; i < LEVELS.length; i++) {
       const a = (i / (LEVELS.length - 1)) * Math.PI;
-      const ex = W * 0.78 + Math.cos(Math.PI - a) * W * 0.6, ey = gy + 24 + Math.sin(a) * H * 0.3 + rnd(i) * 26;
-      ctx.beginPath(); ctx.moveTo(W * 0.78, gy); ctx.quadraticCurveTo(W * 0.78 + (ex - W * 0.78) * 0.3, ey, ex, ey); ctx.stroke();
+      const ex = SPOTS.arbre + Math.cos(Math.PI - a) * 330, ey = gy + 24 + Math.sin(a) * H * 0.3 + rnd(i) * 26;
+      ctx.beginPath(); ctx.moveTo(SPOTS.arbre, gy); ctx.quadraticCurveTo(SPOTS.arbre + (ex - SPOTS.arbre) * 0.3, ey, ex, ey); ctx.stroke();
       if (isSolved(i)) { glow(ex, ey, 14, 'rgba(242,190,90,0.5)'); ctx.fillStyle = save.perfect[i] ? '#b6f08f' : '#ffd98a'; circle(ex, ey, 2.6); }
     }
-
-    // Herbe et fleurs du jardin d'Oda
     ctx.fillStyle = dawn ? '#4f6a34' : '#233021';
-    ctx.fillRect(0, gy - 4, W, 8);
+    ctx.fillRect(-400, gy - 4, VW + 800, 8);
     ctx.strokeStyle = ctx.fillStyle; ctx.lineWidth = 1.5;
     ctx.beginPath();
-    for (let x = 3; x < W; x += 7) { ctx.moveTo(x, gy - 3); ctx.lineTo(x + 2, gy - 8 - rnd(x) * 5); }
+    for (let x = 3; x < VW; x += 7) { if (Math.abs(x - SPOTS.jardin) < 50) continue; ctx.moveTo(x, gy - 3); ctx.lineTo(x + 2, gy - 8 - rnd(x) * 5); }
     ctx.stroke();
-    const flowers = B.jardin * 9;
-    for (let i = 0; i < flowers; i++) {
-      const fx = rnd(i * 3 + 1) * W, fy = gy - 5 - rnd(i * 5) * 4;
-      ctx.fillStyle = ['#ff9fcb', '#ffd98a', '#b48cff', '#ffffff'][i % 4];
-      circle(fx, fy, 2.2);
-    }
-    if (B.jardin >= 3 && !reduced) {
-      for (let i = 0; i < 8; i++) {
-        const fx = (rnd(i + 30) * W + Math.sin(time * 0.7 + i) * 20), fy = gy - 20 - rnd(i + 60) * 40 + Math.sin(time + i * 2) * 8;
-        glow(fx, fy, 8, `rgba(216,255,122,${0.4 + 0.3 * Math.sin(time * 4 + i)})`);
-      }
-    }
 
-    // Le puits
-    const ow = W * 0.2, c = W / 2;
+    // Le puits, Ilia et Oda
+    const c = SPOTS.puits, ow = 70;
     for (let row = 0; row < 2; row++) for (let i = 0; i < 7; i++) {
       if (row && i === 6) continue;
       const bw = (ow + 34) / 7;
       ctx.fillStyle = rnd(i + row * 9) < 0.5 ? '#5d5049' : '#4a3f3b';
       ctx.fillRect(c - (ow + 34) / 2 + i * bw + (row ? bw / 2 : 0) + 1, gy - 22 + row * 10, bw - 2, 9);
     }
-    ctx.fillStyle = '#6b4a2e';
-    ctx.fillRect(c - ow / 2 - 12, gy - 82, 6, 62);
-    ctx.fillRect(c + ow / 2 + 6, gy - 82, 6, 62);
-    ctx.fillStyle = '#3b271a';
-    ctx.beginPath(); ctx.moveTo(c - ow / 2 - 24, gy - 80); ctx.lineTo(c, gy - 106); ctx.lineTo(c + ow / 2 + 24, gy - 80); ctx.fill();
+    ctx.fillStyle = '#6b4a2e'; ctx.fillRect(c - ow / 2 - 12, gy - 82, 6, 62); ctx.fillRect(c + ow / 2 + 6, gy - 82, 6, 62);
+    ctx.fillStyle = '#3b271a'; ctx.beginPath(); ctx.moveTo(c - ow / 2 - 24, gy - 80); ctx.lineTo(c, gy - 106); ctx.lineTo(c + ow / 2 + 24, gy - 80); ctx.fill();
     ctx.fillStyle = '#8a5a2b'; ctx.fillRect(c - ow / 2 - 6, gy - 64, ow + 12, 6);
+    const ix = c - 4, iy = gy - 3;
+    drawPerson(ix - 14, iy, '#2f5d50', '#c8452f', '#3a2418', 1);
+    const st = STYLES[save.style];
+    glow(ix - 3, gy - 16, 24, 'rgba(242,166,59,0.55)');
+    ctx.fillStyle = st.frame; ctx.fillRect(ix - 7, gy - 22, 8, 2); ctx.fillRect(ix - 7, gy - 12, 8, 2);
+    ctx.fillStyle = st.glass || '#f2c46b'; ctx.fillRect(ix - 6, gy - 20, 6, 8);
+    drawPerson(ix + 14, iy, '#4a3b52', '#bda98a', '#d9d2c5', 0.92);
+    ctx.fillStyle = '#6b4a2e'; ctx.fillRect(ix + 24, gy - 30, 2, 28);
 
-    // Ilia, sa lanterne, et Oda
-    const ix = c + ow / 2 + 28;
-    drawPerson(ix, gy - 3, '#2f5d50', '#c8452f', '#3a2418', 1);
-    glow(ix + 11, gy - 16, 22, 'rgba(242,166,59,0.5)');
-    ctx.fillStyle = STYLES[save.style].frame; ctx.fillRect(ix + 7, gy - 22, 8, 2); ctx.fillRect(ix + 7, gy - 12, 8, 2);
-    ctx.fillStyle = '#f2c46b'; ctx.fillRect(ix + 8, gy - 20, 6, 8);
-    drawPerson(ix + 26, gy - 3, '#4a3b52', '#bda98a', '#d9d2c5', 0.92);
-    ctx.fillStyle = '#6b4a2e'; ctx.fillRect(ix + 36, gy - 30, 2, 28);
+    // Bâtiment mis en valeur : étiquette flottante
+    if (focus && time < focusUntil && SPOTS[focus] && !(bounce.id === focus && time - bounce.t0 < 2.2)) {
+      const b = BUILDINGS.find((bb) => bb.id === focus);
+      if (b) {
+        const a = Math.min(1, (focusUntil - time) / 0.6);
+        // étiquette dessinée à l'échelle de l'écran, gardée dans ses bords
+        ctx.save(); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.globalAlpha = a;
+        ctx.font = '600 14px "Alegreya Sans", system-ui, sans-serif';
+        const label = `${b.name} · niveau ${save.build[focus]}/3`;
+        const tw = ctx.measureText(label).width + 20;
+        const bx = W / 2 + (SPOTS[focus] - camX) * zoom;
+        const lx = Math.max(tw / 2 + 8, Math.min(W - tw / 2 - 8, bx));
+        const ly = gy - 135 * zoom + Math.sin(time * 2) * 3;
+        ctx.fillStyle = 'rgba(29,20,16,0.92)'; ctx.strokeStyle = 'rgba(242,166,59,0.8)'; ctx.lineWidth = 1;
+        ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(lx - tw / 2, ly - 14, tw, 26, 13); else ctx.rect(lx - tw / 2, ly - 14, tw, 26); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#efe3c8'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(label, lx, ly);
+        ctx.textAlign = 'start'; ctx.textBaseline = 'alphabetic';
+        ctx.strokeStyle = 'rgba(242,166,59,0.6)'; ctx.beginPath(); ctx.moveTo(bx, ly + 12); ctx.lineTo(bx, gy - 70 * zoom); ctx.stroke();
+        ctx.restore();
+      }
+    }
+    // Éclats de construction
+    const dt = 1 / 60;
+    burst = burst.filter((p) => (p.life -= dt) > 0);
+    for (const p of burst) {
+      p.vy += 160 * dt; p.x += p.vx * dt; p.y += p.vy * dt;
+      glow(SPOTS[p.id] + p.x, gy + p.y, 6, `hsla(${p.hue},95%,70%,${Math.min(1, p.life)})`);
+    }
+    if (bounce.id && time - bounce.t0 < 2.2) {
+      const t = time - bounce.t0;
+      ctx.globalAlpha = Math.max(0, 1 - t / 2.2);
+      ctx.font = 'italic 24px "IM Fell English", Georgia, serif';
+      ctx.fillStyle = '#ffd98a'; ctx.textAlign = 'center';
+      ctx.fillText(`Niveau ${save.build[bounce.id]} !`, SPOTS[bounce.id], gy - 120 - t * 20);
+      ctx.textAlign = 'start'; ctx.globalAlpha = 1;
+    }
+    ctx.restore();
+  }
+
+  // Aperçu « maintenant → après » dans les cartes du village
+  function drawPreview(cv, id, from, to) {
+    const r = Math.min(window.devicePixelRatio || 1, 2);
+    const cw = cv.clientWidth || 150, ch = cv.clientHeight || 64;
+    cv.width = cw * r; cv.height = ch * r;
+    const c2 = cv.getContext('2d');
+    const old = ctx; ctx = c2;
+    try {
+      ctx.setTransform(r, 0, 0, r, 0, 0);
+      const g = ctx.createLinearGradient(0, 0, 0, ch);
+      g.addColorStop(0, '#1b1733'); g.addColorStop(1, '#3a2742');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, cw, ch);
+      ctx.fillStyle = '#233021'; ctx.fillRect(0, ch - 8, cw, 8);
+      const k = id === 'obs' ? 0.42 : 0.62;
+      for (const [lv, px] of [[from, cw * 0.25], [to, cw * 0.75]]) {
+        if (lv === null) continue;
+        ctx.save(); ctx.translate(px, ch - 8); ctx.scale(k, k); ctx.translate(-px, -(ch - 8));
+        drawBuilding(id, px, ch - 8, lv);
+        ctx.restore();
+      }
+      if (to !== null) {
+        ctx.fillStyle = '#f2a63b';
+        ctx.beginPath(); ctx.moveTo(cw / 2 - 6, ch / 2 - 6); ctx.lineTo(cw / 2 + 6, ch / 2); ctx.lineTo(cw / 2 - 6, ch / 2 + 6); ctx.fill();
+      }
+    } finally { ctx = old; }
   }
 
   function draw() {
@@ -1437,7 +1738,9 @@
 
   // ---------- Contrôles ----------
   const busy = () => !ui.story.hidden || !ui.win.hidden || !ui.loading.hidden;
+  let drag = null;
   canvas.addEventListener('pointerdown', (e) => {
+    if (mode === 'village' && !busy()) { drag = { x: e.clientX, cam: camTarget }; return; }
     if (mode !== 'board' || busy()) return;
     const rect = canvas.getBoundingClientRect();
     const x = Math.floor((e.clientX - rect.left - ox) / cell), y = Math.floor((e.clientY - rect.top - oy) / cell);
@@ -1445,7 +1748,18 @@
     cursor = -1;
     if (c) rotate(c);
   });
+  const clampCam = (c) => { const half = W / 2 / zoom; return VW <= 2 * half ? VW / 2 : Math.max(half, Math.min(VW - half, c)); };
+  canvas.addEventListener('pointermove', (e) => {
+    if (!drag || mode !== 'village') return;
+    camTarget = clampCam(drag.cam - (e.clientX - drag.x) / zoom);
+    camX = camTarget;
+  });
+  window.addEventListener('pointerup', () => { drag = null; });
   window.addEventListener('keydown', (e) => {
+    if (mode === 'village' && !busy() && (e.key === 'ArrowLeft' || e.key === 'ArrowRight') && document.activeElement === document.body) {
+      camTarget = clampCam(camTarget + (e.key === 'ArrowLeft' ? -80 : 80));
+      return;
+    }
     if (mode !== 'board' || busy()) return;
     if (document.activeElement && document.activeElement.tagName === 'BUTTON' && (e.key === 'Enter' || e.key === ' ')) return;
     const list = lv.movable;
@@ -1469,8 +1783,48 @@
   });
 
   for (const b of document.querySelectorAll('.tabs button')) {
-    b.addEventListener('click', () => { tab = b.dataset.tab; renderMenu(); });
+    b.addEventListener('click', () => {
+      tab = b.dataset.tab;
+      if (tab === 'village') {
+        const next = BUILDINGS.find((bb) => save.build[bb.id] < bb.costs.length && save.eclats >= bb.costs[save.build[bb.id]]);
+        panTo((next || BUILDINGS[0]).id, 2.5);
+      }
+      renderMenu();
+    });
   }
+
+  // Sauvegarde : boutons
+  function onSaveLoaded(msg) {
+    showToast(msg);
+    if (!ui.story.hidden && save.intro && storyQueue.length && storyQueue.every((c2) => c2.kicker === 'Prologue')) {
+      storyQueue = []; storyDone = null; ui.story.hidden = true; showVillage();
+    } else if (mode === 'village' && ui.story.hidden) renderMenu();
+  }
+  $('btn-save').addEventListener('click', async () => {
+    persist();
+    if (cloudRef) { clearTimeout(cloudTimer); await pushCloud(); }
+    showToast(cloudRef ? 'Partie sauvegardée sur ton compte.' : 'Partie sauvegardée sur cet appareil.');
+  });
+  $('btn-export').addEventListener('click', async () => {
+    const code = exportCode();
+    const box = $('save-code');
+    box.value = code;
+    try { await navigator.clipboard.writeText(code); showToast('Code copié. Garde-le précieusement.'); }
+    catch (e) { box.focus(); box.select(); showToast('Sélectionne le code ci-dessous et copie-le.'); }
+  });
+  let importArmed = false;
+  $('btn-import').addEventListener('click', () => {
+    const box = $('save-code'), btn = $('btn-import');
+    if (!box.value.trim()) { showToast('Colle d\'abord un code de sauvegarde dans la case.'); box.focus(); return; }
+    if (!importArmed) {
+      importArmed = true; btn.textContent = 'Toucher encore pour remplacer ma partie';
+      setTimeout(() => { importArmed = false; btn.textContent = 'Charger ce code'; }, 3500);
+      return;
+    }
+    importArmed = false; btn.textContent = 'Charger ce code';
+    try { importCode(box.value); box.value = ''; }
+    catch (e) { showToast('Ce code ne fonctionne pas. Vérifie qu\'il est complet.'); }
+  });
   $('btn-map').addEventListener('click', () => showVillage());
   $('btn-restart').addEventListener('click', () => openPuzzle(puzzle));
   $('btn-hint').addEventListener('click', giveHint);
@@ -1497,6 +1851,8 @@
   });
 
   resize();
+  setSaveStatus('local');
+  initCloud();
   if (save.intro) showVillage();
   else {
     ui.menu.hidden = true;

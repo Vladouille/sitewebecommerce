@@ -56,4 +56,8 @@ Jeu d'énigmes de lumière avec progression, indépendant de la landing (aucun l
 - **18 missions** données par les villageois, avec récompenses.
 - **Défis** : énigme du jour (la même pour tout le monde) et défis libres infinis (facile, moyen, difficile), générés dans le navigateur
   et vérifiés par le même solveur.
-Niveaux, bâtiments, missions et textes : constantes en haut de `jeu/jeu.js`. Progression sauvegardée dans le navigateur.
+- **Village panoramique** : chaque bâtiment a 4 apparences (ruine → magnifique), un aperçu « maintenant → après » sur sa carte,
+  et une animation de construction. On fait glisser le village pour le visiter.
+- **Sauvegarde** : automatique après chaque action, dans le navigateur ; sur le compte claude.ai quand la page est publiée
+  comme Artifact (capacités `db` + `user`, document privé `data/users/<id>/save`) ; et code de sauvegarde à copier-coller.
+Niveaux, bâtiments, missions et textes : constantes en haut de `jeu/jeu.js`.

@@ -38,6 +38,7 @@
           <span title="Éclats de lumière"><strong id="eclats">0</strong> éclats</span>
           <span><strong id="hints">0</strong> indices</span>
         </div>
+        <p class="save-status" id="save-status" data-state="local">Sauvegardé sur cet appareil</p>
       </div>
       <nav class="tabs" role="tablist" aria-label="Sections du village">
         <button type="button" role="tab" id="tabbtn-enigmes" data-tab="enigmes" aria-selected="true">Énigmes</button>
@@ -55,11 +56,22 @@
           <summary>Carnet d'Ilia</summary>
           <div id="journal"></div>
         </details>
+        <details class="book" id="save-box">
+          <summary>Sauvegarde</summary>
+          <p class="save-help">Ta partie se sauvegarde toute seule après chaque énigme, achat ou mission : sur ton compte quand c'est possible, sinon sur cet appareil. Pour la reprendre ailleurs, copie ton code de sauvegarde et colle-le sur l'autre appareil.</p>
+          <div class="save-actions">
+            <button class="chip" id="btn-save" type="button">Sauvegarder maintenant</button>
+            <button class="chip" id="btn-export" type="button">Copier mon code</button>
+          </div>
+          <label class="save-label" for="save-code">Code de sauvegarde</label>
+          <textarea id="save-code" rows="3" spellcheck="false" placeholder="Colle ici un code de sauvegarde"></textarea>
+          <button class="chip" id="btn-import" type="button">Charger ce code</button>
+        </details>
         <button class="btn-link" id="btn-reset" type="button">Recommencer l'histoire</button>
       </div>
 
       <div class="tab" id="tab-village" role="tabpanel" aria-labelledby="tabbtn-village" hidden>
-        <p class="oda">Chaque bâtiment restauré ramène un peu de vie au village, et t'aide sous terre.</p>
+        <p class="oda">Chaque bâtiment restauré ramène un peu de vie au village, et t'aide sous terre. Touche un aperçu pour aller le voir, ou fais glisser le village.</p>
         <div class="buildings" id="buildings"></div>
         <h2 class="sub">Style de lanterne</h2>
         <div class="styles" id="styles"></div>

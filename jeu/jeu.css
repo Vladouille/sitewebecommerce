@@ -36,7 +36,7 @@ html, body {
   background: var(--nuit);
 }
 
-canvas { display: block; width: 100%; height: 100%; }
+#scene { display: block; width: 100%; height: 100%; touch-action: none; }
 
 h1, h2 { font-family: var(--titre); font-weight: 400; text-wrap: balance; margin: 0; }
 h1 { font-size: 34px; line-height: 1.05; color: var(--ambre); }
@@ -101,6 +101,7 @@ button:focus-visible, summary:focus-visible { outline: 3px solid var(--mousse); 
   box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.5);
 }
 .sheet > * + * { margin-top: 12px; }
+.sheet.compact { max-height: 46%; }
 .oda { margin: 0; font: italic 18px/1.4 var(--titre); color: var(--pale); }
 .progress { margin: 0; font-size: 16px; color: var(--pale); }
 .progress strong { color: var(--ambre); }
@@ -165,6 +166,28 @@ button:focus-visible, summary:focus-visible { outline: 3px solid var(--mousse); 
 .chapter p { margin: 4px 0 0; font-size: 15px; color: var(--pale); }
 
 /* En-tête du village, onglets */
+.save-status { flex-basis: 100%; margin: 0; font-size: 13px; color: var(--pale); }
+.save-status::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; background: #8fd46b; }
+.save-status[data-state="saving"]::before { background: var(--ambre); }
+.save-status[data-state="error"]::before { background: #e8553a; }
+.save-help { font-size: 15px; color: var(--pale); margin: 6px 0 10px; }
+.save-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.save-label { display: block; margin: 12px 0 4px; font-size: 14px; color: var(--pale); }
+#save-code {
+  display: block;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 8px;
+  border: 1px solid rgba(189, 169, 138, 0.35);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--parchemin);
+  font: 12px/1.4 ui-monospace, Menlo, Consolas, monospace;
+  resize: vertical;
+  user-select: text;
+  -webkit-user-select: text;
+}
+#save-code:focus-visible { outline: 3px solid var(--mousse); outline-offset: 2px; }
 .sheet-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
 .wallet { display: flex; gap: 14px; font-size: 15px; color: var(--pale); font-variant-numeric: tabular-nums; }
 .wallet strong { color: var(--ambre); font-size: 18px; }
@@ -220,8 +243,8 @@ h2.sub { font-size: 22px; margin-top: 22px; }
 .building .pips { display: flex; gap: 3px; margin-top: 4px; }
 .building .pips i { width: 16px; height: 5px; border-radius: 2px; background: rgba(189, 169, 138, 0.25); }
 .building .pips i.on { background: var(--ambre); }
-.building button, .mission button, .defi button.small {
-  grid-row: 1 / span 3;
+.building .buy, .mission button, .defi button.small {
+  grid-row: 2 / span 3;
   grid-column: 2;
   min-width: 100px;
   padding: 9px 10px;
@@ -232,7 +255,22 @@ h2.sub { font-size: 22px; margin-top: 22px; }
   font-weight: 800;
   font-variant-numeric: tabular-nums;
 }
-.building button:disabled, .mission button:disabled { border-color: rgba(189, 169, 138, 0.3); color: rgba(189, 169, 138, 0.55); cursor: default; }
+.mission button { grid-row: 1 / span 3; }
+.building .preview {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 4px;
+  padding: 0;
+  margin-bottom: 6px;
+  border: 1px solid rgba(189, 169, 138, 0.25);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #1b1733;
+  text-align: center;
+}
+.building .preview canvas { display: block; width: 100%; height: 76px; }
+.building .preview span { padding: 0 0 6px; font-size: 13px; color: var(--pale); }
+.building .buy:disabled, .mission button:disabled { border-color: rgba(189, 169, 138, 0.3); color: rgba(189, 169, 138, 0.55); cursor: default; }
 .styles { display: flex; flex-wrap: wrap; gap: 8px; }
 .styles button { display: flex; align-items: center; gap: 8px; }
 .styles button[aria-pressed="true"] { border-color: var(--ambre); color: var(--ambre); }
