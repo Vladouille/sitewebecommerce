@@ -63,13 +63,17 @@ Jeu d'énigmes de lumière avec progression, indépendant de la landing (aucun l
 Niveaux, bâtiments, missions et textes : constantes en haut de `jeu/jeu.js`.
 
 ## Jeu « Les Bâtisseurs de Clairval » (`village/`)
-Jeu de gestion de village, indépendant de la landing. Ouvre http://localhost:8000/village/.
-- **Récolte à la main** : touche les arbres (bois), rochers (pierre), buissons (baies) et la rivière (eau).
-- **Construction** de 12 bâtiments qui apparaissent dans le village : maisons, bûcheron, carrière, puits, pêcheur, champs,
-  grenier, place, guérisseuse, taverne, atelier, beffroi.
-- **Habitants** : chacun mange 1 et boit 1 par jour, et brûle du bois l'hiver. On leur donne un métier (cueilleur, porteur d'eau,
-  bûcheron, tailleur de pierre, fermier, pêcheur). Le bonheur fait venir ou partir des habitants.
-- **Jour/nuit et saisons** (5 jours chacune), événements aléatoires (marchand, tempête, fièvre, loups…), 11 objectifs.
+Jeu de gestion indépendant de la landing. Ouvre http://localhost:8000/village/.
+- **Trois ères** : Village, puis Ville (20 habitants et beffroi), puis Mégacité (90 habitants, école et théâtre).
+  Chaque ère agrandit le monde et change son allure : chemins de terre, puis pavés et réverbères, puis asphalte, tramway et tours.
+- **10 ressources** : nourriture, eau, bois, pierre ; puis fer, outils, briques, or ; puis acier et énergie.
+  Certains métiers transforment des ressources (forge : fer + bois → outils ; briqueterie ; aciérie : fer + énergie → acier).
+- **33 bâtiments** répartis par ère (logement, production, stockage, bonheur), dont le monument final, la Tour de Clairval.
+- **16 métiers**, avec une répartition automatique et des boutons ±10 pour les grandes villes.
+- **21 améliorations** achetées une fois (récolte à la main, bonus de métiers, chauffage, bonheur, eau).
+- **Marché** : troc (2 pour 1, meilleur avec un marché), puis vente et achat contre de l'or.
+- **Besoins** : nourriture, eau, chauffage l'hiver (bois, puis énergie en Mégacité), électricité en Mégacité ; le bonheur fait venir ou partir des habitants.
+- **Jour/nuit et saisons**, événements aléatoires, 22 objectifs, courbe de population.
 - **Sauvegarde** : navigateur, compte claude.ai (capacité `db`, document privé `data/users/<id>/clairval`), code à copier ;
-  gains hors ligne (moitié du rythme, 2 jours maximum).
-Réglages : constantes en haut de `village/village.js` (durée du jour, métiers, bâtiments, objectifs, événements).
+  gains hors ligne (moitié du rythme, 2 jours maximum). Les anciennes sauvegardes restent compatibles.
+Réglages : constantes en haut de `village/village.js` (ères, ressources, métiers, bâtiments, améliorations, objectifs).

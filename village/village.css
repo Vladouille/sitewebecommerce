@@ -53,6 +53,7 @@ button:focus-visible, summary:focus-visible, textarea:focus-visible { outline: 3
   pointer-events: none;
 }
 .res-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.res-row.compact { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
 .res {
   display: grid;
   pointer-events: auto;
@@ -75,6 +76,11 @@ button:focus-visible, summary:focus-visible, textarea:focus-visible { outline: 3
 .res .rate { font-size: 11px; font-weight: 700; }
 .res .rate.up { color: var(--vert); }
 .res .rate.down { color: var(--rouge); }
+.res-row.compact .res { grid-template-columns: auto 1fr; align-items: baseline; column-gap: 3px; padding: 3px 5px; border-radius: 8px; }
+.res-row.compact .res .lbl { grid-column: 1 / -1; font-size: 10px; }
+.res-row.compact .res strong { font-size: 13px; }
+.res-row.compact .res strong small { display: none; }
+.res-row.compact .res .rate { font-size: 9px; text-align: right; white-space: nowrap; overflow: hidden; }
 .res.alert { border-color: var(--rouge); animation: blink 1s steps(2) infinite; }
 @keyframes blink { 50% { border-color: transparent; } }
 .meta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; }
@@ -119,7 +125,7 @@ button:focus-visible, summary:focus-visible, textarea:focus-visible { outline: 3
   border-radius: 18px 18px 0 0;
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.45);
 }
-.tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 8px 10px 0; }
+.tabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2px; padding: 8px 6px 0; }
 .tabs button {
   position: relative;
   padding: 9px 2px;
@@ -128,9 +134,11 @@ button:focus-visible, summary:focus-visible, textarea:focus-visible { outline: 3
   background: transparent;
   color: var(--pale);
   font-weight: 800;
-  font-size: 14px;
+  font-size: 13px;
+  white-space: nowrap;
 }
 .tabs button[aria-selected="true"] { background: rgba(243, 234, 211, 0.08); color: var(--papier); }
+.tabs .badge { position: absolute; top: -4px; right: 0; }
 .badge {
   display: inline-grid;
   place-items: center;
@@ -185,6 +193,40 @@ h3 { font-size: 18px; }
   cursor: default;
 }
 .bld.locked { opacity: 0.6; }
+.bld.owned h3 { color: var(--vert); }
+
+/* Ères */
+.era-block { border-bottom: 1px solid rgba(243, 234, 211, 0.12); }
+.era-block summary { cursor: pointer; padding: 8px 0; font: 600 20px var(--titre); color: var(--ble); }
+.era-block summary small { font: 400 13px var(--texte); color: var(--pale); }
+.era-card {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(224, 163, 90, 0.5);
+  background: rgba(20, 28, 18, 0.6);
+}
+.era-card h3 { font-size: 22px; color: var(--ble); }
+.era-card button, .big-btn {
+  padding: 11px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--ble);
+  background: var(--ble);
+  color: #2a1a08;
+  font-weight: 800;
+}
+.era-card button:disabled, .big-btn:disabled {
+  background: transparent;
+  border-color: rgba(243, 234, 211, 0.25);
+  color: rgba(243, 234, 211, 0.5);
+  cursor: default;
+}
+.big-btn { width: 100%; }
+.checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 3px; font-size: 14px; color: var(--pale); }
+.checklist li::before { content: "○"; display: inline-block; width: 18px; }
+.checklist li.ok { color: var(--vert); }
+.checklist li.ok::before { content: "✓"; }
 
 /* Habitants */
 .needs { display: grid; gap: 6px; }
@@ -211,6 +253,27 @@ h3 { font-size: 18px; }
 .job button { min-width: 40px; padding: 6px 0; font-size: 18px; line-height: 1; }
 .job button:disabled { background: transparent; border-color: rgba(243, 234, 211, 0.2); color: rgba(243, 234, 211, 0.35); cursor: default; }
 .job .count { min-width: 44px; text-align: center; font-weight: 800; }
+.job.big { grid-template-columns: 1fr auto auto auto auto auto; gap: 5px; }
+.job.big button { min-width: 34px; font-size: 14px; padding: 7px 0; }
+.job.big .count { min-width: 40px; font-size: 14px; }
+.spark { display: block; width: 100%; height: 56px; border-radius: 10px; background: rgba(0, 0, 0, 0.2); }
+.row.between { justify-content: space-between; align-items: center; }
+
+/* Marché */
+.trade { display: grid; grid-template-columns: auto 1fr; gap: 8px 10px; align-items: center; font-size: 14px; }
+.trade select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(243, 234, 211, 0.3);
+  background: rgba(20, 28, 18, 0.9);
+  color: var(--papier);
+  font: inherit;
+}
+.trade select:focus-visible { outline: 3px solid var(--eau); outline-offset: 2px; }
+.chip[aria-pressed="true"] { background: var(--ble); color: #2a1a08; border-color: var(--ble); }
+.quote { margin: 0; font-size: 15px; }
+.quote strong { color: var(--ble); }
 
 /* Objectifs */
 .goal { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(243, 234, 211, 0.1); }
@@ -297,5 +360,14 @@ h3 { font-size: 18px; }
 .card-actions button:disabled { opacity: 0.45; cursor: default; }
 
 @media (prefers-reduced-motion: reduce) {
-  .toast, .card, .res.alert { animation: none; }
+  .toast, .card, .res-row[data-n="5"] .res, .res-row[data-n="6"] .res, .res-row[data-n="7"] .res, .res-row[data-n="8"] .res,
+.res-row[data-n="9"] .res, .res-row[data-n="10"] .res { padding: 3px 5px; border-radius: 8px; }
+.res-row[data-n="5"] .res strong, .res-row[data-n="6"] .res strong, .res-row[data-n="7"] .res strong, .res-row[data-n="8"] .res strong,
+.res-row[data-n="9"] .res strong, .res-row[data-n="10"] .res strong { font-size: 13px; }
+.res-row[data-n="5"] .res strong small, .res-row[data-n="6"] .res strong small, .res-row[data-n="7"] .res strong small, .res-row[data-n="8"] .res strong small,
+.res-row[data-n="9"] .res strong small, .res-row[data-n="10"] .res strong small { display: none; }
+.res-row[data-n="5"] .res .lbl, .res-row[data-n="6"] .res .lbl, .res-row[data-n="7"] .res .lbl, .res-row[data-n="8"] .res .lbl,
+.res-row[data-n="9"] .res .lbl, .res-row[data-n="10"] .res .lbl, .res-row[data-n="5"] .res .rate, .res-row[data-n="6"] .res .rate,
+.res-row[data-n="7"] .res .rate, .res-row[data-n="8"] .res .rate, .res-row[data-n="9"] .res .rate, .res-row[data-n="10"] .res .rate { font-size: 10px; }
+.res.alert { animation: none; }
 }

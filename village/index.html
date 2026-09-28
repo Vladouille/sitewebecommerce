@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Les Bâtisseurs de Clairval</title>
-  <meta name="description" content="Récolte du bois, de la pierre, de l'eau et de la nourriture, construis ton village et veille à ce que chaque habitant mange, boive et reste au chaud.">
+  <meta name="description" content="Récolte du bois, de la pierre, de l'eau et de la nourriture, construis ton village, fais-le grandir en ville puis en mégacité, et veille à ce que chaque habitant mange, boive et reste au chaud.">
   <meta name="theme-color" content="#1c2a1f">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231c2a1f%22/%3E%3Cpath d=%22M6 26V15l10-8 10 8v11z%22 fill=%22%23e0a35a%22/%3E%3Crect x=%2213%22 y=%2218%22 width=%226%22 height=%228%22 fill=%22%231c2a1f%22/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,7 @@
 </head>
 <body>
   <main class="stage">
-    <canvas id="scene" aria-label="Le village de Clairval, sa forêt, ses rochers et sa rivière"></canvas>
+    <canvas id="scene" aria-label="Clairval, sa forêt, ses rochers, sa rivière et ses quartiers"></canvas>
 
     <!-- Ressources et temps -->
     <header class="hud">
@@ -38,12 +38,14 @@
       <nav class="tabs" role="tablist" aria-label="Gestion du village">
         <button type="button" role="tab" id="tb-build" data-tab="build" aria-selected="true">Construire</button>
         <button type="button" role="tab" id="tb-people" data-tab="people" aria-selected="false">Habitants <span class="badge" id="idle-badge" hidden></span></button>
-        <button type="button" role="tab" id="tb-goals" data-tab="goals" aria-selected="false">Objectifs <span class="badge" id="goal-badge" hidden></span></button>
+        <button type="button" role="tab" id="tb-progress" data-tab="progress" aria-selected="false">Progrès <span class="badge" id="goal-badge" hidden></span></button>
+        <button type="button" role="tab" id="tb-market" data-tab="market" aria-selected="false">Marché</button>
         <button type="button" role="tab" id="tb-log" data-tab="log" aria-selected="false">Journal</button>
       </nav>
       <div class="tab" id="tab-build" role="tabpanel" aria-labelledby="tb-build"></div>
       <div class="tab" id="tab-people" role="tabpanel" aria-labelledby="tb-people" hidden></div>
-      <div class="tab" id="tab-goals" role="tabpanel" aria-labelledby="tb-goals" hidden></div>
+      <div class="tab" id="tab-progress" role="tabpanel" aria-labelledby="tb-progress" hidden></div>
+      <div class="tab" id="tab-market" role="tabpanel" aria-labelledby="tb-market" hidden></div>
       <div class="tab" id="tab-log" role="tabpanel" aria-labelledby="tb-log" hidden>
         <p class="save-status" id="save-status" data-state="local">Sauvegardé sur cet appareil</p>
         <ul class="log" id="log"></ul>
