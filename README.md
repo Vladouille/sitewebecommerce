@@ -64,16 +64,19 @@ Niveaux, bâtiments, missions et textes : constantes en haut de `jeu/jeu.js`.
 
 ## Jeu « Les Bâtisseurs de Clairval » (`village/`)
 Jeu de gestion indépendant de la landing. Ouvre http://localhost:8000/village/.
-- **Trois ères** : Village, puis Ville (20 habitants et beffroi), puis Mégacité (90 habitants, école et théâtre).
-  Chaque ère agrandit le monde et change son allure : chemins de terre, puis pavés et réverbères, puis asphalte, tramway et tours.
-- **10 ressources** : nourriture, eau, bois, pierre ; puis fer, outils, briques, or ; puis acier et énergie.
-  Certains métiers transforment des ressources (forge : fer + bois → outils ; briqueterie ; aciérie : fer + énergie → acier).
-- **33 bâtiments** répartis par ère (logement, production, stockage, bonheur), dont le monument final, la Tour de Clairval.
-- **16 métiers**, avec une répartition automatique et des boutons ±10 pour les grandes villes.
-- **21 améliorations** achetées une fois (récolte à la main, bonus de métiers, chauffage, bonheur, eau).
-- **Marché** : troc (2 pour 1, meilleur avec un marché), puis vente et achat contre de l'or.
-- **Besoins** : nourriture, eau, chauffage l'hiver (bois, puis énergie en Mégacité), électricité en Mégacité ; le bonheur fait venir ou partir des habitants.
-- **Jour/nuit et saisons**, événements aléatoires, 22 objectifs, courbe de population.
+- **Vue isométrique** : la ville est une maquette vue d'en haut, qu'on fait glisser, zoome (pincer, +/−) et tourne d'un quart de tour.
+  On récolte en touchant les arbres, rochers, buissons et la rivière ; on place chaque bâtiment sur la case de son choix.
+- **Améliorations visibles** : chaque bâtiment monte jusqu'au niveau 5 (3 dans son ère, +1 à chaque ère suivante).
+  Il grandit et change d'allure à chaque niveau (étages, annexes, cheminées, jardins, antennes, finition dorée au niveau 5), avec une animation d'échafaudage.
+- **14 ères** : Village, Ville, Mégacité, puis Écocité, Cité numérique, Arcologie, Cité flottante (sur la mer), Cité orbitale,
+  Colonie lunaire, Colonie martienne (le Terraformeur la fait verdir), Ceinture d'astéroïdes, Essaim de Dyson, Monde-anneau et Cité galactique.
+  Chaque ère a sa merveille (Tour de Clairval, Arbre-Monde, Cœur numérique… jusqu'au Portail galactique) sur un terrain réservé.
+  À partir de l'ère 7, de nouveaux sites s'ouvrent avec leur propre décor (mer, orbite, Lune, Mars, astéroïdes, Soleil, anneau, galaxie).
+- **21 ressources, 40 métiers, 132 bâtiments, 54 améliorations, 55 objectifs.**
+- **Outils** : Conseiller (ce qu'il faut faire, avec un bouton qui le fait), automatisations à acheter (Bureau de l'emploi, file de constructions,
+  drones de récolte, Contremaître, Courtier, IA urbaniste), statistiques par ressource (détail et courbe), marché, flèche dorée sur les bâtiments améliorables.
+- **Besoins** : nourriture, eau, chauffage l'hiver, électricité à partir de la Mégacité ; le bonheur fait venir ou partir des habitants.
 - **Sauvegarde** : navigateur, compte claude.ai (capacité `db`, document privé `data/users/<id>/clairval`), code à copier ;
-  gains hors ligne (moitié du rythme, 2 jours maximum). Les anciennes sauvegardes restent compatibles.
-Réglages : constantes en haut de `village/village.js` (ères, ressources, métiers, bâtiments, améliorations, objectifs).
+  gains hors ligne. Les anciennes sauvegardes (vue de côté) sont converties automatiquement.
+- **Équilibrage** : un robot joue la partie entière hors navigateur (toutes les ères, Portail galactique vers le jour 830).
+Réglages : constantes en haut de `village/village.js` (ères, sites, ressources, métiers, bâtiments, améliorations, outils, objectifs).
