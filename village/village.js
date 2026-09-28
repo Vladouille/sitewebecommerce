@@ -1360,19 +1360,21 @@
     sitesBuilt = sig;
     const box = $('sites');
     box.hidden = open.length < 2;
+    $('gather-hint').hidden = hintHidden || save.view.site !== 'terre';
     box.innerHTML = open.map((s) => `<button type="button" class="chip" data-site="${s}" aria-pressed="${s === save.view.site}">${esc(SITES[s].name)}</button>`).join('');
   }
 
   // ---------- Onglet Construire ----------
   let tab = 'build', buildFilter = 'all';
   const openEras = new Set();
+  let lastOpenEra = 0;
   const CATS = ['Logement', 'Production', 'Stockage', 'Bonheur', 'Commerce', 'Merveille'];
   function renderBuild() {
     keepFocus(() => {
       const box = $('tab-build');
       box.innerHTML = `<p class="help">Touche « Construire », puis choisis une case sur la carte. Chaque bâtiment monte jusqu'au niveau 3 dans son ère, puis un niveau de plus à chaque ère suivante (5 au maximum) : il grandit et change d'allure.</p>
         <div class="row filters" role="group" aria-label="Filtrer">${['all', 'afford', ...CATS].map((f) => `<button type="button" class="chip" data-filter="${f}" aria-pressed="${buildFilter === f}">${{ all: 'Tout', afford: 'Abordables' }[f] || f}</button>`).join('')}</div>`;
-      if (!openEras.size) openEras.add(save.era);
+      if (lastOpenEra !== save.era) { lastOpenEra = save.era; openEras.add(save.era); }
       for (const E of ERAS.filter((x) => x.n <= save.era + 1)) {
         const open = E.n <= save.era;
         const list = BUILDINGS.filter((b) => b.era === E.n && passes(b));
@@ -1386,6 +1388,7 @@
         if (sec.open) fill();
         box.appendChild(sec);
       }
+      for (const c of box.querySelectorAll('[data-filter]')) c.addEventListener('click', () => { buildFilter = c.dataset.filter; box.scrollTop = 0; renderBuild(); });
       if (buildFilter === 'afford' && !box.querySelector('.bld')) box.insertAdjacentHTML('beforeend', '<p class="help">Rien d\'abordable pour le moment. Regarde le Conseiller dans l\'onglet Outils.</p>');
     });
   }
@@ -1415,7 +1418,11 @@
     d.querySelector(`#b-${b.id}`).addEventListener('click', () => startPlacing(b.id));
     if (up) d.querySelector(`#u-${b.id}`).addEventListener('click', () => { const it = bestUpgrade(b.id); if (it) { quietFx = false; upgrade(it); } });
     const q = d.querySelector(`#q-${b.id}`);
-    if (q) q.addEventListener('click', () => { queueAdd(block || !findSpot(b) ? 'up' : 'new', b.id); toast(`${b.name} ajouté à la file (onglet Outils).`); });
+    if (q) q.addEventListener('click', () => {
+      const kind = CNT[b.id] < b.max && findSpot(b) ? 'new' : 'up';
+      if (kind === 'up' && !CNT[b.id]) { toast(`Plus de place pour ${b.name}.`); return; }
+      queueAdd(kind, b.id); toast(`${b.name} : ${kind === 'new' ? 'construction' : 'amélioration'} ajoutée à la file (onglet Outils).`);
+    });
     return d;
   }
 
@@ -1651,6 +1658,7 @@
     quietFx = false;
     const it = build(p.b.id, p.x, p.y);
     if (it) setSheetMin(false);
+    else { toast(`Impossible de construire ${p.b.name} : ${buildBlock(p.b) || "il manque des ressources"}.`); setSheetMin(false); }
   }
 
   // ---------- Fiche d'un bâtiment ----------
@@ -3105,7 +3113,7 @@
     for (const t of TECHS) if (t.era <= save.era && !hasTech(t.id)) s += canPay(t.cost) ? 1 : 0;
     for (const t of TOOLS) if (t.era <= save.era && !save.tools[t.id]) s += canPay(t.cost) ? 1 : 0;
     s += GOALS.filter((g) => g.era <= save.era && goalDone(g) && !save.claimed[g.id]).length;
-    if (tab === 'tools') s += '|' + save.day + Math.floor(save.t * 4) + Math.floor(save.res[mkt.give]);
+    if (tab === 'tools') s += '|' + Math.floor(time / 3);
     if (tab === 'people') s += '|' + Math.round(save.happy) + save.day;
     return s;
   }
@@ -3132,7 +3140,7 @@
     if (hudTimer > 0.25 || needRender) {
       hudTimer = 0; renderHud(); refreshUpReady();
       const sig = signature();
-      const busy = document.activeElement && document.activeElement.tagName === 'SELECT';
+      const busy = (document.activeElement && document.activeElement.tagName === 'SELECT') || performance.now() < uiHold;
       if ((sig !== lastSig || needRender) && !busy) { lastSig = sig; needRender = false; renderTab(); renderBadges(); if (selected) renderInfo(); }
     }
     if (autosave > 20) { autosave = 0; persist(); }
@@ -3140,6 +3148,11 @@
   }
 
   // ---------- Contrôles ----------
+  // pendant qu'un doigt est posé sur le panneau (et juste après), on ne le redessine pas : le bouton touché reste en place
+  let uiHold = 0;
+  for (const el of [ui.sheet, ui.info, ui.placeBar]) el.addEventListener('pointerdown', () => { uiHold = Infinity; });
+  window.addEventListener('pointerup', () => { if (uiHold === Infinity) uiHold = performance.now() + 400; });
+  window.addEventListener('pointercancel', () => { if (uiHold === Infinity) uiHold = performance.now() + 400; });
   const pointers = new Map();
   let gesture = null;
   canvas.addEventListener('pointerdown', (e) => {
@@ -3207,7 +3220,7 @@
     else return;
     clampCam();
   });
-  $('res-row').addEventListener('click', (e) => { const el = e.target.closest('.res'); if (!el) return; statRes = el.dataset.k; openTools.add('stats'); tab = 'tools'; setSheetMin(false); renderTab(); });
+  $('res-row').addEventListener('click', (e) => { const el = e.target.closest('.res'); if (!el) return; statRes = el.dataset.k; openTools.add('stats'); tab = 'tools'; setSheetMin(false); renderTab(); const d = document.querySelector('[data-sec="stats"]'); if (d) $('tab-tools').scrollTop = d.offsetTop - 8; });
   for (const b of document.querySelectorAll('.speed button')) b.addEventListener('click', () => { save.speed = Number(b.dataset.speed); renderSpeed(); persist(); });
   for (const b of document.querySelectorAll('.tabs button')) b.addEventListener('click', () => { tab = b.dataset.tab; if (sheetMin) setSheetMin(false); renderTab(); });
   $('sites').addEventListener('click', (e) => { const b = e.target.closest('[data-site]'); if (!b) return; save.view.site = b.dataset.site; closeInfo(); stopPlacing(); centerOnSite(save.view.site); sitesBuilt = ''; renderSites(); persist(); });

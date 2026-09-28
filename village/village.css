@@ -237,6 +237,7 @@ h3 { font-size: 18px; }
   transition: bottom 0.25s ease;
 }
 .sheet.min ~ .sites { bottom: calc(var(--sheet-min) + 10px); }
+.stage:has(#info:not([hidden])) .sites, .stage:has(#place-bar:not([hidden])) .sites { visibility: hidden; }
 .sites .chip { flex: none; padding: 6px 10px; font-size: 13px; }
 .chip[aria-pressed="true"] { background: var(--ble); color: #2a1a08; border-color: var(--ble); }
 
