@@ -153,12 +153,14 @@ function buildMenu() {
   $('new-map').innerHTML = '<legend>Carte</legend>' + Object.entries(MAPS).map(([k, m], i) => `<label><input type="radio" name="map" value="${k}" ${i === 0 ? 'checked' : ''}><b>${m.name}</b><small>${m.text}</small></label>`).join('');
   $('new-diff').innerHTML = '<legend>Difficulté</legend>' + Object.entries(DIFFICULTY).map(([k, d]) => `<label><input type="radio" name="diff" value="${k}" ${k === 'normal' ? 'checked' : ''}><b>${d.name}</b><small>${money(d.money)} au départ${d.cost !== 1 ? `, prix ${d.cost < 1 ? '−' : '+'}${Math.round(Math.abs(1 - d.cost) * 100)} %` : ''}</small></label>`).join('');
 }
+function markChoices() { for (const l of document.querySelectorAll('.choice label')) l.classList.toggle('on', l.querySelector('input').checked); }
 let newSlot = null;
 function openNewForm(n) {
   newSlot = n || saves.freeSlot();
   if (!newSlot) { modal({ title: 'Trois villes au maximum', text: 'Efface une ville pour en fonder une nouvelle.', actions: [['OK']] }); return; }
   $('menu-main').hidden = true; $('menu-new').hidden = false;
   $('new-name').value = ['Aurore', 'Valclair', 'Beaumont', 'Rivelune', 'Hautecime', 'Port-Soleil'][Math.floor(Math.random() * 6)];
+  markChoices();
   $('new-name').focus();
 }
 function startNew(e) {
@@ -918,6 +920,8 @@ function bindUI() {
     }
   };
   $('menu-new').onsubmit = startNew;
+  // carte et difficulté choisies : surlignées (sans :has, pour les anciens navigateurs)
+  $('menu-new').addEventListener('change', markChoices);
   $('new-back').onclick = () => { $('menu-main').hidden = false; $('menu-new').hidden = true; };
   $('tools').onclick = (e) => { const b = e.target.closest('[data-cat]'); if (b) onCat(b.dataset.cat); };
   $('flyout').onclick = (e) => { const b = e.target.closest('[data-item]'); if (b) onItem(b.dataset.item, b.classList.contains('locked')); };

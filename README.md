@@ -85,8 +85,12 @@ Jeu de gestion indépendant de la landing. Ouvre http://localhost:8000/village/.
 Réglages : constantes en haut de `village/village.js` (ères, sites, ressources, métiers, bâtiments, améliorations, outils, objectifs).
 
 ## Jeu « Aurore, la cité » (`cite/`)
-Jeu de gestion de ville en vraie 3D (three.js, fourni dans `cite/vendor/`, aucune étape de build), indépendant de la landing.
-Ouvre http://localhost:8000/cite/.
+Jeu de gestion de ville en vraie 3D (three.js, fourni dans `cite/vendor/`), indépendant de la landing.
+- **Jouer** : `cite/index.html` est un fichier unique et autonome (jeu, styles et three.js intégrés). Il s'ouvre dans n'importe quel
+  navigateur récent (Chrome, Firefox, Safari, Edge, sur ordinateur ou téléphone), en ligne à `/cite/` ou même en double-cliquant
+  sur le fichier téléchargé, sans serveur. Il faut un appareil compatible WebGL 2 (quasiment tous depuis 2021).
+- **Modifier** : les sources sont dans `cite/js/` ; `cite/dev.html` les charge directement (via un serveur local).
+  Après une modification, reconstruis le fichier unique : `npm i --no-save esbuild && node cite/outils/construire.mjs`.
 - **Graphismes 3D** : terrain avec rivières, lacs ou côte, collines et forêts autour de la carte, eau animée qui reflète le ciel,
   ombres portées, cycle jour/nuit (fenêtres, lampadaires et phares allumés la nuit, étoiles et lune), éclat lumineux en qualité haute,
   4 saisons (herbe, feuillage d'automne, neige sur les toits et les routes), météo (pluie, orage avec éclairs, neige, brume, nuages),

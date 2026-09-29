@@ -231,7 +231,6 @@ textarea { width: 100%; min-height: 70px; border-radius: 10px; border: 1px solid
 .ticker { position: absolute; left: 50%; transform: translateX(-50%); bottom: calc(var(--dock-h) + 22px + var(--safe-b)); max-width: min(560px, calc(100vw - 140px)); padding: 7px 14px; border-radius: 30px; font-size: 0.8rem; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: opacity 0.5s; }
 .ticker:empty { opacity: 0; }
 .ticker b { color: var(--accent); font-weight: 600; margin-right: 6px; }
-.flyout:not([hidden]) ~ .tools, .dock:has(.flyout:not([hidden])) { }
 body.fly-open .ticker { opacity: 0; }
 
 .place-bar { position: absolute; left: 50%; transform: translateX(-50%); bottom: calc(var(--dock-h) + 20px + var(--safe-b)); padding: 10px 12px; border-radius: 16px; display: flex; flex-direction: column; gap: 8px; align-items: center; background: var(--glass-2); z-index: 3; }
@@ -268,8 +267,8 @@ body.photo .ui { display: none; }
 .choice { border: 0; padding: 0; margin: 0 0 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 .choice legend { margin-bottom: 6px; padding: 0; }
 .choice label { border: 1px solid var(--line); border-radius: 12px; padding: 10px; display: grid; gap: 3px; cursor: pointer; background: rgba(255, 255, 255, 0.03); }
-.choice label:has(input:checked) { border-color: var(--accent); background: rgba(244, 184, 96, 0.1); }
-.choice label:has(input:focus-visible) { outline: 2px solid var(--accent); }
+.choice label.on { border-color: var(--accent); background: rgba(244, 184, 96, 0.1); }
+.choice label:focus-within { outline: 2px solid var(--accent); }
 .choice input { position: absolute; opacity: 0; pointer-events: none; }
 .choice b { font-size: 0.9rem; }
 .choice small { font-size: 0.74rem; color: var(--text-2); line-height: 1.3; }
