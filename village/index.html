@@ -26,6 +26,7 @@
         <span id="pop-chip" class="meta"></span>
         <span id="happy-chip" class="meta"></span>
         <span id="time-chip" class="meta"></span>
+        <button type="button" class="save-dot" id="save-dot" data-state="local" aria-label="Sauvegardé sur cet appareil" title="Sauvegardé sur cet appareil"></button>
         <div class="speed" role="group" aria-label="Vitesse du temps">
           <button type="button" data-speed="0" aria-label="Pause">II</button>
           <button type="button" data-speed="1" aria-label="Vitesse normale">x1</button>
@@ -53,9 +54,15 @@
       <div class="tab" id="tab-tools" role="tabpanel" aria-labelledby="tb-tools" hidden></div>
       <div class="tab" id="tab-log" role="tabpanel" aria-labelledby="tb-log" hidden>
         <p class="save-status" id="save-status" data-state="local">Sauvegardé sur cet appareil</p>
+        <p class="help" id="last-save"></p>
+        <details class="save-box" open>
+          <summary>Sauvegardes automatiques</summary>
+          <p class="help">Une copie de Clairval est gardée toutes les 5 minutes de jeu, au début de chaque ère et avant tout chargement. Touche « Restaurer » pour revenir à ce moment-là.</p>
+          <ul class="backups" id="backups"></ul>
+        </details>
         <ul class="log" id="log"></ul>
         <details class="save-box">
-          <summary>Sauvegarde</summary>
+          <summary>Sauvegarde manuelle et code</summary>
           <p class="help">Clairval se sauvegarde tout seul : sur ton compte quand c'est possible, sinon sur cet appareil. Pour continuer ailleurs, copie ton code et colle-le sur l'autre appareil.</p>
           <div class="row">
             <button class="chip" id="btn-save" type="button">Sauvegarder maintenant</button>

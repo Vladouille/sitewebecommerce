@@ -76,7 +76,10 @@ Jeu de gestion indépendant de la landing. Ouvre http://localhost:8000/village/.
 - **Outils** : Conseiller (ce qu'il faut faire, avec un bouton qui le fait), automatisations à acheter (Bureau de l'emploi, file de constructions,
   drones de récolte, Contremaître, Courtier, IA urbaniste), statistiques par ressource (détail et courbe), marché, flèche dorée sur les bâtiments améliorables.
 - **Besoins** : nourriture, eau, chauffage l'hiver, électricité à partir de la Mégacité ; le bonheur fait venir ou partir des habitants.
-- **Sauvegarde** : navigateur, compte claude.ai (capacité `db`, document privé `data/users/<id>/clairval`), code à copier ;
-  gains hors ligne. Les anciennes sauvegardes (vue de côté) sont converties automatiquement.
+- **Sauvegarde automatique** : toutes les 10 secondes, après chaque action et quand on quitte la page, sur l'appareil et sur le compte claude.ai
+  (capacité `db`, document privé `data/users/<id>/clairval`). Un témoin vert dans le bandeau montre l'état de la sauvegarde.
+  Sauvegardes de secours : une copie toutes les 5 minutes de jeu, au début de chaque ère et avant tout chargement (8 gardées),
+  à restaurer depuis le Journal ; si la sauvegarde principale est abîmée, le jeu repart de la plus récente.
+  Code à copier pour changer d'appareil ; gains hors ligne. Les anciennes sauvegardes (vue de côté) sont converties automatiquement.
 - **Équilibrage** : un robot joue la partie entière hors navigateur (toutes les ères, Portail galactique vers le jour 830).
 Réglages : constantes en haut de `village/village.js` (ères, sites, ressources, métiers, bâtiments, améliorations, outils, objectifs).

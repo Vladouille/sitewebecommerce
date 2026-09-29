@@ -1179,7 +1179,35 @@
   // =====================================================================
   // Interface
   // =====================================================================
-  try { const raw = localStorage.getItem(SAVE_KEY); if (raw) save = mergeSave(JSON.parse(raw)); } catch (e) { /* stockage indisponible */ }
+  // Sauvegardes automatiques de secours : une photo de la partie toutes les 5 minutes de jeu,
+  // à chaque nouvelle ère et avant tout chargement. Les 8 dernières sont gardées sur l'appareil.
+  const BACKUP_KEY = 'clairval-backups', BACKUP_MAX = 8;
+  function readBackups() {
+    try { const l = JSON.parse(localStorage.getItem(BACKUP_KEY) || '[]'); return Array.isArray(l) ? l : []; } catch (e) { return []; }
+  }
+  function writeBackups(list) {
+    while (list.length) {
+      try { localStorage.setItem(BACKUP_KEY, JSON.stringify(list)); return true; } catch (e) { list.pop(); }
+    }
+    try { localStorage.removeItem(BACKUP_KEY); } catch (e) { /* ignore */ }
+    return false;
+  }
+  function makeBackup(reason) {
+    if (!save.intro) return;
+    const list = readBackups();
+    list.unshift({ ts: Date.now(), day: save.day, era: save.era, pop: save.pop, reason, data: JSON.stringify(save) });
+    writeBackups(list.slice(0, BACKUP_MAX));
+  }
+  // chargement : la sauvegarde principale, sinon la plus récente sauvegarde de secours encore lisible
+  let restoredFromBackup = false;
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (raw) save = mergeSave(JSON.parse(raw));
+  } catch (e) {
+    for (const b of readBackups()) {
+      try { save = mergeSave(JSON.parse(b.data)); restoredFromBackup = true; break; } catch (err) { /* suivante */ }
+    }
+  }
   recount();
 
   const $ = (id) => document.getElementById(id);
@@ -1190,12 +1218,20 @@
   const ui = { card: $('card'), toast: $('toast'), info: $('info'), placeBar: $('place-bar'), sheet: $('sheet') };
 
   // ---------- Sauvegarde : appareil, compte claude.ai, code ----------
-  let cloudRef = null, cloudBusy = false, cloudPending = false, cloudTimer = 0;
-  function persist() {
+  let cloudRef = null, cloudBusy = false, cloudPending = false, cloudTimer = 0, lastSaved = 0, localOk = true;
+  function persist(now) {
     save.updatedAt = Date.now();
     save.lastTs = Date.now();
-    try { localStorage.setItem(SAVE_KEY, JSON.stringify(save)); } catch (e) { /* ignore */ }
-    if (cloudRef) { clearTimeout(cloudTimer); cloudTimer = setTimeout(pushCloud, 1500); setSaveStatus('saving'); } else setSaveStatus('local');
+    try { localStorage.setItem(SAVE_KEY, JSON.stringify(save)); localOk = true; }
+    catch (e) {
+      // réserve pleine : on libère la place des sauvegardes de secours les plus anciennes, puis on réessaie
+      const list = readBackups();
+      localOk = false;
+      while (list.length && !localOk) { list.pop(); writeBackups(list); try { localStorage.setItem(SAVE_KEY, JSON.stringify(save)); localOk = true; } catch (err) { /* encore */ } }
+    }
+    lastSaved = Date.now();
+    if (cloudRef) { clearTimeout(cloudTimer); if (now) pushCloud(); else cloudTimer = setTimeout(pushCloud, 1500); setSaveStatus('saving'); }
+    else setSaveStatus(localOk ? 'local' : 'error');
   }
   async function pushCloud() {
     if (!cloudRef) return;
@@ -1221,6 +1257,7 @@
       cloudRef = ref;
       const remote = snap.exists ? snap.data() : null;
       if (remote && (remote.updatedAt || 0) > (save.updatedAt || 0)) {
+        makeBackup('avant récupération du compte');
         loadSave(mergeSave(remote));
         if (!ui.card.hidden && cardIsIntro) closeCard();
         toast('Clairval récupéré depuis ton compte.');
@@ -1229,11 +1266,33 @@
       else setSaveStatus('cloud');
     } catch (e) { cloudRef = null; setSaveStatus('local'); }
   }
+  const SAVE_TEXT = { cloud: 'Sauvegardé sur ton compte', saving: 'Sauvegarde…', local: 'Sauvegardé sur cet appareil', error: 'Sauvegarde en attente' };
   function setSaveStatus(st) {
     const el = $('save-status');
-    el.textContent = { cloud: 'Sauvegardé sur ton compte', saving: 'Sauvegarde…', local: 'Sauvegardé sur cet appareil', error: 'Sauvegarde en attente' }[st];
+    el.textContent = SAVE_TEXT[st];
     el.dataset.state = st;
+    // petit témoin dans le bandeau du haut
+    const dot = $('save-dot');
+    if (dot) {
+      dot.dataset.state = st;
+      dot.setAttribute('aria-label', SAVE_TEXT[st]);
+      dot.title = SAVE_TEXT[st];
+      dot.classList.remove('pulse'); void dot.offsetWidth; dot.classList.add('pulse');
+    }
   }
+  function agoText(ts) {
+    const s = Math.max(0, Math.round((Date.now() - ts) / 1000));
+    if (s < 10) return "à l'instant";
+    if (s < 60) return `il y a ${s} s`;
+    if (s < 3600) return `il y a ${Math.floor(s / 60)} min`;
+    if (s < 86400) return `il y a ${Math.floor(s / 3600)} h`;
+    return `il y a ${Math.floor(s / 86400)} j`;
+  }
+  // sauvegarde immédiate quand on quitte la page ou qu'on passe à une autre application
+  function saveOnLeave() { if (save.intro) persist(true); }
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') saveOnLeave(); });
+  window.addEventListener('pagehide', saveOnLeave);
+  window.addEventListener('beforeunload', saveOnLeave);
   function loadSave(s) {
     save = s; recount();
     try { localStorage.setItem(SAVE_KEY, JSON.stringify(save)); } catch (e) { /* ignore */ }
@@ -1611,7 +1670,26 @@
       $('v-center').addEventListener('click', () => centerOnSite(save.view.site));
     });
   }
-  function renderLog() { $('log').innerHTML = save.log.map((e) => `<li><small>Jour ${e.d}</small>${esc(e.text)}</li>`).join('') || "<li>Rien pour l'instant.</li>"; }
+  function renderLog() {
+    $('log').innerHTML = save.log.map((e) => `<li><small>Jour ${e.d}</small>${esc(e.text)}</li>`).join('') || "<li>Rien pour l'instant.</li>";
+    $('last-save').textContent = lastSaved ? `Dernière sauvegarde automatique : ${agoText(lastSaved)}. Clairval se sauvegarde toutes les 10 secondes, après chaque action et quand tu quittes la page.` : 'Clairval se sauvegarde toutes les 10 secondes, après chaque action et quand tu quittes la page.';
+    const list = readBackups();
+    const box = $('backups');
+    box.innerHTML = list.length
+      ? list.map((b, i) => `<li><span>Jour ${b.day} · ${esc(ERAS[(b.era || 1) - 1].name)} · ${fmt(b.pop || 0)} hab.<small>${esc(agoText(b.ts))} · ${esc(b.reason || 'automatique')}</small></span><button type="button" class="chip" id="bk-${i}">Restaurer</button></li>`).join('')
+      : '<li><span>Aucune pour l\'instant. La première sera faite après 5 minutes de jeu.</span></li>';
+    list.forEach((b, i) => {
+      const btn = $('bk-' + i);
+      if (btn) btn.addEventListener('click', (e) => twoStep('bk' + i, e.currentTarget, 'Restaurer', 'Toucher encore pour revenir à ce moment', () => {
+        try {
+          const s = mergeSave(JSON.parse(b.data));
+          makeBackup('avant restauration');
+          loadSave(s); persist(true);
+          toast(`Clairval est revenu au jour ${s.day}.`);
+        } catch (err) { toast('Cette sauvegarde est illisible.'); }
+      }));
+    });
+  }
   function renderBadges() {
     const idle = idleCount();
     const ib = $('idle-badge'); ib.hidden = !idle; ib.textContent = idle > 999 ? '999+' : idle;
@@ -3115,8 +3193,10 @@
     s += GOALS.filter((g) => g.era <= save.era && goalDone(g) && !save.claimed[g.id]).length;
     if (tab === 'tools') s += '|' + Math.floor(time / 3);
     if (tab === 'people') s += '|' + Math.round(save.happy) + save.day;
+    if (tab === 'log') s += '|' + Math.floor(time / 10) + save.log.length;
     return s;
   }
+  let backupTimer = 0, lastEraSaved = save.era;
   function frame(now) {
     const dt = Math.min(0.1, (now - last) / 1000);
     last = now;
@@ -3143,7 +3223,11 @@
       const busy = (document.activeElement && document.activeElement.tagName === 'SELECT') || performance.now() < uiHold;
       if ((sig !== lastSig || needRender) && !busy) { lastSig = sig; needRender = false; renderTab(); renderBadges(); if (selected) renderInfo(); }
     }
-    if (autosave > 20) { autosave = 0; persist(); }
+    // sauvegarde automatique toutes les 10 s, et une sauvegarde de secours toutes les 5 minutes de jeu
+    if (autosave > 10 && save.intro) { autosave = 0; persist(); }
+    if (save.intro) backupTimer += dt;
+    if (backupTimer > 300) { backupTimer = 0; makeBackup('automatique'); if (tab === 'log') needRender = true; }
+    if (save.era !== lastEraSaved) { lastEraSaved = save.era; backupTimer = 0; makeBackup(`début de l'ère ${era().name}`); }
     requestAnimationFrame(frame);
   }
 
@@ -3231,6 +3315,7 @@
   $('place-ok').addEventListener('click', confirmPlacing);
   $('place-cancel').addEventListener('click', () => { stopPlacing(); setSheetMin(false); });
   $('info-close').addEventListener('click', closeInfo);
+  $('save-dot').addEventListener('click', () => { tab = 'log'; if (sheetMin) setSheetMin(false); renderTab(); });
 
   $('btn-save').addEventListener('click', async () => {
     persist();
@@ -3256,12 +3341,14 @@
       try {
         const s = JSON.parse(decodeURIComponent(escape(atob(box.value.trim()))));
         if (!s || !s.res || !(s.people || s.map)) throw new Error('bad');
-        box.value = ''; loadSave(mergeSave(s)); persist(); toast('Clairval chargé depuis le code.');
+        const loaded = mergeSave(s);
+        makeBackup('avant chargement d\'un code');
+        box.value = ''; loadSave(loaded); persist(true); toast('Clairval chargé depuis le code. Ton ancien village est gardé dans les sauvegardes automatiques.');
       } catch (err) { toast("Ce code ne fonctionne pas. Vérifie qu'il est complet."); }
     });
   });
   $('btn-reset').addEventListener('click', (e) => {
-    twoStep('reset', e.currentTarget, 'Recommencer un village', 'Toucher encore pour tout effacer', () => { loadSave(fresh()); persist(); intro(); });
+    twoStep('reset', e.currentTarget, 'Recommencer un village', 'Toucher encore pour tout effacer', () => { makeBackup('avant de recommencer'); loadSave(fresh()); persist(); intro(); });
   });
 
   // ---------- Démarrage ----------
@@ -3292,6 +3379,8 @@
   setSaveStatus('local');
   renderAll(); renderSpeed();
   if (!save.intro) intro(); else offlineReport();
+  if (restoredFromBackup) persist();
+  if (restoredFromBackup) toast('La sauvegarde principale était abîmée : Clairval a été récupéré depuis la dernière sauvegarde automatique.');
   initCloud();
   requestAnimationFrame(frame);
 })();
