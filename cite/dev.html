@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <title>Aurore, la cité</title>
+  <meta name="description" content="Bâtis et gère ta ville en 3D : routes, zones, énergie, eau, services, recherche, décrets, budget, météo, saisons et cycle jour/nuit. Sauvegarde automatique.">
+  <meta name="theme-color" content="#0f1520">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230f1520%22/%3E%3Ccircle cx=%2216%22 cy=%2219%22 r=%228%22 fill=%22%23f4b860%22/%3E%3Crect x=%226%22 y=%2219%22 width=%2220%22 height=%228%22 fill=%22%230f1520%22/%3E%3Crect x=%229%22 y=%2213%22 width=%224%22 height=%2210%22 fill=%22%23e9eef5%22/%3E%3Crect x=%2215%22 y=%228%22 width=%224%22 height=%2215%22 fill=%22%23e9eef5%22/%3E%3Crect x=%2221%22 y=%2215%22 width=%224%22 height=%228%22 fill=%22%23e9eef5%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="cite.css">
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three/three.module.min.js", "three/addons/": "./vendor/three/addons/" } }
+  </script>
+</head>
+<body>
+  <canvas id="scene" aria-label="La ville en 3D. Fais glisser pour te déplacer, pince ou fais défiler pour zoomer."></canvas>
+
+  <div id="ui" class="ui" hidden>
+    <!-- Bandeau du haut -->
+    <header class="top">
+      <div class="city">
+        <b id="city-name">Aurore</b>
+        <span id="city-rank" class="rank">Campement</span>
+      </div>
+      <div class="stats">
+        <button type="button" class="stat" id="st-money" data-panel="budget" title="Trésorerie et budget du mois"><i class="ico">€</i><span><b id="money">0</b><small id="net">+0 / mois</small></span></button>
+        <button type="button" class="stat" id="st-pop" data-panel="stats" title="Habitants"><i class="ico">👥</i><span><b id="pop">0</b><small id="pop-d">habitants</small></span></button>
+        <button type="button" class="stat" id="st-happy" data-panel="stats" title="Bonheur moyen"><i class="ico" id="happy-ico">🙂</i><span><b id="happy">0 %</b><small>bonheur</small></span></button>
+        <div class="stat date" title="Date, saison et météo"><i class="ico" id="weather-ico">☀️</i><span><b id="date">1 janvier 2030</b><small id="season">Printemps</small></span></div>
+      </div>
+      <div class="right">
+        <div class="speed" role="group" aria-label="Vitesse du temps">
+          <button type="button" data-speed="0" aria-label="Pause" title="Pause (espace)">❚❚</button>
+          <button type="button" data-speed="1" aria-label="Vitesse normale" title="Vitesse normale">▶</button>
+          <button type="button" data-speed="3" aria-label="Vitesse rapide" title="Rapide">▶▶</button>
+          <button type="button" data-speed="8" aria-label="Vitesse très rapide" title="Très rapide">▶▶▶</button>
+        </div>
+        <button type="button" class="save" id="save-ind" data-state="idle" data-panel="settings" title="Sauvegarde automatique"><i></i><span id="save-text">Sauvegarde auto</span></button>
+      </div>
+    </header>
+
+    <!-- Demande et objectifs -->
+    <aside class="left">
+      <div class="rci" title="Demande : résidentiel, commercial, industriel, bureaux">
+        <div class="bar" data-z="1"><i></i><span>R</span></div>
+        <div class="bar" data-z="2"><i></i><span>C</span></div>
+        <div class="bar" data-z="3"><i></i><span>I</span></div>
+        <div class="bar" data-z="4"><i></i><span>B</span></div>
+      </div>
+      <div class="quests" id="quests">
+        <button type="button" class="q-head" id="q-toggle" aria-expanded="true">Objectifs</button>
+        <ul id="q-list"></ul>
+        <p class="advice" id="advice"></p>
+      </div>
+    </aside>
+
+    <!-- Boutons des panneaux -->
+    <nav class="panels-nav" aria-label="Gestion de la ville">
+      <button type="button" data-panel="budget" title="Budget (B)"><i>💰</i><span>Budget</span></button>
+      <button type="button" data-panel="research" title="Recherche (R)"><i>🔬</i><span>Recherche</span><em class="dot" id="dot-research" hidden></em></button>
+      <button type="button" data-panel="policies" title="Décrets"><i>📜</i><span>Décrets</span></button>
+      <button type="button" data-panel="stats" title="Statistiques"><i>📈</i><span>Stats</span></button>
+      <button type="button" data-panel="goals" title="Objectifs et paliers"><i>🏆</i><span>Paliers</span></button>
+      <button type="button" data-panel="log" title="Journal"><i>📰</i><span>Journal</span><em class="dot" id="dot-log" hidden></em></button>
+      <button type="button" data-panel="settings" title="Réglages et sauvegardes"><i>⚙️</i><span>Réglages</span></button>
+    </nav>
+
+    <!-- Panneau latéral -->
+    <section class="panel" id="panel" hidden aria-live="polite">
+      <header><h2 id="panel-title"></h2><button type="button" class="x" id="panel-close" aria-label="Fermer">×</button></header>
+      <div class="panel-body" id="panel-body"></div>
+    </section>
+
+    <!-- Fiche d'un bâtiment -->
+    <section class="info" id="info" hidden aria-label="Fiche">
+      <button type="button" class="x" id="info-close" aria-label="Fermer la fiche">×</button>
+      <div id="info-body"></div>
+    </section>
+
+    <!-- Commandes de la caméra -->
+    <div class="cam" role="group" aria-label="Caméra">
+      <button type="button" id="cam-rl" aria-label="Tourner à gauche" title="Tourner (Q)">⟲</button>
+      <button type="button" id="cam-rr" aria-label="Tourner à droite" title="Tourner (E)">⟳</button>
+      <button type="button" id="cam-in" aria-label="Zoomer" title="Zoomer (+)">+</button>
+      <button type="button" id="cam-out" aria-label="Dézoomer" title="Dézoomer (−)">−</button>
+      <button type="button" id="cam-photo" aria-label="Mode photo" title="Mode photo (P)">📷</button>
+    </div>
+
+    <!-- Nouvelles -->
+    <p class="ticker" id="ticker"></p>
+
+    <!-- Barre d'outils -->
+    <div class="dock">
+      <div class="flyout" id="flyout" hidden></div>
+      <nav class="tools" id="tools" aria-label="Outils de construction"></nav>
+    </div>
+
+    <!-- Confirmation au doigt -->
+    <div class="place-bar" id="place-bar" hidden>
+      <p id="place-text"></p>
+      <div><button type="button" class="btn primary" id="place-ok">Construire</button><button type="button" class="btn" id="place-cancel">Annuler</button></div>
+    </div>
+
+    <div class="toasts" id="toasts" aria-live="polite"></div>
+  </div>
+
+  <!-- Mode photo -->
+  <div class="photo-bar" id="photo-bar" hidden>
+    <button type="button" class="btn" id="photo-rotate">Rotation auto</button>
+    <button type="button" class="btn primary" id="photo-shot">Prendre la photo</button>
+    <button type="button" class="btn" id="photo-exit">Quitter</button>
+  </div>
+
+  <!-- Menu principal -->
+  <div class="menu" id="menu">
+    <div class="menu-card">
+      <h1>Aurore<span>la cité</span></h1>
+      <p class="tagline">Trace les rues, fais pousser les quartiers, garde l'électricité, l'eau et le moral au vert. Du campement à la mégalopole.</p>
+      <div id="menu-main">
+        <button type="button" class="btn primary big" id="btn-continue" hidden>Continuer</button>
+        <div class="slots" id="slots"></div>
+      </div>
+      <form id="menu-new" hidden>
+        <label class="field"><span>Nom de la ville</span><input id="new-name" maxlength="24" value="Aurore" autocomplete="off"></label>
+        <fieldset class="choice" id="new-map"><legend>Carte</legend></fieldset>
+        <fieldset class="choice" id="new-diff"><legend>Difficulté</legend></fieldset>
+        <div class="row"><button type="submit" class="btn primary big">Fonder la ville</button><button type="button" class="btn" id="new-back">Retour</button></div>
+      </form>
+      <p class="loading" id="loading">Chargement des graphismes…</p>
+    </div>
+  </div>
+
+  <!-- Boîte de dialogue -->
+  <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <p class="kicker" id="modal-kicker"></p>
+      <h2 id="modal-title"></h2>
+      <div id="modal-text"></div>
+      <div class="row" id="modal-actions"></div>
+    </div>
+  </div>
+
+  <noscript><p class="nojs">Aurore a besoin de JavaScript et de WebGL.</p></noscript>
+  <script>
+    // navigateur trop ancien : on le dit au lieu de rester bloqué sur « Chargement »
+    window.addEventListener('error', function () { var l = document.getElementById('loading'); if (l && l.textContent.indexOf('Chargement') === 0) l.textContent = 'Ton navigateur est trop ancien pour Aurore. Mets-le à jour ou essaie Chrome, Firefox, Safari ou Edge.'; });
+  </script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
