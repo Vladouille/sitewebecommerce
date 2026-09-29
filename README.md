@@ -83,3 +83,26 @@ Jeu de gestion indépendant de la landing. Ouvre http://localhost:8000/village/.
   Code à copier pour changer d'appareil ; gains hors ligne. Les anciennes sauvegardes (vue de côté) sont converties automatiquement.
 - **Équilibrage** : un robot joue la partie entière hors navigateur (toutes les ères, Portail galactique vers le jour 830).
 Réglages : constantes en haut de `village/village.js` (ères, sites, ressources, métiers, bâtiments, améliorations, outils, objectifs).
+
+## Jeu « Aurore, la cité » (`cite/`)
+Jeu de gestion de ville en vraie 3D (three.js, fourni dans `cite/vendor/`, aucune étape de build), indépendant de la landing.
+Ouvre http://localhost:8000/cite/.
+- **Graphismes 3D** : terrain avec rivières, lacs ou côte, collines et forêts autour de la carte, eau animée qui reflète le ciel,
+  ombres portées, cycle jour/nuit (fenêtres, lampadaires et phares allumés la nuit, étoiles et lune), éclat lumineux en qualité haute,
+  4 saisons (herbe, feuillage d'automne, neige sur les toits et les routes), météo (pluie, orage avec éclairs, neige, brume, nuages),
+  voitures et bateaux qui circulent, fumée des usines, vapeur des centrales, incendies, grues et échafaudages sur les chantiers,
+  éoliennes qui tournent, étincelles quand un chantier se termine. Qualité automatique (haut, moyen, bas) selon l'appareil.
+- **Ville** : routes et avenues (ponts sur l'eau), 4 zones (résidentiel, commercial, industriel, bureaux) où les habitants construisent
+  eux-mêmes selon la demande ; chaque bâtiment grandit sur 4 niveaux (maison → immeuble → tour), avec 48 modèles différents.
+- **Services** : 34 bâtiments (énergie, eau, épuration, déchets, police, pompiers, santé, éducation, loisirs, transports)
+  dont 5 merveilles (Tour d'Aurore, Opéra, Arcologie, Centrale à fusion, Spatioport). Les services s'améliorent (3 niveaux visibles).
+- **Axes de gestion** : budget (impôts par zone, budget de chaque service, emprunts), 16 recherches, 10 décrets, 8 paliers de population,
+  29 objectifs récompensés, bonheur détaillé par bâtiment, valeur foncière, pollution, bruit, circulation, chômage,
+  incendies qui se propagent, événements (tempête, canicule, vague de froid, festival, épidémie, subvention, investisseur, touristes),
+  13 calques de carte, conseils en direct, statistiques avec courbes, journal de la ville, mode photo.
+- **Sauvegarde automatique** : toutes les 15 secondes, après chaque action et quand on quitte la page ; 3 villes avec miniature ;
+  6 copies de secours par ville (toutes les 3 minutes, à chaque palier et à chaque chargement) ; sur le compte claude.ai quand la page
+  est publiée comme Artifact (capacités `db` + `user`) ; code de sauvegarde compressé pour changer d'appareil ; progrès pendant l'absence (3 mois au plus).
+- Commandes : glisser pour se déplacer, pincer ou molette pour zoomer, ⟲ ⟳ pour tourner ; avec un outil, un doigt dessine et deux doigts déplacent.
+  Clavier : espace, 1 2 3, Q E, flèches ou ZQSD, + −, Échap, P.
+Réglages : `cite/js/data.js` (zones, bâtiments, recherches, décrets, paliers, objectifs). Simulation testable sans navigateur : `cite/js/sim.js`.
