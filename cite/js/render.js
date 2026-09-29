@@ -423,7 +423,7 @@ export class View {
   }
   // collines et forêts autour de la carte
   buildRing() {
-    const s = this.s, SZ = 200, SEG = 160;
+    const s = this.s, SZ = 200, SEG = 200; // un sommet par case : le bord tombe pile sur celui de la carte
     const geo = new THREE.PlaneGeometry(SZ, SZ, SEG, SEG); geo.rotateX(-Math.PI / 2);
     const p = geo.attributes.position, col = new Float32Array(p.count * 3);
     const r = rng(s.seed + 99);

@@ -938,10 +938,18 @@ function bindUI() {
   $('cam-photo').onclick = photoMode;
   $('photo-exit').onclick = exitPhoto;
   $('photo-rotate').onclick = () => { view.autoRotate = !view.autoRotate; };
-  $('photo-shot').onclick = () => {
+  $('photo-shot').onclick = async () => {
     const url = view.screenshot();
-    const a = document.createElement('a'); a.href = url; a.download = `${s.name.replace(/[^\w-]+/g, '_')}-${S.dateOf(s.tick).year}.png`; a.click();
+    const filename = `${s.name.replace(/[^\w-]+/g, '_')}-${S.dateOf(s.tick).year}.png`;
     sfx('coin');
+    // dans la page claude.ai, l'enregistrement passe par la capacité « downloads »
+    let dl = null;
+    try { dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null; } catch (e) { dl = null; }
+    if (dl) {
+      try { const blob = await (await fetch(url)).blob(); await dl.save({ filename, data: blob }); } catch (e) { if (e && e.code !== 'cancelled' && e.code !== 'declined') toast('La photo n\'a pas pu être enregistrée.', 'bad'); }
+      return;
+    }
+    const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
   };
   $('place-ok').onclick = () => { if (tool && tool.kind === 'build' && pendingPlace) tryPlace(pendingPlace.x, pendingPlace.y); };
   $('place-cancel').onclick = () => { $('place-bar').hidden = true; pendingPlace = null; view.hideGhost(); };
