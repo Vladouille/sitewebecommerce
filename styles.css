@@ -3,6 +3,14 @@
  * Palette : #0A0A0A (encre) · #FFFFFF (papier) · #F4F4F4 (gris clair) · #D4D4D4 (filets) · #5C5C5C (texte secondaire)
  * Typographies : Libre Caslon Text (titres, serif proche du logo) · Inter (texte courant)
  */
+/* Polices hébergées sur le site (aucun appel à Google Fonts) — licence SIL OFL, voir assets/fonts */
+@font-face { font-family: 'Inter'; src: url('assets/fonts/inter-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('assets/fonts/inter-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('assets/fonts/inter-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Libre Caslon Text'; src: url('assets/fonts/libre-caslon-text-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Libre Caslon Text'; src: url('assets/fonts/libre-caslon-text-latin-400-italic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Libre Caslon Text'; src: url('assets/fonts/libre-caslon-text-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+
 :root {
   --ink: #0a0a0a;
   --paper: #ffffff;

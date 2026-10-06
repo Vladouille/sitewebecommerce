@@ -12,6 +12,7 @@ Objectif unique de la page : faire remplir le formulaire d'audit gratuit (Google
 - `mentions-legales.html`, `confidentialite.html`, `cgv.html` : pages légales
 - `config.js` : lien du formulaire et packs (prix, lignes du comparatif, textes des cartes)
 - `styles.css`, `script.js`
+- `assets/fonts/` : polices Inter et Libre Caslon Text hébergées sur le site (licence SIL OFL), pour ne pas transmettre l'IP des visiteurs à Google Fonts
 - `vercel.json` : sur Vercel, les pages légales sont servies à `/mentions-legales`, `/confidentialite` et `/cgv`
   (Netlify le fait par défaut).
 
@@ -37,7 +38,7 @@ sont calculés automatiquement à partir des prix et des volumes de conversation
 - [ ] Déposer le logo dans `assets/AUTOFLOW.png`. Il remplace automatiquement le logo texte provisoire.
 - [ ] Créer `assets/og-image.png` (1200 × 630, avec le logo) pour les aperçus de partage,
       puis mettre une URL absolue dans `og:image` une fois le domaine connu.
-- [ ] Compléter les pages légales (repères `[À COMPLÉTER : …]`) et les faire valider par un professionnel du droit.
+- [ ] Mentions légales : renseigner l'hébergeur (seul repère `[À COMPLÉTER]` restant), puis faire valider les pages légales par un professionnel du droit.
 - [ ] Activer Plausible (balise commentée dans le `<head>` de `index.html`) et mettre à jour le paragraphe « Cookies ».
 - [ ] Après la mise en ligne : cliquer sur chaque bouton pour vérifier qu'il ouvre le formulaire, puis faire un envoi test.
 - [ ] Quand il y aura de vrais clients : remplir la section `#temoignages` et retirer son attribut `hidden`.
