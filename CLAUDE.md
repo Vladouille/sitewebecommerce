@@ -92,7 +92,7 @@ Règles d'affichage : pricing « pop-corn » renforcé (sans changer les prix) :
 - **Aucune promotion** : pas de réduction, pas de prix barré, pas de « X mois offerts », pas de frais « offerts », pas de bascule mensuel/annuel. Uniquement les prix mensuels fixes : 280 €, 480 €, 1 780 €. Les garanties restent : ce sont des garanties, pas des promotions.
 - **Ordre des cartes** : Scale à gauche, Croissance au centre, Essentiel à droite (sur mobile, empilées dans cet ordre). Le visiteur voit d'abord 1 780 € : c'est l'ancre.
 - **Croissance est la vedette** : au centre, légèrement plus grande, bordure marquée, badge « Recommandé ». Ne jamais écrire « le plus choisi » ni « le plus populaire » tant qu'il n'y a pas de clients.
-- **Effet pop-corn par le prix unitaire** : sous chaque prix, le coût par conversation. Essentiel : 0,93 € par conversation (280 € / 300). Croissance : 0,32 € par conversation (480 € / 1 500), avec « 3 fois moins cher par conversation qu'Essentiel ». Scale : « conversations illimitées ».
+- **Pas de prix par conversation** : le client paie un abonnement mensuel fixe. Ne pas afficher de coût par conversation ni de comparaison « X fois moins cher par conversation ».
 - **Rendre l'écart minuscule** : sur la carte Croissance : « Seulement 200 € de plus qu'Essentiel : 5 fois plus de conversations, les commentaires, la relance des hésitants et la garantie. »
 - **Recadrage en résultat** : sous Croissance : « Un seul client signé à 1 500 € rembourse plus de 3 mois. » Sous Scale : « Moins qu'un setter à temps plein, sans jamais dormir. »
 - **Aversion à la perte sur Essentiel** : lister toutes les lignes, y compris celles qu'Essentiel n'a pas, avec une croix visible et un texte grisé.

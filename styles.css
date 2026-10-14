@@ -208,8 +208,6 @@ h3 { font-size: 1.35rem; }
 .pack__price { font-family: var(--serif); font-size: 2.6rem; line-height: 1.1; }
 .pack--recommended .pack__price { font-size: 3rem; }
 .pack__price small { font-family: var(--sans); font-size: .95rem; color: var(--muted); }
-.pack__unit { font-weight: 600; margin-top: 12px; }
-.pack__unit-compare { font-size: .92rem; margin-top: 2px; }
 .pack__daily { font-size: .92rem; color: var(--muted); margin-top: 8px; }
 .pack__pitch p { border-left: 3px solid var(--ink); padding: 2px 0 2px 12px; margin-bottom: 18px; font-size: .95rem; line-height: 1.5; }
 .pack__row {
