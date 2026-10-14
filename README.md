@@ -42,6 +42,12 @@ sont calculés automatiquement à partir des prix et des volumes de conversation
 - [ ] Après la mise en ligne : cliquer sur chaque bouton pour vérifier qu'il ouvre le formulaire, puis faire un envoi test.
 - [ ] Quand il y aura de vrais clients : remplir la section `#temoignages` et retirer son attribut `hidden`.
 
+## Version en un seul fichier
+`dist/autoflow-site-complet.html` contient tout le site dans un seul fichier HTML (landing, style, conversation animée,
+packs écrits en dur, et les trois pages légales accessibles par `#mentions-legales`, `#confidentialite`, `#cgv`).
+Il ne charge aucune ressource externe : les polices du site sont remplacées par Georgia et la police système.
+À régénérer si tu modifies les fichiers sources (prix, textes, pages légales).
+
 ## Déploiement sur Hostinger
 1. hPanel → Sites web → ton domaine → **Gestionnaire de fichiers** → dossier `public_html`.
 2. Supprime le fichier `default.php` s'il existe.

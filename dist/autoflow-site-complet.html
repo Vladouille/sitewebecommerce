@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Autoflow — Des appels de vente qualifiés dans l'agenda des coachs en ligne</title>
+  <meta name="description" content="Chaque message privé et chaque commentaire Instagram reçoit une réponse en quelques secondes, 24h/24. Tes prospects sont qualifiés et l'appel est réservé dans ton agenda. Système en place en 7 jours.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Autoflow">
+  <meta property="og:title" content="Autoflow — Tes prospects t'écrivent. On les transforme en appels de vente.">
+  <meta property="og:description" content="Réponse en quelques secondes à chaque message privé et commentaire, 24h/24. Prospects qualifiés, appels réservés dans ton agenda. En place en 7 jours.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23fff'/><path d='M16 5 29 27H3z' fill='%230a0a0a'/></svg>" type="image/svg+xml">
+
+  <style>
+/*
+ * Autoflow — design dérivé du logo : monochrome, éditorial.
+ * Palette : #0A0A0A (encre) · #FFFFFF (papier) · #F4F4F4 (gris clair) · #D4D4D4 (filets) · #5C5C5C (texte secondaire)
+ * Typographies : Libre Caslon Text (titres, serif proche du logo) · Inter (texte courant)
+ */
+:root {
+  --ink: #0a0a0a;
+  --paper: #ffffff;
+  --soft: #f4f4f4;
+  --line: #d4d4d4;
+  --muted: #5c5c5c;
+  --serif: 'Libre Caslon Text', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --wrap: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
+[hidden] { display: none !important; }
+body {
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.15; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.1rem, 7vw, 3.6rem); }
+h2 { font-size: clamp(1.75rem, 5vw, 2.6rem); margin-bottom: 1.5rem; }
+h3 { font-size: 1.35rem; }
+
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 20px; }
+.wrap--text { max-width: 760px; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 20;
+  background: var(--ink); color: var(--paper); padding: 10px 14px; text-decoration: none;
+}
+.skip-link:focus { top: 12px; }
+
+/* Triangle du logo, utilisé comme motif discret */
+.tri {
+  display: inline-block; width: 0.62em; height: 0.54em;
+  background: currentColor; clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+/* ---------- Boutons ---------- */
+.btn {
+  display: inline-block; text-align: center; text-decoration: none;
+  font-family: var(--sans); font-weight: 600; font-size: 1rem;
+  background: var(--ink); color: var(--paper);
+  border: 2px solid var(--ink); border-radius: 2px;
+  padding: 14px 22px; transition: background .15s, color .15s;
+}
+.btn:hover { background: var(--paper); color: var(--ink); }
+.btn--small { padding: 9px 14px; font-size: .875rem; }
+.btn--large { padding: 17px 28px; font-size: 1.0625rem; width: 100%; }
+.btn--inverse { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.btn--inverse:hover { background: var(--ink); color: var(--paper); }
+.btn--inverse:focus-visible { outline-color: var(--paper); }
+
+/* ---------- En-tête ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(255, 255, 255, .96); border-bottom: 1px solid var(--line);
+}
+.site-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 64px; }
+
+/* Logo : l'image AUTOFLOW.png s'affiche dès qu'elle est présente, sinon version texte provisoire */
+.logo { display: inline-flex; align-items: center; text-decoration: none; }
+.logo img { display: none; height: 26px; width: auto; }
+.logo--img img { display: block; }
+.logo--img .logo__text { display: none; }
+.logo__text {
+  font-family: var(--serif); font-size: 1.25rem; letter-spacing: .08em;
+  display: inline-flex; align-items: baseline; gap: .3em;
+}
+.logo__text .tri { width: .5em; height: .44em; }
+.site-header .btn--small { display: none; }
+
+/* ---------- Hero ---------- */
+.hero { padding: 40px 0 56px; }
+.hero__grid { display: grid; gap: 40px; }
+.hero__sub { font-size: 1.125rem; color: var(--muted); margin: 20px 0 28px; max-width: 34em; }
+.hero__note { font-size: .9rem; color: var(--muted); margin-top: 12px; }
+
+/* Conversation */
+.chat { border: 1px solid var(--ink); background: var(--paper); max-width: 440px; width: 100%; justify-self: center; }
+.chat__head {
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 14px 18px; border-bottom: 1px solid var(--ink);
+}
+.chat__shop { font-family: var(--serif); font-size: 1.05rem; }
+.chat__status { font-size: .8rem; color: var(--muted); }
+.chat__thread { list-style: none; padding: 20px 16px; display: flex; flex-direction: column; gap: 14px; background: var(--soft); min-height: 360px; }
+.msg { max-width: 86%; font-size: .95rem; line-height: 1.5; }
+.msg p { padding: 11px 14px; }
+.msg__meta { display: block; font-size: .72rem; color: var(--muted); margin-bottom: 4px; }
+.msg--visitor { align-self: flex-end; text-align: right; }
+.msg--visitor p { background: var(--paper); border: 1px solid var(--line); text-align: left; }
+.msg--agent { align-self: flex-start; }
+.msg--agent p { background: var(--ink); color: var(--paper); }
+.msg--event {
+  align-self: center; font-size: .8rem; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--ink); padding: 6px 12px; background: var(--paper);
+}
+.msg--typing { display: none; align-self: flex-start; gap: 4px; padding: 12px 14px; background: var(--ink); }
+.msg--typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--paper); animation: blink 1s infinite; }
+.msg--typing span:nth-child(2) { animation-delay: .15s; }
+.msg--typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes blink { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+.slot { border-bottom: 1px dashed currentColor; font-style: italic; }
+.chat figcaption { font-size: .78rem; color: var(--muted); padding: 10px 18px; border-top: 1px solid var(--ink); }
+
+/* Animation de la conversation (seule animation de la page) */
+.chat--play .msg { opacity: 0; transform: translateY(6px); transition: opacity .35s ease, transform .35s ease; }
+.chat--play .msg.is-in { opacity: 1; transform: none; }
+.chat--play .msg--typing.is-in { display: inline-flex; }
+
+/* ---------- Sections ---------- */
+.section { padding: 64px 0; }
+.section--rule { border-top: 1px solid var(--line); }
+.lead { font-size: clamp(1.15rem, 3.5vw, 1.4rem); line-height: 1.5; }
+.lead--small { font-size: 1.125rem; color: var(--muted); max-width: 40em; }
+
+.problem { background: var(--soft); }
+.problem h2 { margin-bottom: 1rem; }
+
+/* Listes */
+.list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.list li { position: relative; padding-left: 26px; }
+.list li::before {
+  content: ""; position: absolute; left: 2px; top: .62em;
+  width: 10px; height: 2px; background: currentColor;
+}
+.list--tri li::before {
+  top: .42em; width: 11px; height: 10px;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+/* Avant / avec */
+.compare__grid { display: grid; border: 1px solid var(--ink); }
+.compare__col { padding: 28px 22px; }
+.compare__col h3 { margin-bottom: 18px; }
+.compare__col--before { color: var(--muted); }
+.compare__col--before h3 { color: var(--ink); }
+.compare__col--after { background: var(--ink); color: var(--paper); }
+
+/* Étapes */
+.steps { list-style: none; display: grid; border-top: 1px solid var(--ink); }
+.step {
+  display: grid; grid-template-columns: 44px 1fr; column-gap: 16px;
+  padding: 24px 0; border-bottom: 1px solid var(--line);
+}
+.step__num { grid-row: span 3; font-family: var(--serif); font-size: 2.2rem; line-height: 1; }
+.step__when { font-size: .8rem; font-weight: 600; color: var(--muted); }
+.step h3 { margin: 2px 0 6px; }
+.step p { color: var(--muted); }
+
+/* Ce que tu reçois */
+.get__list { gap: 18px; }
+.get__list strong { font-weight: 600; }
+
+/* Garantie */
+.guarantee { background: var(--ink); color: var(--paper); }
+.guarantee__grid { display: grid; gap: 1px; background: rgba(255, 255, 255, .3); border: 1px solid rgba(255, 255, 255, .3); }
+.guarantee__item { background: var(--ink); padding: 28px 22px; }
+.guarantee__day { display: block; font-family: var(--serif); font-size: clamp(2.4rem, 8vw, 3.4rem); line-height: 1; margin-bottom: 14px; }
+.guarantee__item p { font-size: 1.1rem; }
+.guarantee__item .guarantee__scope { font-size: .9rem; margin-top: 10px; opacity: .8; }
+
+/* Packs et prix */
+.btn--ghost { background: var(--paper); color: var(--ink); }
+.btn--ghost:hover { background: var(--ink); color: var(--paper); }
+.packs-section { border-top: 1px solid var(--line); }
+
+.packs { display: grid; gap: 24px; margin-top: 28px; }
+.pack { border: 1px solid var(--ink); padding: 24px 20px; display: flex; flex-direction: column; background: var(--paper); }
+.pack--recommended { box-shadow: 0 0 0 2px var(--ink); background: var(--soft); }
+.pack__head { padding-bottom: 14px; }
+.pack__badge {
+  display: inline-flex; align-items: center; gap: 6px; margin-bottom: 10px;
+  background: var(--ink); color: var(--paper); font-size: .8rem; font-weight: 600; padding: 4px 10px;
+}
+.pack__badge .tri { width: .6em; height: .52em; }
+.pack__name { font-size: 1.6rem; }
+.pack--recommended .pack__name { font-size: 1.9rem; }
+.pack__for { color: var(--muted); font-size: .95rem; margin-top: 4px; }
+.pack__pricing { padding-bottom: 16px; }
+.pack__price { font-family: var(--serif); font-size: 2.6rem; line-height: 1.1; }
+.pack--recommended .pack__price { font-size: 3rem; }
+.pack__price small { font-family: var(--sans); font-size: .95rem; color: var(--muted); }
+.pack__unit { font-weight: 600; margin-top: 12px; }
+.pack__unit-compare { font-size: .92rem; margin-top: 2px; }
+.pack__daily { font-size: .92rem; color: var(--muted); margin-top: 8px; }
+.pack__pitch p { border-left: 3px solid var(--ink); padding: 2px 0 2px 12px; margin-bottom: 18px; font-size: .95rem; line-height: 1.5; }
+.pack__row {
+  display: grid; grid-template-columns: 16px 1fr auto; column-gap: 8px; align-items: baseline;
+  padding: 10px 0; border-top: 1px solid var(--line); font-size: .92rem; line-height: 1.4;
+}
+.pack__cross { grid-column: 1; font-weight: 700; }
+.pack__label { grid-column: 2; }
+.pack__value { grid-column: 3; font-weight: 600; text-align: right; max-width: 11em; }
+.pack__row--missing .pack__label, .pack__row--missing .pack__value, .pack__row--missing .pack__cross { color: var(--muted); }
+.pack__row--missing .pack__value { font-weight: 400; }
+.pack__cta { margin-top: 20px; width: 100%; }
+.pack__guarantee { margin-top: 10px; text-align: center; font-size: .88rem; font-weight: 600; }
+.pack__guarantee:empty { display: none; }
+.pack__guarantee .tri { width: .6em; height: .52em; margin-right: 4px; }
+.packs__notes { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 6px; font-size: .95rem; }
+.packs__notes li { position: relative; padding-left: 22px; }
+.packs__notes li::before {
+  content: ""; position: absolute; left: 0; top: .45em; width: 10px; height: 9px;
+  background: var(--ink); clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+/* Bloc audit gratuit */
+.audit { border-top: 1px solid var(--line); }
+.audit__inner { max-width: 760px; }
+.audit__inner .lead { margin-bottom: 28px; }
+
+/* FAQ */
+.faq { border-top: 1px solid var(--ink); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary {
+  cursor: pointer; list-style: none; padding: 20px 36px 20px 0; position: relative;
+  font-family: var(--serif); font-size: 1.2rem; line-height: 1.35;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: ""; position: absolute; right: 4px; top: 50%;
+  width: 12px; height: 10px; background: var(--ink);
+  clip-path: polygon(0 0, 100% 0, 50% 100%); transform: translateY(-50%); transition: transform .2s;
+}
+.faq details[open] summary::after { transform: translateY(-50%) rotate(180deg); }
+.faq details p { color: var(--muted); padding-bottom: 22px; max-width: 42em; }
+
+/* Appel final */
+.final { background: var(--ink); color: var(--paper); padding: 80px 0; }
+.final__inner { display: grid; gap: 28px; }
+.final h2 { font-size: clamp(2rem, 6vw, 3.2rem); margin: 0; max-width: 16em; }
+
+/* Pied de page */
+.site-footer { padding: 32px 0; font-size: .9rem; }
+.site-footer__inner { display: flex; flex-direction: column; gap: 14px; }
+.site-footer__legal { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); }
+.logo--footer .logo__text { font-size: 1rem; }
+
+/* ---------- Tablette et plus ---------- */
+@media (min-width: 640px) {
+  .site-header .btn--small { display: inline-block; }
+  .btn--large { width: auto; }
+  .compare__grid, .guarantee__grid { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 960px) {
+  .hero { padding: 80px 0 96px; }
+  .hero__grid { grid-template-columns: 1.15fr 1fr; gap: 64px; align-items: center; }
+  .section { padding: 96px 0; }
+  .compare__col, .guarantee__item { padding: 40px 36px; }
+  .steps { grid-template-columns: repeat(4, 1fr); border-top: 0; }
+  .step { display: block; border-bottom: 0; border-top: 1px solid var(--ink); padding: 24px 24px 0 0; }
+  .step__num { display: block; margin-bottom: 12px; }
+  .get { display: grid; grid-template-columns: 1fr 1.6fr; gap: 64px; }
+  /* Lignes alignées d'une carte à l'autre */
+  .packs { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(var(--pack-rows, 17), auto); column-gap: 24px; row-gap: 0; align-items: stretch; margin-top: 44px; }
+  .pack { display: grid; grid-row: span var(--pack-rows, 17); grid-template-rows: subgrid; padding: 28px 24px; }
+  /* Croissance légèrement plus grande, sans casser l'alignement des lignes */
+  .pack--recommended { margin-block: -20px; padding-block: 48px; }
+  .pack__row { grid-template-columns: 16px 1fr; }
+  .pack__value { grid-column: 2; text-align: left; max-width: none; }
+  .pack__cta { align-self: end; }
+  .final__inner { grid-template-columns: 1.4fr 1fr; align-items: end; }
+  .final .btn { justify-self: end; }
+  .site-footer__inner { flex-direction: row; justify-content: space-between; align-items: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* Pages légales */
+.legal { padding-top: 48px; padding-bottom: 72px; }
+.legal h1 { font-size: clamp(2rem, 6vw, 2.8rem); margin-bottom: .5rem; }
+.legal__updated { color: var(--muted); font-size: .92rem; margin-bottom: 2.5rem; }
+.legal h2 { font-size: 1.4rem; margin: 2.2rem 0 .6rem; }
+.legal p, .legal li { margin-bottom: .6rem; }
+.legal ul { padding-left: 1.2rem; }
+.legal a { overflow-wrap: anywhere; }
+.todo { background: var(--soft); border: 1px dashed var(--ink); padding: 0 4px; font-weight: 600; }
+
+/* Version fichier unique : pages légales affichées à la demande */
+.legal-page { display: none; }
+.legal-page:target { display: block; }
+main:has(.legal-page:target) > section:not(.legal-page) { display: none; }
+.legal-page h2.legal-title { font-size: clamp(2rem, 6vw, 2.8rem); margin-bottom: .5rem; }
+.legal-page h3 { font-size: 1.4rem; margin: 2.2rem 0 .6rem; }
+.legal__back { display: inline-block; margin-top: 2.5rem; font-weight: 600; }
+
+</style>
+
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a href="#" class="logo" aria-label="Autoflow, retour en haut">
+        <span class="logo__text" aria-hidden="true">AUTOFLOW<span class="tri"></span></span>
+      </a>
+      <a class="btn btn--small" href="https://forms.gle/VtS7yDsHmgn86Yu2A" target="_blank" rel="noopener">Réserver mon audit gratuit<span class="visually-hidden"> (s'ouvre dans un nouvel onglet)</span></a>
+    </div>
+  </header>
+
+  <main id="contenu">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <h1>Tes prospects t'écrivent. Autoflow les transforme en appels de vente.</h1>
+          <p class="hero__sub">Chaque message privé et chaque commentaire reçoit une réponse en quelques secondes, 24h/24. Les prospects sont qualifiés, l'appel est réservé dans ton agenda. Système en place en 7 jours.</p>
+          <a class="btn btn--large" href="https://forms.gle/VtS7yDsHmgn86Yu2A" target="_blank" rel="noopener">Réserver mon audit gratuit<span class="visually-hidden"> (s'ouvre dans un nouvel onglet)</span></a>
+          <p class="hero__note">Gratuit et sans engagement. Réponse sous 48 h ouvrées.</p>
+        </div>
+
+        <figure class="chat" aria-label="Exemple de conversation Instagram entre un prospect et l'assistant Autoflow d'un coach">
+          <div class="chat__head">
+            <span class="chat__shop">Messages Instagram</span>
+            <span class="chat__status">Assistant Autoflow de ton compte · assistant IA</span>
+          </div>
+          <ol class="chat__thread" id="chat">
+            <li class="msg msg--visitor">
+              <span class="msg__meta">Prospect · 23 h 41</span>
+              <p>Salut ! C'est combien ton coaching ?</p>
+            </li>
+            <li class="msg msg--typing" aria-hidden="true"><span></span><span></span><span></span></li>
+            <li class="msg msg--agent">
+              <span class="msg__meta">Assistant · 23 h 41</span>
+              <p>Hello ! Avant de te parler du prix, dis-moi ton objectif : perdre du poids, prendre du muscle, ou les deux ?</p>
+            </li>
+            <li class="msg msg--visitor">
+              <span class="msg__meta">Prospect · 23 h 42</span>
+              <p>Perdre 10 kilos avant l'été, j'ai déjà tout essayé.</p>
+            </li>
+            <li class="msg msg--agent">
+              <span class="msg__meta">Assistant · 23 h 42</span>
+              <p>Tu es exactement le type de profil que <span class="slot">ton prénom</span> accompagne. Le plus simple, c'est un appel de 20 minutes avec lui pour voir si c'est fait pour toi. Demain 18 h ou jeudi 12 h ?</p>
+            </li>
+            <li class="msg msg--visitor">
+              <span class="msg__meta">Prospect · 23 h 43</span>
+              <p>Demain 18 h 👍</p>
+            </li>
+            <li class="msg msg--event">
+              <span class="tri"></span> Appel réservé
+            </li>
+          </ol>
+          <figcaption>Exemple de conversation.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Problème -->
+    <section class="section problem">
+      <div class="wrap wrap--text">
+        <h2>Ce n'est pas un problème d'audience. C'est un problème de réponse.</h2>
+        <p class="lead">Tu passes des heures à créer du contenu. Les messages arrivent, mais tu réponds entre deux séances, parfois le lendemain. Pendant ce temps, le prospect refroidit, scrolle, et finit chez un autre coach.</p>
+      </div>
+    </section>
+
+    <!-- Avant / avec -->
+    <section class="section compare" aria-labelledby="compare-title">
+      <div class="wrap">
+        <h2 id="compare-title" class="visually-hidden">Avant et avec Autoflow</h2>
+        <div class="compare__grid">
+          <div class="compare__col compare__col--before">
+            <h3>Avant</h3>
+            <ul class="list">
+              <li>Des messages qui attendent des heures.</li>
+              <li>Des « c'est combien ? » qui ne mènent nulle part.</li>
+              <li>Des relances oubliées.</li>
+              <li>Un setter payé à la commission qui répond quand il peut.</li>
+              <li>Un agenda vide certaines semaines.</li>
+            </ul>
+          </div>
+          <div class="compare__col compare__col--after">
+            <h3>Avec Autoflow</h3>
+            <ul class="list list--tri">
+              <li>Chaque prospect reçoit une réponse en quelques secondes.</li>
+              <li>Les curieux sont filtrés.</li>
+              <li>Les prospects motivés réservent directement leur appel.</li>
+              <li>Les hésitants sont relancés.</li>
+              <li>Chaque mois, tu sais combien d'appels le système t'a apportés.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comment ça marche -->
+    <section class="section" aria-labelledby="how-title">
+      <div class="wrap">
+        <h2 id="how-title">Comment ça marche</h2>
+        <ol class="steps">
+          <li class="step">
+            <span class="step__num">1</span>
+            <span class="step__when">Jours 1-2</span>
+            <h3>Audit</h3>
+            <p>On analyse ton compte, tes messages et ton offre. On fixe ensemble ton objectif d'appels.</p>
+          </li>
+          <li class="step">
+            <span class="step__num">2</span>
+            <span class="step__when">Jours 3-5</span>
+            <h3>Configuration</h3>
+            <p>On entraîne l'assistant sur ton offre, ta façon de parler et tes critères de qualification.</p>
+          </li>
+          <li class="step">
+            <span class="step__num">3</span>
+            <span class="step__when">Jour 7</span>
+            <h3>Mise en ligne</h3>
+            <p>L'assistant répond à tes messages et commentaires, qualifie et réserve les appels dans ton agenda.</p>
+          </li>
+          <li class="step">
+            <span class="step__num">4</span>
+            <span class="step__when">Chaque mois</span>
+            <h3>Rapport et optimisation</h3>
+            <p>Tu reçois les conversations, les appels réservés et les objections de tes prospects. On optimise.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Ce que tu reçois -->
+    <section class="section section--rule" aria-labelledby="get-title">
+      <div class="wrap get">
+        <h2 id="get-title">Ce que tu reçois</h2>
+        <ul class="list list--tri get__list">
+          <li><strong>Un assistant qui répond à tes messages privés et à tes commentaires Instagram</strong>, en quelques secondes, à toute heure.</li>
+          <li><strong>Une qualification selon tes critères</strong> : objectif, motivation, budget.</li>
+          <li><strong>La réservation directe dans ton agenda</strong>, sans aller-retour.</li>
+          <li><strong>La relance des prospects hésitants.</strong></li>
+          <li><strong>Un rapport mensuel chiffré</strong> : conversations, appels réservés, objections.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Garantie -->
+    <section class="section guarantee" id="garantie" aria-labelledby="guarantee-title">
+      <div class="wrap">
+        <h2 id="guarantee-title">Deux garanties, écrites noir sur blanc.</h2>
+        <div class="guarantee__grid">
+          <div class="guarantee__item">
+            <span class="guarantee__day">Jour 7</span>
+            <p>Si le système n'est pas en ligne au jour 7, ton premier mois n'est pas facturé.</p>
+          </div>
+          <div class="guarantee__item">
+            <span class="guarantee__day">Mois 1</span>
+            <p>Si l'objectif d'appels qualifiés fixé ensemble lors de l'audit n'est pas atteint le premier mois, on continue gratuitement jusqu'à l'atteindre.</p>
+            <p class="guarantee__scope">Packs Croissance et Scale.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Packs et prix -->
+    <section class="section packs-section" id="packs" aria-labelledby="packs-title">
+      <div class="wrap">
+        <h2 id="packs-title">Choisis ton système.</h2>
+        <p class="lead lead--small">Mise en place en 7 jours, sans engagement de durée.</p>
+        <div class="packs" id="packs-grid" style="--pack-rows: 15;">
+      <article class="pack" aria-labelledby="pack-scale">
+        <div class="pack__head">
+          
+          <h3 class="pack__name" id="pack-scale">Scale</h3>
+          <p class="pack__for">Coachs à forte audience ou avec une équipe</p>
+        </div>
+        <div class="pack__pricing"><p class="pack__price">1 780&nbsp;€ <small>/mois</small></p><p class="pack__unit">Conversations illimitées</p><p class="pack__daily">Moins qu'un setter à temps plein, sans jamais dormir.</p></div>
+        <div class="pack__pitch"></div>
+        <div class="pack__row">
+            
+            <span class="pack__label">Réponse en quelques secondes aux messages privés, 24h/24</span><span class="pack__value">Oui</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Réponse aux commentaires qui mènent en message privé</span><span class="pack__value">Oui</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Conversations par mois</span><span class="pack__value">Illimitées</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Qualification et réservation directe dans ton agenda</span><span class="pack__value">Oui</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Relance des prospects hésitants</span><span class="pack__value">Oui</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Setter humain pour les conversations délicates</span><span class="pack__value">Oui</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Rapport mensuel appels et objections</span><span class="pack__value">Oui, hebdomadaire</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Interlocuteur dédié</span><span class="pack__value">Oui, réponse sous 24 h</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Mise en place</span><span class="pack__value">5 jours</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Garantie « objectif d'appels atteint ou on continue gratuitement »</span><span class="pack__value">Oui</span>
+          </div>
+        <a class="btn btn--ghost pack__cta" href="https://forms.gle/VtS7yDsHmgn86Yu2A" target="_blank" rel="noopener">Choisir Scale<span class="visually-hidden"> (s'ouvre dans un nouvel onglet)</span></a>
+        <p class="pack__guarantee"><span class="tri" aria-hidden="true"></span> Objectif d'appels atteint ou on continue gratuitement</p>
+      </article>
+      <article class="pack pack--recommended" aria-labelledby="pack-croissance">
+        <div class="pack__head">
+          <span class="pack__badge"><span class="tri" aria-hidden="true"></span> Recommandé</span>
+          <h3 class="pack__name" id="pack-croissance">Croissance</h3>
+          <p class="pack__for">Remplir ton agenda chaque semaine</p>
+        </div>
+        <div class="pack__pricing"><p class="pack__price">480&nbsp;€ <small>/mois</small></p><p class="pack__unit">0,32&nbsp;€ par conversation</p><p class="pack__unit-compare">3 fois moins cher par conversation qu'Essentiel</p><p class="pack__daily">Un seul client signé à 1 500 € rembourse plus de 3 mois.</p></div>
+        <div class="pack__pitch"><p>Seulement 200&nbsp;€ de plus qu'Essentiel : 5 fois plus de conversations, les commentaires, la relance des hésitants et la garantie.</p></div>
+        <div class="pack__row">
+            
+            <span class="pack__label">Réponse en quelques secondes aux messages privés, 24h/24</span><span class="pack__value">Oui</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Réponse aux commentaires qui mènent en message privé</span><span class="pack__value">Oui</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Conversations par mois</span><span class="pack__value">Jusqu'à 1 500</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Qualification et réservation directe dans ton agenda</span><span class="pack__value">Oui</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Relance des prospects hésitants</span><span class="pack__value">Oui</span>
+          </div><div class="pack__row pack__row--missing">
+            <span class="pack__cross" aria-hidden="true">✕</span>
+            <span class="pack__label">Setter humain pour les conversations délicates</span><span class="pack__value">Non</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Rapport mensuel appels et objections</span><span class="pack__value">Oui</span>
+          </div><div class="pack__row pack__row--missing">
+            <span class="pack__cross" aria-hidden="true">✕</span>
+            <span class="pack__label">Interlocuteur dédié</span><span class="pack__value">Non</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Mise en place</span><span class="pack__value">7 jours</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Garantie « objectif d'appels atteint ou on continue gratuitement »</span><span class="pack__value">Oui</span>
+          </div>
+        <a class="btn  pack__cta" href="https://forms.gle/VtS7yDsHmgn86Yu2A" target="_blank" rel="noopener">Choisir Croissance<span class="visually-hidden"> (s'ouvre dans un nouvel onglet)</span></a>
+        <p class="pack__guarantee"><span class="tri" aria-hidden="true"></span> Objectif d'appels atteint ou on continue gratuitement</p>
+      </article>
+      <article class="pack" aria-labelledby="pack-essentiel">
+        <div class="pack__head">
+          
+          <h3 class="pack__name" id="pack-essentiel">Essentiel</h3>
+          <p class="pack__for">Tester le système sur tes messages privés</p>
+        </div>
+        <div class="pack__pricing"><p class="pack__price">280&nbsp;€ <small>/mois</small></p><p class="pack__unit">0,93&nbsp;€ par conversation</p></div>
+        <div class="pack__pitch"></div>
+        <div class="pack__row">
+            
+            <span class="pack__label">Réponse en quelques secondes aux messages privés, 24h/24</span><span class="pack__value">Oui</span>
+          </div><div class="pack__row pack__row--missing">
+            <span class="pack__cross" aria-hidden="true">✕</span>
+            <span class="pack__label">Réponse aux commentaires qui mènent en message privé</span><span class="pack__value">Non</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Conversations par mois</span><span class="pack__value">Jusqu'à 300</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Qualification et réservation directe dans ton agenda</span><span class="pack__value">Oui</span>
+          </div><div class="pack__row pack__row--missing">
+            <span class="pack__cross" aria-hidden="true">✕</span>
+            <span class="pack__label">Relance des prospects hésitants</span><span class="pack__value">Non</span>
+          </div><div class="pack__row pack__row--missing">
+            <span class="pack__cross" aria-hidden="true">✕</span>
+            <span class="pack__label">Setter humain pour les conversations délicates</span><span class="pack__value">Non</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Rapport mensuel appels et objections</span><span class="pack__value">Rapport simple</span>
+          </div><div class="pack__row pack__row--missing">
+            <span class="pack__cross" aria-hidden="true">✕</span>
+            <span class="pack__label">Interlocuteur dédié</span><span class="pack__value">Non</span>
+          </div><div class="pack__row">
+            
+            <span class="pack__label">Mise en place</span><span class="pack__value">7 jours</span>
+          </div><div class="pack__row pack__row--missing">
+            <span class="pack__cross" aria-hidden="true">✕</span>
+            <span class="pack__label">Garantie « objectif d'appels atteint ou on continue gratuitement »</span><span class="pack__value">Non</span>
+          </div>
+        <a class="btn btn--ghost pack__cta" href="https://forms.gle/VtS7yDsHmgn86Yu2A" target="_blank" rel="noopener">Choisir Essentiel<span class="visually-hidden"> (s'ouvre dans un nouvel onglet)</span></a>
+        <p class="pack__guarantee"></p>
+      </article></div>
+        <ul class="packs__notes"><li>Option : script de vente pour tes appels, construit à partir des objections de tes prospects, 290 €.</li></ul>
+      </div>
+    </section>
+
+    <!-- Audit gratuit -->
+    <section class="section audit" id="audit" aria-labelledby="audit-title">
+      <div class="wrap audit__inner">
+        <h2 id="audit-title">Découvre combien d'appels ton compte laisse passer chaque mois.</h2>
+        <p class="lead lead--small">Remplis ce formulaire en 1 minute. On analyse ton compte gratuitement et on te montre combien de prospects tu perds, et pourquoi.</p>
+        <a class="btn btn--large" href="https://forms.gle/VtS7yDsHmgn86Yu2A" target="_blank" rel="noopener">Réserver mon audit gratuit<span class="visually-hidden"> (s'ouvre dans un nouvel onglet)</span></a>
+      </div>
+    </section>
+
+    <!-- À propos -->
+    <section class="section section--rule" aria-labelledby="about-title">
+      <div class="wrap wrap--text">
+        <h2 id="about-title">Pourquoi Autoflow</h2>
+        <p class="lead lead--small">Autoflow est une agence spécialisée dans les agents comportementaux. On fait pour les coachs ce qu'un excellent setter ferait : écouter, poser les bonnes questions, filtrer les curieux et proposer l'appel au bon moment. Mais en quelques secondes, et à toute heure.</p>
+      </div>
+    </section>
+
+    <!-- Témoignages : masqué tant qu'il n'y a pas de vrais clients. Retirer l'attribut hidden pour l'afficher. -->
+    <section class="section" id="temoignages" hidden aria-labelledby="proof-title">
+      <div class="wrap">
+        <h2 id="proof-title">Ils l'utilisent</h2>
+        <!-- [EMPLACEMENT] Témoignages et études de cas réels uniquement. -->
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section--rule" id="faq" aria-labelledby="faq-title">
+      <div class="wrap wrap--text">
+        <h2 id="faq-title">Questions fréquentes</h2>
+        <div class="faq">
+          <details>
+            <summary>L'assistant va-t-il parler à ma place n'importe comment ?</summary>
+            <p>Non. Il est entraîné sur ton offre et ta façon de parler, et respecte tes critères. Pour une question délicate, il te passe la main.</p>
+          </details>
+          <details>
+            <summary>Mes prospects sauront-ils que c'est un assistant IA ?</summary>
+            <p>Oui, c'est indiqué clairement. C'est une obligation légale, et ça n'empêche pas de réserver des appels.</p>
+          </details>
+          <details>
+            <summary>Est-ce que mon compte Instagram risque quelque chose ?</summary>
+            <p>On passe uniquement par les outils officiels de Meta pour la messagerie, jamais par des robots non autorisés.</p>
+          </details>
+          <details>
+            <summary>Je dois changer ma façon de faire du contenu ?</summary>
+            <p>Non. Tu continues à publier. On transforme simplement tes messages en appels.</p>
+          </details>
+          <details>
+            <summary>Combien de temps ça me prend ?</summary>
+            <p>Un appel d'une heure pour l'audit, puis quelques validations pendant la semaine de configuration.</p>
+          </details>
+          <details>
+            <summary>Je peux changer de pack ?</summary>
+            <p>Oui, à tout moment, sans engagement de durée.</p>
+          </details>
+          <details>
+            <summary>Pouvez-vous garantir un nombre de clients ou un revenu ?</summary>
+            <p>Non, et personne d'honnête ne le peut : la signature dépend aussi de ton offre et de ton appel de vente. On garantit ton objectif d'appels qualifiés, sinon on continue gratuitement.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Appel final -->
+    <section class="final">
+      <div class="wrap final__inner">
+        <h2>Combien de prospects attendent ta réponse en ce moment&nbsp;?</h2>
+        <a class="btn btn--large btn--inverse" href="https://forms.gle/VtS7yDsHmgn86Yu2A" target="_blank" rel="noopener">Réserver mon audit gratuit<span class="visually-hidden"> (s'ouvre dans un nouvel onglet)</span></a>
+      </div>
+    </section>
+
+    <section class="section legal-page legal" id="mentions-legales">
+      <div class="wrap wrap--text">
+      <h2 class="legal-title">Mentions légales</h2>
+      <p class="legal__updated">Dernière mise à jour : 6 octobre 2026</p>
+
+      <p>Autoflow est la marque sous laquelle Ewan Clabaut, entrepreneur individuel (EI), nom commercial E3C Labs, propose ses services.</p>
+
+      <h3>Éditeur du site</h3>
+      <ul>
+        <li>Nom commercial : E3C Labs (marque Autoflow)</li>
+        <li>Exploitant : Ewan Clabaut, entrepreneur individuel (EI), micro-entreprise</li>
+        <li>Adresse : 5 rue Pasteur, 92500 Rueil-Malmaison, France</li>
+        <li>SIRET : 944 576 743 00016</li>
+        <li>Email : <a href="mailto:contact.autoflow1@gmail.com">contact.autoflow1@gmail.com</a></li>
+        <li>Téléphone : <a href="tel:+33637546108">+33 6 37 54 61 08</a></li>
+        <li>TVA : TVA non applicable, article 293 B du Code général des impôts<!-- À retirer si l'entreprise devient assujettie à la TVA --></li>
+        <li>Directeur de la publication : Ewan Clabaut</li>
+      </ul>
+
+      <h3>Hébergement</h3>
+      <p>Hostinger International Ltd, 61 Lordou Vironos Street, 6023 Larnaca, Chypre. Téléphone : <a href="tel:+35722232364">+357 22 232 364</a>. Site : <a href="https://www.hostinger.fr" rel="noopener">hostinger.fr</a>.</p>
+
+      <h3>Propriété intellectuelle</h3>
+      <p>Le nom Autoflow, le logo, les textes et les visuels du site sont la propriété de l'éditeur. Toute reproduction sans autorisation écrite est interdite.</p>
+
+      <h3>Responsabilité</h3>
+      <p>L'éditeur s'efforce de fournir des informations exactes mais ne peut garantir l'absence d'erreurs. Les liens vers des sites tiers (dont le formulaire Google) n'engagent pas sa responsabilité quant à leur contenu.</p>
+
+      <h3>Données personnelles</h3>
+      <p>Voir la page <a href="#confidentialite">Politique de confidentialité</a>.</p>
+      <a class="legal__back" href="#">Retour à l'accueil</a>
+    </div>
+    </section>
+
+    <section class="section legal-page legal" id="confidentialite">
+      <div class="wrap wrap--text">
+      <h2 class="legal-title">Politique de confidentialité</h2>
+      <p class="legal__updated">Dernière mise à jour : 6 octobre 2026</p>
+
+      <p>Cette page explique quelles données Autoflow collecte, pourquoi, combien de temps elles sont gardées et comment exercer tes droits.</p>
+
+      <h3>Responsable du traitement</h3>
+      <p>Ewan Clabaut, entrepreneur individuel (EI), nom commercial E3C Labs (marque Autoflow), 5 rue Pasteur, 92500 Rueil-Malmaison, France. Contact : <a href="mailto:contact.autoflow1@gmail.com">contact.autoflow1@gmail.com</a>.</p>
+
+      <h3>Données collectées</h3>
+      <ul>
+        <li><strong>Formulaire de demande d'audit</strong> (hébergé par Google Forms) : les informations que tu saisis (prénom, email, compte Instagram, informations sur ton activité, pack qui t'intéresse, message facultatif, consentement).</li>
+        <li><strong>Emails</strong> : si tu nous écris, ton adresse et ton message, uniquement pour te répondre.</li>
+        <li><strong>Données techniques</strong> : comme pour tout site, l'hébergeur enregistre des journaux de connexion (adresse IP, date, page demandée) pour assurer la sécurité et le bon fonctionnement du site.</li>
+      </ul>
+      <p>Le site lui-même ne collecte aucune autre donnée personnelle.</p>
+
+      <h3>Finalités</h3>
+      <p>Répondre à ta demande d'audit, te recontacter au sujet de l'offre Autoflow et suivre la relation commerciale.</p>
+
+      <h3>Base légale</h3>
+      <p>Le consentement donné dans le formulaire, puis l'intérêt légitime d'Autoflow à assurer le suivi commercial de ta demande. Les journaux techniques reposent sur l'intérêt légitime à sécuriser le site.</p>
+
+      <h3>Destinataires</h3>
+      <p>Le site est hébergé par Hostinger International Ltd (Chypre, Union européenne), qui traite les journaux techniques en tant qu'hébergeur.</p>
+      <p>Les données du formulaire ne sont destinées qu'à Autoflow. Les réponses au formulaire sont stockées sur les services de Google (Google Forms et Google Sheets), qui agit comme sous-traitant. Ces données peuvent être transférées hors de l'Union européenne, avec les garanties prévues par Google (clauses contractuelles types). Aucune donnée n'est vendue ni cédée.</p>
+      <p>En ouvrant le formulaire, tu quittes le site Autoflow : la politique de confidentialité de Google s'applique aussi à ta navigation sur sa page.</p>
+
+      <h3>Durée de conservation</h3>
+      <p>3 ans à compter du dernier contact, puis suppression. Pour les clients : pendant la durée du contrat, puis selon les obligations légales (notamment comptables). Les journaux techniques sont conservés par l'hébergeur pour une durée limitée, selon sa propre politique.</p>
+
+      <h3>Tes droits</h3>
+      <p>Tu disposes d'un droit d'accès, de rectification, d'effacement, d'opposition, de limitation et de portabilité, ainsi que du droit de retirer ton consentement à tout moment. Écris à <a href="mailto:contact.autoflow1@gmail.com">contact.autoflow1@gmail.com</a> ou par courrier à l'adresse ci-dessus : on te répond sous un mois. Tu peux aussi saisir la CNIL (<a href="https://www.cnil.fr" rel="noopener">cnil.fr</a>).</p>
+
+      <h3>Cookies</h3>
+      <p>Le site ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience. Le site ne charge aucune ressource externe : ta visite ne transmet aucune donnée à un service tiers.</p>
+      <!-- Si un outil de mesure d'audience est installé (par exemple Plausible), mettre à jour ce paragraphe : préciser l'outil, et ajouter un bandeau de consentement s'il dépose des cookies. -->
+
+      <h3>Sécurité</h3>
+      <p>Le site est servi en HTTPS. L'accès aux réponses du formulaire est limité au compte Google d'Autoflow.</p>
+
+      <h3>Modifications</h3>
+      <p>Cette politique peut évoluer. La date de dernière mise à jour figure en haut de la page.</p>
+      <a class="legal__back" href="#">Retour à l'accueil</a>
+    </div>
+    </section>
+
+    <section class="section legal-page legal" id="cgv">
+      <div class="wrap wrap--text">
+      <h2 class="legal-title">Conditions générales de vente</h2>
+      <p class="legal__updated">Dernière mise à jour : 6 octobre 2026</p>
+
+      <h3>Prestataire</h3>
+      <p>Ewan Clabaut, entrepreneur individuel (EI), nom commercial E3C Labs, exploitant la marque Autoflow. 5 rue Pasteur, 92500 Rueil-Malmaison, France. SIRET 944 576 743 00016. Email : <a href="mailto:contact.autoflow1@gmail.com">contact.autoflow1@gmail.com</a>. Téléphone : <a href="tel:+33637546108">+33 6 37 54 61 08</a>.</p>
+
+      <h3>1. Objet</h3>
+      <p>Fourniture par Autoflow d'un service d'assistant conversationnel de qualification et de prise de rendez-vous pour coachs, à destination exclusivement de clients professionnels.</p>
+
+      <h3>2. Offres</h3>
+      <p>Trois formules mensuelles, Essentiel, Croissance et Scale, dont le contenu est décrit sur le site au jour de la souscription. Toute prestation complémentaire (par exemple le script de vente) fait l'objet d'un devis.</p>
+
+      <h3>3. Prix</h3>
+      <p>280 €, 480 € et 1 780 € par mois selon la formule. TVA non applicable, article 293 B du CGI. Autoflow peut modifier ses prix en prévenant le client au moins 30 jours avant l'échéance suivante.</p>
+
+      <h3>4. Commande</h3>
+      <p>La souscription intervient après l'audit, par acceptation écrite (email ou signature) d'une proposition commerciale reprenant la formule choisie et l'objectif d'appels qualifiés.</p>
+
+      <h3>5. Durée et résiliation</h3>
+      <p>Abonnement mensuel sans engagement de durée, renouvelé automatiquement. Résiliation à tout moment par email, avec effet à la fin du mois en cours.</p>
+
+      <h3>6. Paiement</h3>
+      <p>Mensuel, d'avance, par virement bancaire ou par tout autre moyen indiqué dans la proposition commerciale. En cas de retard : pénalités calculées au taux appliqué par la Banque centrale européenne à son opération de refinancement la plus récente, majoré de 10 points, et indemnité forfaitaire de 40 € pour frais de recouvrement (article L441-10 du Code de commerce). Le service peut être suspendu après une relance restée sans effet.</p>
+
+      <h3>7. Mise en ligne et garanties</h3>
+      <ul>
+        <li>Mise en ligne en 7 jours ouvrés (5 pour Scale) à compter de la réception des accès et informations nécessaires. En cas de retard imputable à Autoflow, le premier mois n'est pas facturé.</li>
+        <li>Garantie « objectif d'appels » (formules Croissance et Scale) : si l'objectif d'appels qualifiés défini par écrit lors de l'audit n'est pas atteint au terme du premier mois, Autoflow poursuit le service sans facturation jusqu'à ce qu'il soit atteint. La garantie suppose que le client maintienne son activité de publication habituelle, laisse l'assistant actif et honore les appels réservés.</li>
+        <li>Autoflow ne garantit ni un nombre de clients signés ni un chiffre d'affaires.</li>
+      </ul>
+
+      <h3>8. Obligations du client</h3>
+      <p>Fournir les accès nécessaires (compte professionnel Instagram, agenda), des informations exactes sur son offre et ses critères de qualification, et informer Autoflow de tout changement. Le client reste seul responsable de son offre, de ses prix, de ses promesses commerciales et de son accompagnement.</p>
+
+      <h3>9. Conformité des plateformes</h3>
+      <p>Autoflow utilise uniquement les outils de messagerie officiels et autorisés par Meta. Le client s'engage à respecter les conditions d'utilisation d'Instagram. Autoflow n'est pas responsable des décisions de Meta (restrictions, suspensions) ni des interruptions des services tiers.</p>
+
+      <h3>10. Responsabilité</h3>
+      <p>Obligation de moyens. La responsabilité d'Autoflow est limitée aux montants payés par le client au cours des 3 derniers mois.</p>
+
+      <h3>11. Données personnelles</h3>
+      <p>Pour les données des prospects du coach, Autoflow agit comme sous-traitant du client au sens du RGPD. Un accord de traitement des données est annexé à la proposition commerciale. L'assistant indique clairement aux prospects qu'ils échangent avec une IA.</p>
+
+      <h3>12. Propriété</h3>
+      <p>Les contenus et la marque du coach restent sa propriété. La technologie, les méthodes et les modèles de l'assistant restent la propriété d'Autoflow.</p>
+
+      <h3>13. Droit applicable</h3>
+      <p>Droit français. En cas de litige, après tentative de résolution amiable, compétence des tribunaux du ressort du siège d'Autoflow (Rueil-Malmaison, Hauts-de-Seine).</p>
+      <a class="legal__back" href="#">Retour à l'accueil</a>
+    </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap site-footer__inner">
+      <span class="logo logo--footer">
+        <span class="logo__text" aria-hidden="true">AUTOFLOW<span class="tri"></span></span>
+      </span>
+      <a href="mailto:contact.autoflow1@gmail.com">contact.autoflow1@gmail.com</a>
+      <nav class="site-footer__legal" aria-label="Informations légales">
+        <a href="#mentions-legales">Mentions légales</a>
+        <a href="#confidentialite">Politique de confidentialité</a>
+        <a href="#cgv">Conditions générales de vente</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+(() => {
+  'use strict';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Conversation du hero : lecture unique, message par message ---- */
+  const chat = document.getElementById('chat');
+  if (chat && !reduceMotion) {
+    const figure = chat.closest('.chat');
+    const messages = Array.from(chat.children);
+    const typing = chat.querySelector('.msg--typing');
+    figure.classList.add('chat--play');
+
+    // Délai avant chaque élément (ms)
+    const delays = [300, 700, 1500, 1300, 1500, 1300, 900];
+    let t = 0;
+    messages.forEach((msg, i) => {
+      t += delays[i] || 800;
+      setTimeout(() => {
+        if (msg !== typing && typing.classList.contains('is-in')) typing.remove();
+        msg.classList.add('is-in');
+      }, t);
+    });
+  } else if (chat) {
+    chat.querySelector('.msg--typing')?.remove();
+  }
+
+})();
+</script>
+</body>
+</html>
