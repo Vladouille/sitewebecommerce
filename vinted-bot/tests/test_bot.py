@@ -1,4 +1,8 @@
-from vinted_bot.main import Bot, Search
+import json
+from types import SimpleNamespace
+
+from vinted_bot.app import Scanner, Search
+from vinted_bot.resale import write_listing
 from vinted_bot.pricing import Rules, evaluate
 from vinted_bot.storage import Storage
 from vinted_bot.vinted import Item, parse_item, search_url_to_params
@@ -69,23 +73,51 @@ class FakeClient:
         return list(self.items) if page == 1 else []
 
 
-class Recorder:
-    def __init__(self):
-        self.alerts = []
+def test_first_pass_learns_market_then_finds_new_cheap_item(tmp_path):
+    scanner = Scanner({"database": str(tmp_path / "b.db")}, [Search("dunk", {}, Rules())])
+    scanner.client, scanner.pause = FakeClient(), lambda: None
 
-    def send_text(self, text):
-        pass
+    assert scanner.poll(scanner.searches[0]) == 0      # échantillon initial, aucune affaire
+    scanner.client.items.insert(0, make_item(500, 15))
+    assert scanner.poll(scanner.searches[0]) == 1
+    assert scanner.poll(scanner.searches[0]) == 0      # jamais deux fois la même annonce
 
-    def send_alert(self, search, item, verdict):
-        self.alerts.append((item.id, verdict.kind))
+    state = scanner.state()
+    assert [(d["id"], d["kind"]) for d in state["deals"]] == [(500, "error")]
+    assert state["deals"][0]["buy_url"].endswith("item_id%5D=500")
 
 
-def test_first_pass_learns_market_then_alerts_on_new_cheap_item(tmp_path):
-    bot = Bot({"database": str(tmp_path / "b.db")}, [Search("dunk", {}, Rules())])
-    bot.client, bot.notifier, bot.pause = FakeClient(), Recorder(), lambda: None
+def test_scan_only_while_page_is_open(tmp_path):
+    scanner = Scanner({"database": str(tmp_path / "b.db")}, [Search("dunk", {}, Rules())])
+    assert not scanner.active
+    scanner.state()                                    # la page interroge le bot
+    assert scanner.active
 
-    assert bot.poll(bot.searches[0]) == 0          # échantillon initial, aucune alerte
-    bot.client.items.insert(0, make_item(500, 15))
-    assert bot.poll(bot.searches[0]) == 1
-    assert bot.notifier.alerts == [(500, "error")]
-    assert bot.poll(bot.searches[0]) == 0          # jamais deux fois la même annonce
+
+class FakeAnthropic:
+    def __init__(self, payload):
+        self.calls = []
+        self.payload = payload
+        self.beta = SimpleNamespace(messages=SimpleNamespace(create=self.create))
+
+    def create(self, **kwargs):
+        self.calls.append(kwargs)
+        block = SimpleNamespace(type="text", text=json.dumps(self.payload))
+        return SimpleNamespace(stop_reason="end_turn", content=[block])
+
+
+def test_resale_listing_uses_photo_and_computes_profit(tmp_path):
+    store = market(tmp_path, [100] * 20)
+    item = make_item(999, 20)
+    item.photo_url = "https://images.vinted.net/1.jpg"
+    verdict = evaluate(store, "dunk", item, Rules())
+    fake = FakeAnthropic({"title": "Nike Dunk Low 42", "description": "Très bon état",
+                          "suggested_price": 85, "quick_sale_price": 70,
+                          "hashtags": ["#nike"], "photo_tips": ["Lumière du jour"]})
+
+    listing = write_listing(item, verdict, client=fake)
+
+    assert listing["estimated_profit"] == 64.0          # 85 - 21 payés
+    content = fake.calls[0]["messages"][0]["content"]
+    assert content[0]["source"]["url"] == item.photo_url
+    assert "100.00" in content[1]["text"]
