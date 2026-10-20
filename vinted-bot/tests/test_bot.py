@@ -264,3 +264,12 @@ def test_security_headers(site):
 def test_short_password_is_refused(tmp_path):
     with pytest.raises(SystemExit):
         create_app(Scanner(Storage(tmp_path / "s.db")), "court", "cle")
+
+
+def test_single_file_version_is_up_to_date(tmp_path, monkeypatch):
+    import build_single_file
+    committed = build_single_file.OUTPUT.read_text(encoding="utf-8")
+    monkeypatch.setattr(build_single_file, "OUTPUT", tmp_path / "vinted_deals.py")
+    build_single_file.main()
+    assert (tmp_path / "vinted_deals.py").read_text(encoding="utf-8") == committed, \
+        "Relance : python build_single_file.py"

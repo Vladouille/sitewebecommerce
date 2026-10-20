@@ -136,6 +136,22 @@ précautions limitent le risque de blocage de ton adresse IP, sans le supprimer.
 - Une erreur de prix « trop belle » peut être une arnaque : regarde les avis du vendeur et
   paie toujours via Vinted (protection acheteur).
 
+## Version en un seul fichier
+
+`vinted_deals.py` contient tout le site (serveur + pages web) dans un seul fichier :
+
+```bash
+pip install requests flask waitress
+BOT_PASSWORD="ton-mot-de-passe" SECURE_COOKIES=0 python vinted_deals.py
+```
+
+Puis ouvre http://localhost:8000. Les données sont rangées dans un dossier `data/` à côté.
+Pour l'hébergement en HTTPS, garde `SECURE_COOKIES=1` (valeur par défaut) et place le site
+derrière Tailscale ou Caddy comme ci-dessus.
+
+Ce fichier est généré à partir du dossier `vinted_bot/` : après une modification, relance
+`python build_single_file.py`.
+
 ## Lancer sans Docker (développement)
 
 ```bash

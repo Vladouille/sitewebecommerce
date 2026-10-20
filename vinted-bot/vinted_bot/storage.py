@@ -9,7 +9,7 @@ from pathlib import Path
 
 from .vinted import Item
 
-SCHEMA = """
+DB_SCHEMA = """
 CREATE TABLE IF NOT EXISTS prices (
     item_id   INTEGER PRIMARY KEY,
     search    TEXT NOT NULL,
@@ -42,7 +42,7 @@ class Storage:
         self.db = sqlite3.connect(path, check_same_thread=False)
         self.lock = threading.Lock()
         with self.lock:
-            self.db.executescript(SCHEMA)
+            self.db.executescript(DB_SCHEMA)
 
     def _query(self, sql: str, args=()) -> list[tuple]:
         with self.lock:

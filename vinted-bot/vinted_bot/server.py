@@ -13,7 +13,7 @@ from datetime import timedelta
 from pathlib import Path
 from urllib.parse import urlparse
 
-from flask import Flask, abort, jsonify, redirect, request, send_from_directory, session
+from flask import Flask, Response, abort, jsonify, redirect, request, session
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from .resale import AIConfig, write_listing
@@ -23,6 +23,9 @@ from .vinted import search_url_to_params
 
 log = logging.getLogger("vinted_bot")
 WEB_DIR = Path(__file__).parent / "web"
+# Pages du site intégrées au code (version en un seul fichier) ; sinon lues dans WEB_DIR.
+ASSETS: dict[str, str] = {}
+MIMETYPES = {".html": "text/html", ".css": "text/css", ".js": "text/javascript"}
 
 MAX_SEARCHES = 15          # au-delà, le scan devient trop lent et trop insistant pour Vinted
 MAX_LOGIN_FAILURES = 5
@@ -112,6 +115,10 @@ def create_app(scanner: Scanner, password: str, secret_key: str, secure_cookies:
     # Change dès que le mot de passe change : les anciennes sessions deviennent invalides.
     session_tag = hashlib.sha256(password_hash).hexdigest()[:16]
     guard = LoginGuard()
+    assets = ASSETS or {p.name: p.read_text(encoding="utf-8") for p in WEB_DIR.iterdir() if p.is_file()}
+
+    def page(name: str) -> Response:
+        return Response(assets[name], mimetype=MIMETYPES[Path(name).suffix])
 
     app = Flask(__name__, static_folder=None)
     app.config.update(
@@ -165,7 +172,7 @@ def create_app(scanner: Scanner, password: str, secret_key: str, secure_cookies:
     def login_page():
         if logged_in():
             return redirect("/")
-        return send_from_directory(WEB_DIR, "login.html")
+        return page("login.html")
 
     @app.post("/login")
     def login():
@@ -191,11 +198,11 @@ def create_app(scanner: Scanner, password: str, secret_key: str, secure_cookies:
 
     @app.get("/")
     def index():
-        return send_from_directory(WEB_DIR, "index.html")
+        return page("index.html")
 
     @app.get("/<any('app.js', 'style.css'):name>")
     def static_file(name):
-        return send_from_directory(WEB_DIR, name)
+        return page(name)
 
     @app.get("/api/state")
     def state():

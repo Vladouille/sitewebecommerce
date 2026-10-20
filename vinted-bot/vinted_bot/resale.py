@@ -30,7 +30,7 @@ SYSTEM = (
     "informations : écris [À COMPLÉTER : ...] à la place. Pas d'emoji en excès."
 )
 
-SCHEMA = {
+LISTING_SCHEMA = {
     "type": "object",
     "properties": {
         "title": {"type": "string"},
@@ -162,7 +162,7 @@ def ollama_listing(item: Item, verdict: Verdict, cfg: AIConfig) -> dict:
     r = requests.post(f"{cfg.host}/api/chat", timeout=cfg.timeout, json={
         "model": cfg.model,
         "messages": [{"role": "system", "content": SYSTEM}, message],
-        "format": SCHEMA,
+        "format": LISTING_SCHEMA,
         "stream": False,
         "options": {"temperature": 0.4},
     })
