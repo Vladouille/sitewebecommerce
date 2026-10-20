@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Vinted Deals</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <div class="top">
+    <h1>Vinted Deals</h1>
+    <div class="top-actions">
+      <span class="pill" id="status">Connexion…</span>
+      <form method="post" action="/logout"><button class="link" type="submit">Déconnexion</button></form>
+    </div>
+  </div>
+  <div class="tabs" role="group" aria-label="Navigation">
+    <button data-view="deals" data-filter="all" aria-pressed="true">Tout</button>
+    <button data-view="deals" data-filter="error" aria-pressed="false">🚨 Erreurs de prix</button>
+    <button data-view="deals" data-filter="deal" aria-pressed="false">🔥 Bonnes affaires</button>
+    <button data-view="searches" aria-pressed="false">🔎 Mes recherches</button>
+    <button data-view="settings" aria-pressed="false">⚙️ Réglages</button>
+    <button id="notif" aria-pressed="false">🔔 Activer les alertes</button>
+  </div>
+</header>
+
+<main id="list"><p class="empty">Le scan démarre… les premières affaires apparaîtront ici.</p></main>
+
+<section class="panel" id="searches" hidden>
+  <form class="box-card" id="search-form">
+    <h2>Ajouter une recherche</h2>
+    <p class="hint">Fais ta recherche sur vinted.fr avec tes filtres (marque, taille, état…), puis copie
+      l'adresse de la page de résultats.</p>
+    <label class="input">Nom
+      <input name="name" maxlength="60" required placeholder="Nike Dunk Low">
+    </label>
+    <label class="input">Adresse de la recherche Vinted
+      <input name="url" type="url" required placeholder="https://www.vinted.fr/catalog?search_text=...">
+    </label>
+    <label class="input">Prix maximum (facultatif)
+      <input name="max_price" type="number" min="1" max="100000" step="1" placeholder="150">
+    </label>
+    <p class="error-msg" id="search-error" hidden></p>
+    <button class="btn buy" type="submit">Ajouter</button>
+  </form>
+  <div class="box-card">
+    <h2 id="search-count">Mes recherches</h2>
+    <div id="search-list"></div>
+  </div>
+</section>
+
+<section class="panel" id="settings" hidden>
+  <form class="box-card" id="settings-form">
+    <h2>Réglages de détection</h2>
+    <label class="input">🔥 Bonne affaire à partir de (% sous la médiane)
+      <input name="deal" type="number" min="10" max="90" step="1" required>
+    </label>
+    <label class="input">🚨 Erreur de prix à partir de (% sous la médiane)
+      <input name="error" type="number" min="11" max="95" step="1" required>
+    </label>
+    <label class="input">Mots exclus des titres (un par ligne : boîte vide, copie…)
+      <textarea name="keywords" rows="8"></textarea>
+    </label>
+    <p class="hint" id="settings-msg"></p>
+    <button class="btn buy" type="submit">Enregistrer</button>
+  </form>
+</section>
+
+<dialog id="resale">
+  <div class="modal" id="resale-body"></div>
+</dialog>
+
+<script src="/app.js"></script>
+</body>
+</html>

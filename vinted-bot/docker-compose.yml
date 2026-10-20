@@ -1,0 +1,35 @@
+services:
+  bot:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      TRUST_PROXY: "1"
+      OLLAMA_HOST: http://ollama:11434
+    volumes:
+      - ./data:/data
+    ports:
+      - "127.0.0.1:8000:8000"   # accessible seulement depuis le serveur lui-même (Caddy, Tailscale)
+
+  caddy:                       # HTTPS automatique et gratuit (Let's Encrypt)
+    image: caddy:2
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    profiles: ["public"]
+
+  ollama:                      # IA locale gratuite pour les annonces de revente (optionnelle)
+    image: ollama/ollama
+    restart: unless-stopped
+    volumes:
+      - ollama:/root/.ollama
+    profiles: ["ia"]
+
+volumes:
+  caddy_data:
+  ollama:
