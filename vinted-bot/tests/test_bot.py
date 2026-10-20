@@ -1,13 +1,11 @@
 import json
-import threading
-from http.client import HTTPConnection
-from http.server import ThreadingHTTPServer
 
 import pytest
 import requests
 
 from vinted_bot import resale
-from vinted_bot.app import Scanner, Search, make_handler, safe_url
+from vinted_bot.scanner import Scanner, Search, safe_url
+from vinted_bot.server import create_app
 from vinted_bot.resale import AIConfig, write_listing
 from vinted_bot.pricing import Rules, evaluate
 from vinted_bot.storage import Storage
@@ -80,13 +78,14 @@ class FakeClient:
 
 
 def test_first_pass_learns_market_then_finds_new_cheap_item(tmp_path):
-    scanner = Scanner({"database": str(tmp_path / "b.db")}, [Search("dunk", {}, Rules())])
+    scanner = Scanner(Storage(tmp_path / "b.db"))
     scanner.client, scanner.pause = FakeClient(), lambda: None
+    search = Search("dunk", {}, Rules())
 
-    assert scanner.poll(scanner.searches[0]) == 0      # échantillon initial, aucune affaire
+    assert scanner.poll(search) == 0                   # échantillon initial, aucune affaire
     scanner.client.items.insert(0, make_item(500, 15))
-    assert scanner.poll(scanner.searches[0]) == 1
-    assert scanner.poll(scanner.searches[0]) == 0      # jamais deux fois la même annonce
+    assert scanner.poll(search) == 1
+    assert scanner.poll(search) == 0                   # jamais deux fois la même annonce
 
     state = scanner.state()
     assert [(d["id"], d["kind"]) for d in state["deals"]] == [(500, "error")]
@@ -94,7 +93,7 @@ def test_first_pass_learns_market_then_finds_new_cheap_item(tmp_path):
 
 
 def test_scan_only_while_page_is_open(tmp_path):
-    scanner = Scanner({"database": str(tmp_path / "b.db")}, [Search("dunk", {}, Rules())])
+    scanner = Scanner(Storage(tmp_path / "b.db"))
     assert not scanner.active
     scanner.state()                                    # la page interroge le bot
     assert scanner.active
@@ -169,44 +168,99 @@ def test_links_are_restricted_to_vinted():
     assert safe_url("https://evil.example/items/1", d, "x") == "x"
 
 
+def test_searches_and_settings_come_from_the_site(tmp_path):
+    store = Storage(tmp_path / "b.db")
+    store.add_search("Dunk", "https://www.vinted.fr/catalog?search_text=dunk&brand_ids[]=53", 150)
+    store.set_settings({"deal_discount": 0.3, "error_discount": 0.6, "exclude_keywords": ["copie"]})
+    [search] = Scanner(store).searches()
+    assert search.params == {"search_text": "dunk", "brand_ids": "53"}
+    assert (search.rules.deal_discount, search.rules.max_price) == (0.3, 150)
+    assert search.rules.exclude_keywords == ("copie",)
+
+
+PASSWORD = "un-mot-de-passe-solide"
+SAME_ORIGIN = {"Origin": "http://localhost"}
+
+
 @pytest.fixture
-def server(tmp_path):
-    def start(access_code=None):
-        scanner = Scanner({"database": str(tmp_path / "s.db")}, [Search("dunk", {}, Rules())])
-        srv = ThreadingHTTPServer(("127.0.0.1", 0), None)
-        port = srv.server_address[1]
-        srv.RequestHandlerClass = make_handler(scanner, access_code, port)
-        threading.Thread(target=srv.serve_forever, daemon=True).start()
-        started.append(srv)
-        return port
-
-    started = []
-    yield start
-    for srv in started:
-        srv.shutdown()
+def site(tmp_path):
+    scanner = Scanner(Storage(tmp_path / "s.db"))
+    app = create_app(scanner, PASSWORD, "cle-de-test", secure_cookies=False)
+    return app.test_client(), scanner
 
 
-def request(port, method="GET", path="/api/state", headers=None, body=None):
-    conn = HTTPConnection("127.0.0.1", port)
-    conn.request(method, path, body=body, headers={"Host": f"localhost:{port}", **(headers or {})})
-    r = conn.getresponse()
-    r.read()
-    return r
+def login(client, password=PASSWORD, headers=SAME_ORIGIN):
+    return client.post("/login", data={"password": password}, headers=headers)
 
 
-def test_local_mode_blocks_other_sites_and_dns_rebinding(server):
-    port = server()
-    assert request(port).status == 200
-    assert request(port, headers={"Host": f"evil.example:{port}"}).status == 403
-    assert request(port, "POST", "/api/resale", {"Origin": "https://evil.example"}, b'{"id": 1}').status == 403
-    page = request(port, path="/")
-    assert page.status == 200 and "script-src 'self'" in page.getheader("Content-Security-Policy")
+def test_everything_requires_login(site):
+    client, _ = site
+    assert client.get("/").headers["Location"] == "/login"
+    assert client.get("/api/state").status_code == 401
+    assert client.get("/healthz").status_code == 200
+    assert login(client, "mauvais").headers["Location"] == "/login?erreur=1"
+    assert client.get("/api/state").status_code == 401
+    assert login(client).headers["Location"] == "/"
+    assert client.get("/api/state").status_code == 200
 
 
-def test_lan_mode_requires_access_code(server):
-    port = server(access_code="secret123")
-    assert request(port).status == 403
-    assert request(port, path="/?code=mauvais").status == 403
-    login = request(port, path="/?code=secret123")
-    assert login.status == 303 and "HttpOnly" in login.getheader("Set-Cookie")
-    assert request(port, headers={"Cookie": "code=secret123"}).status == 200
+def test_login_is_locked_after_five_failures(site, monkeypatch):
+    client, _ = site
+    monkeypatch.setattr("vinted_bot.server.time.sleep", lambda s: None)
+    for _ in range(5):
+        login(client, "mauvais")
+    assert login(client).headers["Location"] == "/login?erreur=bloque"   # même le bon mot de passe
+
+
+def test_session_cookie_is_protected(tmp_path):
+    app = create_app(Scanner(Storage(tmp_path / "s.db")), PASSWORD, "cle", secure_cookies=True)
+    cookie = login(app.test_client()).headers["Set-Cookie"]
+    assert "HttpOnly" in cookie and "SameSite=Strict" in cookie and "Secure" in cookie
+
+
+def test_other_sites_cannot_post(site):
+    client, _ = site
+    login(client)
+    body = {"name": "Dunk", "url": "https://www.vinted.fr/catalog?search_text=dunk"}
+    assert client.post("/api/searches", json=body).status_code == 403            # pas d'origine
+    assert client.post("/api/searches", json=body,
+                       headers={"Origin": "https://evil.example"}).status_code == 403
+    assert login(client.application.test_client(), headers={"Origin": "https://evil.example"}).status_code == 403
+
+
+def test_search_management_validates_urls(site):
+    client, scanner = site
+    login(client)
+    bad = client.post("/api/searches", headers=SAME_ORIGIN,
+                      json={"name": "x", "url": "https://evil.example/catalog?search_text=a"})
+    assert bad.status_code == 400
+    ok = client.post("/api/searches", headers=SAME_ORIGIN, json={
+        "name": "Dunk", "url": "https://www.vinted.fr/catalog?search_text=dunk", "max_price": "120"})
+    assert ok.status_code == 201
+    [search] = ok.get_json()["searches"]
+    assert search["max_price"] == 120
+    gone = client.delete(f"/api/searches/{search['id']}", headers=SAME_ORIGIN)
+    assert gone.get_json()["searches"] == []
+
+
+def test_settings_are_validated(site):
+    client, _ = site
+    login(client)
+    bad = client.put("/api/settings", headers=SAME_ORIGIN,
+                     json={"deal_discount": 0.8, "error_discount": 0.5, "exclude_keywords": []})
+    assert bad.status_code == 400
+    ok = client.put("/api/settings", headers=SAME_ORIGIN,
+                    json={"deal_discount": 0.3, "error_discount": 0.6, "exclude_keywords": ["copie"]})
+    assert ok.get_json()["deal_discount"] == 0.3
+
+
+def test_security_headers(site):
+    client, _ = site
+    r = client.get("/login")
+    assert "script-src 'self'" in r.headers["Content-Security-Policy"]
+    assert r.headers["X-Frame-Options"] == "DENY"
+
+
+def test_short_password_is_refused(tmp_path):
+    with pytest.raises(SystemExit):
+        create_app(Scanner(Storage(tmp_path / "s.db")), "court", "cle")

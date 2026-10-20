@@ -12,6 +12,17 @@ function el(tag, attrs = {}, ...children) {
   return node;
 }
 
+async function api(path, method = "GET", body) {
+  const r = await fetch(path, {
+    method, headers: body ? { "Content-Type": "application/json" } : {},
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  if (r.status === 401) { location.href = "/login"; throw new Error("Connexion requise"); }
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.error || "Erreur");
+  return data;
+}
+
 const euro = (n) => n.toLocaleString("fr-FR", { style: "currency", currency: "EUR" });
 function ago(ts) {
   const m = Math.round((Date.now() / 1000 - ts) / 60);
@@ -63,8 +74,7 @@ function alertNew(fresh) {
 
 async function refresh() {
   try {
-    const r = await fetch("/api/state");
-    const s = await r.json();
+    const s = await api("/api/state");
     const pill = $("#status");
     pill.textContent = s.status;
     pill.classList.toggle("on", /^(Scan|Analyse)/.test(s.status));
@@ -74,17 +84,25 @@ async function refresh() {
     if (!firstLoad) alertNew(fresh);
     firstLoad = false;
   } catch {
-    $("#status").textContent = "Bot arrêté : relance-le sur ton ordinateur";
+    $("#status").textContent = "Site injoignable, nouvel essai…";
     $("#status").classList.remove("on");
   }
 }
 
-document.querySelectorAll("[data-filter]").forEach((b) => b.addEventListener("click", () => {
-  filter = b.dataset.filter;
-  document.querySelectorAll("[data-filter]").forEach((x) => x.setAttribute("aria-pressed", x === b));
-  render();
+function show(view) {
+  $("#list").hidden = view !== "deals";
+  $("#searches").hidden = view !== "searches";
+  $("#settings").hidden = view !== "settings";
+  if (view === "searches") loadSearches();
+  if (view === "settings") loadSettings();
+}
+
+document.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("click", () => {
+  document.querySelectorAll("[data-view]").forEach((x) => x.setAttribute("aria-pressed", x === b));
+  if (b.dataset.filter) { filter = b.dataset.filter; render(); }
+  show(b.dataset.view);
 }));
-$("#notif").addEventListener("click", async () => {
+$("#notif")?.addEventListener("click", async () => {
   if (!("Notification" in window)) return alert("Ton navigateur ne gère pas les notifications.");
   const p = await Notification.requestPermission();
   $("#notif").setAttribute("aria-pressed", p === "granted");
@@ -106,9 +124,7 @@ async function openResale(d) {
     "Rédaction de l'annonce à partir de la photo et du prix du marché… (jusqu'à une minute avec l'IA locale)"), close);
   dlg.showModal();
   try {
-    const r = await fetch("/api/resale", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: d.id }) });
-    const x = await r.json();
-    if (!r.ok) throw new Error(x.error || "Erreur");
+    const x = await api("/api/resale", "POST", { id: d.id });
     body.replaceChildren(
       el("h2", {}, "✨ Annonce de revente"),
       el("div", { class: "stats" },
@@ -126,6 +142,66 @@ async function openResale(d) {
   }
 }
 
-refresh();
-setInterval(refresh, 5000);
-setInterval(() => { if (deals.length) render(); }, 60000);
+function renderSearches(data) {
+  $("#search-count").textContent = `Mes recherches (${data.searches.length}/${data.max ?? 15})`;
+  $("#search-list").replaceChildren(...(data.searches.length ? data.searches.map((s) =>
+    el("div", { class: "row" },
+      el("div", {}, el("p", { class: "title" }, s.name + (s.max_price ? ` · max ${euro(s.max_price)}` : "")),
+        el("p", { class: "meta" }, s.url)),
+      el("button", { class: "btn danger", onclick: async () => {
+        if (confirm(`Supprimer la recherche « ${s.name} » ?`)) renderSearches({ ...(await api(`/api/searches/${s.id}`, "DELETE")), max: data.max });
+      } }, "Supprimer")))
+    : [el("p", { class: "hint" }, "Aucune recherche : ajoutes-en une pour lancer le bot.")]));
+}
+
+async function loadSearches() {
+  try { renderSearches(await api("/api/searches")); } catch {}
+}
+
+async function loadSettings() {
+  try {
+    const s = await api("/api/settings"), f = $("#settings-form");
+    f.deal.value = Math.round(s.deal_discount * 100);
+    f.error.value = Math.round(s.error_discount * 100);
+    f.keywords.value = s.exclude_keywords.join("\n");
+  } catch {}
+}
+
+function initApp() {
+  $("#search-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const f = e.target, err = $("#search-error");
+    try {
+      const data = await api("/api/searches", "POST",
+        { name: f.name.value, url: f.url.value, max_price: f.max_price.value || null });
+      renderSearches({ ...data, max: 15 });
+      f.reset(); err.hidden = true;
+    } catch (ex) { err.textContent = ex.message; err.hidden = false; }
+  });
+  $("#settings-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const f = e.target, msg = $("#settings-msg");
+    try {
+      await api("/api/settings", "PUT", {
+        deal_discount: f.deal.value / 100, error_discount: f.error.value / 100,
+        exclude_keywords: f.keywords.value.split("\n").map((k) => k.trim()).filter(Boolean),
+      });
+      msg.textContent = "Réglages enregistrés ✓"; msg.className = "hint ok-msg";
+    } catch (ex) { msg.textContent = ex.message; msg.className = "hint error-msg"; }
+  });
+  refresh();
+  setInterval(refresh, 5000);
+  setInterval(() => { if (deals.length) render(); }, 60000);
+}
+
+function initLogin() {
+  const code = new URLSearchParams(location.search).get("erreur");
+  if (code) {
+    $("#erreur").textContent = code === "bloque"
+      ? "Trop d'essais. Réessaie dans 15 minutes."
+      : "Mot de passe incorrect.";
+    $("#erreur").hidden = false;
+  }
+}
+
+if ($("#list")) initApp(); else initLogin();
