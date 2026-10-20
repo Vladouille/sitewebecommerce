@@ -1,9 +1,16 @@
 # Copie ce fichier en config.yaml puis adapte les recherches.
 
 domain: www.vinted.fr
-poll_seconds: 60              # une vérification complète par minute
+poll_seconds: 60              # une vérification complète par minute (30 minimum)
 market_refresh_minutes: 60    # mise à jour de l'échantillon de prix du marché
 database: data/vinted.db
+
+# Annonces de revente, 100 % gratuites :
+#  - auto     : IA locale Ollama si elle tourne sur ton ordinateur, sinon modèle intégré
+#  - template : modèle intégré, instantané, sans rien installer
+ai:
+  provider: auto
+  model: gemma3:4b
 
 # Règles par défaut (chaque recherche peut les surcharger)
 rules:

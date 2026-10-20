@@ -1,8 +1,14 @@
 import json
-from types import SimpleNamespace
+import threading
+from http.client import HTTPConnection
+from http.server import ThreadingHTTPServer
 
-from vinted_bot.app import Scanner, Search
-from vinted_bot.resale import write_listing
+import pytest
+import requests
+
+from vinted_bot import resale
+from vinted_bot.app import Scanner, Search, make_handler, safe_url
+from vinted_bot.resale import AIConfig, write_listing
 from vinted_bot.pricing import Rules, evaluate
 from vinted_bot.storage import Storage
 from vinted_bot.vinted import Item, parse_item, search_url_to_params
@@ -94,30 +100,113 @@ def test_scan_only_while_page_is_open(tmp_path):
     assert scanner.active
 
 
-class FakeAnthropic:
-    def __init__(self, payload):
-        self.calls = []
-        self.payload = payload
-        self.beta = SimpleNamespace(messages=SimpleNamespace(create=self.create))
-
-    def create(self, **kwargs):
-        self.calls.append(kwargs)
-        block = SimpleNamespace(type="text", text=json.dumps(self.payload))
-        return SimpleNamespace(stop_reason="end_turn", content=[block])
-
-
-def test_resale_listing_uses_photo_and_computes_profit(tmp_path):
+def cheap_deal(tmp_path):
     store = market(tmp_path, [100] * 20)
     item = make_item(999, 20)
-    item.photo_url = "https://images.vinted.net/1.jpg"
-    verdict = evaluate(store, "dunk", item, Rules())
-    fake = FakeAnthropic({"title": "Nike Dunk Low 42", "description": "Très bon état",
-                          "suggested_price": 85, "quick_sale_price": 70,
-                          "hashtags": ["#nike"], "photo_tips": ["Lumière du jour"]})
+    item.photo_url = "https://images1.vinted.net/1.jpg"
+    return item, evaluate(store, "dunk", item, Rules())
 
-    listing = write_listing(item, verdict, client=fake)
 
-    assert listing["estimated_profit"] == 64.0          # 85 - 21 payés
-    content = fake.calls[0]["messages"][0]["content"]
-    assert content[0]["source"]["url"] == item.photo_url
-    assert "100.00" in content[1]["text"]
+def test_template_listing_is_free_and_prices_come_from_market(tmp_path):
+    item, verdict = cheap_deal(tmp_path)
+    listing = write_listing(item, verdict, AIConfig(provider="template"))
+    assert listing["source"] == "modèle intégré"
+    assert (listing["suggested_price"], listing["quick_sale_price"]) == (94.0, 79.0)
+    assert listing["estimated_profit"] == 73.0           # 94 - 21 payés
+    assert "Nike" in listing["title"] and len(listing["title"]) <= 60
+    assert "[À COMPLÉTER" in listing["description"]
+
+
+def test_local_ai_is_used_when_ollama_answers(tmp_path, monkeypatch):
+    item, verdict = cheap_deal(tmp_path)
+    sent = {}
+
+    class Resp:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {"message": {"content": json.dumps({
+                "title": "Nike Dunk Low Panda T42", "description": "Très bon état.",
+                "hashtags": ["#nike"], "photo_tips": ["Lumière du jour"]})}}
+
+    def fake_post(url, json=None, timeout=None):
+        sent.update(url=url, body=json)
+        return Resp()
+
+    monkeypatch.setattr(resale.requests, "post", fake_post)
+    monkeypatch.setattr(resale, "_photo_base64", lambda url: "QUJD")
+    listing = write_listing(item, verdict, AIConfig())
+    assert listing["source"] == "IA locale (gemma3:4b)"
+    assert listing["title"] == "Nike Dunk Low Panda T42"
+    assert listing["suggested_price"] == 94.0             # le prix ne vient jamais de l'IA
+    assert sent["url"] == "http://localhost:11434/api/chat"
+    assert sent["body"]["messages"][1]["images"] == ["QUJD"]
+
+
+def test_falls_back_to_template_when_local_ai_is_off(tmp_path, monkeypatch):
+    item, verdict = cheap_deal(tmp_path)
+
+    def down(*a, **k):
+        raise requests.ConnectionError("refusée")
+
+    monkeypatch.setattr(resale.requests, "post", down)
+    monkeypatch.setattr(resale, "_photo_base64", lambda url: None)
+    assert write_listing(item, verdict, AIConfig())["source"] == "modèle intégré"
+
+
+def test_photos_only_downloaded_from_vinted(monkeypatch):
+    monkeypatch.setattr(resale.requests, "get", lambda *a, **k: pytest.fail("téléchargement interdit"))
+    assert resale._photo_base64("http://images1.vinted.net/1.jpg") is None
+    assert resale._photo_base64("https://evil.example/1.jpg") is None
+    assert resale._photo_base64("https://vinted.net.evil.example/1.jpg") is None
+
+
+def test_links_are_restricted_to_vinted():
+    d = "www.vinted.fr"
+    assert safe_url("https://www.vinted.fr/items/1", d, "x") == "https://www.vinted.fr/items/1"
+    assert safe_url("javascript:alert(1)", d, "x") == "x"
+    assert safe_url("https://evil.example/items/1", d, "x") == "x"
+
+
+@pytest.fixture
+def server(tmp_path):
+    def start(access_code=None):
+        scanner = Scanner({"database": str(tmp_path / "s.db")}, [Search("dunk", {}, Rules())])
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), None)
+        port = srv.server_address[1]
+        srv.RequestHandlerClass = make_handler(scanner, access_code, port)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        started.append(srv)
+        return port
+
+    started = []
+    yield start
+    for srv in started:
+        srv.shutdown()
+
+
+def request(port, method="GET", path="/api/state", headers=None, body=None):
+    conn = HTTPConnection("127.0.0.1", port)
+    conn.request(method, path, body=body, headers={"Host": f"localhost:{port}", **(headers or {})})
+    r = conn.getresponse()
+    r.read()
+    return r
+
+
+def test_local_mode_blocks_other_sites_and_dns_rebinding(server):
+    port = server()
+    assert request(port).status == 200
+    assert request(port, headers={"Host": f"evil.example:{port}"}).status == 403
+    assert request(port, "POST", "/api/resale", {"Origin": "https://evil.example"}, b'{"id": 1}').status == 403
+    page = request(port, path="/")
+    assert page.status == 200 and "script-src 'self'" in page.getheader("Content-Security-Policy")
+
+
+def test_lan_mode_requires_access_code(server):
+    port = server(access_code="secret123")
+    assert request(port).status == 403
+    assert request(port, path="/?code=mauvais").status == 403
+    login = request(port, path="/?code=secret123")
+    assert login.status == 303 and "HttpOnly" in login.getheader("Set-Cookie")
+    assert request(port, headers={"Cookie": "code=secret123"}).status == 200
