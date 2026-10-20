@@ -1,0 +1,8 @@
+services:
+  vinted-bot:
+    build: .
+    restart: unless-stopped   # redémarre tout seul après un crash ou un reboot du serveur
+    env_file: .env
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+      - ./data:/app/data
