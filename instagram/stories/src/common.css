@@ -1,0 +1,43 @@
+/* Stories Instagram Autoflow : base commune aux quatre visuels (1080 x 1920). */
+:root {
+  --accent: #2d5bff;
+  --safe-top: 230px;    /* 12 % de 1920 */
+  --safe-bottom: 384px; /* 20 % de 1920 */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { width: 1080px; height: 1920px; overflow: hidden; }
+
+body {
+  position: relative;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Fond en verre dépoli : lumière diffuse + grain. */
+.bg { position: absolute; inset: 0; }
+.grain { position: absolute; inset: 0; mix-blend-mode: overlay; pointer-events: none; }
+
+.stage { position: absolute; inset: 0; perspective: 2400px; }
+.scene { position: absolute; transform-style: preserve-3d; }
+
+/* Objet en volume : pile de couches (épaisseur) + face biseautée. */
+.vol, .vol-face { position: absolute; transform-style: preserve-3d; }
+.vol-layer { position: absolute; inset: 0; }
+.vol-face { inset: 0; }
+.print { position: absolute; }
+
+.headline {
+  position: absolute;
+  left: 88px;
+  right: 88px;
+  letter-spacing: -0.04em;
+  line-height: 1.04;
+}
+.headline .line { display: block; white-space: nowrap; }
+.w500 { font-weight: 500; }
+.w800 { font-weight: 800; }
+
+.metal { display: inline-block; vertical-align: baseline; }
+.metal svg { display: block; overflow: visible; }

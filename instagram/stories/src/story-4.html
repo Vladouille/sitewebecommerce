@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Story 4 — L'appel</title>
+<link rel="stylesheet" href="common.css">
+<style>
+  /* Fond uni sombre : aucun objet, aucune décoration. */
+  body { background: #0b0c0f; }
+  .bg { background: #0b0c0f; }
+  .word {
+    position: absolute; left: 0; right: 0; top: 960px;
+    display: flex; justify-content: center;
+    transform: translateY(-50%);
+  }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="grain"></div>
+<div class="word"><span id="word"></span></div>
+<script src="common.js"></script>
+<script>
+ready(() => {
+  applyGrain(document.querySelector('.grain'), 20);
+  document.getElementById('word').replaceWith(
+    metal('PLACE', { size: 268, depth: 12, tone: 'light', tracking: -0.03, standoff: 2.6 }),
+  );
+});
+</script>
+</body>
+</html>
