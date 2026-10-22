@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Story 3 — Le résultat</title>
+<link rel="stylesheet" href="common.css">
+<style>
+  body { background: #e4e6ea; color: #0f1115; }
+  .bg {
+    background:
+      radial-gradient(1000px 820px at 20% 10%, rgba(255,255,255,0.95), transparent 70%),
+      radial-gradient(900px 760px at 92% 90%, rgba(143,166,214,0.32), transparent 70%),
+      #e4e6ea;
+  }
+  .stage { perspective-origin: 50% 36%; }
+  .headline { top: 1262px; text-shadow: 5px 8px 22px rgba(22,28,44,0.14); }
+  .headline .line { font-size: 118px; }
+  .headline .muted { color: #4a4f58; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="grain"></div>
+<div class="stage"></div>
+<div class="headline">
+  <span class="line w500 muted">Ton agenda</span>
+  <span class="line w800">se remplit.</span>
+</div>
+<script src="common.js"></script>
+<script>
+ready(() => {
+  applyGrain(document.querySelector('.grain'), 30);
+  const stage = document.querySelector('.stage');
+  const ROT = -30;
+
+  // Agenda hebdomadaire posé sur la table, vu de trois quarts.
+  const scene = el('div', 'scene', stage);
+  Object.assign(scene.style, {
+    left: '162px', top: '310px', width: '720px', height: '730px',
+    transform: `scale3d(1.08, 1.08, 1.08) rotateX(52deg) rotateZ(${ROT}deg)`,
+  });
+
+  const glass = [
+    'linear-gradient(160deg, rgba(255,255,255,0.96), rgba(246,247,249,0.92) 45%, rgba(214,222,236,0.92) 100%)',
+    '#eef0f3',
+  ].join(', ');
+  const cal = vol(scene, {
+    x: 0, y: 0, w: 720, h: 730, r: 52, depth: 12, face: glass, planeRot: ROT,
+    edge: ['#d3d7de', '#a3a9b5'], shadow: 1.5, shadowColor: '26,32,50',
+    bevelOpts: { hl: 0.9, sh: 0.12, cool: 0.35, s: 3 },
+  });
+  applyGrain(print(cal, { x: 0, y: 0, w: 720, h: 730, r: 52, bg: 'transparent' }), 12);
+
+  const COL_X = 96, COL_W = 112, GAP = 10, ROW_Y = 100, ROW_H = 100;
+  const colX = (c) => COL_X + c * (COL_W + GAP);
+
+  // Jours (pastilles sans texte) et repères horaires.
+  for (let c = 0; c < 5; c++) {
+    vol(cal, {
+      x: colX(c) + 21, y: 40, w: 70, h: 30, r: 15, depth: 5, planeRot: ROT,
+      face: 'linear-gradient(160deg, #d6dae0, #c3c8d0)', edge: ['#b6bbc4', '#8a909b'],
+      shadowColor: '26,32,50', bevelOpts: { hl: 0.8, sh: 0.15, cool: 0.3, s: 1.5 },
+    });
+  }
+  for (let r = 0; r < 6; r++) {
+    print(cal, { x: 30, y: ROW_Y + r * ROW_H + 10, w: 40, h: 10, bg: '#c2c7cf' });
+    print(cal, { x: 24, y: ROW_Y + r * ROW_H, w: 672, h: 2, r: 1, bg: 'rgba(120,130,150,0.16)' });
+  }
+
+  // Créneaux : remplis en accent, quelques-uns encore libres.
+  const free = new Set(['0-2', '2-4', '4-0', '5-3']);
+  for (let r = 0; r < 6; r++) {
+    for (let c = 0; c < 5; c++) {
+      const x = colX(c), y = ROW_Y + r * ROW_H + 9;
+      if (free.has(`${r}-${c}`)) {
+        print(cal, {
+          x, y, w: COL_W, h: 82, r: 16, bg: 'rgba(205,210,218,0.35)',
+          shadow: 'inset 0 0 0 2px rgba(130,140,160,0.28)',
+        });
+        continue;
+      }
+      const slot = vol(cal, {
+        x, y, w: COL_W, h: 82, r: 16, depth: 10, planeRot: ROT,
+        face: `linear-gradient(160deg, #4a72ff, ${ACCENT} 55%, #2a55f2)`,
+        edge: ACCENT_EDGE, shadow: 1.6, shadowColor: '20,34,90',
+        bevelOpts: { hl: 0.5, sh: 0.22, cool: 0.25, s: 2 },
+      });
+      print(slot, { x: 16, y: 18, w: 62, h: 12, bg: 'rgba(255,255,255,0.68)' });
+      print(slot, { x: 16, y: 42, w: 40, h: 10, bg: 'rgba(255,255,255,0.4)' });
+    }
+  }
+});
+</script>
+</body>
+</html>

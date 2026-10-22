@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Story 2 — Ce qu'on fait</title>
+<link rel="stylesheet" href="common.css">
+<style>
+  body { background: #e4e6ea; color: #0f1115; }
+  .bg {
+    background:
+      radial-gradient(1000px 820px at 20% 10%, rgba(255,255,255,0.95), transparent 70%),
+      radial-gradient(900px 760px at 92% 90%, rgba(143,166,214,0.32), transparent 70%),
+      #e4e6ea;
+  }
+  .stage { perspective-origin: 50% 40%; }
+  .headline { top: 1262px; text-shadow: 5px 8px 22px rgba(22,28,44,0.14); }
+  .headline .line { font-size: 118px; }
+  .headline .muted { color: #4a4f58; }
+  .stamp { position: absolute; line-height: 1; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="grain"></div>
+<div class="stage"></div>
+<div class="headline">
+  <span class="line w500 muted">Il répond</span>
+  <span class="line w800">à ta place.</span>
+</div>
+<script src="common.js"></script>
+<script>
+ready(() => {
+  applyGrain(document.querySelector('.grain'), 30);
+  const stage = document.querySelector('.stage');
+
+  // Conversation posée à plat, éclairée de haut.
+  const scene = el('div', 'scene', stage);
+  Object.assign(scene.style, {
+    left: '130px', top: '300px', width: '820px', height: '860px',
+    transform: 'rotateX(22deg)',
+  });
+
+  const glass = [
+    'linear-gradient(160deg, rgba(255,255,255,0.95), rgba(246,247,249,0.9) 45%, rgba(214,222,236,0.9) 100%)',
+    '#eef0f3',
+  ].join(', ');
+  const tray = vol(scene, {
+    x: 0, y: 0, w: 820, h: 860, r: 60, depth: 12, face: glass,
+    edge: ['#d3d7de', '#a9afba'], shadow: 1.3, shadowColor: '26,32,50',
+    bevelOpts: { hl: 0.9, sh: 0.12, cool: 0.35, s: 3 },
+  });
+  applyGrain(print(tray, { x: 0, y: 0, w: 820, h: 860, r: 60, bg: 'transparent' }), 12);
+
+  // En-tête : avatar du prospect (sans visage) et nom en barre.
+  vol(tray, {
+    x: 48, y: 42, w: 64, h: 64, r: 32, depth: 6,
+    face: 'radial-gradient(circle at 34% 28%, #d9dce2, #b8bdc6 62%, #aab0ba)',
+    edge: ['#b3b8c1', '#878d98'], shadowColor: '26,32,50', bevelOpts: { hl: 0.7, sh: 0.15, cool: 0.3, s: 2 },
+  });
+  print(tray, { x: 132, y: 56, w: 190, h: 16, bg: '#b3b8c1' });
+  print(tray, { x: 132, y: 84, w: 120, h: 12, bg: '#cdd1d8' });
+  print(tray, { x: 48, y: 136, w: 724, h: 2, r: 1, bg: 'rgba(120,130,150,0.18)' });
+
+  const bar = (parent, x, y, w, h, bg) => print(parent, { x, y, w, h, bg });
+
+  // Question du prospect : bulle reçue, plastique mat clair.
+  const q = vol(tray, {
+    x: 48, y: 182, w: 470, h: 168, r: '46px 46px 46px 14px', depth: 10,
+    face: 'linear-gradient(160deg, #e2e5ea, #d3d7de 60%, #ccd3df)',
+    edge: ['#c2c7cf', '#8f96a2'], shadowColor: '26,32,50', shadow: 1.8,
+    bevelOpts: { hl: 0.85, sh: 0.14, cool: 0.32, s: 2.5 },
+  });
+  bar(q, 40, 52, 330, 20, '#9ba1ab');
+  bar(q, 40, 94, 210, 20, '#9ba1ab');
+
+  // Réponse immédiate : bulle envoyée, plastique mat en accent.
+  const a = vol(tray, {
+    x: 252, y: 476, w: 520, h: 214, r: '46px 46px 14px 46px', depth: 10,
+    face: `linear-gradient(160deg, #4a72ff, ${ACCENT} 55%, #2a55f2)`,
+    edge: ACCENT_EDGE, shadowColor: '20,34,90', shadow: 1.9,
+    bevelOpts: { hl: 0.5, sh: 0.22, cool: 0.25, s: 2.5 },
+  });
+  bar(a, 42, 52, 400, 20, 'rgba(255,255,255,0.62)');
+  bar(a, 42, 94, 350, 20, 'rgba(255,255,255,0.62)');
+  bar(a, 42, 136, 230, 20, 'rgba(255,255,255,0.62)');
+
+  // Deux horodatages identiques, en métal brossé.
+  const stamp = (x, y, align) => {
+    const s = el('div', 'stamp', tray);
+    s.style.top = `${y}px`;
+    s.style[align] = `${x}px`;
+    s.appendChild(metal('23h04', { size: 50, depth: 5, tone: 'dark', tracking: -0.02, standoff: 1.4 }));
+  };
+  stamp(56, 374, 'left');
+  stamp(56, 714, 'right');
+});
+</script>
+</body>
+</html>

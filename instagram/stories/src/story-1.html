@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Story 1 — Le problème</title>
+<link rel="stylesheet" href="common.css">
+<style>
+  body { background: #0b0c0f; color: #f2f3f5; }
+  .bg {
+    background:
+      radial-gradient(900px 760px at 22% 14%, rgba(255,255,255,0.075), transparent 70%),
+      radial-gradient(800px 700px at 92% 88%, rgba(143,166,214,0.07), transparent 70%),
+      #0b0c0f;
+  }
+  .headline { top: 1270px; text-shadow: 6px 10px 26px rgba(0,0,0,0.55); }
+  .headline .line { font-size: 100px; }
+  .headline .muted { color: #c3c7ce; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="grain"></div>
+<div class="stage"></div>
+<div class="headline">
+  <span class="line w500 muted"><span id="n50"></span> t’ont écrit.</span>
+  <span class="line w800"><span id="n0"></span> réponse.</span>
+</div>
+<script src="common.js"></script>
+<script>
+ready(() => {
+  applyGrain(document.querySelector('.grain'), 26);
+  const stage = document.querySelector('.stage');
+
+  // Boîte de réception debout, vue de trois quarts.
+  const scene = el('div', 'scene', stage);
+  Object.assign(scene.style, {
+    left: '170px', top: '300px', width: '740px', height: '890px',
+    transform: 'rotateX(10deg) rotateY(-26deg) rotateZ(1.5deg)',
+  });
+
+  // Ombre portée sur le verre dépoli derrière.
+  const wall = el('div', null, scene);
+  Object.assign(wall.style, {
+    position: 'absolute', inset: 0, borderRadius: '64px',
+    background: 'rgba(0,0,0,0.85)', filter: 'blur(46px)',
+    transform: 'translate3d(64px, 96px, -150px)',
+  });
+
+  const glass = [
+    'linear-gradient(158deg, rgba(255,255,255,0.13), rgba(255,255,255,0.035) 38%, rgba(143,166,214,0.08) 100%)',
+    '#17191e',
+  ].join(', ');
+  const panel = vol(scene, {
+    x: 0, y: 0, w: 740, h: 890, r: 64, depth: 12, face: glass,
+    edge: ['#5a5f6a', '#1a1c21'], shadow: 0, bevelOpts: { hl: 0.32, sh: 0.4, cool: 0.18, s: 3 },
+  });
+  const panelGrain = print(panel, { x: 0, y: 0, w: 740, h: 890, r: 64, bg: 'transparent' });
+  applyGrain(panelGrain, 14);
+
+  // En-tête de la messagerie (sans texte).
+  vol(panel, { x: 46, y: 44, w: 196, h: 28, r: 14, depth: 4, face: '#4b5059', edge: ['#3a3e46', '#1c1e23'], bevelOpts: { hl: 0.3, sh: 0.3, cool: 0.15, s: 1.5 } });
+  vol(panel, { x: 650, y: 36, w: 44, h: 44, r: 14, depth: 5, face: '#363a42', edge: ['#2c2f36', '#14161a'], bevelOpts: { hl: 0.28, sh: 0.3, cool: 0.15, s: 1.5 } });
+  print(panel, {
+    x: 40, y: 104, w: 660, h: 60, r: 30, bg: '#0f1014',
+    shadow: 'inset 2px 4px 7px rgba(0,0,0,0.75), inset -1px -2px 0 rgba(255,255,255,0.07)',
+  });
+
+  // Conversations grisées, toutes non lues.
+  const names = [190, 150, 220, 170, 205, 160, 185];
+  const previews = [330, 280, 360, 250, 310, 340, 270];
+  const plastic = 'linear-gradient(160deg, #31343c, #26292f 55%, #252a33)';
+  for (let i = 0; i < 7; i++) {
+    const row = vol(panel, {
+      x: 36, y: 188 + i * 98, w: 668, h: 86, r: 28, depth: 7, face: plastic,
+      edge: ['#2a2d34', '#0e0f12'], shadow: 1.1, shadowColor: '0,0,0',
+      bevelOpts: { hl: 0.2, sh: 0.35, cool: 0.16, s: 2 },
+    });
+    vol(row, {
+      x: 16, y: 13, w: 60, h: 60, r: 30, depth: 5,
+      face: 'radial-gradient(circle at 34% 28%, #6a6f79, #444851 62%, #3a3f49)',
+      edge: ['#3b3f47', '#18191d'], shadowColor: '0,0,0', bevelOpts: { hl: 0.22, sh: 0.3, cool: 0.2, s: 2 },
+    });
+    print(row, { x: 96, y: 24, w: names[i], h: 15, bg: '#6f747e' });
+    print(row, { x: 96, y: 51, w: previews[i], h: 12, bg: '#474b54' });
+    print(row, { x: 584, y: 22, w: 46, h: 11, bg: '#4c5059' });
+    vol(row, {
+      x: 598, y: 44, w: 24, h: 24, r: 12, depth: 6,
+      face: `radial-gradient(circle at 35% 30%, #5b80ff, ${ACCENT} 60%, #2450e6)`,
+      edge: ACCENT_EDGE, shadowColor: '0,0,0', bevelOpts: { hl: 0.45, sh: 0.3, cool: 0.2, s: 1.6 },
+    });
+  }
+
+  document.getElementById('n50').replaceWith(metal('50', { size: 150, depth: 12, tone: 'light' }));
+  document.getElementById('n0').replaceWith(metal('0', { size: 150, depth: 12, tone: 'light' }));
+});
+</script>
+</body>
+</html>
