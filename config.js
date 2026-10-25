@@ -77,6 +77,7 @@ window.AUTOFLOW_CONFIG = {
   guaranteeLine: "Objectif d'appels atteint ou on continue gratuitement",
 
   pricingNotes: [
+    'Offres réservées aux professionnels. Prix mensuels en euros, TVA non applicable (article 293 B du CGI). Paiement après l\'audit, sur proposition commerciale.',
     'Option : script de vente pour tes appels, construit à partir des objections de tes prospects, 290 €.',
   ],
 };

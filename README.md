@@ -11,6 +11,7 @@ Objectif unique de la page : faire remplir le formulaire d'audit gratuit (Google
 - `index.html` : la landing page
 - `mentions-legales.html`, `confidentialite.html`, `cookies.html`, `cgv.html` : pages légales
 - `dist/prompt-mise-a-jour-legale.md` : prompt prêt à coller dans l'IA d'Hostinger pour publier la partie légale
+- `dist/documents-legaux/` : accord de traitement des données (à annexer à chaque proposition commerciale), registre des traitements (interne, article 30 du RGPD), textes à mettre dans le formulaire Google
 - `config.js` : lien du formulaire et packs (prix, lignes du comparatif, textes des cartes)
 - `styles.css`, `script.js`
 - `assets/fonts/` : polices Inter et Libre Caslon Text hébergées sur le site (licence SIL OFL), pour ne pas transmettre l'IP des visiteurs à Google Fonts

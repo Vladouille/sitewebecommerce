@@ -261,6 +261,7 @@ h3 { font-size: 1.35rem; }
 .site-footer__inner { display: flex; flex-direction: column; gap: 14px; }
 .site-footer__legal { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); }
 .logo--footer .logo__text { font-size: 1rem; }
+.site-footer__owner { width: 100%; color: var(--muted); font-size: .82rem; }
 
 /* ---------- Tablette et plus ---------- */
 @media (min-width: 640px) {
@@ -287,7 +288,7 @@ h3 { font-size: 1.35rem; }
   .pack__cta { align-self: end; }
   .final__inner { grid-template-columns: 1.4fr 1fr; align-items: end; }
   .final .btn { justify-self: end; }
-  .site-footer__inner { flex-direction: row; justify-content: space-between; align-items: center; }
+  .site-footer__inner { flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {

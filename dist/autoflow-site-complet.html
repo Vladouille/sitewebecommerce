@@ -272,6 +272,7 @@ h3 { font-size: 1.35rem; }
 .site-footer__inner { display: flex; flex-direction: column; gap: 14px; }
 .site-footer__legal { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); }
 .logo--footer .logo__text { font-size: 1rem; }
+.site-footer__owner { width: 100%; color: var(--muted); font-size: .82rem; }
 
 /* ---------- Tablette et plus ---------- */
 @media (min-width: 640px) {
@@ -298,7 +299,7 @@ h3 { font-size: 1.35rem; }
   .pack__cta { align-self: end; }
   .final__inner { grid-template-columns: 1.4fr 1fr; align-items: end; }
   .final .btn { justify-self: end; }
-  .site-footer__inner { flex-direction: row; justify-content: space-between; align-items: center; }
+  .site-footer__inner { flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -621,7 +622,7 @@ main:has(.legal-page:target) > section:not(.legal-page) { display: none; }
         <a class="btn btn--ghost pack__cta" href="https://forms.gle/VtS7yDsHmgn86Yu2A" target="_blank" rel="noopener">Choisir Essentiel<span class="visually-hidden"> (s'ouvre dans un nouvel onglet)</span></a>
         <p class="pack__guarantee"></p>
       </article></div>
-        <ul class="packs__notes"><li>Option : script de vente pour tes appels, construit à partir des objections de tes prospects, 290 €.</li></ul>
+        <ul class="packs__notes"><li>Offres réservées aux professionnels. Prix mensuels en euros, TVA non applicable (article 293 B du CGI). Paiement après l'audit, sur proposition commerciale.</li><li>Option : script de vente pour tes appels, construit à partir des objections de tes prospects, 290 €.</li></ul>
       </div>
     </section>
 
@@ -927,6 +928,7 @@ main:has(.legal-page:target) > section:not(.legal-page) { display: none; }
         <a href="#cgv">Conditions générales de vente</a>
         <a href="#cookies">Cookies</a>
       </nav>
+      <p class="site-footer__owner">Autoflow est une marque d'E3C Labs, Ewan Clabaut EI, SIRET 944 576 743 00016.</p>
     </div>
   </footer>
 

@@ -1,25 +1,25 @@
-# Prompt : mise à jour de la partie légale du site Autoflow
-
-> Copie tout ce qui suit (à partir de « Tu vas mettre à jour… ») et colle-le dans l'IA d'Hostinger.
-
----
-
-Tu vas mettre à jour la partie légale de mon site Autoflow pour qu'il respecte la réglementation française et européenne en vigueur (LCEN, RGPD, loi Informatique et Libertés, règles de la CNIL sur les cookies, règlement européen sur l'IA). Respecte exactement les consignes suivantes.
+Tu vas mettre à jour mon site Autoflow pour qu'il respecte toute la réglementation française et européenne en vigueur (LCEN, RGPD, loi Informatique et Libertés, règles de la CNIL sur les cookies, règlement européen sur l'IA, Code de commerce). Respecte exactement les consignes suivantes.
 
 ## Consignes
 
-1. **Ne modifie rien d'autre sur le site** : ni les textes de la page d'accueil, ni les prix (1 780 €, 480 €, 280 € par mois), ni le design, ni les liens du formulaire Google (https://forms.gle/VtS7yDsHmgn86Yu2A).
+1. **Ne change rien d'autre** que ce qui est demandé ici : ni les textes de la page d'accueil, ni les prix (1 780 €, 480 €, 280 € par mois), ni le design, ni les liens du formulaire Google (https://forms.gle/VtS7yDsHmgn86Yu2A), qui s'ouvrent dans un nouvel onglet.
 2. **Crée ou remplace quatre pages légales**, avec les textes fournis plus bas **mot pour mot** : ne résume pas, ne reformule pas, n'ajoute ni ne retire aucune information.
    - Mentions légales → adresse `/mentions-legales`
    - Politique de confidentialité → adresse `/confidentialite`
    - Politique de cookies → adresse `/cookies`
    - Conditions générales de vente → adresse `/cgv`
-3. **Pied de page de toutes les pages** : ajoute des liens vers ces quatre pages, avec ces intitulés exacts : « Mentions légales », « Politique de confidentialité », « Conditions générales de vente », « Cookies ». Garde l'email contact.autoflow1@gmail.com dans le pied de page.
-4. **Même style que le reste du site** : même en-tête, même pied de page, police lisible sur mobile, date de dernière mise à jour affichée en haut de chaque page.
-5. **Cookies et outils tiers** : n'ajoute aucun cookie, aucun outil de statistiques (Google Analytics, Hostinger Analytics, pixel Meta…), aucun chat, aucune police ou vidéo chargée depuis un service tiers, et **aucun bandeau cookies**. Le site n'en a pas besoin puisqu'il ne dépose aucun traceur : c'est ce que dit la politique de cookies. Si l'outil Hostinger ajoute automatiquement des statistiques ou des cookies, désactive-les. Si c'est impossible, signale-le-moi au lieu de publier.
-6. **Liens entre les pages** : quand un texte cite « politique de confidentialité », « politique de cookies » ou « conditions générales de vente », fais-en un lien vers la page correspondante. Les adresses email deviennent des liens `mailto:`, les numéros de téléphone des liens `tel:`.
-7. **Référencement** : ajoute la balise `<meta name="robots" content="noindex">` sur ces quatre pages.
-8. Une fois terminé, donne-moi la liste des pages modifiées et confirme que rien d'autre n'a changé.
+3. **Pied de page de toutes les pages** :
+   - des liens vers ces quatre pages, avec ces intitulés exacts : « Mentions légales », « Politique de confidentialité », « Conditions générales de vente », « Cookies » ;
+   - l'email contact.autoflow1@gmail.com ;
+   - cette ligne, en petit : « Autoflow est une marque d'E3C Labs, Ewan Clabaut EI, SIRET 944 576 743 00016. »
+4. **Section des packs (prix) de la page d'accueil** : juste sous les trois cartes, ajoute cette ligne avant la ligne « Option : script de vente… » :
+   « Offres réservées aux professionnels. Prix mensuels en euros, TVA non applicable (article 293 B du CGI). Paiement après l'audit, sur proposition commerciale. »
+5. **Même style que le reste du site** : même en-tête, même pied de page, lisible sur mobile, date de dernière mise à jour affichée en haut de chaque page légale.
+6. **Aucun cookie ni outil tiers** : n'ajoute aucun cookie, aucun outil de statistiques (Google Analytics, Hostinger Analytics, pixel Meta…), aucun chat, aucune police (y compris Google Fonts), vidéo ou image chargée depuis un service tiers, et **aucun bandeau cookies**. Le site n'en a pas besoin puisqu'il ne dépose aucun traceur : c'est ce que dit la politique de cookies. Si l'outil Hostinger ajoute automatiquement des statistiques, des polices externes ou des cookies, désactive-les. Si c'est impossible, signale-le-moi au lieu de publier.
+7. **Liens entre les pages** : quand un texte cite la « politique de confidentialité », la « politique de cookies » ou les « conditions générales de vente », fais-en un lien vers la page correspondante. Les adresses email deviennent des liens `mailto:`, les numéros de téléphone des liens `tel:`, et les adresses https des liens qui s'ouvrent dans un nouvel onglet.
+8. **Référencement** : ajoute la balise `<meta name="robots" content="noindex">` sur les quatre pages légales uniquement.
+9. **HTTPS** : vérifie que le site est servi en HTTPS, avec redirection automatique de http vers https.
+10. Une fois terminé, donne-moi la liste exacte des modifications et confirme que rien d'autre n'a changé.
 
 ## Textes à publier
 
