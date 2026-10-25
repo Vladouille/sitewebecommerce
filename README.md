@@ -9,7 +9,8 @@ Objectif unique de la page : faire remplir le formulaire d'audit gratuit (Google
 
 ## Fichiers
 - `index.html` : la landing page
-- `mentions-legales.html`, `confidentialite.html`, `cgv.html` : pages légales
+- `mentions-legales.html`, `confidentialite.html`, `cookies.html`, `cgv.html` : pages légales
+- `dist/prompt-mise-a-jour-legale.md` : prompt prêt à coller dans l'IA d'Hostinger pour publier la partie légale
 - `config.js` : lien du formulaire et packs (prix, lignes du comparatif, textes des cartes)
 - `styles.css`, `script.js`
 - `assets/fonts/` : polices Inter et Libre Caslon Text hébergées sur le site (licence SIL OFL), pour ne pas transmettre l'IP des visiteurs à Google Fonts
@@ -44,16 +45,16 @@ sont calculés automatiquement à partir des prix et des volumes de conversation
 
 ## Version en un seul fichier
 `dist/autoflow-site-complet.html` contient tout le site dans un seul fichier HTML (landing, style, conversation animée,
-packs écrits en dur, et les trois pages légales accessibles par `#mentions-legales`, `#confidentialite`, `#cgv`).
+packs écrits en dur, et les quatre pages légales accessibles par `#mentions-legales`, `#confidentialite`, `#cookies`, `#cgv`).
 Il ne charge aucune ressource externe : les polices du site sont remplacées par Georgia et la police système.
 À régénérer si tu modifies les fichiers sources (prix, textes, pages légales).
 
 ## Déploiement sur Hostinger
 1. hPanel → Sites web → ton domaine → **Gestionnaire de fichiers** → dossier `public_html`.
 2. Supprime le fichier `default.php` s'il existe.
-3. Envoie le **contenu** du dossier du site (pas le dossier lui-même) : `index.html`, les 3 pages légales,
+3. Envoie le **contenu** du dossier du site (pas le dossier lui-même) : `index.html`, les 4 pages légales,
    `config.js`, `script.js`, `styles.css`, le dossier `assets/` et le fichier `.htaccess`
    (fichier caché : active l'affichage des fichiers cachés si tu ne le vois pas).
    Tu peux aussi envoyer le .zip puis cliquer sur « Extraire » dans le gestionnaire de fichiers.
 4. hPanel → **Sécurité → SSL** : vérifie que le certificat SSL gratuit est actif.
-5. Ouvre ton domaine, puis `/mentions-legales`, `/confidentialite` et `/cgv`, et clique sur chaque bouton.
+5. Ouvre ton domaine, puis `/mentions-legales`, `/confidentialite`, `/cookies` et `/cgv`, et clique sur chaque bouton.

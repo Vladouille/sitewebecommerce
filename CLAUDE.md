@@ -135,7 +135,7 @@ Logo, email de contact contact.autoflow1@gmail.com, liens vers les trois pages l
 - SEO de base : balise title, meta description, Open Graph (image avec le logo), balises Hn propres, favicon (triangle ou « A▲ »).
 - Accessibilité : contrastes suffisants, focus clavier visible, respect de prefers-reduced-motion, textes alternatifs.
 - Analytics respectueux du RGPD (Plausible ou équivalent), sans bandeau cookies si possible.
-- Déploiement sur Vercel ou Netlify, avec le domaine d'Autoflow.
+- Déploiement sur Hostinger (fichier `.htaccess` fourni), avec le domaine d'Autoflow.
 
 ## 6. Règles de contenu à ne jamais enfreindre
 
@@ -148,7 +148,7 @@ Logo, email de contact contact.autoflow1@gmail.com, liens vers les trois pages l
 
 ## 7. Pages légales
 
-Créer trois pages séparées, dans le même style que la landing (même en-tête, même pied de page), lisibles sur mobile, avec la date de dernière mise à jour en haut : `/mentions-legales`, `/confidentialite`, `/cgv`.
+Créer quatre pages séparées, dans le même style que la landing (même en-tête, même pied de page), lisibles sur mobile, avec la date de dernière mise à jour en haut : `/mentions-legales`, `/confidentialite`, `/cookies`, `/cgv`. Les informations d'identification de l'éditeur (Ewan Clabaut EI, E3C Labs) et de l'hébergeur (Hostinger) sont renseignées dans les pages actuelles : ce sont elles qui font foi. Le site ne dépose aucun cookie : ne jamais ajouter d'outil tiers sans mettre à jour la politique de cookies et ajouter un bandeau de consentement conforme.
 
 Règles impératives :
 - **Ne jamais inventer** d'informations d'identification (nom, adresse, SIRET, téléphone, hébergeur). Toute information inconnue reste sous la forme `[À COMPLÉTER : ...]`, bien visible.
