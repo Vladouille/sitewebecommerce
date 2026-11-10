@@ -7,7 +7,7 @@
   /* ---- Conversation du hero : lecture unique, message par message ---- */
   const chat = document.getElementById('chat');
   if (chat && !reduceMotion) {
-    const figure = chat.closest('.chat');
+    const figure = chat.closest('.phone');
     const messages = Array.from(chat.children);
     const typing = chat.querySelector('.msg--typing');
     figure.classList.add('chat--play');
