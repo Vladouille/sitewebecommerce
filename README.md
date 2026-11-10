@@ -12,6 +12,9 @@ Objectif unique de la page : faire remplir le formulaire d'audit gratuit (Google
 - `mentions-legales.html`, `confidentialite.html`, `cgv.html` : pages légales
 - `config.js` : lien du formulaire et packs (prix, lignes du comparatif, textes des cartes)
 - `styles.css`, `script.js`
+- `404.html` : page introuvable
+- `robots.txt`, `sitemap.xml` : pour Google (domaine à remplacer, voir plus bas)
+- `assets/og-image.png` (aperçu de partage), `assets/favicon.svg`, `favicon-48.png`, `apple-touch-icon.png`
 - `vercel.json` : sur Vercel, les pages légales sont servies à `/mentions-legales`, `/confidentialite` et `/cgv`
   (Netlify le fait par défaut).
 
@@ -35,8 +38,9 @@ sont calculés automatiquement à partir des prix et des volumes de conversation
 ## À faire avant la mise en ligne
 - [ ] Remplacer `AUDIT_FORM_URL` par le formulaire adapté aux coachs (compte Instagram, activité, pack, message, consentement).
 - [ ] Déposer le logo dans `assets/AUTOFLOW.png`. Il remplace automatiquement le logo texte provisoire.
-- [ ] Créer `assets/og-image.png` (1200 × 630, avec le logo) pour les aperçus de partage,
-      puis mettre une URL absolue dans `og:image` une fois le domaine connu.
+- [ ] Une fois le domaine connu : remplacer `https://autoflow.fr` dans `robots.txt` et `sitemap.xml`,
+      et mettre une URL absolue dans `og:image` (`index.html`).
+- [ ] Régénérer `assets/og-image.png` avec le vrai logo quand `AUTOFLOW.png` sera déposé.
 - [ ] Compléter les pages légales (repères `[À COMPLÉTER : …]`) et les faire valider par un professionnel du droit.
 - [ ] Activer Plausible (balise commentée dans le `<head>` de `index.html`) et mettre à jour le paragraphe « Cookies ».
 - [ ] Après la mise en ligne : cliquer sur chaque bouton pour vérifier qu'il ouvre le formulaire, puis faire un envoi test.
@@ -44,6 +48,14 @@ sont calculés automatiquement à partir des prix et des volumes de conversation
 
 ## Déploiement
 Vercel ou Netlify : importe le dépôt, sans commande de build, dossier de publication = racine.
+
+## Apparaître sur Google
+1. Mettre le site en ligne (Vercel ou Netlify) et y brancher le domaine d'Autoflow.
+2. Remplacer le domaine dans `robots.txt` et `sitemap.xml`, puis publier.
+3. Ouvrir Google Search Console, ajouter le domaine, valider la propriété (enregistrement DNS).
+4. Dans Search Console : « Sitemaps », déclarer `sitemap.xml`, puis « Inspection de l'URL » sur la page d'accueil, « Demander l'indexation ».
+Comptez de quelques jours à quelques semaines avant l'apparition dans les résultats.
+Les pages légales sont en `noindex` : elles restent accessibles mais ne sortent pas dans Google.
 
 ## Mini-jeu « La Lanterne d'Ilia » (`jeu/`)
 Jeu d'énigmes de lumière avec progression, indépendant de la landing (aucun lien depuis la page). Ouvre http://localhost:8000/jeu/.
