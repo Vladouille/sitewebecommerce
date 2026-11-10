@@ -3,6 +3,14 @@
  * Palette : #0A0A0A (encre) · #FFFFFF (papier) · #F4F4F4 (gris clair) · #D4D4D4 (filets) · #5C5C5C (texte secondaire)
  * Typographies : Libre Caslon Text (titres, serif proche du logo) · Inter (texte courant)
  */
+/* Polices hébergées sur le site (aucun appel à Google Fonts) — licence SIL OFL, voir assets/fonts */
+@font-face { font-family: 'Inter'; src: url('assets/fonts/inter-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('assets/fonts/inter-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('assets/fonts/inter-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Libre Caslon Text'; src: url('assets/fonts/libre-caslon-text-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Libre Caslon Text'; src: url('assets/fonts/libre-caslon-text-latin-400-italic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Libre Caslon Text'; src: url('assets/fonts/libre-caslon-text-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+
 :root {
   --ink: #0a0a0a;
   --paper: #ffffff;
@@ -221,8 +229,6 @@ h3 { font-size: 1.35rem; }
 .pack__price { font-family: var(--serif); font-size: 2.6rem; line-height: 1.1; }
 .pack--recommended .pack__price { font-size: 3rem; }
 .pack__price small { font-family: var(--sans); font-size: .95rem; color: var(--muted); }
-.pack__unit { font-weight: 600; margin-top: 12px; }
-.pack__unit-compare { font-size: .92rem; margin-top: 2px; }
 .pack__daily { font-size: .92rem; color: var(--muted); margin-top: 8px; }
 .pack__pitch p { border-left: 3px solid var(--ink); padding: 2px 0 2px 12px; margin-bottom: 18px; font-size: .95rem; line-height: 1.5; }
 .pack__row {
@@ -275,6 +281,7 @@ h3 { font-size: 1.35rem; }
 .site-footer__inner { display: flex; flex-direction: column; gap: 14px; }
 .site-footer__legal { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); }
 .logo--footer .logo__text { font-size: 1rem; }
+.site-footer__owner { width: 100%; color: var(--muted); font-size: .82rem; }
 
 /* ---------- Tablette et plus ---------- */
 @media (min-width: 640px) {
@@ -302,7 +309,7 @@ h3 { font-size: 1.35rem; }
   .pack__cta { align-self: end; }
   .final__inner { grid-template-columns: 1.4fr 1fr; align-items: end; }
   .final .btn { justify-self: end; }
-  .site-footer__inner { flex-direction: row; justify-content: space-between; align-items: center; }
+  .site-footer__inner { flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {

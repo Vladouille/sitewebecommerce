@@ -27,7 +27,7 @@ window.AUTOFLOW_CONFIG = {
   ],
 
   // Les packs s'affichent dans cet ordre (Scale en premier : c'est l'ancre de prix).
-  //   conversations : nombre par mois, ou null si illimitées (sert au coût par conversation)
+  //   conversations : nombre par mois, ou null si illimitées (sert au « X fois plus de conversations »)
   //   reframe       : phrase de recadrage affichée sous le prix (absent = pas de phrase)
   //   compareTo     : pack de référence pour les comparaisons de la carte recommandée
   //   values        : true = Oui, false = Non (croix et texte grisé), texte = affiché tel quel
@@ -77,6 +77,7 @@ window.AUTOFLOW_CONFIG = {
   guaranteeLine: "Objectif d'appels atteint ou on continue gratuitement",
 
   pricingNotes: [
+    'Offres réservées aux professionnels. Prix mensuels en euros, TVA non applicable (article 293 B du CGI). Paiement après l\'audit, sur proposition commerciale.',
     'Option : script de vente pour tes appels, construit à partir des objections de tes prospects, 290 €.',
   ],
 };
