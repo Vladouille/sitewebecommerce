@@ -1,0 +1,184 @@
+/* ── Polices auto-hébergées (sous-ensemble latin : couvre é, è, œ, €) ── */
+@font-face {
+  font-family: 'Sora';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/sora-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Sora';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/sora-latin-700-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/inter-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/inter-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/jetbrains-mono-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/fonts/jetbrains-mono-latin-500-normal.woff2') format('woff2');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background: #050b18;
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Piège n°3 : aucun scroll horizontal parasite sur mobile. */
+  html,
+  body {
+    overflow-x: clip;
+  }
+  body {
+    @apply bg-night font-sans text-ink antialiased;
+    min-height: 100dvh;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display font-bold tracking-tightest;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: rgba(0, 229, 255, 0.3);
+    color: #f2f6ff;
+  }
+  /* Focus visible : anneau cyan, partout, au clavier uniquement. */
+  :focus-visible {
+    outline: 2px solid #00e5ff;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+  /* Les ancres ne passent pas sous le header fixe (scroll natif / sans JS). */
+  [id] {
+    scroll-margin-top: 88px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Verre dépoli discret (cartes, header au scroll). */
+  .glass {
+    background: rgba(11, 22, 40, 0.62);
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    backdrop-filter: blur(14px) saturate(140%);
+  }
+
+  /* Grille fine façon plan technique. */
+  .bg-blueprint {
+    background-image:
+      linear-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: center top;
+  }
+
+  /* Étiquette technique en JetBrains Mono. */
+  .label-mono {
+    @apply font-mono text-xs font-medium uppercase tracking-[0.14em] text-water;
+  }
+
+  /* ── Boutons ── texte nuit sur cuivre : contraste ≈ 8:1 (le blanc échoue à ≈ 2,5:1). */
+  .btn {
+    @apply relative inline-flex min-h-[48px] select-none items-center justify-center gap-2.5 rounded-full px-6 font-display text-[15px] font-semibold tracking-[-0.01em] transition-[transform,box-shadow,background-color,border-color] duration-200 ease-out-power3;
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn-copper {
+    @apply btn bg-copper bg-copper-grad text-night shadow-copper;
+  }
+  .btn-copper:hover {
+    box-shadow: 0 10px 40px -6px rgba(255, 122, 26, 0.75);
+  }
+  .btn-water {
+    @apply btn border border-water/60 bg-water/[0.06] text-ink;
+  }
+  .btn-water:hover {
+    @apply border-water bg-water/[0.12] shadow-water;
+  }
+
+  .container-x {
+    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-6 lg:px-10;
+  }
+}
+
+/* Grain très léger : image fixe (aucun coût d'animation). */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Espace réservé à la barre d'appel mobile (+ encoche iPhone). */
+.pb-dock {
+  padding-bottom: calc(88px + env(safe-area-inset-bottom));
+}
+@media (min-width: 768px) {
+  .pb-dock {
+    padding-bottom: 0;
+  }
+}
+
+/* Dérive lente du halo du hero (transform uniquement → composité GPU, coût quasi nul). */
+@keyframes heroDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-4%, 3%, 0) scale(1.06);
+  }
+}
+.hero-blob {
+  animation: heroDrift 14s ease-in-out infinite;
+}
