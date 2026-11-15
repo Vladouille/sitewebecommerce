@@ -343,6 +343,10 @@ tr.night td.price { color: var(--ink); }
 .cmp-range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
 .js .cmp-range { pointer-events: none; }
 .cmp:has(.cmp-range:focus-visible) .cmp-knob { outline: 2.5px solid var(--jade); outline-offset: 3px; }
+.duo { display: grid; gap: 14px; }
+@media (min-width: 760px) { .duo { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.duo-item { position: relative; }
+.duo-item img { aspect-ratio: 16 / 10; object-fit: cover; }
 .tag { position: absolute; top: 12px; padding: 5px 8px; font: 500 11.5px/1 var(--mono); letter-spacing: .08em; background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: var(--r); pointer-events: none; }
 .tag-b { left: 12px; } .tag-a { right: 12px; }
 .jobs { display: grid; gap: 22px; margin-top: 34px; }
@@ -738,21 +742,27 @@ body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
   <div class="wrap">
     <div class="sec-head">
       <h2 id="h-cha"><span class="no">§3</span>Du chantier à la pièce livrée</h2>
-      <p>Une salle de bain se refait en neuf à onze jours ouvrés : dépose, réseaux neufs, étanchéité, carrelage, pose des équipements. Faites glisser la poignée pour passer du chantier à la pièce terminée.</p>
+      <p>Une salle de bain se refait en neuf à onze jours ouvrés : dépose, réseaux neufs, étanchéité, carrelage, pose des équipements. Les deux étapes d'un même métier : le chantier ouvert, puis la pièce rendue propre.</p>
     </div>
 
     <figure class="fig">
-      <!-- REMPLACER PAR LES VRAIES PHOTOS DU CLIENT : même pièce, même angle, même focale -->
+      <!-- Deux photos de banque d'images, deux pièces DIFFÉRENTES : pas de curseur avant/après pour ne pas tromper le visiteur.
+           Le jour où le client fournit une vraie paire (même pièce, même angle, même focale), remplacer le diptyque
+           ci-dessous par ce comparateur. Le CSS (.cmp) et le JS (#cmp) sont déjà dans la page.
+
       <div class="cmp" id="cmp">
-        <picture><source type="image/webp" srcset="images/salle-de-bain-livree-800.webp 800w, images/salle-de-bain-livree.webp 1600w" sizes="(min-width: 1240px) 1130px, 100vw"><img src="images/salle-de-bain-livree.jpg" srcset="images/salle-de-bain-livree-800.jpg 800w, images/salle-de-bain-livree.jpg 1600w" sizes="(min-width: 1240px) 1130px, 100vw" width="1600" height="1000" loading="lazy" decoding="async" alt="Livré : salle de bain claire avec douche vitrée, baignoire d'angle et radiateur sous la fenêtre."></picture>
-        <div class="cmp-before">
-          <picture><source type="image/webp" srcset="images/chantier-en-travaux-800.webp 800w, images/chantier-en-travaux.webp 1600w" sizes="(min-width: 1240px) 1130px, 100vw"><img src="images/chantier-en-travaux.jpg" srcset="images/chantier-en-travaux-800.jpg 800w, images/chantier-en-travaux.jpg 1600w" sizes="(min-width: 1240px) 1130px, 100vw" width="1600" height="1000" loading="lazy" decoding="async" alt="En travaux : pièce en chantier, murs de briques à nu, gravats et matériaux au sol."></picture>
-        </div>
+        <img src="images/apres.webp" width="1600" height="1000" loading="lazy" alt="Après travaux : [décrire la pièce]">
+        <div class="cmp-before"><img src="images/avant.webp" width="1600" height="1000" loading="lazy" alt="Avant travaux : [décrire la pièce]"></div>
         <div class="cmp-handle" aria-hidden="true"><span class="cmp-knob"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span></div>
-        <span class="tag tag-b" aria-hidden="true">EN TRAVAUX</span><span class="tag tag-a" aria-hidden="true">LIVRÉ</span>
-        <input class="cmp-range" id="cmpRange" type="range" min="0" max="100" value="50" step="1" aria-label="Comparer le chantier en travaux et la pièce livrée" aria-valuetext="50 % en travaux, 50 % livré">
+        <span class="tag tag-b" aria-hidden="true">AVANT</span><span class="tag tag-a" aria-hidden="true">APRÈS</span>
+        <input class="cmp-range" id="cmpRange" type="range" min="0" max="100" value="50" step="1" aria-label="Comparer la pièce avant et après travaux" aria-valuetext="50 % avant, 50 % après">
       </div>
-      <figcaption>Fig. 4 — En travaux / livré · photos d'illustration de deux pièces différentes (glissez la poignée)</figcaption>
+      -->
+      <div class="duo">
+        <div class="pic duo-item"><picture><source type="image/webp" srcset="images/chantier-en-travaux-800.webp 800w, images/chantier-en-travaux.webp 1600w" sizes="(min-width: 760px) 560px, 100vw"><img src="images/chantier-en-travaux.jpg" srcset="images/chantier-en-travaux-800.jpg 800w, images/chantier-en-travaux.jpg 1600w" sizes="(min-width: 760px) 560px, 100vw" width="1600" height="1000" loading="lazy" decoding="async" alt="Pièce en chantier : murs de briques à nu, gravats et matériaux au sol."></picture><span class="tag tag-b" aria-hidden="true">EN TRAVAUX</span></div>
+        <div class="pic duo-item"><picture><source type="image/webp" srcset="images/salle-de-bain-livree-800.webp 800w, images/salle-de-bain-livree.webp 1600w" sizes="(min-width: 760px) 560px, 100vw"><img src="images/salle-de-bain-livree.jpg" srcset="images/salle-de-bain-livree-800.jpg 800w, images/salle-de-bain-livree.jpg 1600w" sizes="(min-width: 760px) 560px, 100vw" width="1600" height="1000" loading="lazy" decoding="async" alt="Salle de bain livrée : douche vitrée, baignoire d'angle et radiateur sous la fenêtre."></picture><span class="tag tag-b" aria-hidden="true">LIVRÉ</span></div>
+      </div>
+      <figcaption>Fig. 4 — Un chantier en cours, une salle de bain livrée · photos d'illustration de deux pièces différentes</figcaption>
     </figure>
 
     <div class="jobs">
@@ -1073,11 +1083,12 @@ body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
 
   /* Avant / après : pointeur (souris ET doigt) sur le conteneur + range invisible pour le clavier. */
   var cmp = $('#cmp'), range = $('#cmpRange');
+  if (cmp && range) {
   function setPos(v) {
     v = Math.max(0, Math.min(100, v));
     cmp.style.setProperty('--pos', v + '%');
     range.value = Math.round(v);
-    range.setAttribute('aria-valuetext', Math.round(v) + ' % en travaux, ' + (100 - Math.round(v)) + ' % livré');
+    range.setAttribute('aria-valuetext', Math.round(v) + ' % avant, ' + (100 - Math.round(v)) + ' % après');
   }
   function fromEvent(e) { var r = cmp.getBoundingClientRect(); return (e.clientX - r.left) / r.width * 100; }
   var dragging = false;
@@ -1087,6 +1098,7 @@ body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
   cmp.addEventListener('pointermove', function (e) { if (dragging) setPos(fromEvent(e)); });
   ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(function (t) { cmp.addEventListener(t, function () { dragging = false; }); });
   range.addEventListener('input', function () { setPos(parseFloat(range.value)); });
+  }
 
   if (reduce) {
     var map = $('#map'); if (map && map.pauseAnimations) map.pauseAnimations();
