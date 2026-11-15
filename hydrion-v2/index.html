@@ -33,8 +33,11 @@
   --jade:  #2F7A6B;  /* jade sourd : l'eau */
   --steel: #8796A8;  /* acier bleuté : filets, tuyaux */
 
-  /* rôle : texte posé sur le laiton (reste foncé dans les deux thèmes) */
+  /* rôles : texte posé sur le laiton (reste foncé) / texte posé sur une photo (reste clair) */
   --on-brass: var(--ink);
+  --on-photo: var(--paper);
+  /* carte OSM accordée à la palette */
+  --map-filter: grayscale(.7) sepia(.15) contrast(1.05);
 
   /* dérivés */
   --muted:      color-mix(in oklab, var(--ink) 74%, var(--steel));
@@ -61,18 +64,22 @@
   :root:not([data-theme="light"]) {
     --ink: #E3E9F0; --paper: #0F1C2C; --brass: #D3A55A; --jade: #5BAE9A; --steel: #5E7289;
     --on-brass: var(--paper);
+    --on-photo: var(--ink);
+    --map-filter: invert(.88) hue-rotate(180deg) grayscale(.7) sepia(.12) contrast(.95);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --ink: #E3E9F0; --paper: #0F1C2C; --brass: #D3A55A; --jade: #5BAE9A; --steel: #5E7289;
   --on-brass: var(--paper);
+  --on-photo: var(--ink);
+  --map-filter: invert(.88) hue-rotate(180deg) grayscale(.7) sepia(.12) contrast(.95);
   color-scheme: dark;
 }
 
 /* ═══ Base ═══ */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 76px; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 112px; }
 html, body { overflow-x: clip; }
 body {
   margin: 0; background: var(--paper); color: var(--ink);
@@ -91,9 +98,22 @@ p { margin: 0; }
 .wrap { width: 100%; max-width: 1200px; margin-inline: auto; padding-inline: var(--gutter); }
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .skip { position: absolute; left: var(--gutter); top: -60px; z-index: 100; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: var(--r); font-weight: 600; }
-.skip:focus { top: 10px; }
+.skip:focus { top: 44px; }
 /* Changement de thème : bascule instantanée (sinon fond et texte transitionnent à des vitesses différentes) */
 .theme-switching *, .theme-switching *::before, .theme-switching *::after { transition: none !important; }
+
+/* ═══ Bandeau « site de démonstration » : fixe, non masquable, au-dessus du header ═══ */
+.demo-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 80; height: 34px;
+  display: flex; align-items: center; justify-content: center; padding-inline: var(--gutter);
+  background: var(--brass); color: var(--on-brass);
+  font: 500 12px/1 var(--mono); letter-spacing: .02em; white-space: nowrap; overflow: hidden;
+}
+.demo-bar b { font-weight: 600; letter-spacing: .06em; }
+.demo-bar .v2, .demo-bar .v3 { display: none; }
+@media (min-width: 560px) { .demo-bar .v1 { display: none; } .demo-bar .v2 { display: inline; } }
+@media (min-width: 920px) { .demo-bar .v2 { display: none; } .demo-bar .v3 { display: inline; } }
+body { padding-top: 34px; }
 
 /* Papier quadrillé 28 px — uniquement hero et sections clés */
 .grid-paper {
@@ -123,7 +143,7 @@ p { margin: 0; }
 
 /* ═══ Header ═══ */
 .top {
-  position: sticky; top: 0; z-index: 50; background: var(--paper);
+  position: sticky; top: 34px; z-index: 50; background: var(--paper);
   border-bottom: 1px solid var(--line-soft); transition: background-color .3s ease, border-color .3s ease;
 }
 .top.is-scrolled {
@@ -246,6 +266,26 @@ figcaption, .caption { margin-top: 10px; font: 500 11.5px/1.45 var(--mono); lett
   .sec-head h2 .no { position: absolute; right: calc(100% + 18px); top: .62em; margin: 0; }
 }
 
+/* Photos */
+.sec-top { display: grid; gap: 26px; margin-bottom: clamp(28px, 5vw, 48px); }
+.sec-top .sec-head { margin-bottom: 0; }
+@media (min-width: 900px) {
+  .sec-top { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; gap: 56px; }
+  .sec-top.slim { grid-template-columns: minmax(0, 1.7fr) minmax(0, .75fr); }
+  /* hauteur de la photo proche de celle du texte : pas de vide au-dessus du titre */
+  .sec-top .pic img { aspect-ratio: 16 / 10; object-fit: cover; }
+  .sec-top.slim .pic img { aspect-ratio: 1 / 1; }
+}
+.pic { border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--tint); }
+.pic img { display: block; width: 100%; height: auto; }
+/* Filigrane DÉMO : en CSS par-dessus la photo, jamais gravé dans le fichier */
+.demo-mark { position: relative; }
+.demo-mark::after {
+  content: "DÉMO" / ""; position: absolute; inset: -30%; display: grid; place-items: center; pointer-events: none;
+  font: 800 clamp(2.6rem, 8vw, 4rem)/1 var(--display); letter-spacing: .2em;
+  color: color-mix(in oklab, var(--on-photo) 12%, transparent); transform: rotate(-24deg);
+}
+
 /* Interventions */
 .cards { display: grid; gap: 14px; }
 @media (min-width: 640px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -296,7 +336,7 @@ tr.night td.price { color: var(--ink); }
 
 /* Avant / après */
 .cmp { position: relative; aspect-ratio: 16 / 10; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; touch-action: pan-y; cursor: ew-resize; user-select: none; -webkit-user-select: none; --pos: 50%; }
-.cmp svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cmp img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .cmp-before { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
 .cmp-handle { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: var(--paper); pointer-events: none; }
 .cmp-knob { position: absolute; top: 50%; left: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; display: grid; place-items: center; background: var(--brass); color: var(--on-brass); border-radius: 50%; box-shadow: 0 6px 18px -6px color-mix(in oklab, var(--ink) 60%, transparent); }
@@ -305,55 +345,48 @@ tr.night td.price { color: var(--ink); }
 .cmp:has(.cmp-range:focus-visible) .cmp-knob { outline: 2.5px solid var(--jade); outline-offset: 3px; }
 .tag { position: absolute; top: 12px; padding: 5px 8px; font: 500 11.5px/1 var(--mono); letter-spacing: .08em; background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: var(--r); pointer-events: none; }
 .tag-b { left: 12px; } .tag-a { right: 12px; }
-.b-wall { fill: var(--dull); } .b-tile { fill: none; stroke: var(--dull-dark); stroke-width: 1; opacity: .5; }
-.b-floor { fill: var(--dull-dark); } .b-fix { fill: color-mix(in oklab, var(--steel) 40%, var(--paper)); stroke: var(--dull-dark); stroke-width: 2; }
-.b-pipe { fill: none; stroke: var(--dull-dark); stroke-width: 6; stroke-linecap: round; }
-.b-stain { fill: color-mix(in oklab, var(--steel) 45%, var(--ink)); opacity: .35; }
-.b-crack { fill: none; stroke: var(--ink); stroke-width: 1.4; opacity: .55; }
-.b-dark { fill: var(--dull-dark); }
-.a-wall { fill: var(--paper); } .a-tile { fill: none; stroke: var(--line-soft); stroke-width: 1.2; }
-.a-floor { fill: var(--tint); } .a-floor-l { stroke: var(--line); stroke-width: 1; }
-.a-glass { fill: color-mix(in oklab, var(--jade) 12%, transparent); stroke: var(--jade); stroke-width: 2; }
-.a-brass { fill: none; stroke: var(--brass); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
-.a-brass-f { fill: var(--brass); }
-.a-fix { fill: var(--paper); stroke: var(--ink); stroke-width: 2; }
-.a-wood { fill: color-mix(in oklab, var(--brass) 30%, var(--paper)); stroke: var(--ink); stroke-width: 2; }
-.a-leaf { fill: var(--jade); } .a-ink { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; }
-
 .jobs { display: grid; gap: 22px; margin-top: 34px; }
 @media (min-width: 760px) { .jobs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .photo { aspect-ratio: 4 / 3; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--tint); }
 .photo svg, .photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .job p { margin-top: 6px; font-size: 15px; color: var(--muted); }
-.il-l { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.il-t { fill: none; stroke: var(--steel); stroke-width: 1; }
-.il-p { fill: var(--paper); stroke: var(--ink); stroke-width: 2; }
-.il-b { fill: var(--brass); stroke: var(--ink); stroke-width: 1.5; }
-.il-j { fill: none; stroke: var(--jade); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
-.il-txt { font: 500 12px var(--mono); fill: var(--muted); }
-.il-grid { fill: url(#ilGrid); }
 
 /* Zone */
 .zone { display: grid; gap: 34px; }
-@media (min-width: 960px) { .zone { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: start; gap: 56px; } }
-.map .contour { fill: var(--tint); stroke: var(--ink); stroke-width: 1.6; stroke-linejoin: round; }
-.map .radius { fill: none; stroke: var(--steel); stroke-width: 1.2; stroke-dasharray: 6 6; }
-.map .river { fill: none; stroke: var(--jade); stroke-width: 6; stroke-linecap: round; opacity: .55; }
-.map .periph { fill: none; stroke: var(--ink); stroke-width: 1.4; stroke-dasharray: 2 4; }
-.map .axis { fill: none; stroke: var(--muted); stroke-width: 2.4; stroke-linecap: round; }
-.map .atelier { fill: var(--brass); stroke: var(--ink); stroke-width: 2; }
-.map .ping { fill: none; stroke: var(--brass); stroke-width: 2; }
-.map .lbl { font: 500 11px var(--mono); fill: var(--muted); letter-spacing: .04em; }
-.map .lbl-k { font: 600 11px var(--mono); fill: var(--ink); letter-spacing: .03em; }
-.map .lbl-a { font: 600 10.5px var(--mono); fill: var(--brass-text); }
+.zone-info { display: grid; gap: 34px; }
+@media (min-width: 900px) { .zone-info { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 56px; } }
+.mapbox { position: relative; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--tint); }
+/* image + calque SVG dans le même conteneur : ils se déplacent et se redimensionnent ensemble */
+.map-inner { position: relative; }
+.map-inner img { display: block; width: 100%; height: auto; filter: var(--map-filter); }
+.map-over { position: absolute; inset: 0; width: 100%; height: 100%; }
+@media (max-width: 759px) {
+  /* mobile : carte à 200 %, recentrée sur Lyon, pour que les ateliers ne se chevauchent pas */
+  .map-inner { width: 200%; margin-left: -50%; }
+}
+.map-over .radius { fill: color-mix(in oklab, var(--brass) 7%, transparent); stroke: var(--brass-text); stroke-width: 2.5; stroke-dasharray: 10 9; }
+.map-over .atelier { fill: var(--brass); stroke: var(--ink); stroke-width: 3; }
+.map-over .ping { fill: none; stroke: var(--brass); stroke-width: 3.5; }
+.map-over .centre { fill: none; stroke: var(--ink); stroke-width: 2.5; }
+.map-over text { font: 600 22px var(--mono); fill: var(--ink); paint-order: stroke; stroke: var(--paper); stroke-width: 7px; stroke-linejoin: round; }
+.osm { position: absolute; right: 0; bottom: 0; padding: 4px 8px; background: color-mix(in oklab, var(--paper) 88%, transparent); font: 400 11.5px/1.3 var(--mono); color: var(--ink); border-top-left-radius: var(--r); }
+.osm a { color: inherit; }
 .towns { columns: 2; column-gap: 22px; padding: 0; margin: 18px 0 0; list-style: none; font-size: 15.5px; }
 .towns li { break-inside: avoid; display: flex; align-items: baseline; gap: 10px; padding: 5px 0; border-bottom: 1px dotted var(--line); }
 .towns li::before { content: ""; flex: none; width: 6px; height: 6px; background: var(--brass); border-radius: 1px; transform: translateY(-2px); }
 @media (min-width: 560px) { .towns { columns: 3; } }
-@media (min-width: 960px) { .towns { columns: 2; } }
 .ateliers { margin-top: 22px; padding: 0; list-style: none; display: grid; gap: 8px; font: 400 14px/1.45 var(--mono); }
 .ateliers b { color: var(--ink); font-weight: 600; }
 .ateliers li { color: var(--muted); }
+
+/* Bloc artisan (réassurance) */
+.trust { display: grid; gap: 30px; }
+@media (min-width: 860px) { .trust { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: center; gap: 64px; } }
+.trust .pic { max-width: 440px; }
+.trust p.txt { margin-top: 18px; font-size: 18px; color: var(--muted); max-width: 58ch; }
+.checks { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.checks li { background: var(--paper); padding: 14px 16px; font-size: 15.5px; color: var(--muted); min-width: 0; }
+.checks b { display: block; font: 600 13px/1.3 var(--mono); color: var(--jade-text); margin-bottom: 3px; }
 
 /* Avis */
 .reviews { display: grid; gap: 14px; }
@@ -399,7 +432,10 @@ tr.night td.price { color: var(--ink); }
 .foot .tel { font: 600 20px/1.2 var(--mono); text-decoration: none; }
 .foot .tel:hover { text-decoration: underline; text-underline-offset: 4px; }
 .foot-bottom { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; font: 400 13px/1.5 var(--mono); color: var(--muted); }
-.demo { color: var(--ink); }
+.demo-box { margin-top: 40px; padding: 18px 20px; border: 1.5px solid var(--brass); border-radius: var(--r); background: var(--brass-soft); display: grid; gap: 8px; max-width: 760px; }
+.demo-box h2 { margin: 0; color: var(--ink); font-weight: 600; }
+.demo-box p { margin: 0; max-width: none; color: var(--ink); font-size: 15px; }
+.demo-box a { font-weight: 600; }
 
 /* ═══ Barre d'appel mobile ═══ */
 .callbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom)); background: var(--paper); border-top: 1px solid var(--line); box-shadow: 0 -10px 30px -18px color-mix(in oklab, var(--ink) 55%, transparent); transition: transform .35s cubic-bezier(.2, .8, .2, 1), visibility .35s; }
@@ -433,6 +469,10 @@ body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
 </head>
 <body>
 <a class="skip" href="#contenu">Aller au contenu</a>
+<!-- Mention de démonstration n°1 : bandeau fixe, non masquable -->
+<aside class="demo-bar" aria-label="Avertissement : site de démonstration">
+  <span><b>SITE DE DÉMONSTRATION</b> — <span class="v1">entreprise fictive</span><span class="v2">HYDRION est une entreprise fictive.</span><span class="v3">HYDRION est une entreprise fictive. Coordonnées, prix et avis sont des exemples.</span></span>
+</aside>
 
 <!-- ═══════════════ HEADER ═══════════════ -->
 <header class="top" id="top">
@@ -607,9 +647,15 @@ body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
 <!-- ═══════════════ INTERVENTIONS ═══════════════ -->
 <section class="sec" id="interventions" aria-labelledby="h-int">
   <div class="wrap">
-    <div class="sec-head">
-      <h2 id="h-int"><span class="no">§1</span>Ce qu'on répare tous les jours</h2>
-      <p>Quatre appels sur cinq concernent l'un de ces cas. Pour chacun, vous savez avant notre arrivée combien de temps ça prend et à partir de combien.</p>
+    <div class="sec-top">
+      <div class="sec-head">
+        <h2 id="h-int"><span class="no">§1</span>Ce qu'on répare tous les jours</h2>
+        <p>Quatre appels sur cinq concernent l'un de ces cas. Pour chacun, vous savez avant notre arrivée combien de temps ça prend et à partir de combien.</p>
+      </div>
+      <figure class="fig">
+        <div class="pic"><picture><source type="image/webp" srcset="images/plombier-raccord-800.webp 800w, images/plombier-raccord.webp 1200w" sizes="(min-width: 900px) 540px, 100vw"><img src="images/plombier-raccord.jpg" srcset="images/plombier-raccord-800.jpg 800w, images/plombier-raccord.jpg 1200w" sizes="(min-width: 900px) 540px, 100vw" width="1200" height="900" loading="lazy" decoding="async" alt="Mains d'un plombier serrant un raccord en laiton sur une alimentation d'eau, sous une isolation."></picture></div>
+        <figcaption>Fig. 2 — Reprise d'un raccord laiton sur une alimentation</figcaption>
+      </figure>
     </div>
     <div class="cards">
       <article class="card">
@@ -647,10 +693,16 @@ body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
 <!-- ═══════════════ TARIFS ═══════════════ -->
 <section class="sec grid-paper" id="tarifs" aria-labelledby="h-tar">
   <div class="wrap">
+    <div class="sec-top slim">
     <div class="sec-head">
       <h2 id="h-tar"><span class="no">§2</span>Les prix, avant qu'on se déplace</h2>
       <!-- ⚠️ Chiffre « 40 % » demandé par le brief : à sourcer (enquête DGCCRF, UFC-Que Choisir…) avant usage pour un vrai client. -->
       <p>Un dépannage coûte en moyenne <strong>40 % de plus</strong> quand le prix n'est annoncé qu'une fois le plombier sur place : vous êtes coincé, l'eau coule, vous signez. Chez nous, le prix est donné au téléphone, puis confirmé par écrit avant le premier coup de clé.</p>
+    </div>
+      <figure class="fig">
+        <div class="pic"><picture><source type="image/webp" srcset="images/raccords-cuivre.webp"><img src="images/raccords-cuivre.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="Gros plan sur des tubes et raccords en cuivre, sur fond noir."></picture></div>
+        <figcaption>Fig. 3 — Raccords cuivre : pièces courantes comprises dans le prix</figcaption>
+      </figure>
     </div>
     <div class="table-box" tabindex="0" role="region" aria-label="Tableau des tarifs (défilement horizontal sur petit écran)">
       <table role="table">
@@ -685,133 +737,42 @@ body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
 <section class="sec tint" id="chantiers" aria-labelledby="h-cha">
   <div class="wrap">
     <div class="sec-head">
-      <h2 id="h-cha"><span class="no">§3</span>Avant, après</h2>
-      <p>Salle de bain d'un T3 à Lyon 6<sup>e</sup> : baignoire fuyarde, carrelage fissuré, tuyaux apparents. Douche à l'italienne posée en neuf jours, parquet du couloir intact.</p>
+      <h2 id="h-cha"><span class="no">§3</span>Du chantier à la pièce livrée</h2>
+      <p>Une salle de bain se refait en neuf à onze jours ouvrés : dépose, réseaux neufs, étanchéité, carrelage, pose des équipements. Faites glisser la poignée pour passer du chantier à la pièce terminée.</p>
     </div>
 
     <figure class="fig">
+      <!-- REMPLACER PAR LES VRAIES PHOTOS DU CLIENT : même pièce, même angle, même focale -->
       <div class="cmp" id="cmp">
-        <!-- APRÈS -->
-        <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Après : douche à l'italienne avec paroi vitrée, robinetterie laiton, meuble suspendu et miroir rond.">
-          <defs><pattern id="tA" width="80" height="40" patternUnits="userSpaceOnUse"><path class="a-tile" d="M0 0H80M0 0V40"/></pattern></defs>
-          <rect class="a-wall" width="640" height="400"/>
-          <rect width="640" height="330" fill="url(#tA)"/>
-          <rect class="a-floor" y="330" width="640" height="70"/>
-          <path class="a-floor-l" d="M0 330H640M0 352H640M0 378H640M90 330l-20 70M220 330l-10 70M350 330v70M480 330l10 70M600 330l20 70"/>
-          <path class="a-brass" d="M70 326H240"/>
-          <rect class="a-glass" x="56" y="70" width="200" height="258"/>
-          <path class="a-ink" d="M256 70V328"/>
-          <path class="a-brass" d="M150 26V70h-28"/>
-          <rect class="a-brass-f" x="94" y="64" width="56" height="9" rx="1"/>
-          <circle class="a-brass" cx="150" cy="200" r="11" stroke-width="4"/>
-          <path class="a-brass" d="M150 200l18-10"/>
-          <rect class="a-fix" x="196" y="150" width="40" height="44"/>
-          <path class="a-ink" d="M196 172h40"/>
-          <circle cx="485" cy="128" r="56" style="fill: var(--tint); stroke: var(--brass)" stroke-width="4"/>
-          <path class="a-ink" d="M465 102l30 -16M462 122l42 -24" opacity=".4"/>
-          <path class="a-brass" d="M485 20v14"/>
-          <path d="M470 34h30l-6 14h-18z" class="a-brass-f"/>
-          <rect class="a-wood" x="404" y="232" width="164" height="58"/>
-          <path class="a-ink" d="M486 236v50"/>
-          <path class="a-brass" d="M466 262h12M494 262h12"/>
-          <path class="a-fix" d="M450 232c0-18 72-18 72 0z"/>
-          <path class="a-brass" d="M500 216v-18q0-8-8-8h-14"/>
-          <rect class="a-fix" x="584" y="292" width="34" height="38"/>
-          <path class="a-leaf" d="M601 292c-20-14-24-40-12-52 8 14 14 30 12 52zM601 292c14-18 30-26 40-22-6 14-20 22-40 22zM601 292c2-26 12-46 26-50 2 18-10 38-26 50z"/>
-          <path class="a-brass" d="M300 120h60M300 120v10M360 120v10" stroke-width="4"/>
-          <rect x="310" y="128" width="40" height="70" style="fill: var(--jade-soft); stroke: var(--ink)" stroke-width="2"/>
-        </svg>
-        <!-- AVANT (par-dessus, découpé par la poignée) -->
+        <picture><source type="image/webp" srcset="images/salle-de-bain-livree-800.webp 800w, images/salle-de-bain-livree.webp 1600w" sizes="(min-width: 1240px) 1130px, 100vw"><img src="images/salle-de-bain-livree.jpg" srcset="images/salle-de-bain-livree-800.jpg 800w, images/salle-de-bain-livree.jpg 1600w" sizes="(min-width: 1240px) 1130px, 100vw" width="1600" height="1000" loading="lazy" decoding="async" alt="Livré : salle de bain claire avec douche vitrée, baignoire d'angle et radiateur sous la fenêtre."></picture>
         <div class="cmp-before">
-          <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Avant : baignoire ancienne, carrelage gris fissuré, tuyaux apparents et tache d'humidité sous le lavabo.">
-            <defs><pattern id="tB" width="40" height="40" patternUnits="userSpaceOnUse"><path class="b-tile" d="M0 0H40M0 0V40"/></pattern></defs>
-            <rect class="b-wall" width="640" height="400"/>
-            <rect width="640" height="330" fill="url(#tB)"/>
-            <rect class="b-floor" y="330" width="640" height="70"/>
-            <path class="b-crack" d="M120 40l14 22-8 16 18 26M560 60l-12 18 10 14-6 22M300 250l10 14-6 12"/>
-            <path class="b-crack" d="M400 360l30 10 22-8 30 14"/>
-            <path class="b-stain" d="M200 60c30-10 60 4 70 30 8 22-6 44-30 46-30 2-58-14-56-42 0-16 6-30 16-34z"/>
-            <path class="b-pipe" d="M176 236V110h60v-26"/>
-            <circle class="b-dark" cx="236" cy="78" r="12"/>
-            <path class="b-pipe" d="M236 90l-14 18" stroke-width="3"/>
-            <rect class="b-fix" x="40" y="236" width="270" height="92" rx="8"/>
-            <path class="b-crack" d="M40 252H310"/>
-            <rect class="b-dark" x="58" y="326" width="16" height="16" rx="2"/><rect class="b-dark" x="276" y="326" width="16" height="16" rx="2"/>
-            <rect class="b-fix" x="430" y="68" width="110" height="104"/>
-            <path class="b-crack" d="M470 68l10 30-14 18 16 28-6 28"/>
-            <path class="b-fix" d="M408 206h154l-14 36h-126z"/>
-            <rect class="b-fix" x="468" y="242" width="34" height="88"/>
-            <path class="b-pipe" d="M485 242v20h-40v68" stroke-width="5"/>
-            <path class="b-stain" d="M410 336c20-8 70-10 90 0 10 6-10 14-46 14s-60-6-44-14z"/>
-            <path class="b-pipe" d="M320 0v36" stroke-width="2"/>
-            <circle class="b-dark" cx="320" cy="44" r="9"/>
-            <path class="b-crack" d="M485 206v-16h-14"/>
-          </svg>
+          <picture><source type="image/webp" srcset="images/chantier-en-travaux-800.webp 800w, images/chantier-en-travaux.webp 1600w" sizes="(min-width: 1240px) 1130px, 100vw"><img src="images/chantier-en-travaux.jpg" srcset="images/chantier-en-travaux-800.jpg 800w, images/chantier-en-travaux.jpg 1600w" sizes="(min-width: 1240px) 1130px, 100vw" width="1600" height="1000" loading="lazy" decoding="async" alt="En travaux : pièce en chantier, murs de briques à nu, gravats et matériaux au sol."></picture>
         </div>
         <div class="cmp-handle" aria-hidden="true"><span class="cmp-knob"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span></div>
-        <span class="tag tag-b" aria-hidden="true">AVANT</span><span class="tag tag-a" aria-hidden="true">APRÈS</span>
-        <input class="cmp-range" id="cmpRange" type="range" min="0" max="100" value="50" step="1" aria-label="Comparer la salle de bain avant et après travaux" aria-valuetext="50 % avant, 50 % après">
+        <span class="tag tag-b" aria-hidden="true">EN TRAVAUX</span><span class="tag tag-a" aria-hidden="true">LIVRÉ</span>
+        <input class="cmp-range" id="cmpRange" type="range" min="0" max="100" value="50" step="1" aria-label="Comparer le chantier en travaux et la pièce livrée" aria-valuetext="50 % en travaux, 50 % livré">
       </div>
-      <figcaption>Fig. 2 — Salle de bain, Lyon 6<sup>e</sup> : avant / après (glissez la poignée)</figcaption>
+      <figcaption>Fig. 4 — En travaux / livré · photos d'illustration de deux pièces différentes (glissez la poignée)</figcaption>
     </figure>
 
     <div class="jobs">
       <figure class="fig job">
-        <!-- PHOTO CLIENT : chantier terminé, chauffe-eau posé, format 4:3. Remplacer le <svg> par <img src="…" width="800" height="600" loading="lazy" alt="…"> -->
-        <div class="photo">
-          <svg viewBox="0 0 400 300" role="img" aria-label="Illustration : chauffe-eau vertical de 200 litres posé au mur avec son groupe de sécurité.">
-            <defs><pattern id="ilGrid" width="20" height="20" patternUnits="userSpaceOnUse"><path class="il-t" d="M20 0H0V20" opacity=".5"/></pattern></defs>
-            <rect class="il-grid" width="400" height="300"/>
-            <rect class="il-p" x="150" y="24" width="100" height="200" rx="46"/>
-            <rect class="il-t" x="176" y="70" width="48" height="30"/>
-            <text class="il-txt" x="200" y="90" text-anchor="middle">200 L</text>
-            <path class="il-l" d="M180 224v24M220 224v66"/>
-            <rect class="il-b" x="170" y="246" width="20" height="18" rx="1.5"/>
-            <path class="il-l" d="M180 264v8l-10 8v10M194 254h10"/>
-            <path class="il-j" d="M220 290v-18" />
-            <path class="il-t" d="M276 24h18M276 224h18M285 24v200"/>
-            <text class="il-txt" x="292" y="128">1,52 m</text>
-          </svg>
-        </div>
-        <figcaption>Fig. 3 — Chauffe-eau 200 L remplacé, Villeurbanne</figcaption>
-        <p>Appel à 7 h 40, ballon posé à 15 h. L'ancien est parti à la déchetterie avec nous.</p>
+        <!-- PHOTO CLIENT : chantier terminé, chaudière ou chauffe-eau, format 4:3, 800 × 600. Remplacer les deux fichiers images/chantier-chaudiere.webp et .jpg -->
+        <div class="photo demo-mark"><picture><source type="image/webp" srcset="images/chantier-chaudiere.webp"><img src="images/chantier-chaudiere.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Mains gantées réglant le circulateur d'une chaudière murale."></picture></div>
+        <figcaption>Fig. 5 — Circulateur de chaudière remplacé, Villeurbanne</figcaption>
+        <p>Plus de chauffage un matin de janvier. Circulateur grippé, remplacé dans l'heure, pression remise à 1,5 bar.</p>
       </figure>
       <figure class="fig job">
-        <!-- PHOTO CLIENT : chantier terminé, colonne d'évacuation, format 4:3 -->
-        <div class="photo">
-          <svg viewBox="0 0 400 300" role="img" aria-label="Illustration : coupe d'un immeuble montrant une colonne d'évacuation débouchée par hydrocurage.">
-            <rect class="il-grid" width="400" height="300"/>
-            <path class="il-l" d="M30 80H370M30 170H370M30 260H370"/>
-            <text class="il-txt" x="36" y="72">R+2</text><text class="il-txt" x="36" y="162">R+1</text><text class="il-txt" x="36" y="252">RDC</text>
-            <path d="M200 10V290" style="stroke: var(--ink)" stroke-width="22"/>
-            <path d="M200 10V290" style="stroke: var(--pipe)" stroke-width="16"/>
-            <path class="il-l" d="M120 64h70M120 154h70M120 244h70"/>
-            <path class="il-j" d="M200 40l-6 8 6 8 6-8zM200 120l-6 8 6 8 6-8zM200 200l-6 8 6 8 6-8z" />
-            <rect class="il-b" x="188" y="96" width="24" height="10"/><rect class="il-b" x="188" y="186" width="24" height="10"/>
-            <path class="il-j" d="M240 282l40-40M280 242h-14M280 242v14"/>
-            <text class="il-txt" x="262" y="230">jet 150 bar</text>
-          </svg>
-        </div>
-        <figcaption>Fig. 4 — Colonne d'évacuation débouchée, Lyon 7<sup>e</sup></figcaption>
-        <p>Six logements sans écoulement. Hydrocurage, inspection caméra, colonne rendue en deux heures.</p>
+        <!-- PHOTO CLIENT : chantier terminé, évier ou WC, format 4:3, 800 × 600. Remplacer les deux fichiers images/chantier-evier.webp et .jpg -->
+        <div class="photo demo-mark"><picture><source type="image/webp" srcset="images/chantier-evier.webp"><img src="images/chantier-evier.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Clé plate posée dans un évier en inox couvert de gouttes d'eau."></picture></div>
+        <figcaption>Fig. 6 — Évier débouché, siphon changé, Lyon 7<sup>e</sup></figcaption>
+        <p>Évier qui refoulait depuis trois jours. Furet, siphon neuf, test d'écoulement devant la cliente.</p>
       </figure>
       <figure class="fig job">
-        <!-- PHOTO CLIENT : chantier terminé, recherche de fuite, format 4:3 -->
-        <div class="photo">
-          <svg viewBox="0 0 400 300" role="img" aria-label="Illustration : viseur de caméra thermique centré sur une tache chaude dans un mur, signe d'une fuite.">
-            <defs><radialGradient id="heat" cx="50%" cy="50%" r="50%"><stop offset="0" style="stop-color: var(--brass)"/><stop offset=".45" style="stop-color: var(--jade)" stop-opacity=".7"/><stop offset="1" style="stop-color: var(--jade)" stop-opacity="0"/></radialGradient></defs>
-            <rect class="il-grid" width="400" height="300"/>
-            <path class="il-l" d="M0 60H400M60 60V300"/>
-            <ellipse cx="220" cy="150" rx="90" ry="62" fill="url(#heat)"/>
-            <path class="il-l" d="M120 80h28M120 80v28M320 80h-28M320 80v28M120 222h28M120 222v-28M320 222h-28M320 222v-28"/>
-            <path class="il-l" d="M220 136v28M206 150h28"/>
-            <rect class="il-p" x="346" y="80" width="16" height="142"/>
-            <rect x="350" y="84" width="8" height="134" fill="url(#heat)"/>
-            <text class="il-txt" x="132" y="244">Δt 4,2 °C</text>
-          </svg>
-        </div>
-        <figcaption>Fig. 5 — Fuite localisée à la caméra thermique, Caluire</figcaption>
-        <p>Tache au plafond, aucune trace visible. Fuite trouvée sans ouvrir le mur, rapport envoyé à l'assureur.</p>
+        <!-- PHOTO CLIENT : chantier terminé, raccordement, format 4:3, 800 × 600. Remplacer les deux fichiers images/chantier-radiateur.webp et .jpg -->
+        <div class="photo demo-mark"><picture><source type="image/webp" srcset="images/chantier-radiateur.webp"><img src="images/chantier-radiateur.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Plombier en gants serrant le raccord d'un radiateur sur un tube multicouche bleu."></picture></div>
+        <figcaption>Fig. 7 — Radiateur raccordé en multicouche, Caluire</figcaption>
+        <p>Radiateur déplacé pendant une rénovation de chambre. Raccords sertis, essai en pression avant de refermer.</p>
       </figure>
     </div>
   </div>
@@ -826,61 +787,48 @@ body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
     </div>
     <div class="zone">
       <figure class="fig">
-        <div class="fig-frame">
-          <svg class="map" id="map" viewBox="0 0 520 420" role="img" aria-labelledby="mapT">
-            <title id="mapT">Carte simplifiée de l'agglomération lyonnaise : le Rhône, la Saône, les autoroutes A6, A7, A42 et A43, et trois ateliers à la Croix-Rousse, Villeurbanne et Gerland, dans un rayon de 25 km.</title>
-            <g aria-hidden="true">
-              <circle class="radius" cx="262" cy="206" r="186"/>
-              <text class="lbl" x="262" y="14" text-anchor="middle">R = 25 KM</text>
-              <path class="contour" d="M182 92c34-26 92-34 132-20 40 12 76 40 92 78 14 34 10 74-10 104-22 32-60 52-98 58-44 6-92-4-122-32-28-26-42-66-36-104 4-34 16-62 42-84z"/>
-              <path class="periph" d="M206 140c28-22 84-24 112-2 24 20 28 62 8 88-22 28-74 34-104 14-30-20-40-72-16-100z"/>
-              <path class="river" d="M486 40C420 92 352 140 300 186c-22 20-34 44-36 80-2 46 2 98 6 150"/>
-              <path class="river" d="M196 6c14 52 4 92 22 128 12 24 32 40 44 62"/>
-              <path class="axis" d="M206 140L96 22M266 266L250 414M322 150L462 62M330 224L512 268"/>
-              <text class="lbl" x="88" y="22" text-anchor="end">A6 · PARIS</text>
-              <text class="lbl" x="242" y="404" text-anchor="end">A7 · MARSEILLE</text>
-              <text class="lbl" x="436" y="126">A42 · GENÈVE</text>
-              <text class="lbl" x="420" y="292">A43 · GRENOBLE</text>
-              <text class="lbl" x="452" y="20">RHÔNE</text>
-              <text class="lbl" x="148" y="16">SAÔNE</text>
-              <text class="lbl" x="176" y="232">LYON</text>
-              <text class="lbl" x="226" y="116">CALUIRE</text>
-              <text class="lbl" x="344" y="200">BRON</text>
-              <text class="lbl" x="300" y="318">VÉNISSIEUX</text>
-              <text class="lbl" x="126" y="188" text-anchor="end">ÉCULLY</text>
-              <!-- ateliers + pings décalés -->
-              <circle class="ping" cx="240" cy="158" r="8"><animate attributeName="r" values="8;30" dur="2.4s" begin="0s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="2.4s" begin="0s" repeatCount="indefinite"/></circle>
-              <circle class="ping" cx="322" cy="184" r="8"><animate attributeName="r" values="8;30" dur="2.4s" begin="0.8s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="2.4s" begin="0.8s" repeatCount="indefinite"/></circle>
-              <circle class="ping" cx="268" cy="262" r="8"><animate attributeName="r" values="8;30" dur="2.4s" begin="1.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="2.4s" begin="1.6s" repeatCount="indefinite"/></circle>
-              <rect class="atelier" x="233" y="151" width="14" height="14" rx="1.5"/>
-              <rect class="atelier" x="315" y="177" width="14" height="14" rx="1.5"/>
-              <rect class="atelier" x="261" y="255" width="14" height="14" rx="1.5"/>
-              <text class="lbl-a" x="252" y="150">A1</text>
-              <text class="lbl-a" x="334" y="176">A2</text>
-              <text class="lbl-a" x="280" y="254">A3</text>
-              <!-- nord + échelle -->
-              <path d="M494 330l8 22-8-6-8 6z" style="fill: var(--ink)"/><text class="lbl-k" x="490" y="372">N</text>
-              <path class="thin" d="M20 388h60M20 383v10M80 383v10" style="stroke: var(--ink)" fill="none"/>
-              <text class="lbl" x="20" y="378">5 KM</text>
-            </g>
-          </svg>
+        <!-- Carte : rendu OpenStreetMap (zoom 11) exporté en image statique, pour fonctionner hors ligne et en double-clic.
+             Attribution OSM obligatoire (licence ODbL) : ne pas retirer le crédit ci-dessous. -->
+        <div class="mapbox">
+          <div class="map-inner">
+            <picture><source type="image/webp" srcset="images/carte-lyon.webp"><img src="images/carte-lyon.jpg" width="1400" height="820" loading="lazy" decoding="async" alt="Carte OpenStreetMap de l'agglomération lyonnaise avec le rayon d'intervention de 25 km et trois ateliers : Villeurbanne, Oullins et Vaulx-en-Velin."></picture>
+            <svg class="map-over" id="map" viewBox="0 0 1400 820" aria-hidden="true">
+              <circle class="radius" cx="700" cy="410" r="468.8"/>
+              <text x="1180" y="402">R = 25 KM</text>
+              <path class="centre" d="M688 410h24M700 398v24"/>
+              <circle class="ping" cx="784.8" cy="380.6" r="16"><animate attributeName="r" values="16;58" dur="2.4s" begin="0s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="2.4s" begin="0s" repeatCount="indefinite"/></circle>
+              <rect class="atelier" x="771.8" y="367.6" width="26" height="26" rx="3"/>
+              <text x="784.8" y="438" text-anchor="middle">A1 VILLEURBANNE</text>
+              <circle class="ping" cx="664.3" cy="500.6" r="16"><animate attributeName="r" values="16;58" dur="2.4s" begin="0.8s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="2.4s" begin="0.8s" repeatCount="indefinite"/></circle>
+              <rect class="atelier" x="651.3" y="487.6" width="26" height="26" rx="3"/>
+              <text x="664.3" y="558" text-anchor="middle">A2 OULLINS</text>
+              <circle class="ping" cx="828.6" cy="366.8" r="16"><animate attributeName="r" values="16;58" dur="2.4s" begin="1.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="2.4s" begin="1.6s" repeatCount="indefinite"/></circle>
+              <rect class="atelier" x="815.6" y="353.8" width="26" height="26" rx="3"/>
+              <text x="840" y="332" text-anchor="middle">A3 VAULX-EN-VELIN</text>
+            </svg>
+          </div>
+          <span class="osm">© <a href="https://www.openstreetmap.org/copyright" rel="noopener">les contributeurs d'OpenStreetMap</a></span>
         </div>
-        <figcaption>Fig. 6 — Zone d'intervention, rayon de 25 km autour de Lyon</figcaption>
+        <figcaption>Fig. 8 — Zone d'intervention : rayon de 25 km autour de Lyon. Fond de carte © les contributeurs d'OpenStreetMap</figcaption>
       </figure>
+      <div class="zone-info">
       <div>
         <h3>Ateliers</h3>
         <ul class="ateliers">
-          <li><b>A1 Croix-Rousse</b> · Lyon 1er, 4e, Caluire, Saône</li>
-          <li><b>A2 Villeurbanne</b> · Lyon 3e, 6e, Bron, Vaulx-en-Velin</li>
-          <li><b>A3 Gerland</b> · Lyon 7e, 8e, Vénissieux, Oullins</li>
+          <li><b>A1 Villeurbanne</b> · Lyon 1er à 6e, Villeurbanne, Bron, Caluire</li>
+          <li><b>A2 Oullins</b> · Lyon 7e à 9e, Oullins, Sainte-Foy, Tassin, Vénissieux</li>
+          <li><b>A3 Vaulx-en-Velin</b> · Vaulx, Décines, Rillieux, Saint-Priest</li>
         </ul>
-        <h3 style="margin-top:30px">Communes desservies</h3>
+      </div>
+      <div>
+        <h3>Communes desservies</h3>
         <ul class="towns">
           <li>Lyon 1er à 9e</li><li>Villeurbanne</li><li>Caluire-et-Cuire</li><li>Vénissieux</li><li>Bron</li><li>Vaulx-en-Velin</li><li>Saint-Fons</li><li>Oullins-Pierre-Bénite</li><li>Sainte-Foy-lès-Lyon</li><li>Tassin-la-Demi-Lune</li><li>Écully</li><li>Champagne-au-Mont-d'Or</li><li>Rillieux-la-Pape</li><li>Décines-Charpieu</li><li>Saint-Priest</li><li>Limonest</li>
         </ul>
         <div class="sec-cta">
           <a class="btn btn-brass" href="tel:+33400000000" data-call="zone"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.1-2 1.3a11.2 11.2 0 0 0 7.2 7.2l1.3-2 4.1 1.6v3.1a2 2 0 0 1-2.2 2A17.2 17.2 0 0 1 3.2 5.7a2 2 0 0 1 2-2.2Z"/></svg>Vérifier ma commune</a>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -913,11 +861,35 @@ body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
   </div>
 </section>
 
+<!-- ═══════════════ RÉASSURANCE : L'ARTISAN ═══════════════ -->
+<section class="sec grid-paper" id="artisan" aria-labelledby="h-art">
+  <div class="wrap trust">
+    <figure class="fig">
+      <!-- PHOTO CLIENT : portrait du vrai artisan, cadré serré, format 4:5, 800 × 1000.
+           ⚠️ Photo de banque d'images : la personne n'a pas consenti à représenter une entreprise. À remplacer avant toute mise en ligne commerciale. -->
+      <div class="pic"><picture><source type="image/webp" srcset="images/artisan-portrait.webp"><img src="images/artisan-portrait.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="Portrait d'un artisan souriant aux cheveux gris, en tenue de travail, deux clés à la main (photo d'illustration)."></picture></div>
+      <figcaption>Fig. 9 — Photo d'illustration (banque d'images)</figcaption>
+    </figure>
+    <div>
+      <h2 id="h-art"><span class="no">§6</span>Au bout du fil, un plombier. Pas un centre d'appel.</h2>
+      <p class="txt">Le numéro sonne à l'atelier. Celui qui décroche connaît le métier : il vous fait couper l'eau au bon endroit, vous pose trois questions et vous donne un prix. Pas de plateforme entre vous et lui, pas d'intervention revendue au plus offrant.</p>
+      <ul class="checks">
+        <li><b>Assurance décennale et RC pro</b>Attestations envoyées sur simple demande, avant l'intervention.</li>
+        <li><b>Facture détaillée</b>Pièces et main-d'œuvre séparées, ligne par ligne, comme sur le devis.</li>
+        <li><b>Garantie 2 ans</b>Sur la main-d'œuvre. Les pièces suivent la garantie du fabricant.</li>
+      </ul>
+      <div class="sec-cta">
+        <a class="btn btn-brass" href="tel:+33400000000" data-call="artisan"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.1-2 1.3a11.2 11.2 0 0 0 7.2 7.2l1.3-2 4.1 1.6v3.1a2 2 0 0 1-2.2 2A17.2 17.2 0 0 1 3.2 5.7a2 2 0 0 1 2-2.2Z"/></svg>Parler à un plombier · <span class="num">04 00 00 00 00</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════════ FAQ ═══════════════ -->
 <section class="sec tint" id="faq" aria-labelledby="h-faq">
   <div class="wrap">
     <div class="sec-head">
-      <h2 id="h-faq"><span class="no">§6</span>Les questions qu'on nous pose au téléphone</h2>
+      <h2 id="h-faq"><span class="no">§7</span>Les questions qu'on nous pose au téléphone</h2>
     </div>
     <div class="faq">
       <details>
@@ -994,10 +966,15 @@ body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
         </ul>
       </div>
     </div>
+    <!-- Mention de démonstration n°3 : encadré. À PERSONNALISER : nom / agence et URL du portfolio -->
+    <div class="demo-box">
+      <h2>Site de démonstration</h2>
+      <p>Conçu et développé par <strong>[VOTRE NOM / AGENCE]</strong>. HYDRION est une entreprise fictive : le numéro, l'adresse, les prix et les avis sont des exemples. Photos : banque d'images Pexels. Fond de carte © les contributeurs d'OpenStreetMap.</p>
+      <p><a href="https://votre-portfolio.example">Voir mon portfolio et mes autres réalisations</a></p>
+    </div>
     <div class="foot-bottom">
-      <p class="demo">Site de démonstration, HYDRION est une entreprise fictive.</p>
-      <!-- À PERSONNALISER : ton nom / ton agence et l'URL de ton portfolio -->
-      <p>Conception : [VOTRE NOM / AGENCE] · © 2026</p>
+      <p>© 2026 · Démonstration</p>
+      <p>Données cartographiques : OpenStreetMap (ODbL)</p>
     </div>
   </div>
 </footer>
@@ -1100,7 +1077,7 @@ body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
     v = Math.max(0, Math.min(100, v));
     cmp.style.setProperty('--pos', v + '%');
     range.value = Math.round(v);
-    range.setAttribute('aria-valuetext', Math.round(v) + ' % avant, ' + (100 - Math.round(v)) + ' % après');
+    range.setAttribute('aria-valuetext', Math.round(v) + ' % en travaux, ' + (100 - Math.round(v)) + ' % livré');
   }
   function fromEvent(e) { var r = cmp.getBoundingClientRect(); return (e.clientX - r.left) / r.width * 100; }
   var dragging = false;
