@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.nett-services-nettoyage-paris.fr/sitemap.xml

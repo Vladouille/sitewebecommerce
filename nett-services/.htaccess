@@ -1,0 +1,49 @@
+# =========================================================================
+# NETT SERVICES : configuration Apache (OVH, Hostinger, o2switch…)
+# Objectif : garder EXACTEMENT les adresses de l'ancien site (/bureaux, /copropriete…)
+# alors que les fichiers s'appellent bureaux.html, copropriete.html…
+# =========================================================================
+DirectoryIndex index.html
+Options -Indexes -MultiViews
+ErrorDocument 404 /index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # TODO HTTPS / www : décommenter une fois le certificat SSL actif (l'ancien site utilisait https://www.)
+  # RewriteCond %{HTTPS} off [OR]
+  # RewriteCond %{HTTP_HOST} !^www\. [NC]
+  # RewriteRule ^ https://www.nett-services-nettoyage-paris.fr%{REQUEST_URI} [R=301,L]
+
+  # /index.html -> /
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+  RewriteRule ^ / [R=301,L]
+
+  # /bureaux.html -> /bureaux (redirection 301 visible, pour les liens bruts)
+  RewriteCond %{THE_REQUEST} \s/+([a-z0-9-]+)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # /bureaux/ -> /bureaux
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^([a-z0-9-]+)/$ /$1 [R=301,L]
+
+  # /bureaux -> sert bureaux.html, SANS redirection (même adresse que l'ancien site)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^([a-z0-9-]+)$ $1.html [L]
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript image/svg+xml application/json application/xml text/xml text/plain
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/webp "access plus 6 months"
+  ExpiresByType image/jpeg "access plus 6 months"
+  ExpiresByType image/png "access plus 6 months"
+  ExpiresByType image/svg+xml "access plus 6 months"
+</IfModule>

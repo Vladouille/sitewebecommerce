@@ -1,0 +1,206 @@
+{
+ "immeuble-moderne-copropriete": {
+  "w": 1280,
+  "h": 1280
+ },
+ "lavage-sol-hall": {
+  "w": 1920,
+  "h": 763
+ },
+ "lavage-sol-serpilliere": {
+  "w": 1920,
+  "h": 1097
+ },
+ "escalier-parties-communes": {
+  "w": 1920,
+  "h": 1280
+ },
+ "entree-immeuble": {
+  "w": 1920,
+  "h": 1091
+ },
+ "cabinet-dentaire": {
+  "w": 1047,
+  "h": 1047
+ },
+ "moquette-bureaux-vapeur": {
+  "w": 1920,
+  "h": 1076
+ },
+ "local-poubelle-exterieur": {
+  "w": 1920,
+  "h": 1280
+ },
+ "alignement-poubelles": {
+  "w": 1920,
+  "h": 1251
+ },
+ "galerie-commerciale": {
+  "w": 1920,
+  "h": 1280
+ },
+ "chariot-couloir": {
+  "w": 1920,
+  "h": 1076
+ },
+ "couloir-ehpad": {
+  "w": 1920,
+  "h": 1280
+ },
+ "immeuble-paris-20": {
+  "w": 1920,
+  "h": 1280
+ },
+ "surfaces-vitrees": {
+  "w": 1920,
+  "h": 1280
+ },
+ "moquette-vapeur": {
+  "w": 1920,
+  "h": 1047
+ },
+ "chariot-menage": {
+  "w": 1440,
+  "h": 1440
+ },
+ "vitres-raclette": {
+  "w": 1920,
+  "h": 1047
+ },
+ "galerie-commerciale-sol": {
+  "w": 1920,
+  "h": 845
+ },
+ "salle-examen-medical": {
+  "w": 1920,
+  "h": 1076
+ },
+ "chambre-medicale-sol": {
+  "w": 1920,
+  "h": 991
+ },
+ "tapis-entree-immeuble": {
+  "w": 1076,
+  "h": 1076
+ },
+ "facade-vitree": {
+  "w": 1920,
+  "h": 1072
+ },
+ "gardien-immeuble": {
+  "w": 1920,
+  "h": 1072
+ },
+ "communs-immeuble-depoussierage": {
+  "w": 1072,
+  "h": 1072
+ },
+ "agents-bureaux": {
+  "w": 1920,
+  "h": 1072
+ },
+ "local-materiel": {
+  "w": 1920,
+  "h": 1047
+ },
+ "agent-proprete": {
+  "w": 1920,
+  "h": 1075
+ },
+ "exterieurs-copropriete": {
+  "w": 1920,
+  "h": 1072
+ },
+ "immeuble-haussmannien": {
+  "w": 1920,
+  "h": 1282
+ },
+ "surfaceuse-lustrage": {
+  "w": 1920,
+  "h": 1280
+ },
+ "sacs-poubelles": {
+  "w": 1920,
+  "h": 1281
+ },
+ "tri-dechets": {
+  "w": 1920,
+  "h": 629
+ },
+ "accueil-conciergerie": {
+  "w": 1920,
+  "h": 1280
+ },
+ "desinfection-galerie": {
+  "w": 1920,
+  "h": 1280
+ },
+ "desinfection-ascenseur": {
+  "w": 1920,
+  "h": 1280
+ },
+ "couloir-chariot": {
+  "w": 1920,
+  "h": 970
+ },
+ "nettoyage-vitre-eponge": {
+  "w": 1920,
+  "h": 1280
+ },
+ "produits-nettoyage": {
+  "w": 1920,
+  "h": 1280
+ },
+ "chariot-galerie": {
+  "w": 1080,
+  "h": 1080
+ },
+ "bureaux-partages": {
+  "w": 1920,
+  "h": 1080
+ },
+ "agent-couloir-bureaux": {
+  "w": 1920,
+  "h": 908
+ },
+ "agent-communs-immeuble": {
+  "w": 1920,
+  "h": 881
+ },
+ "lit-medical": {
+  "w": 1920,
+  "h": 1080
+ },
+ "cloison-vitree": {
+  "w": 1920,
+  "h": 1280
+ },
+ "vitre-raclette-gant": {
+  "w": 1920,
+  "h": 1282
+ },
+ "zones-communes-essuyage": {
+  "w": 1920,
+  "h": 1280
+ },
+ "essuyage-surface": {
+  "w": 1920,
+  "h": 1080
+ },
+ "porte-vitree": {
+  "w": 1320,
+  "h": 1320
+ },
+ "moquette-karcher": {
+  "w": 1920,
+  "h": 1076
+ },
+ "chariot-etablissement-sante": {
+  "w": 1076,
+  "h": 1076
+ },
+ "bureaux-administratifs": {
+  "w": 1280,
+  "h": 1280
+ }
+}

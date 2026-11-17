@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== SEO ===== -->
+  <title>Nettoyage professionnel Paris &amp; Île-de-France | C'DU NETT</title>
+  <meta name="description" content="C'DU NETT MULTISERVICES : nettoyage et entretien professionnel de bureaux, commerces, copropriétés et résidences à Paris et en Île-de-France. Devis gratuit, du lundi au samedi.">
+  <!-- TODO domaine : vérifier que le site sera bien publié sur https://cdunett.fr/ (sinon, remplacer partout) -->
+  <link rel="canonical" href="https://cdunett.fr/">
+  <meta name="theme-color" content="#4B6368">
+
+  <!-- ===== Open Graph (partage réseaux sociaux / messageries) ===== -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="C'DU NETT MULTISERVICES">
+  <meta property="og:title" content="Nettoyage professionnel à Paris et en Île-de-France | C'DU NETT">
+  <meta property="og:description" content="Bureaux, commerces, copropriétés, résidences : nettoyage et entretien professionnel. Devis gratuit, du lundi au samedi de 8h à 17h.">
+  <meta property="og:url" content="https://cdunett.fr/">
+  <meta property="og:image" content="https://cdunett.fr/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="C'DU NETT MULTISERVICES, la propreté en toute sérénité">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- ===== Favicons ===== -->
+  <link rel="icon" href="assets/img/icone-site-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/img/icone-site-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/icone-site-180.png">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- ===== Police Lato embarquée (aucun appel à Google = rien à déclarer côté RGPD).
+       Chargée sans bloquer l'affichage ; fonctionne aussi en ouvrant le fichier par double-clic. ===== -->
+  <link rel="preload" href="assets/css/fonts.css" as="style">
+  <link rel="stylesheet" href="assets/css/fonts.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="assets/css/fonts.css"></noscript>
+
+  <!-- Active les animations uniquement si JavaScript tourne (sinon tout reste visible) -->
+  <script>
+    document.documentElement.classList.add('js');
+    /* Ouvert dans un sous-dossier sans « / » final (ex. /cdunett) : les liens relatifs partiraient vers la racine du serveur. */
+    if (location.protocol.indexOf('http') === 0 && !/(\/|\.html)$/.test(location.pathname)) location.replace(location.pathname + '/' + location.search + location.hash);
+  </script>
+  <script src="assets/js/main.js" defer></script>
+
+  <!-- ===== Données structurées : entreprise + 2 agences =====
+       Note : "CleaningService" n'existe pas dans schema.org, d'où LocalBusiness.
+       TODO adresses : ajouter streetAddress (et postalCode pour Paris) dès que le client les fournit,
+       Google en a besoin pour afficher la fiche locale enrichie. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://cdunett.fr/#organisation",
+        "name": "C'DU NETT MULTISERVICES",
+        "slogan": "La propreté en toute sérénité",
+        "url": "https://cdunett.fr/",
+        "logo": "https://cdunett.fr/assets/img/icone-site-192.png",
+        "email": "cdunettmultiservices@gmail.com",
+        "areaServed": [{"@type": "City", "name": "Paris"}, {"@type": "AdministrativeArea", "name": "Île-de-France"}]
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://cdunett.fr/#agence-paris",
+        "name": "C'DU NETT MULTISERVICES – Agence de Paris",
+        "description": "Nettoyage et entretien professionnel pour entreprises, copropriétés et particuliers à Paris et en Île-de-France.",
+        "parentOrganization": {"@id": "https://cdunett.fr/#organisation"},
+        "url": "https://cdunett.fr/",
+        "image": "https://cdunett.fr/assets/img/og-image.jpg",
+        "telephone": "+33143893997",
+        "email": "cdunettmultiservices@gmail.com",
+        "address": {"@type": "PostalAddress", "addressLocality": "Paris", "addressRegion": "Île-de-France", "addressCountry": "FR"},
+        "areaServed": [{"@type": "City", "name": "Paris"}, {"@type": "AdministrativeArea", "name": "Île-de-France"}],
+        "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "08:00", "closes": "17:00"}]
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://cdunett.fr/#agence-valenton",
+        "name": "C'DU NETT MULTISERVICES – Agence de Valenton",
+        "description": "Nettoyage et entretien professionnel pour entreprises, copropriétés et particuliers dans le Val-de-Marne et en Île-de-France.",
+        "parentOrganization": {"@id": "https://cdunett.fr/#organisation"},
+        "url": "https://cdunett.fr/",
+        "image": "https://cdunett.fr/assets/img/og-image.jpg",
+        "telephone": ["+33658679456", "+33967222579"],
+        "email": "cdunettmultiservices@gmail.com",
+        "address": {"@type": "PostalAddress", "addressLocality": "Valenton", "postalCode": "94460", "addressRegion": "Île-de-France", "addressCountry": "FR"},
+        "areaServed": [{"@type": "AdministrativeArea", "name": "Val-de-Marne"}, {"@type": "AdministrativeArea", "name": "Île-de-France"}],
+        "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "08:00", "closes": "17:00"}]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<!-- ===== Sprite d'icônes SVG (inline, réutilisées via <use>, aucune police d'icônes) ===== -->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M21 16.5v3a2 2 0 0 1-2.2 2 19.5 19.5 0 0 1-8.5-3 19.2 19.2 0 0 1-6-6 19.5 19.5 0 0 1-3-8.5A2 2 0 0 1 3.3 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.4 2.1L7.3 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.5 1.6z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6.5 8.5 6 8.5-6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.4a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.6" r="2.4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h4"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.8-3.4 8-8 9-4.6-1-8-4.2-8-9V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="1.5"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-team" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.4"/><path d="M16.2 14.1A5 5 0 0 1 21 19"/></symbol>
+    <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 14a4 4 0 0 0 7 0M9 9.5h.01M15 9.5h.01"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.6 14.2 7 22l5-3 5 3-1.6-7.8"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 9.5V21h14V9.5M10 21v-6h4v6"/></symbol>
+    <symbol id="i-office" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2M10 21v-3h4v3"/></symbol>
+    <!-- Services -->
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M4 21h16M18.5 3.5v3M17 5h3"/></symbol>
+    <symbol id="i-scrub" viewBox="0 0 24 24"><path d="M14 3v10M11 3h6"/><rect x="5" y="13" width="14" height="5" rx="1"/><path d="M4 21h16"/></symbol>
+    <symbol id="i-carpet" viewBox="0 0 24 24"><circle cx="17" cy="13" r="3.5"/><circle cx="17" cy="13" r="1"/><path d="M17 9.5H4v7h13M6 16.5v3M9.5 16.5v3M13 16.5v3"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-4.5L19 8v13"/><path d="M9 11h.01M15 11h.01M9 15h.01M15 15h.01M10 21v-3h4v3"/></symbol>
+    <symbol id="i-store" viewBox="0 0 24 24"><path d="M3 9l2-5h14l2 5"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 12v9h14v-9M10 21v-5h4v5"/></symbol>
+    <symbol id="i-medical" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M12 8v8M8 12h8"/></symbol>
+    <symbol id="i-window" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M12 3v18M4 12h16M7 8.5l2-2M14.5 9l3-3"/></symbol>
+    <symbol id="i-roll" viewBox="0 0 24 24"><circle cx="8" cy="9" r="5"/><circle cx="8" cy="9" r="1.4"/><path d="M8 4h8a5 5 0 0 1 0 10M13 14v7h5v-7"/></symbol>
+    <symbol id="i-bin" viewBox="0 0 24 24"><path d="M4 7h16M10 4h4M6 7l1 14h10l1-14M10 11v6M14 11v6"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19C5 11 10 5 20 4c-1 10-7 15-15 15z"/><path d="M5 19l8.5-8.5"/></symbol>
+    <symbol id="i-parking" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M9.5 17V7h3.5a3 3 0 0 1 0 6H9.5"/></symbol>
+    <symbol id="i-helmet" viewBox="0 0 24 24"><path d="M3 18h18M5 18v-3a7 7 0 0 1 14 0v3M10 8.4V5h4v3.4"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 6h12v10H2zM14 9h4l3 3v4h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+    <symbol id="i-roller" viewBox="0 0 24 24"><rect x="3" y="3" width="15" height="6" rx="1"/><path d="M18 6h3v5h-9v3"/><rect x="10" y="14" width="4" height="7" rx="1"/></symbol>
+    <symbol id="i-spray" viewBox="0 0 24 24"><path d="M8 10h7l1 3v8H7v-8zM10 10V6h4l3-2"/><path d="M19.5 7.5h.01M21 5h.01M21 10h.01"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+
+<!-- =====================================================================
+     1-2. EN-TÊTE : barre de contact (disparaît au scroll) + header sticky
+     ===================================================================== -->
+<header class="site-header" id="haut">
+  <div class="topbar">
+    <div class="container topbar__inner">
+      <p class="topbar__item"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg> Lun–Sam · 08h–17h</p>
+      <a class="topbar__item" href="tel:+33143893997"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg> 01 43 89 39 97</a>
+      <a class="topbar__item topbar__mail" href="mailto:cdunettmultiservices@gmail.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg> cdunettmultiservices@gmail.com</a>
+    </div>
+  </div>
+
+  <div class="mainbar">
+    <div class="container mainbar__inner">
+      <!-- Logo JPG à fond blanc : volontairement posé sur un header blanc (pas de rectangle visible).
+           TODO logo : demander au client un logo vectoriel (SVG/AI/PDF) pour la netteté sur écrans Retina. -->
+      <a class="logo" href="#haut" aria-label="C'DU NETT MULTISERVICES, retour en haut de page">
+        <picture>
+          <source srcset="assets/img/logo.webp" type="image/webp">
+          <img src="assets/img/logo.jpg" alt="C'DU NETT MULTISERVICES" width="271" height="71">
+        </picture>
+      </a>
+
+      <nav class="nav" id="menu" aria-label="Menu principal">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="#services">Services</a></li>
+          <li><a class="nav__link" href="#pour-qui">Pour qui</a></li>
+          <li><a class="nav__link" href="#qualites">Nos qualités</a></li>
+          <li><a class="nav__link" href="#agences">Agences</a></li>
+          <li><a class="nav__link" href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav__mobile-extra">
+          <a class="btn btn--accent btn--block" href="tel:+33143893997"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg> 01 43 89 39 97</a>
+          <p>Du lundi au samedi, de 08h à 17h</p>
+        </div>
+      </nav>
+
+      <a class="btn btn--accent btn--header shine" href="#contact">Devis gratuit</a>
+
+      <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu">
+        <span class="burger__bar"></span><span class="burger__bar"></span><span class="burger__bar"></span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="nav-backdrop" hidden></div>
+
+<main id="contenu">
+
+  <!-- =====================================================================
+       3. HERO
+       ===================================================================== -->
+  <section class="hero" aria-labelledby="hero-titre">
+    <!-- Image d'origine (2186×450, déjà floue à la source) : utilisée en texture assombrie, jamais seule en plein écran -->
+    <picture class="hero__bg" aria-hidden="true">
+      <source type="image/webp" srcset="assets/img/hero-bg-1200.webp 1200w, assets/img/hero-bg.webp 2186w" sizes="100vw">
+      <img src="assets/img/hero-bg.jpg" srcset="assets/img/hero-bg-1200.jpg 1200w, assets/img/hero-bg.jpg 2186w" sizes="100vw" alt="" width="2186" height="450" fetchpriority="high">
+    </picture>
+    <canvas class="hero__bubbles" aria-hidden="true"></canvas>
+
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <h1 class="hero__title" id="hero-titre">
+          <span class="hero__title-main"><span class="w" style="--w:0">Nettoyage</span> <span class="w" style="--w:1">&amp;</span> <span class="w" style="--w:2">Entretien</span> <span class="w" style="--w:3">Professionnel</span></span>
+          <span class="hero__title-brand"><span class="w" style="--w:4">C'DU</span> <span class="w" style="--w:5">NETT</span> <span class="w" style="--w:6">MULTISERVICES</span></span>
+        </h1>
+        <p class="hero__slogan">La propreté en toute sérénité</p>
+        <p class="hero__lead">Bureaux, commerces, copropriétés ou résidences privées&nbsp;: nos équipes interviennent à Paris et dans toute l'Île-de-France, du lundi au samedi.</p>
+
+        <div class="hero__ctas">
+          <a class="btn btn--accent shine shine--auto" href="#contact">Demander un devis</a>
+          <a class="btn btn--ghost" href="tel:+33143893997"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg> Appeler</a>
+        </div>
+
+        <ul class="badges" aria-label="Nos engagements">
+          <li class="badge"><svg class="icon" aria-hidden="true"><use href="#i-doc"/></svg> Devis gratuit</li>
+          <li class="badge"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg> Formation amiante SS4</li>
+          <li class="badge"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg> 6j/7</li>
+        </ul>
+      </div>
+
+      <aside class="hero__card" aria-label="Contact rapide">
+        <p class="hero__card-title">Appelez l'agence la plus proche</p>
+        <a class="hero__card-row" href="tel:+33143893997">
+          <span class="hero__card-label">Paris (75)</span>
+          <span class="hero__card-tel">01 43 89 39 97</span>
+        </a>
+        <a class="hero__card-row" href="tel:+33658679456">
+          <span class="hero__card-label">Valenton (94)</span>
+          <span class="hero__card-tel">06 58 67 94 56</span>
+        </a>
+        <p class="hero__card-foot"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg> Du lundi au samedi, 08h–17h</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       4. POUR QUI
+       ===================================================================== -->
+  <section class="section" id="pour-qui" aria-labelledby="pour-qui-titre">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <h2 class="section-title" id="pour-qui-titre">Pour qui <span class="nowrap">intervenons-nous&nbsp;?</span></h2>
+        <p class="section-sub">Des professionnels aux particuliers, un même niveau d'exigence.</p>
+      </header>
+
+      <div class="audience" data-stagger>
+        <article class="audience-card" data-reveal>
+          <div class="audience-card__media">
+            <!-- TODO photo : image de banque d'images de 2017 (600×480), à remplacer par une vraie photo de chantier du client -->
+            <picture>
+              <source type="image/webp" srcset="assets/img/professionnels-400.webp 400w, assets/img/professionnels.webp 600w" sizes="(min-width: 900px) 560px, 100vw">
+              <img src="assets/img/professionnels.jpg" srcset="assets/img/professionnels-400.jpg 400w, assets/img/professionnels.jpg 600w" sizes="(min-width: 900px) 560px, 100vw" alt="Hall d'accueil de bureaux entretenu" width="600" height="480" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="audience-card__body">
+            <h3 class="audience-card__title"><svg class="icon" aria-hidden="true"><use href="#i-office"/></svg> Professionnels</h3>
+            <p>Un entretien régulier et fiable de vos locaux, pour que vos équipes et vos clients soient accueillis dans un espace impeccable.</p>
+            <ul class="checklist">
+              <li>Bureaux</li><li>Commerces</li><li>Copropriétés</li><li>Syndics</li>
+              <li>Laboratoires</li><li>Professions libérales</li><li>Hôtels</li><li>Parkings</li>
+            </ul>
+            <a class="btn btn--primary shine" href="#contact" data-client="Professionnel">Devis professionnel</a>
+          </div>
+        </article>
+
+        <article class="audience-card" data-reveal>
+          <div class="audience-card__media">
+            <picture>
+              <source type="image/webp" srcset="assets/img/particuliers-400.webp 400w, assets/img/particuliers.webp 600w" sizes="(min-width: 900px) 560px, 100vw">
+              <img src="assets/img/particuliers.jpg" srcset="assets/img/particuliers-400.jpg 400w, assets/img/particuliers.jpg 600w" sizes="(min-width: 900px) 560px, 100vw" alt="Agent d'entretien nettoyant le sol d'un salon" width="600" height="480" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="audience-card__body">
+            <h3 class="audience-card__title"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg> Particuliers</h3>
+            <p>Un service de nettoyage et d'entretien professionnel et efficace pour votre résidence ou votre propriété privée.</p>
+            <ul class="checklist">
+              <li>Résidences</li><li>Propriétés privées</li>
+            </ul>
+            <a class="btn btn--primary shine" href="#contact" data-client="Particulier">Devis particulier</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Compteurs : uniquement des données réelles (16 services listés, 2 agences, 6 jours sur 7) -->
+      <ul class="stats" data-stagger aria-label="C'DU NETT en chiffres">
+        <li class="stat" data-reveal><span class="stat__num" data-count="16">16</span><span class="stat__label">services spécialisés</span></li>
+        <li class="stat" data-reveal><span class="stat__num" data-count="2">2</span><span class="stat__label">agences, à Paris et Valenton</span></li>
+        <li class="stat" data-reveal><span class="stat__num"><span data-count="6">6</span>j/7</span><span class="stat__label">du lundi au samedi, 08h–17h</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       5. SERVICES (filtrables)
+       ===================================================================== -->
+  <section class="section section--tint" id="services" aria-labelledby="services-titre">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <h2 class="section-title" id="services-titre">Nos services</h2>
+        <p class="section-sub">16 prestations, un seul interlocuteur pour l'entretien de vos espaces.</p>
+      </header>
+
+      <div class="filters" role="group" aria-label="Filtrer les services par catégorie" data-reveal>
+        <button class="filter is-active" type="button" data-filter="tous" aria-pressed="true">Tous</button>
+        <button class="filter" type="button" data-filter="sols" aria-pressed="false">Sols</button>
+        <button class="filter" type="button" data-filter="locaux" aria-pressed="false">Locaux</button>
+        <button class="filter" type="button" data-filter="exterieur" aria-pressed="false">Extérieur</button>
+        <button class="filter" type="button" data-filter="specialise" aria-pressed="false">Spécialisé</button>
+      </div>
+      <p class="visually-hidden" aria-live="polite" id="filtre-statut"></p>
+
+      <ul class="services" data-stagger>
+        <!-- Sols -->
+        <li class="service" data-cat="sols" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-sparkle"/></svg></span><h3>Cristallisation de sols en marbre</h3><p>Le marbre retrouve son éclat et gagne une protection durable.</p></div></li>
+        <li class="service" data-cat="sols" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-scrub"/></svg></span><h3>Décapage de tous types de sols</h3><p>Élimination des anciennes couches et des salissures incrustées, quel que soit le revêtement.</p></div></li>
+        <li class="service" data-cat="sols" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-carpet"/></svg></span><h3>Nettoyage de moquettes</h3><p>Un nettoyage en profondeur de vos moquettes et zones de passage.</p></div></li>
+        <!-- Locaux -->
+        <li class="service" data-cat="locaux" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-office"/></svg></span><h3>Nettoyage et entretien de locaux</h3><p>L'entretien régulier de vos bureaux, selon un planning défini ensemble.</p></div></li>
+        <li class="service" data-cat="locaux" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-building"/></svg></span><h3>Immeubles et parties communes</h3><p>Halls, escaliers et paliers soignés pour les copropriétés et les syndics.</p></div></li>
+        <li class="service" data-cat="locaux" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-store"/></svg></span><h3>Nettoyage de commerces</h3><p>Une boutique impeccable pour accueillir vos clients dans les meilleures conditions.</p></div></li>
+        <li class="service" data-cat="locaux" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-medical"/></svg></span><h3>Cabinets médicaux et pharmacies</h3><p>Un nettoyage rigoureux, adapté aux exigences d'hygiène des professions de santé.</p></div></li>
+        <li class="service" data-cat="locaux" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-window"/></svg></span><h3>Nettoyage de vitres</h3><p>Vitres, baies et vitrines nettes, sans traces.</p></div></li>
+        <li class="service" data-cat="locaux" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-roll"/></svg></span><h3>Consommables sanitaires</h3><p>Fourniture et pose des consommables de vos sanitaires.</p></div></li>
+        <li class="service" data-cat="locaux" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-bin"/></svg></span><h3>Conciergerie et locaux poubelles</h3><p>Gestion des locaux poubelles et sortie des conteneurs.</p></div></li>
+        <!-- Extérieur -->
+        <li class="service" data-cat="exterieur" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-leaf"/></svg></span><h3>Entretien d'espaces verts</h3><p>L'entretien des espaces verts de vos résidences et de vos locaux.</p></div></li>
+        <li class="service" data-cat="exterieur" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-parking"/></svg></span><h3>Nettoyage de parkings</h3><p>Des sols et des accès de parking propres et sûrs.</p></div></li>
+        <!-- Spécialisé -->
+        <li class="service" data-cat="specialise" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-helmet"/></svg></span><h3>Nettoyage de fin de chantier</h3><p>Poussières et résidus de travaux éliminés, des locaux prêts à l'emploi.</p></div></li>
+        <li class="service" data-cat="specialise" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-truck"/></svg></span><h3>Débarras et encombrants</h3><p>Débarras de locaux et enlèvement de vos encombrants.</p></div></li>
+        <li class="service" data-cat="specialise" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-roller"/></svg></span><h3>Peinture et peinture d'enseignes</h3><p>Travaux de peinture et remise en peinture de vos enseignes.</p></div></li>
+        <li class="service" data-cat="specialise" data-reveal><div class="service__card"><span class="service__icon"><svg aria-hidden="true"><use href="#i-spray"/></svg></span><h3>Désinfection</h3><p>Désinfection de vos locaux et de vos surfaces de contact.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       6. NOS QUALITÉS
+       ===================================================================== -->
+  <section class="section section--dark" id="qualites" aria-labelledby="qualites-titre">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <h2 class="section-title" id="qualites-titre">Nos qualités</h2>
+        <p class="section-sub">Ce qui fait la différence sur chaque intervention.</p>
+      </header>
+      <ul class="qualities" data-stagger>
+        <li class="quality" data-reveal><svg class="quality__icon" aria-hidden="true"><use href="#i-pin"/></svg><h3>Proximité</h3><p>Deux agences, à Paris et à Valenton.</p></li>
+        <li class="quality" data-reveal><svg class="quality__icon" aria-hidden="true"><use href="#i-doc"/></svg><h3>Devis gratuit</h3><p>L'étude de votre besoin est offerte.</p></li>
+        <li class="quality" data-reveal><svg class="quality__icon" aria-hidden="true"><use href="#i-team"/></svg><h3>Encadrement sur site</h3><p>Suivi et formation du personnel sur chaque site.</p></li>
+        <li class="quality" data-reveal><svg class="quality__icon" aria-hidden="true"><use href="#i-clock"/></svg><h3>Fiabilité et ponctualité</h3><p>Des interventions aux horaires convenus.</p></li>
+        <li class="quality" data-reveal><svg class="quality__icon" aria-hidden="true"><use href="#i-smile"/></svg><h3>Satisfaction client</h3><p>La qualité du résultat avant tout.</p></li>
+        <li class="quality" data-reveal><svg class="quality__icon" aria-hidden="true"><use href="#i-award"/></svg><h3>Professionnalisme</h3><p>Un travail sérieux, du devis à l'intervention.</p></li>
+        <li class="quality" data-reveal><svg class="quality__icon" aria-hidden="true"><use href="#i-calendar"/></svg><h3>Planification</h3><p>Chaque intervention est organisée et planifiée.</p></li>
+        <li class="quality" data-reveal><svg class="quality__icon" aria-hidden="true"><use href="#i-shield"/></svg><h3>Formation amiante SS4</h3><p>Tous nos techniciens sont formés.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       7. BANDE CTA
+       ===================================================================== -->
+  <section class="cta-band" aria-labelledby="cta-titre">
+    <div class="container cta-band__inner" data-reveal>
+      <div>
+        <!-- TODO délai : faire confirmer par le client le délai de réponse réel avant publication -->
+        <h2 class="cta-band__title" id="cta-titre">Un devis gratuit sous <span class="todo">[À COMPLÉTER : 24h ?]</span>&nbsp;?</h2>
+        <p>Décrivez votre besoin en quelques lignes, nous revenons vers vous avec une proposition claire.</p>
+      </div>
+      <div class="cta-band__actions">
+        <a class="btn btn--dark shine" href="#contact">Demander un devis</a>
+        <a class="btn btn--outline-dark" href="tel:+33143893997"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg> 01 43 89 39 97</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       8. AGENCES
+       ===================================================================== -->
+  <section class="section" id="agences" aria-labelledby="agences-titre">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <h2 class="section-title" id="agences-titre">Nos agences</h2>
+        <p class="section-sub">Nous intervenons à Paris et dans toute l'Île-de-France.</p>
+      </header>
+      <div class="agencies" data-stagger>
+        <article class="agency" data-reveal>
+          <h3 class="agency__title"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg> Paris <span>(75)</span></h3>
+          <p class="agency__address"><span class="todo">[À COMPLÉTER : adresse de l'agence de Paris]</span></p>
+          <a class="agency__tel" href="tel:+33143893997"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg> 01 43 89 39 97</a>
+          <p class="agency__meta"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg> Du lundi au samedi, 08h–17h</p>
+          <a class="agency__mail link" href="mailto:cdunettmultiservices@gmail.com">cdunettmultiservices@gmail.com</a>
+        </article>
+        <article class="agency" data-reveal>
+          <h3 class="agency__title"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg> Valenton <span>(94)</span></h3>
+          <p class="agency__address"><span class="todo">[À COMPLÉTER : adresse de l'agence de Valenton]</span></p>
+          <a class="agency__tel" href="tel:+33658679456"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg> 06 58 67 94 56</a>
+          <a class="agency__tel" href="tel:+33967222579"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg> 09 67 22 25 79</a>
+          <p class="agency__meta"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg> Du lundi au samedi, 08h–17h</p>
+          <a class="agency__mail link" href="mailto:cdunettmultiservices@gmail.com">cdunettmultiservices@gmail.com</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       9. CONTACT
+       ===================================================================== -->
+  <section class="section section--tint" id="contact" aria-labelledby="contact-titre">
+    <div class="container contact">
+      <div class="contact__intro" data-reveal>
+        <h2 class="section-title section-title--left" id="contact-titre">Demandez votre devis gratuit</h2>
+        <p>Remplissez le formulaire, ou contactez directement l'agence la plus proche.</p>
+        <ul class="contact__direct">
+          <li><a href="tel:+33143893997"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg> Paris&nbsp;: 01 43 89 39 97</a></li>
+          <li><a href="tel:+33658679456"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg> Valenton&nbsp;: 06 58 67 94 56</a></li>
+          <li><a href="tel:+33967222579"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg> Valenton&nbsp;: 09 67 22 25 79</a></li>
+          <li><a href="mailto:cdunettmultiservices@gmail.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg> cdunettmultiservices@gmail.com</a></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg> Du lundi au samedi, 08h–17h</li>
+        </ul>
+      </div>
+
+      <!-- =============================================================
+           FORMULAIRE : envoi via Formspree (aucun serveur à gérer)
+           TODO FORMSPREE :
+             1. Créer un compte gratuit sur https://formspree.io avec cdunettmultiservices@gmail.com
+             2. Créer un formulaire, copier son identifiant (ex. "xyzabcd")
+             3. Remplacer VOTRE_ID_FORMSPREE ci-dessous par cet identifiant
+           Tant que ce n'est pas fait, le bouton "Envoyer" ouvre la messagerie du visiteur (mailto),
+           pour qu'aucune demande ne soit perdue.
+           ============================================================= -->
+      <form class="form" id="form-devis" action="https://formspree.io/f/VOTRE_ID_FORMSPREE" method="POST" novalidate data-reveal>
+        <input type="hidden" name="_subject" value="Nouvelle demande de devis – site C'DU NETT">
+        <!-- Anti-spam (champ invisible que seuls les robots remplissent) -->
+        <p class="form__hp" aria-hidden="true"><label>Ne pas remplir <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
+
+        <div class="form__row">
+          <div class="field">
+            <label for="f-nom">Nom et prénom <span aria-hidden="true">*</span></label>
+            <input id="f-nom" name="nom" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="f-tel">Téléphone <span aria-hidden="true">*</span></label>
+            <input id="f-tel" name="telephone" type="tel" autocomplete="tel" inputmode="tel" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-email">Email <span aria-hidden="true">*</span></label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required>
+        </div>
+
+        <div class="form__row">
+          <fieldset class="field field--radios">
+            <legend>Vous êtes <span aria-hidden="true">*</span></legend>
+            <label class="radio"><input type="radio" name="type_client" value="Professionnel" required> <span>Professionnel</span></label>
+            <label class="radio"><input type="radio" name="type_client" value="Particulier"> <span>Particulier</span></label>
+          </fieldset>
+          <div class="field">
+            <label for="f-service">Service souhaité</label>
+            <select id="f-service" name="service">
+              <option value="">Choisir un service</option>
+              <optgroup label="Sols">
+                <option>Cristallisation de sols en marbre</option>
+                <option>Décapage de tous types de sols</option>
+                <option>Nettoyage de moquettes</option>
+              </optgroup>
+              <optgroup label="Locaux">
+                <option>Nettoyage et entretien de locaux</option>
+                <option>Immeubles et parties communes</option>
+                <option>Nettoyage de commerces</option>
+                <option>Cabinets médicaux et pharmacies</option>
+                <option>Nettoyage de vitres</option>
+                <option>Consommables sanitaires</option>
+                <option>Conciergerie et locaux poubelles</option>
+              </optgroup>
+              <optgroup label="Extérieur">
+                <option>Entretien d'espaces verts</option>
+                <option>Nettoyage de parkings</option>
+              </optgroup>
+              <optgroup label="Spécialisé">
+                <option>Nettoyage de fin de chantier</option>
+                <option>Débarras et encombrants</option>
+                <option>Peinture et peinture d'enseignes</option>
+                <option>Désinfection</option>
+              </optgroup>
+              <option>Plusieurs services / autre</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-message">Votre besoin <span aria-hidden="true">*</span></label>
+          <textarea id="f-message" name="message" rows="5" required placeholder="Type de locaux, surface, fréquence souhaitée, adresse…"></textarea>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" name="consentement" value="oui" required>
+          <span>J'accepte que mes informations soient utilisées pour traiter ma demande de devis. <a class="link" href="mentions-legales.html#donnees">En savoir plus</a></span>
+        </label>
+
+        <p class="form__status" role="status" aria-live="polite"></p>
+
+        <div class="form__actions">
+          <button class="btn btn--accent shine" type="submit">Envoyer ma demande</button>
+          <!-- Bouton de secours : ouvre la messagerie du visiteur avec la demande pré-remplie -->
+          <a class="btn btn--outline" id="form-mailto" href="mailto:cdunettmultiservices@gmail.com?subject=Demande%20de%20devis">
+            <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg> Envoyer par email
+          </a>
+        </div>
+        <p class="form__note">* Champs obligatoires</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- =====================================================================
+     10. PIED DE PAGE (sans bourrage de mots-clés)
+     ===================================================================== -->
+<footer class="site-footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <p class="footer__logo">
+        <picture>
+          <source srcset="assets/img/icone-site-192.webp" type="image/webp">
+          <img src="assets/img/icone-site-96.png" alt="" width="48" height="48" loading="lazy">
+        </picture>
+        <span>C'DU NETT<small>MULTISERVICES</small></span>
+      </p>
+      <p class="footer__slogan">La propreté en toute sérénité</p>
+      <p>Nettoyage et entretien professionnel à Paris et en Île-de-France.</p>
+      <!-- TODO réseaux -->
+    </div>
+
+    <div>
+      <h2 class="footer__title">Agences</h2>
+      <ul class="footer__list">
+        <li>Paris (75)&nbsp;: <a href="tel:+33143893997">01 43 89 39 97</a></li>
+        <li>Valenton (94)&nbsp;: <a href="tel:+33658679456">06 58 67 94 56</a></li>
+        <li>Valenton (94)&nbsp;: <a href="tel:+33967222579">09 67 22 25 79</a></li>
+        <li><a href="mailto:cdunettmultiservices@gmail.com">cdunettmultiservices@gmail.com</a></li>
+        <li>Du lundi au samedi, 08h–17h</li>
+      </ul>
+    </div>
+
+    <nav aria-label="Plan du site">
+      <h2 class="footer__title">Navigation</h2>
+      <ul class="footer__list">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#pour-qui">Pour qui</a></li>
+        <li><a href="#qualites">Nos qualités</a></li>
+        <li><a href="#agences">Agences</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="footer__title">Informations</h2>
+      <ul class="footer__list">
+        <li><a href="mentions-legales.html">Mentions légales</a></li>
+        <li><a href="mentions-legales.html#donnees">Données personnelles</a></li>
+        <li><a href="#contact">Demander un devis</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <div class="container">
+      <p>© 2026 C'DU NETT MULTISERVICES. Tous droits réservés.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- =====================================================================
+     11. BOUTON D'APPEL FLOTTANT (mobile uniquement)
+     ===================================================================== -->
+<a class="call-fab" href="tel:+33143893997" aria-label="Appeler l'agence de Paris au 01 43 89 39 97">
+  <svg aria-hidden="true"><use href="#i-phone"/></svg>
+</a>
+
+</body>
+</html>
