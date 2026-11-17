@@ -1,0 +1,43 @@
+# =========================================================================
+# C'DU NETT : configuration pour un hébergement Apache (OVH, Hostinger, o2switch…)
+# Ce fichier est ignoré sans risque par les autres serveurs.
+# =========================================================================
+
+# ----- Pas de liste des fichiers d'un dossier -----
+Options -Indexes
+
+# ----- Compression gzip (fichiers 3 à 4 fois plus légers) -----
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json image/svg+xml application/xml text/xml text/plain
+</IfModule>
+
+# ----- Cache navigateur : visiteurs récurrents = chargement instantané -----
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 week"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+  ExpiresByType image/webp "access plus 6 months"
+  ExpiresByType image/jpeg "access plus 6 months"
+  ExpiresByType image/png "access plus 6 months"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# ----- Redirections 301 des anciennes adresses WordPress -----
+# Sans elles, les liens existants vers l'ancien site (annuaires, emails, favoris) tomberaient en erreur 404.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # TODO HTTPS : décommenter les 2 lignes suivantes une fois le certificat SSL actif sur l'hébergement
+  # RewriteCond %{HTTPS} off
+  # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  RewriteRule ^contact/?$                       /#contact  [R=301,NE,L]
+  RewriteRule ^nos-agences/?$                   /#agences  [R=301,NE,L]
+  RewriteRule ^nos-engagements/?$               /#qualites [R=301,NE,L]
+  RewriteRule ^[0-9]{4}/[0-9]{2}/[0-9]{2}/.*$   /#services [R=301,NE,L]
+  RewriteRule ^(blog|tag|category|feed|author)(/.*)?$ / [R=301,L]
+  RewriteRule ^(wp-admin|wp-login\.php|xmlrpc\.php)(/.*)?$ / [R=301,L]
+</IfModule>
