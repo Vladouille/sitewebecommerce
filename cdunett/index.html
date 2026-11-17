@@ -37,7 +37,11 @@
   <noscript><link rel="stylesheet" href="assets/css/fonts.css"></noscript>
 
   <!-- Active les animations uniquement si JavaScript tourne (sinon tout reste visible) -->
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    document.documentElement.classList.add('js');
+    /* Ouvert dans un sous-dossier sans « / » final (ex. /cdunett) : les liens relatifs partiraient vers la racine du serveur. */
+    if (location.protocol.indexOf('http') === 0 && !/(\/|\.html)$/.test(location.pathname)) location.replace(location.pathname + '/' + location.search + location.hash);
+  </script>
   <script src="assets/js/main.js" defer></script>
 
   <!-- ===== Données structurées : entreprise + 2 agences =====

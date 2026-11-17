@@ -124,7 +124,7 @@ def head(page, title, desc, crumbs=None, preload=None):
         pre = (f'<link rel="preload" as="image" type="image/webp" imagesrcset="assets/img/{preload}-800.webp 800w, '
                f'assets/img/{preload}-1600.webp 1600w" imagesizes="(min-width: 960px) 50vw, 100vw" fetchpriority="high">')
     return f"""<!doctype html>
-<html lang="fr" data-domaine="{DOMAINE}">
+<html lang="fr" data-domaine="{DOMAINE}" data-page="{page}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -149,6 +149,11 @@ def head(page, title, desc, crumbs=None, preload=None):
 /* Avant tout affichage : rideau de transition et attente des animations (2,5 s maximum). */
 (function (d) {{
   var r = d.documentElement, rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Site ouvert dans un sous-dossier sans « / » final (ex. /nett-services) : sans ce correctif, les liens
+     relatifs partiraient vers la racine du serveur, donc vers un AUTRE site. On ajoute le « / ». */
+  if (location.protocol.indexOf('http') === 0 && r.getAttribute('data-page') === 'index' && !/(\\/|\\.html)$/.test(location.pathname)) {{
+    location.replace(location.pathname + '/' + location.search + location.hash);
+  }}
   r.classList.add('js');
   if (rm) return;
   r.classList.add('anim-attente');
@@ -737,7 +742,7 @@ def page_index():
 </div></section>
 """
     out += zone_section()
-    out += f'<section class="section" aria-label="Avis client"><div class="container">{avis_block()}</div></section>'
+    out += f'<section class="section" id="avis" aria-label="Avis client"><div class="container">{avis_block()}</div></section>'
     out += devis_section()
     out += footer()
     return out

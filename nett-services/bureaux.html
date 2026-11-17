@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr" data-domaine="nett-services-nettoyage-paris.fr">
+<html lang="fr" data-domaine="nett-services-nettoyage-paris.fr" data-page="bureaux">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +24,11 @@
 /* Avant tout affichage : rideau de transition et attente des animations (2,5 s maximum). */
 (function (d) {
   var r = d.documentElement, rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Site ouvert dans un sous-dossier sans « / » final (ex. /nett-services) : sans ce correctif, les liens
+     relatifs partiraient vers la racine du serveur, donc vers un AUTRE site. On ajoute le « / ». */
+  if (location.protocol.indexOf('http') === 0 && r.getAttribute('data-page') === 'index' && !/(\/|\.html)$/.test(location.pathname)) {
+    location.replace(location.pathname + '/' + location.search + location.hash);
+  }
   r.classList.add('js');
   if (rm) return;
   r.classList.add('anim-attente');
