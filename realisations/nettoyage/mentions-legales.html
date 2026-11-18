@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Mentions légales · site de démonstration</title>
+<script>
+  /* Préchargement des polices seulement en http(s) : en double-clic (file://), Chrome refuse le préchargement CORS et l'écrirait en console. */
+  if (location.protocol !== 'file:') ['space-grotesk-var', 'manrope-var'].forEach(function (f) {
+    var l = document.createElement('link'); l.rel = 'preload'; l.as = 'font'; l.type = 'font/woff2'; l.crossOrigin = 'anonymous'; l.href = 'assets/fonts/' + f + '.woff2'; document.head.appendChild(l);
+  });
+</script>
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/config.js"></script>
+<script>
+  (function () {
+    var d = document.documentElement, S = window.SITE || {}, p = S.paletteParDefaut, m = S.modeParDefaut;
+    try { p = localStorage.getItem('demo-palette') || p; m = localStorage.getItem('demo-mode') || m; } catch (e) {}
+    var pal = S.palettes && (S.palettes[p] || S.palettes[S.paletteParDefaut]);
+    if (pal) ['encre', 'accent', 'doux', 'fond', 'vif', 'gris'].forEach(function (k) { d.style.setProperty('--' + k, pal[k]); });
+    d.dataset.mode = m === 'sombre' ? 'sombre' : 'clair';
+  })();
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<aside class="demo-bar" aria-label="Site de démonstration">
+  <span class="demo-dot" aria-hidden="true"></span>
+  <span class="demo-long">Site de démonstration — entreprise fictive · Réalisé par <a data-creator-site href="#"><span data-t="createur.nom"></span></a></span>
+  <span class="demo-short">Démo · entreprise fictive · <a data-creator-site href="#"><span data-t="createur.nom"></span></a></span>
+</aside>
+<header class="hd is-solid">
+  <div class="wrap hd-in">
+    <a class="brand" href="index.html"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4l3 8.9L28 16l-9 3.1L16 28l-3-8.9L4 16l9-3.1z"/></svg><span data-t="entreprise.nom"></span></a>
+    <a class="btn btn-ghost btn-sm" href="index.html">← Retour au site</a>
+  </div>
+</header>
+<main id="main" class="legal">
+  <div class="wrap">
+    <p class="eyebrow">Démonstration</p>
+    <h1>Mentions légales</h1>
+    <section><h2>Site de démonstration</h2><p><span data-t="entreprise.nom"></span> est une entreprise fictive. Ce site sert uniquement à présenter un savoir-faire en création de sites : aucune prestation n'est vendue, les coordonnées, chiffres et avis sont des exemples.</p></section>
+    <section><h2>Éditeur et réalisation</h2><p>Site conçu et réalisé par <span data-t="createur.nom"></span> — <span data-t="createur.email"></span>.</p><p>SIRET de l'entreprise fictive : <span data-t="entreprise.siret"></span>.</p></section>
+    <section><h2>Hébergement</h2><p>[MON HÉBERGEUR : raison sociale, adresse, téléphone]</p></section>
+    <section><h2>Coordonnées affichées</h2><p>Le numéro <span data-t="entreprise.telephone"></span> appartient à une plage réservée par l'ARCEP aux œuvres de fiction (décision n° 2018-0881) : il ne peut ni appeler ni être appelé. L'adresse <span data-t="entreprise.email"></span> est une adresse d'exemple.</p></section>
+    <section><h2>Données personnelles</h2><p>Le formulaire de devis de cette démonstration n'envoie aucune donnée : rien ne quitte votre navigateur. Seuls la palette et le mode d'affichage choisis dans « Personnaliser » sont mémorisés localement sur votre appareil (localStorage), sans cookie ni traceur.</p></section>
+    <section><h2>Crédits</h2><p>Photographies : banque d'images Pexels (licence Pexels, usage commercial autorisé). Le détail figure dans le fichier CREDITS.md.</p></section>
+  </div>
+</main>
+<script>
+  (function () {
+    var S = window.SITE; if (!S) return;
+    var get = function (p) { return p.split('.').reduce(function (o, k) { return o == null ? o : o[k]; }, S); };
+    document.querySelectorAll('[data-t]').forEach(function (el) { var v = get(el.dataset.t); if (v != null) el.textContent = v; });
+    document.querySelectorAll('[data-creator-site]').forEach(function (a) { if (/^https?:\/\//.test(S.createur.site)) { a.href = S.createur.site; a.target = '_blank'; a.rel = 'noopener'; } });
+    document.title = 'Mentions légales · ' + S.entreprise.nom + ' · démo';
+  })();
+</script>
+</body>
+</html>
