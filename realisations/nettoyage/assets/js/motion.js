@@ -51,7 +51,7 @@
     var cards = gsap.utils.toArray('.scard');
     cards.forEach(function (card, i) {
       var next = cards[i + 1]; if (!next) return;
-      gsap.to(card, { scale: .92, opacity: .55, ease: 'none', scrollTrigger: { trigger: next, start: 'top bottom', end: 'top 30%', scrub: true } });
+      gsap.to(card, { scale: .92, ease: 'none',  /* pas d'estompage : le texte de la carte du dessous garde son contraste AA */ scrollTrigger: { trigger: next, start: 'top bottom', end: 'top 30%', scrub: true } });
     });
     /* Parallaxe légère des images */
     gsap.utils.toArray('.parallax img').forEach(function (img) {

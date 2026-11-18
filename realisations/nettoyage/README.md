@@ -8,4 +8,4 @@
 7. Téléphone de démo : rester dans une plage ARCEP de fiction (01 99 00 xx xx).
 8. En rendez-vous : bouton « Personnaliser » en bas à gauche (palettes + mode sombre).
 9. Animations : GSAP + Lenis par CDN ; sans réseau, le site reste complet, sans animation.
-10. Crédits photos : `CREDITS.md`.
+10. Un seul fichier à envoyer : `python3 outils/fichier-unique.py` → `nettoyage-fichier-unique.html` (tout intégré, hors ligne). Crédits : `CREDITS.md`.

@@ -12,7 +12,11 @@
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var E = S.entreprise, C = S.createur;
-  var pic = function (base, small) { return { src: base + '.webp', srcset: base + '-' + small + '.webp ' + small + 'w, ' + base + '.webp' }; };
+  /* Image : fichiers WebP (2 tailles) ; dans la version « fichier unique », images intégrées via window.__IMAGES. */
+  var pic = function (base, small) {
+    if (window.__IMAGES && window.__IMAGES[base]) return { src: window.__IMAGES[base], srcset: '' };
+    return { src: base + '.webp', srcset: base + '-' + small + '.webp ' + small + 'w, ' + base + '.webp' };
+  };
 
   /* ── 1. Textes simples ([data-t="chemin.dans.config"]) ── */
   $$('[data-t]').forEach(function (el) { var v = get(el.dataset.t); if (v != null) el.textContent = v; });
