@@ -1,0 +1,113 @@
+{{ 'section-hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign url_1 = section.settings.button_1_link | default: '/collections/packs-studio'
+  assign url_2 = section.settings.button_2_link | default: '/collections/machines'
+-%}
+
+<section class="hero hero--{{ section.settings.layout }}{% if section.settings.image == blank %} hero--no-image{% endif %}" aria-labelledby="Hero-{{ section.id }}">
+  <div class="page-width hero__inner">
+    <div class="hero__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h1 id="Hero-{{ section.id }}" class="hero__title">{{ section.settings.heading | escape }}</h1>
+      {%- if section.settings.text != blank -%}
+        <div class="hero__text">{{ section.settings.text }}</div>
+      {%- endif -%}
+      <div class="hero__buttons">
+        {%- if section.settings.button_1_label != blank -%}
+          <a class="button button--primary" href="{{ url_1 }}">{{ section.settings.button_1_label | escape }}</a>
+        {%- endif -%}
+        {%- if section.settings.button_2_label != blank -%}
+          <a class="button button--secondary" href="{{ url_2 }}">{{ section.settings.button_2_label | escape }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="hero__media">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 2000
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            widths: '450, 750, 1000, 1400, 2000',
+            sizes: '(min-width: 990px) 55vw, 100vw',
+            class: 'hero__image'
+        }}
+      {%- elsif request.design_mode -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'hero__placeholder' }}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bannière principale",
+  "class": "section-hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Photo d'un studio équipé ou d'un reformer. 2000 px de large conseillés."
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Disposition",
+      "options": [
+        { "value": "split", "label": "Texte à gauche, image à droite" },
+        { "value": "overlay", "label": "Texte sur l'image" }
+      ],
+      "default": "split"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Petit texte au-dessus du titre",
+      "default": "Importé directement d'usine"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Équipement Pilates de studio, jusqu'à 30 % moins cher."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Sous-titre",
+      "default": "<p>Reformers, Cadillac et chaises de qualité studio. Garantie 2 ans. Pièces de rechange en stock en France. Livraison et montage inclus.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Bouton principal : texte",
+      "default": "Équiper mon studio"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Bouton principal : lien",
+      "info": "Par défaut : la collection Packs studio."
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Bouton secondaire : texte",
+      "default": "Voir les machines"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Bouton secondaire : lien",
+      "info": "Par défaut : la collection Machines."
+    }
+  ],
+  "presets": [{ "name": "Bannière principale" }]
+}
+{% endschema %}

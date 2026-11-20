@@ -1,0 +1,584 @@
+/* ==========================================================================
+   Base : réinitialisation, typographie, boutons, composants partagés
+   Mobile d'abord. Les couleurs et polices viennent des réglages du thème.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-weight: var(--font-body-weight);
+  font-size: calc(1rem * var(--body-scale));
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.main-content {
+  flex: 1 0 auto;
+}
+
+.main-content:focus {
+  outline: none;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.6em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: calc(2.4rem * var(--heading-scale));
+}
+
+h2 {
+  font-size: calc(1.9rem * var(--heading-scale));
+}
+
+h3 {
+  font-size: calc(1.35rem * var(--heading-scale));
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+@media (min-width: 750px) {
+  h1 {
+    font-size: calc(3.2rem * var(--heading-scale));
+  }
+
+  h2 {
+    font-size: calc(2.4rem * var(--heading-scale));
+  }
+}
+
+/* Focus clavier visible partout */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.visually-hidden,
+.visually-hidden-focusable:not(:focus):not(:focus-within) {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link:focus {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 2px solid var(--color-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Mise en page
+   -------------------------------------------------------------------------- */
+
+.page-width {
+  width: 100%;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.page-width--narrow {
+  max-width: 820px;
+}
+
+@media (min-width: 990px) {
+  .page-width {
+    padding: 0 2.5rem;
+  }
+}
+
+.section {
+  padding: 3.5rem 0;
+}
+
+@media (min-width: 990px) {
+  .section {
+    padding: 5.5rem 0;
+  }
+}
+
+.section--surface {
+  background: var(--color-surface);
+}
+
+.section-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.section-header--center {
+  justify-content: center;
+  text-align: center;
+}
+
+.section-header--center > div {
+  max-width: 680px;
+}
+
+.section-heading {
+  margin-bottom: 0.4em;
+}
+
+.section-text {
+  color: var(--color-text-muted);
+  max-width: 640px;
+}
+
+.section-header--center .section-text {
+  margin: 0 auto;
+}
+
+.section-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Boutons et liens
+   -------------------------------------------------------------------------- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0.8rem 1.6rem;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+  font-weight: var(--font-body-weight-bold);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.button .icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.button--primary {
+  background: var(--color-accent);
+  color: var(--color-accent-text);
+}
+
+.button--primary:hover {
+  background: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+.button--secondary {
+  background: transparent;
+  color: var(--color-text);
+  border-color: var(--color-text);
+}
+
+.button--secondary:hover {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+.button--full {
+  width: 100%;
+}
+
+.button--large {
+  min-height: 3.5rem;
+  font-size: 1rem;
+}
+
+.button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.link-arrow {
+  font-weight: var(--font-body-weight-bold);
+  text-decoration: underline;
+  text-decoration-color: var(--color-wood);
+  text-decoration-thickness: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Icônes
+   -------------------------------------------------------------------------- */
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Prix TTC / HT
+   -------------------------------------------------------------------------- */
+
+.price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 0.75rem;
+}
+
+.price__main {
+  font-weight: var(--font-body-weight-bold);
+  font-size: 1.05rem;
+}
+
+.price__label {
+  font-size: 0.8em;
+  font-weight: var(--font-body-weight);
+  color: var(--color-text-muted);
+}
+
+.price__prefix {
+  font-weight: var(--font-body-weight);
+  font-size: 0.85em;
+  color: var(--color-text-muted);
+}
+
+.price__secondary {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.price--large .price__main {
+  font-size: 1.6rem;
+}
+
+.price--large .price__secondary {
+  font-size: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   Badge délai de livraison
+   -------------------------------------------------------------------------- */
+
+.badge-delivery {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0.35rem 0.7rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-wood);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.badge-delivery .icon {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.badge-delivery--stock {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Formulaires
+   -------------------------------------------------------------------------- */
+
+.select {
+  position: relative;
+}
+
+.select__input,
+.form__field input,
+.form__field textarea,
+.cart__note textarea,
+.search-form__input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.7rem 0.9rem;
+  background: #fff;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius);
+}
+
+.select__input {
+  appearance: none;
+  padding-right: 2.5rem;
+}
+
+.select__icon {
+  position: absolute;
+  right: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  width: 1rem;
+  height: 1rem;
+}
+
+.quantity {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  background: #fff;
+  min-height: 3rem;
+}
+
+.quantity__button {
+  width: 2.75rem;
+  border: 0;
+  background: transparent;
+  display: grid;
+  place-items: center;
+}
+
+.quantity__button .icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.quantity__input {
+  width: 3rem;
+  border: 0;
+  text-align: center;
+  background: transparent;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.quantity__input::-webkit-outer-spin-button,
+.quantity__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Listes de réassurance et de coches
+   -------------------------------------------------------------------------- */
+
+.reassurance,
+.check-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.reassurance li,
+.check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+}
+
+.reassurance .icon,
+.check-list .icon {
+  color: var(--color-accent);
+  margin-top: 0.1rem;
+}
+
+/* --------------------------------------------------------------------------
+   Texte enrichi
+   -------------------------------------------------------------------------- */
+
+.rte > :last-child {
+  margin-bottom: 0;
+}
+
+.rte ul,
+.rte ol {
+  padding-left: 1.2rem;
+  margin: 0 0 1em;
+}
+
+.rte li {
+  margin-bottom: 0.35em;
+}
+
+.rte a {
+  text-decoration: underline;
+}
+
+.rte table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.rte img {
+  border-radius: var(--radius);
+}
+
+/* --------------------------------------------------------------------------
+   Messages de l'éditeur (visibles seulement dans l'éditeur de thème)
+   -------------------------------------------------------------------------- */
+
+.editor-notice {
+  padding: 1.25rem;
+  border: 2px dashed var(--color-wood);
+  background: var(--color-surface);
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+/* Formulaires de contenu */
+
+.form__field {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.form__field label {
+  font-size: 0.9rem;
+  font-weight: var(--font-body-weight-bold);
+}
+
+.form__message {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.25rem;
+}
+
+.form__message--success {
+  background: var(--color-surface);
+  border: 1px solid var(--color-accent);
+}
+
+.form__message--error {
+  display: block;
+  border: 1px solid #a3261c;
+  color: #8a1f17;
+  background: #fbefed;
+}
+
+.form__privacy {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* Mouvements réduits */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 3rem;
+}
+
+.pagination__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.pagination__item {
+  display: grid;
+  place-items: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+
+.pagination__item--current {
+  background: var(--color-text);
+  color: var(--color-bg);
+  border-color: var(--color-text);
+}

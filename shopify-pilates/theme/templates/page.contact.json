@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-contact",
+      "settings": {
+        "heading": "Contact",
+        "text": "<p>Une question sur une machine, un projet d'ouverture de studio ou une commande en cours ? Écrivez-nous ou appelez-nous, nous vous répondons directement.</p>",
+        "privacy_text": "Vos informations servent uniquement à répondre à votre demande. Détails dans notre politique de confidentialité."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

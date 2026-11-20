@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collections",
+      "settings": {
+        "heading": "Catalogue"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

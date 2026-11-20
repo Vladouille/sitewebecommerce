@@ -1,0 +1,278 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Studio Pilates",
+    "theme_version": "1.0.0",
+    "theme_author": "[NOM DE MARQUE]",
+    "theme_documentation_url": "https://help.shopify.com/fr/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com/fr"
+  },
+  {
+    "name": "Marque et contact",
+    "settings": [
+      {
+        "type": "text",
+        "id": "brand_name",
+        "label": "Nom de la marque",
+        "default": "[NOM DE MARQUE]",
+        "info": "Utilisé dans les textes du site quand aucun logo n'est choisi."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Largeur du logo",
+        "min": 60,
+        "max": 260,
+        "step": 10,
+        "unit": "px",
+        "default": 140
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Image carrée de 32 × 32 px minimum."
+      },
+      {
+        "type": "text",
+        "id": "phone",
+        "label": "Téléphone affiché",
+        "default": "01 23 45 67 89",
+        "info": "Remplace ce numéro d'exemple par ton vrai numéro."
+      },
+      {
+        "type": "text",
+        "id": "phone_hours",
+        "label": "Horaires du téléphone",
+        "default": "Du lundi au vendredi, 9 h – 18 h"
+      },
+      {
+        "type": "text",
+        "id": "email",
+        "label": "Email affiché",
+        "default": "contact@exemple.fr",
+        "info": "Remplace cet email d'exemple par ton vrai email."
+      }
+    ]
+  },
+  {
+    "name": "Couleurs",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Fond principal (blanc cassé)",
+        "default": "#FAF7F2"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Fond secondaire (beige)",
+        "default": "#F0E8DC"
+      },
+      {
+        "type": "color",
+        "id": "color_wood",
+        "label": "Bois clair (détails, bordures)",
+        "default": "#D9C4A6"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Texte",
+        "default": "#1E1C19"
+      },
+      {
+        "type": "color",
+        "id": "color_text_muted",
+        "label": "Texte secondaire",
+        "default": "#5C564E"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Couleur d'accent (boutons, liens)",
+        "default": "#4E5B47",
+        "info": "Choisis une couleur assez foncée pour que le texte des boutons reste lisible."
+      },
+      {
+        "type": "color",
+        "id": "color_accent_text",
+        "label": "Texte sur la couleur d'accent",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_dark",
+        "label": "Fond foncé (barre du haut, pied de page)",
+        "default": "#1E1C19"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_text",
+        "label": "Texte sur fond foncé",
+        "default": "#F4EEE5"
+      }
+    ]
+  },
+  {
+    "name": "Typographie",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Police des titres",
+        "default": "cormorant_n5"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Police du texte",
+        "default": "dm_sans_n4"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "label": "Taille des titres",
+        "min": 80,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "label": "Taille du texte",
+        "min": 90,
+        "max": 120,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Prix et TVA",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Les prix sont saisis TTC dans Shopify. Le prix HT affiché est calculé : prix TTC ÷ (1 + taux de TVA). Ce calcul ne change pas le prix facturé."
+      },
+      {
+        "type": "range",
+        "id": "vat_rate",
+        "label": "Taux de TVA",
+        "min": 0,
+        "max": 30,
+        "step": 0.5,
+        "unit": "%",
+        "default": 20
+      },
+      {
+        "type": "select",
+        "id": "price_primary",
+        "label": "Prix mis en avant",
+        "options": [
+          { "value": "ttc", "label": "TTC (recommandé si tu vends aussi aux particuliers)" },
+          { "value": "ht", "label": "HT (si tu vends surtout aux professionnels)" }
+        ],
+        "default": "ttc"
+      },
+      {
+        "type": "text",
+        "id": "label_ttc",
+        "label": "Libellé TTC",
+        "default": "TTC"
+      },
+      {
+        "type": "text",
+        "id": "label_ht",
+        "label": "Libellé HT",
+        "default": "HT"
+      }
+    ]
+  },
+  {
+    "name": "Cartes produit",
+    "settings": [
+      {
+        "type": "select",
+        "id": "card_image_ratio",
+        "label": "Format des images",
+        "options": [
+          { "value": "square", "label": "Carré" },
+          { "value": "portrait", "label": "Portrait" },
+          { "value": "landscape", "label": "Paysage" }
+        ],
+        "default": "landscape"
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_delivery",
+        "label": "Afficher le badge de délai de livraison",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_secondary_image",
+        "label": "Afficher la deuxième image au survol",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Mise en page",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Largeur maximale de la page",
+        "min": 1000,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "default": 1320
+      },
+      {
+        "type": "range",
+        "id": "radius",
+        "label": "Arrondi des angles",
+        "min": 0,
+        "max": 16,
+        "step": 2,
+        "unit": "px",
+        "default": 2
+      }
+    ]
+  },
+  {
+    "name": "Réseaux sociaux",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Laisse vide pour masquer un réseau."
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram (adresse complète)"
+      },
+      {
+        "type": "text",
+        "id": "social_linkedin",
+        "label": "LinkedIn (adresse complète)"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook (adresse complète)"
+      }
+    ]
+  }
+]

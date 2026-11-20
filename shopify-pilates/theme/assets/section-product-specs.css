@@ -1,0 +1,43 @@
+.specs {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.specs th,
+.specs td {
+  padding: 0.9rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.specs tr:last-child th,
+.specs tr:last-child td {
+  border-bottom: 0;
+}
+
+.specs th {
+  width: 40%;
+  font-weight: var(--font-body-weight-bold);
+}
+
+@media (max-width: 480px) {
+  .specs th,
+  .specs td {
+    display: block;
+    width: 100%;
+  }
+
+  .specs th {
+    padding-bottom: 0.15rem;
+    border-bottom: 0;
+  }
+
+  .specs td {
+    padding-top: 0;
+    color: var(--color-text-muted);
+  }
+}

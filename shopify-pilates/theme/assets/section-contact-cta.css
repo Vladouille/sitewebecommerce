@@ -1,0 +1,62 @@
+.contact-cta {
+  background: var(--color-dark);
+  color: var(--color-dark-text);
+}
+
+.contact-cta .section-text {
+  color: inherit;
+  opacity: 0.85;
+}
+
+.contact-cta :focus-visible {
+  outline-color: var(--color-dark-text);
+}
+
+.contact-cta__inner {
+  display: grid;
+  gap: 2rem;
+}
+
+.contact-cta__actions {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.contact-cta .button--primary {
+  background: var(--color-dark-text);
+  color: var(--color-dark);
+  border-color: var(--color-dark-text);
+  font-size: 1.15rem;
+}
+
+.contact-cta .button--primary:hover {
+  background: transparent;
+  color: var(--color-dark-text);
+}
+
+.contact-cta__email {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: inherit;
+  min-height: 2.75rem;
+}
+
+.contact-cta__email:hover {
+  color: inherit;
+}
+
+.contact-cta__hours {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+@media (min-width: 990px) {
+  .contact-cta__inner {
+    grid-template-columns: 1.3fr 1fr;
+    align-items: center;
+    gap: 4rem;
+  }
+}

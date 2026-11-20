@@ -1,0 +1,57 @@
+{{ 'section-contact-cta.css' | asset_url | stylesheet_tag }}
+
+{%- assign phone_tel = settings.phone | remove: ' ' | remove: '.' | remove: '-' -%}
+
+<section class="section contact-cta" aria-labelledby="ContactCta-{{ section.id }}">
+  <div class="page-width contact-cta__inner">
+    <div class="contact-cta__content">
+      <h2 id="ContactCta-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.text != blank -%}
+        <div class="section-text">{{ section.settings.text }}</div>
+      {%- endif -%}
+    </div>
+    <div class="contact-cta__actions">
+      {%- if settings.phone != blank -%}
+        <a class="button button--primary button--large" href="tel:{{ phone_tel }}">
+          {% render 'icon', name: 'phone' %}
+          <span>{{ settings.phone | escape }}</span>
+        </a>
+      {%- endif -%}
+      {%- if settings.email != blank -%}
+        <a class="contact-cta__email" href="mailto:{{ settings.email }}">
+          {% render 'icon', name: 'mail' %}
+          <span>{{ settings.email | escape }}</span>
+        </a>
+      {%- endif -%}
+      {%- if settings.phone_hours != blank -%}
+        <p class="contact-cta__hours">{{ settings.phone_hours | escape }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bloc contact",
+  "class": "section-contact-cta",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Le téléphone, l'email et les horaires se règlent dans Paramètres du thème > Marque et contact."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Une question avant de commander ? Appelez-nous."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texte",
+      "default": "<p>Choix des machines, nombre de reformers pour votre surface, délais : nous vous répondons directement.</p>"
+    }
+  ],
+  "presets": [{ "name": "Bloc contact" }]
+}
+{% endschema %}

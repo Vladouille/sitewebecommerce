@@ -1,0 +1,302 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "layout": "split",
+        "eyebrow": "Importé directement d'usine",
+        "heading": "Équipement Pilates de studio, jusqu'à 30 % moins cher.",
+        "text": "<p>Reformers, Cadillac et chaises de qualité studio. Garantie 2 ans. Pièces de rechange en stock en France. Livraison et montage inclus.</p>",
+        "button_1_label": "Équiper mon studio",
+        "button_1_link": "/collections/packs-studio",
+        "button_2_label": "Voir les machines",
+        "button_2_link": "/collections/machines"
+      }
+    },
+    "trust": {
+      "type": "trust-bar",
+      "settings": {
+        "background": "surface"
+      },
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "icon": "tag",
+            "title": "Prix usine",
+            "text": "Jusqu'à 30 % moins cher, sans intermédiaire."
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "Garantie 2 ans",
+            "text": "Sur toutes les machines."
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "icon": "wrench",
+            "title": "Pièces en stock en France",
+            "text": "Ressorts, sangles, poignées."
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Livraison et montage inclus",
+            "text": "En France métropolitaine."
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4"
+      ]
+    },
+    "packs": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Packs studio",
+        "text": "<p>Tout l'équipement pour ouvrir ou agrandir votre studio, en une seule commande.</p>",
+        "collection_handle": "packs-studio",
+        "limit": 3,
+        "columns": "3",
+        "show_view_all": true,
+        "view_all_label": "Voir les packs",
+        "background": "default"
+      }
+    },
+    "machines": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Les machines",
+        "text": "<p>Reformers, Cadillac et chaise : la même qualité que les grandes marques de studio.</p>",
+        "collection_handle": "machines",
+        "limit": 6,
+        "columns": "3",
+        "show_view_all": true,
+        "view_all_label": "Voir toutes les machines",
+        "background": "surface"
+      }
+    },
+    "steps": {
+      "type": "steps",
+      "settings": {
+        "heading": "Comment ça marche",
+        "background": "default"
+      },
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Vous commandez en ligne",
+            "text": "<p>Prix affichés, paiement sécurisé. Une question ? Appelez-nous avant de commander.</p>"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Nous fabriquons et expédions",
+            "text": "<p>Votre équipement part de l'usine. Nous vous tenons informé à chaque étape.</p>"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Livraison et montage dans votre studio",
+            "text": "<p>Nous livrons et montons vos machines. Vous n'avez plus qu'à ouvrir vos cours.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ]
+    },
+    "comparison": {
+      "type": "comparison",
+      "settings": {
+        "heading": "Le circuit classique ou [NOM DE MARQUE]",
+        "before_label": "Circuit classique",
+        "after_label": "Avec [NOM DE MARQUE]",
+        "background": "surface"
+      },
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Prix",
+            "before": "Marges de la marque et des distributeurs",
+            "after": "Prix usine, jusqu'à 30 % moins cher"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Délai",
+            "before": "Devis et allers-retours avant même de commander",
+            "after": "Prix affichés, commande en ligne, délai annoncé sur chaque fiche"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "SAV",
+            "before": "Interlocuteurs multiples",
+            "after": "Un contact direct en France, garantie 2 ans"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Pièces",
+            "before": "Commandées à l'étranger, longues à recevoir",
+            "after": "Ressorts, sangles et poignées en stock en France"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4"
+      ]
+    },
+    "guarantee": {
+      "type": "guarantee",
+      "settings": {
+        "heading": "Garantie 2 ans et SAV en France",
+        "text": "<p>Un studio ne peut pas se permettre une machine à l'arrêt. Nos pièces d'usure sont stockées en France et un interlocuteur vous répond directement.</p>",
+        "button_label": "Voir la garantie",
+        "button_link": "/pages/garantie-et-pieces-de-rechange",
+        "background": "default"
+      },
+      "blocks": {
+        "point_1": {
+          "type": "point",
+          "settings": {
+            "text": "Garantie 2 ans sur toutes les machines"
+          }
+        },
+        "point_2": {
+          "type": "point",
+          "settings": {
+            "text": "Ressorts, sangles et poignées en stock en France"
+          }
+        },
+        "point_3": {
+          "type": "point",
+          "settings": {
+            "text": "Un interlocuteur unique pour le SAV"
+          }
+        },
+        "point_4": {
+          "type": "point",
+          "settings": {
+            "text": "Livraison et montage inclus en France métropolitaine"
+          }
+        }
+      },
+      "block_order": [
+        "point_1",
+        "point_2",
+        "point_3",
+        "point_4"
+      ]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "heading": "Ils ont équipé leur studio"
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "heading": "Questions fréquentes",
+        "heading_level": "h2",
+        "background": "surface"
+      },
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question": "Quel est le délai de livraison ?",
+            "answer": "<p>Le délai est indiqué sur chaque fiche produit. Les pièces et accessoires en stock partent rapidement. Les machines fabriquées à la commande sont livrées dans le délai annoncé sur la fiche.</p>"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "La livraison et le montage sont-ils vraiment inclus ?",
+            "answer": "<p>Oui, en France métropolitaine. Nous livrons et montons vos machines dans votre studio. Hors France métropolitaine, contactez-nous avant de commander.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "Comment fonctionne la garantie ?",
+            "answer": "<p>Toutes les machines sont garanties 2 ans. En cas de problème, contactez-nous : nous identifions la pièce en cause et l'envoyons depuis notre stock en France.</p>"
+          }
+        },
+        "question_4": {
+          "type": "question",
+          "settings": {
+            "question": "Les prix sont-ils HT ou TTC ?",
+            "answer": "<p>Les deux sont affichés. Vous payez le prix TTC. Si vous êtes assujetti à la TVA, vous la récupérez comme d'habitude grâce à la facture.</p>"
+          }
+        },
+        "question_5": {
+          "type": "question",
+          "settings": {
+            "question": "Y a-t-il des remises si j'achète plusieurs machines ?",
+            "answer": "<p>Oui. Les remises par quantité sont indiquées sur chaque fiche produit et s'appliquent automatiquement dans le panier.</p>"
+          }
+        },
+        "question_6": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je payer en plusieurs fois ?",
+            "answer": "<p>Oui, pour les professionnels. Contactez-nous pour connaître les modalités adaptées à votre projet.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3",
+        "question_4",
+        "question_5",
+        "question_6"
+      ]
+    },
+    "contact": {
+      "type": "contact-cta",
+      "settings": {
+        "heading": "Une question avant de commander ? Appelez-nous.",
+        "text": "<p>Choix des machines, nombre de reformers pour votre surface, délais : nous vous répondons directement.</p>"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "trust",
+    "packs",
+    "machines",
+    "steps",
+    "comparison",
+    "guarantee",
+    "testimonials",
+    "faq",
+    "contact"
+  ]
+}

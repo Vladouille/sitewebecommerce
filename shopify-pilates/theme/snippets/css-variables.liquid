@@ -1,0 +1,41 @@
+{%- liquid
+  assign body_bold = settings.font_body | font_modify: 'weight', 'bold'
+  assign body_medium = settings.font_body | font_modify: 'weight', '500'
+  assign body_italic = settings.font_body | font_modify: 'style', 'italic'
+  assign heading_bold = settings.font_heading | font_modify: 'weight', '600'
+-%}
+<style>
+  {{ settings.font_heading | font_face: font_display: 'swap' }}
+  {{ settings.font_body | font_face: font_display: 'swap' }}
+  {%- if body_bold %}{{ body_bold | font_face: font_display: 'swap' }}{% endif -%}
+  {%- if body_medium %}{{ body_medium | font_face: font_display: 'swap' }}{% endif -%}
+  {%- if body_italic %}{{ body_italic | font_face: font_display: 'swap' }}{% endif -%}
+  {%- if heading_bold %}{{ heading_bold | font_face: font_display: 'swap' }}{% endif -%}
+
+  :root {
+    --color-bg: {{ settings.color_background }};
+    --color-surface: {{ settings.color_surface }};
+    --color-wood: {{ settings.color_wood }};
+    --color-text: {{ settings.color_text }};
+    --color-text-muted: {{ settings.color_text_muted }};
+    --color-accent: {{ settings.color_accent }};
+    --color-accent-text: {{ settings.color_accent_text }};
+    --color-dark: {{ settings.color_dark }};
+    --color-dark-text: {{ settings.color_dark_text }};
+    --color-border: {{ settings.color_text | color_modify: 'alpha', 0.14 }};
+    --color-border-strong: {{ settings.color_text | color_modify: 'alpha', 0.28 }};
+
+    --font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+    --font-heading-weight: {{ settings.font_heading.weight }};
+    --font-body: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+    --font-body-weight: {{ settings.font_body.weight }};
+    --font-body-weight-bold: {% if body_bold %}{{ body_bold.weight }}{% else %}700{% endif %};
+
+    --heading-scale: {{ settings.heading_scale | divided_by: 100.0 }};
+    --body-scale: {{ settings.body_scale | divided_by: 100.0 }};
+
+    --page-width: {{ settings.page_width }}px;
+    --radius: {{ settings.radius }}px;
+    --logo-width: {{ settings.logo_width }}px;
+  }
+</style>

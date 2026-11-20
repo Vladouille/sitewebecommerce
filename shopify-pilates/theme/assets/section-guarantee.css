@@ -1,0 +1,47 @@
+.guarantee__inner {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+.guarantee__image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.guarantee__seal {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--color-wood);
+  color: var(--color-accent);
+  margin-bottom: 1.25rem;
+}
+
+.guarantee__seal .icon {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.guarantee .check-list {
+  margin: 1.5rem 0 2rem;
+}
+
+.guarantee--no-image .guarantee__inner {
+  max-width: 760px;
+}
+
+@media (min-width: 990px) {
+  .guarantee__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 4.5rem;
+  }
+
+  .guarantee--no-image .guarantee__inner {
+    grid-template-columns: 1fr;
+  }
+}

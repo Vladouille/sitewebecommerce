@@ -1,0 +1,97 @@
+{{ 'section-trust-bar.css' | asset_url | stylesheet_tag }}
+
+<section class="trust-bar{% if section.settings.background == 'surface' %} trust-bar--surface{% endif %}"{% if section.settings.heading != blank %} aria-labelledby="Trust-{{ section.id }}"{% else %} aria-label="{{ 'sections.trust.label' | t }}"{% endif %}>
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 id="Trust-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    <ul class="trust-bar__list" role="list">
+      {%- for block in section.blocks -%}
+        <li class="trust-bar__item" {{ block.shopify_attributes }}>
+          <span class="trust-bar__icon">{% render 'icon', name: block.settings.icon %}</span>
+          <div>
+            <p class="trust-bar__title">{{ block.settings.title | escape }}</p>
+            {%- if block.settings.text != blank -%}
+              <p class="trust-bar__text">{{ block.settings.text | escape }}</p>
+            {%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bandeau d'arguments",
+  "class": "section-trust-bar",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre (facultatif)"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Fond",
+      "options": [
+        { "value": "default", "label": "Blanc cassé" },
+        { "value": "surface", "label": "Beige" }
+      ],
+      "default": "surface"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Argument",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            { "value": "tag", "label": "Étiquette prix" },
+            { "value": "euro", "label": "Euro" },
+            { "value": "shield", "label": "Bouclier (garantie)" },
+            { "value": "wrench", "label": "Clé (pièces, SAV)" },
+            { "value": "truck", "label": "Camion (livraison)" },
+            { "value": "box", "label": "Colis" },
+            { "value": "card", "label": "Carte bancaire" },
+            { "value": "invoice", "label": "Facture" },
+            { "value": "phone", "label": "Téléphone" },
+            { "value": "studio", "label": "Studio" },
+            { "value": "clock", "label": "Horloge" },
+            { "value": "check", "label": "Coche" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Argument"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bandeau d'arguments",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "tag", "title": "Prix usine", "text": "Jusqu'à 30 % moins cher, sans intermédiaire." } },
+        { "type": "item", "settings": { "icon": "shield", "title": "Garantie 2 ans", "text": "Sur toutes les machines." } },
+        { "type": "item", "settings": { "icon": "wrench", "title": "Pièces en stock en France", "text": "Ressorts, sangles, poignées : expédiés rapidement." } },
+        { "type": "item", "settings": { "icon": "truck", "title": "Livraison et montage inclus", "text": "En France métropolitaine." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

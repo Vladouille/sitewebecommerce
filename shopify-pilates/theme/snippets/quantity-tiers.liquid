@@ -1,0 +1,60 @@
+{%- comment -%}
+  Tableau des remises par quantité, alimenté par le metafield produit custom.paliers_quantite (JSON).
+  Format attendu : [{"min":1,"remise":0},{"min":4,"remise":8},{"min":8,"remise":15}]
+  « remise » est un pourcentage. Les paliers doivent être classés du plus petit au plus grand.
+  Ce tableau est informatif : le prix facturé dépend des réductions automatiques créées dans Shopify.
+  Paramètres : product, price (prix TTC en centimes de la variante affichée), note, heading
+{%- endcomment -%}
+{%- assign paliers = product.metafields.custom.paliers_quantite.value -%}
+{%- if paliers != blank and paliers.size > 1 -%}
+  {%- assign vat_factor = settings.vat_rate | divided_by: 100.0 | plus: 1 -%}
+  <div class="tiers" data-tiers>
+    {%- if heading != blank -%}
+      <p class="tiers__heading">{{ heading | escape }}</p>
+    {%- endif -%}
+    <table class="tiers__table">
+      <thead>
+        <tr>
+          <th scope="col">{{ 'products.tiers.quantity' | t }}</th>
+          <th scope="col">{{ 'products.tiers.discount' | t }}</th>
+          <th scope="col">{{ 'products.tiers.unit_price_ht' | t }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%- for palier in paliers -%}
+          {%- liquid
+            assign min = palier.min | default: 1 | plus: 0
+            assign remise = palier.remise | default: 0 | plus: 0
+            assign pct = 100 | minus: remise
+            assign unit_ttc = price | times: pct | divided_by: 100.0 | round
+            assign unit_ht = unit_ttc | divided_by: vat_factor | round
+            assign next = paliers[forloop.index]
+            assign max = 0
+            if next
+              assign max = next.min | plus: 0 | minus: 1
+            endif
+          -%}
+          <tr data-tier-min="{{ min }}"{% if max > 0 %} data-tier-max="{{ max }}"{% endif %}>
+            <th scope="row">
+              {%- if max == 0 -%}
+                {{ 'products.tiers.and_more' | t: min: min }}
+              {%- elsif max == min -%}
+                {{ min }}
+              {%- else -%}
+                {{ 'products.tiers.range' | t: min: min, max: max }}
+              {%- endif -%}
+            </th>
+            <td>{% if remise > 0 %}−{{ remise }} %{% else %}—{% endif %}</td>
+            <td>
+              <span class="tiers__ht" data-tier-ht data-remise="{{ remise }}">{{ unit_ht | money }}</span>
+              <span class="tiers__ttc"><span data-tier-ttc data-remise="{{ remise }}">{{ unit_ttc | money }}</span> {{ settings.label_ttc }}</span>
+            </td>
+          </tr>
+        {%- endfor -%}
+      </tbody>
+    </table>
+    {%- if note != blank -%}
+      <p class="tiers__note">{{ note | escape }}</p>
+    {%- endif -%}
+  </div>
+{%- endif -%}

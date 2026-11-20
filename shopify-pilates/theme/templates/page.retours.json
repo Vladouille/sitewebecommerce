@@ -1,0 +1,82 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": false
+      }
+    },
+    "legal": {
+      "type": "legal-content",
+      "settings": {
+        "heading": "Retours",
+        "updated": "Dernière mise à jour : [DATE]",
+        "warning": "[À FAIRE VALIDER PAR UN JURISTE] Ce texte est un modèle. Il doit être relu et adapté par un professionnel du droit avant la mise en ligne."
+      },
+      "blocks": {
+        "article_1": {
+          "type": "article",
+          "settings": {
+            "heading": "Particuliers : droit de rétractation de 14 jours",
+            "text": "<p>Si vous achetez en tant que particulier, vous disposez de 14 jours à compter de la réception du produit pour exercer votre droit de rétractation, sans avoir à vous justifier.</p><p>Pour l'exercer, envoyez-nous une déclaration claire par email à [EMAIL] ou utilisez le formulaire de rétractation figurant dans nos CGV.</p>"
+          }
+        },
+        "article_2": {
+          "type": "article",
+          "settings": {
+            "heading": "Frais de retour",
+            "text": "<p>Les frais de retour sont à la charge de l'acheteur. Les machines ne pouvant pas être renvoyées par la poste en raison de leur poids, le coût estimé du retour est de [À COMPLÉTER : montant estimé par machine]. [À FAIRE VALIDER PAR UN JURISTE]</p>"
+          }
+        },
+        "article_3": {
+          "type": "article",
+          "settings": {
+            "heading": "État du produit retourné",
+            "text": "<p>Le produit doit être retourné complet, dans son emballage d'origine si possible. Votre responsabilité peut être engagée en cas de dépréciation du produit résultant de manipulations autres que celles nécessaires pour établir sa nature, ses caractéristiques et son bon fonctionnement.</p>"
+          }
+        },
+        "article_4": {
+          "type": "article",
+          "settings": {
+            "heading": "Remboursement",
+            "text": "<p>Nous vous remboursons la totalité des sommes versées, y compris les frais de livraison standard, au plus tard 14 jours après avoir été informés de votre décision. Nous pouvons différer le remboursement jusqu'à la récupération du produit ou jusqu'à ce que vous ayez fourni une preuve de son expédition.</p>"
+          }
+        },
+        "article_5": {
+          "type": "article",
+          "settings": {
+            "heading": "Achats professionnels",
+            "text": "<p>Les achats effectués par un professionnel pour les besoins de son activité ne bénéficient pas du droit de rétractation. [À FAIRE VALIDER PAR UN JURISTE]</p>"
+          }
+        },
+        "article_6": {
+          "type": "article",
+          "settings": {
+            "heading": "Produit endommagé à la livraison",
+            "text": "<p>Vérifiez les colis en présence du livreur et notez des réserves précises sur le bon de livraison en cas de dommage. Prévenez-nous ensuite dans les plus brefs délais par email ou par téléphone, avec des photos. Nous organisons le remplacement de la pièce ou du produit concerné.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "article_1",
+        "article_2",
+        "article_3",
+        "article_4",
+        "article_5",
+        "article_6"
+      ]
+    },
+    "contact": {
+      "type": "contact-cta",
+      "settings": {
+        "heading": "Une question avant de commander ? Appelez-nous.",
+        "text": "<p>Choix des machines, nombre de reformers pour votre surface, délais : nous vous répondons directement.</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "legal",
+    "contact"
+  ]
+}

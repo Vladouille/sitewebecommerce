@@ -1,0 +1,85 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": false
+      }
+    },
+    "intro": {
+      "type": "rich-text",
+      "settings": {
+        "heading": "Livraison et montage",
+        "heading_level": "h1",
+        "text": "<p>La livraison et le montage sont inclus pour toute commande livrée en France métropolitaine. Vous n'avez rien à porter ni à assembler.</p>",
+        "alignment": "left",
+        "background": "default"
+      }
+    },
+    "details": {
+      "type": "multicolumn",
+      "settings": {
+        "heading": "Comment se passe la livraison",
+        "heading_level": "h2",
+        "columns": "3",
+        "center": false,
+        "background": "surface"
+      },
+      "blocks": {
+        "column_1": {
+          "type": "column",
+          "settings": {
+            "icon": "clock",
+            "title": "Délais",
+            "text": "<p>Le délai est indiqué sur chaque fiche produit. Pièces et accessoires en stock : expédiés rapidement. Machines fabriquées à la commande : délai annoncé sur la fiche, à partir de la confirmation de la commande.</p>"
+          }
+        },
+        "column_2": {
+          "type": "column",
+          "settings": {
+            "icon": "phone",
+            "title": "Prise de rendez-vous",
+            "text": "<p>Avant la livraison, nous vous appelons pour fixer un créneau et vérifier l'accès : étage, ascenseur, largeur des portes, stationnement.</p>"
+          }
+        },
+        "column_3": {
+          "type": "column",
+          "settings": {
+            "icon": "wrench",
+            "title": "Montage sur place",
+            "text": "<p>Nos équipes montent les machines dans la pièce de votre choix et vérifient leur bon fonctionnement. Les emballages sont [À COMPLÉTER : repris ou laissés sur place].</p>"
+          }
+        }
+      },
+      "block_order": [
+        "column_1",
+        "column_2",
+        "column_3"
+      ]
+    },
+    "zone": {
+      "type": "rich-text",
+      "settings": {
+        "heading": "Zone de livraison",
+        "heading_level": "h2",
+        "text": "<p>Livraison et montage inclus en France métropolitaine. Corse, outre-mer et autres pays : contactez-nous avant de commander pour obtenir un prix.</p><p>À la réception, vérifiez l'état des colis en présence du livreur et notez toute réserve précise sur le bon de livraison. Prévenez-nous ensuite par email ou téléphone.</p>",
+        "alignment": "left",
+        "background": "default"
+      }
+    },
+    "contact": {
+      "type": "contact-cta",
+      "settings": {
+        "heading": "Une question avant de commander ? Appelez-nous.",
+        "text": "<p>Choix des machines, nombre de reformers pour votre surface, délais : nous vous répondons directement.</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "intro",
+    "details",
+    "zone",
+    "contact"
+  ]
+}
