@@ -1,0 +1,491 @@
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+{{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign form_id = 'product-form-' | append: section.id
+  assign vat_factor = settings.vat_rate | divided_by: 100.0 | plus: 1
+  assign paliers = product.metafields.custom.paliers_quantite.value
+  assign phone_tel = settings.phone | remove: ' ' | remove: '.' | remove: '-'
+-%}
+
+<section class="product-section" data-product-section data-section-id="{{ section.id }}">
+  <div class="page-width product">
+    {%- comment -%} Galerie {%- endcomment -%}
+    <div class="product__media-wrapper">
+      {%- if product.media.size > 0 -%}
+        <div class="gallery" data-gallery>
+          <ul class="gallery__track" role="list" data-gallery-track aria-label="{{ 'products.gallery.label' | t }}">
+            {%- for media in product.media -%}
+              <li class="gallery__item gallery__item--{{ media.media_type }}" id="Media-{{ section.id }}-{{ media.id }}" data-media-id="{{ media.id }}" data-gallery-item>
+                {%- case media.media_type -%}
+                  {%- when 'image' -%}
+                    {%- liquid
+                      assign loading = 'lazy'
+                      assign priority = 'auto'
+                      if forloop.first
+                        assign loading = 'eager'
+                        assign priority = 'high'
+                      endif
+                    -%}
+                    {{
+                      media
+                      | image_url: width: 1600
+                      | image_tag:
+                        loading: loading,
+                        fetchpriority: priority,
+                        widths: '450, 650, 900, 1200, 1600',
+                        sizes: '(min-width: 990px) 55vw, 100vw',
+                        alt: media.alt | default: product.title,
+                        class: 'gallery__image'
+                    }}
+                  {%- when 'video' -%}
+                    {{ media | video_tag: controls: true, preload: 'none', image_size: '1600x', class: 'gallery__video' }}
+                  {%- when 'external_video' -%}
+                    <div class="gallery__external">
+                      {{ media | external_video_tag: loading: 'lazy', title: product.title }}
+                    </div>
+                  {%- else -%}
+                    {{
+                      media.preview_image
+                      | image_url: width: 1600
+                      | image_tag: loading: 'lazy', alt: media.alt | default: product.title, class: 'gallery__image'
+                    }}
+                {%- endcase -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+
+          {%- if product.media.size > 1 -%}
+            <ul class="gallery__thumbs" role="list">
+              {%- for media in product.media -%}
+                <li>
+                  <button
+                    type="button"
+                    class="gallery__thumb{% if forloop.first %} is-active{% endif %}"
+                    data-gallery-thumb="{{ forloop.index0 }}"
+                    aria-label="{{ 'products.gallery.show_media' | t: index: forloop.index }}"
+                    {% if forloop.first %}aria-current="true"{% endif %}
+                  >
+                    {{ media.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+                    {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+                      <span class="gallery__play" aria-hidden="true">▶</span>
+                    {%- endif -%}
+                  </button>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <div class="gallery gallery--empty">
+          {{ 'product-1' | placeholder_svg_tag: 'gallery__placeholder' }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Informations {%- endcomment -%}
+    <div class="product__info">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when '@app' -%}
+            {% render block %}
+
+          {%- when 'title' -%}
+            <h1 class="product__title" {{ block.shopify_attributes }}>{{ product.title | escape }}</h1>
+
+          {%- when 'promise' -%}
+            {%- assign promise = product.metafields.custom.promesse.value | default: block.settings.text -%}
+            {%- if promise != blank -%}
+              <p class="product__promise" {{ block.shopify_attributes }}>{{ promise | escape }}</p>
+            {%- endif -%}
+
+          {%- when 'price' -%}
+            <div class="product__price" {{ block.shopify_attributes }}>
+              {% render 'price', price: current_variant.price, size: 'large' %}
+              {%- if block.settings.note != blank -%}
+                <p class="product__price-note">{{ block.settings.note | escape }}</p>
+              {%- endif -%}
+            </div>
+
+          {%- when 'delivery' -%}
+            <div {{ block.shopify_attributes }}>
+              {% render 'delivery-badge', product: product, class: 'product__delivery' %}
+            </div>
+
+          {%- when 'tiers' -%}
+            <div {{ block.shopify_attributes }}>
+              {% render 'quantity-tiers', product: product, price: current_variant.price, heading: block.settings.heading, note: block.settings.note %}
+            </div>
+
+          {%- when 'buy_buttons' -%}
+            <div class="product__buy" {{ block.shopify_attributes }}>
+              {%- form 'product', product, id: form_id, class: 'product-form', novalidate: 'novalidate', data-product-form: '' -%}
+                {%- if product.has_only_default_variant -%}
+                  <input type="hidden" name="id" value="{{ current_variant.id }}">
+                {%- else -%}
+                  {%- for option in product.options_with_values -%}
+                    <div class="product-form__field">
+                      <label class="product-form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name | escape }}</label>
+                      <div class="select">
+                        <select id="Option-{{ section.id }}-{{ forloop.index0 }}" class="select__input" data-option-index="{{ forloop.index0 }}">
+                          {%- for value in option.values -%}
+                            <option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ value | escape }}</option>
+                          {%- endfor -%}
+                        </select>
+                        {% render 'icon', name: 'chevron', class: 'select__icon' %}
+                      </div>
+                    </div>
+                  {%- endfor -%}
+                  <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+                  <noscript>
+                    <div class="product-form__field">
+                      <label class="product-form__label" for="Variant-{{ section.id }}">{{ 'products.variant' | t }}</label>
+                      <select id="Variant-{{ section.id }}" name="id" class="select__input">
+                        {%- for variant in product.variants -%}
+                          <option value="{{ variant.id }}"{% if variant == current_variant %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>
+                            {{ variant.title | escape }} – {{ variant.price | money }}
+                          </option>
+                        {%- endfor -%}
+                      </select>
+                    </div>
+                  </noscript>
+                {%- endif -%}
+
+                <div class="product-form__row">
+                  <div class="product-form__field product-form__field--qty">
+                    <label class="product-form__label" for="Quantity-{{ section.id }}">{{ 'products.quantity' | t }}</label>
+                    <div class="quantity" data-quantity>
+                      <button type="button" class="quantity__button" data-quantity-minus aria-label="{{ 'products.quantity_decrease' | t }}">{% render 'icon', name: 'minus' %}</button>
+                      <input id="Quantity-{{ section.id }}" class="quantity__input" type="number" name="quantity" value="1" min="1" step="1" inputmode="numeric" data-quantity-input>
+                      <button type="button" class="quantity__button" data-quantity-plus aria-label="{{ 'products.quantity_increase' | t }}">{% render 'icon', name: 'plus' %}</button>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    name="add"
+                    class="button button--primary button--full product-form__submit"
+                    data-add-button
+                    data-label-add="{{ 'products.add_to_cart' | t }}"
+                    data-label-soldout="{{ 'products.sold_out' | t }}"
+                    {% unless current_variant.available %}disabled{% endunless %}
+                  >
+                    {%- if current_variant.available -%}
+                      {{ 'products.add_to_cart' | t }}
+                    {%- else -%}
+                      {{ 'products.sold_out' | t }}
+                    {%- endif -%}
+                  </button>
+                </div>
+              {%- endform -%}
+
+              <ul class="reassurance" role="list">
+                {%- if block.settings.reassurance_1 != blank -%}
+                  <li>{% render 'icon', name: 'shield' %}<span>{{ block.settings.reassurance_1 | escape }}</span></li>
+                {%- endif -%}
+                {%- if block.settings.reassurance_2 != blank -%}
+                  <li>{% render 'icon', name: 'truck' %}<span>{{ block.settings.reassurance_2 | escape }}</span></li>
+                {%- endif -%}
+                {%- if block.settings.reassurance_3 != blank -%}
+                  <li>{% render 'icon', name: 'card' %}<span>{{ block.settings.reassurance_3 | escape }}</span></li>
+                {%- endif -%}
+                {%- if block.settings.reassurance_4 != blank -%}
+                  <li>{% render 'icon', name: 'invoice' %}<span>{{ block.settings.reassurance_4 | escape }}</span></li>
+                {%- endif -%}
+              </ul>
+
+              {%- if block.settings.show_phone and settings.phone != blank -%}
+                <p class="product__phone">
+                  {{ block.settings.phone_text | escape }}
+                  <a href="tel:{{ phone_tel }}">{{ settings.phone | escape }}</a>
+                </p>
+              {%- endif -%}
+            </div>
+
+          {%- when 'ideal_for' -%}
+            {%- liquid
+              assign ideal_field = product.metafields.custom.ideal_pour
+              assign ideal_items = nil
+              if ideal_field.type contains 'list.'
+                assign ideal_items = ideal_field.value
+              elsif ideal_field.value != blank
+                assign ideal_items = ideal_field.value | split: ','
+              endif
+            -%}
+            {%- if ideal_items != blank and ideal_items.size > 0 -%}
+              <div class="ideal-for" {{ block.shopify_attributes }}>
+                <p class="ideal-for__heading">{{ block.settings.heading | escape }}</p>
+                <ul class="ideal-for__list" role="list">
+                  {%- for item in ideal_items -%}
+                    <li class="ideal-for__item">{% render 'icon', name: 'check' %}<span>{{ item | strip | escape }}</span></li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endif -%}
+
+          {%- when 'description' -%}
+            {%- if product.description != blank -%}
+              <div class="product__description rte" {{ block.shopify_attributes }}>
+                {{ product.description }}
+              </div>
+            {%- endif -%}
+
+          {%- when 'text' -%}
+            {%- if block.settings.text != blank -%}
+              <div class="product__text rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+            {%- endif -%}
+
+          {%- when 'collapsible' -%}
+            <details class="accordion" {{ block.shopify_attributes }}>
+              <summary class="accordion__summary">
+                <span class="accordion__title">
+                  {% render 'icon', name: block.settings.icon %}
+                  <span>{{ block.settings.heading | escape }}</span>
+                </span>
+                {% render 'icon', name: 'plus', class: 'accordion__icon' %}
+              </summary>
+              <div class="accordion__content rte">
+                {{ block.settings.content }}
+                {%- if block.settings.page != blank -%}
+                  {{ block.settings.page.content }}
+                {%- endif -%}
+              </div>
+            </details>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- unless product.has_only_default_variant -%}
+    <script type="application/json" data-product-json>
+      {
+        "variants": [
+          {%- for variant in product.variants -%}
+            {%- assign v_ht = variant.price | divided_by: vat_factor | round -%}
+            {
+              "id": {{ variant.id }},
+              "options": {{ variant.options | json }},
+              "available": {{ variant.available | json }},
+              "ttc": {{ variant.price | money | json }},
+              "ht": {{ v_ht | money | json }},
+              "media_id": {% if variant.featured_media %}{{ variant.featured_media.id }}{% else %}null{% endif %},
+              "tiers": [
+                {%- if paliers != blank -%}
+                  {%- for palier in paliers -%}
+                    {%- liquid
+                      assign remise = palier.remise | default: 0 | plus: 0
+                      assign pct = 100 | minus: remise
+                      assign t_ttc = variant.price | times: pct | divided_by: 100.0 | round
+                      assign t_ht = t_ttc | divided_by: vat_factor | round
+                    -%}
+                    { "ttc": {{ t_ttc | money | json }}, "ht": {{ t_ht | money | json }} }{% unless forloop.last %},{% endunless %}
+                  {%- endfor -%}
+                {%- endif -%}
+              ]
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      }
+    </script>
+  {%- endunless -%}
+</section>
+
+<script type="application/ld+json">
+  {{ product | structured_data }}
+</script>
+
+{% schema %}
+{
+  "name": "Fiche produit",
+  "class": "section-main-product",
+  "blocks": [
+    { "type": "@app" },
+    {
+      "type": "title",
+      "name": "Titre",
+      "limit": 1
+    },
+    {
+      "type": "promise",
+      "name": "Promesse courte",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Si le produit a un metafield custom.promesse rempli, il remplace ce texte."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte par défaut",
+          "default": "Qualité studio, prix usine."
+        }
+      ]
+    },
+    {
+      "type": "price",
+      "name": "Prix TTC et HT",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Mention sous le prix",
+          "default": "Livraison et montage inclus en France métropolitaine"
+        }
+      ]
+    },
+    {
+      "type": "delivery",
+      "name": "Badge délai de livraison",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Affiche le metafield custom.delai_livraison. Masqué s'il est vide."
+        }
+      ]
+    },
+    {
+      "type": "tiers",
+      "name": "Remises par quantité",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Affiche le metafield custom.paliers_quantite. Masqué s'il est vide. Crée les réductions automatiques correspondantes dans Shopify, sinon le client ne paiera pas le prix affiché."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Titre",
+          "default": "Remises par quantité"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Mention sous le tableau",
+          "default": "Remise appliquée automatiquement dans le panier."
+        }
+      ]
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Achat et quantité",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Réassurance à côté du bouton"
+        },
+        {
+          "type": "text",
+          "id": "reassurance_1",
+          "label": "Ligne 1 (bouclier)",
+          "default": "Garantie 2 ans"
+        },
+        {
+          "type": "text",
+          "id": "reassurance_2",
+          "label": "Ligne 2 (camion)",
+          "default": "Livraison et montage inclus"
+        },
+        {
+          "type": "text",
+          "id": "reassurance_3",
+          "label": "Ligne 3 (carte)",
+          "default": "Paiement sécurisé"
+        },
+        {
+          "type": "text",
+          "id": "reassurance_4",
+          "label": "Ligne 4 (facture)",
+          "default": "Paiement en plusieurs fois pour les professionnels"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_phone",
+          "label": "Afficher le téléphone sous le bouton",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "phone_text",
+          "label": "Texte avant le téléphone",
+          "default": "Une question ? Appelez-nous au"
+        }
+      ]
+    },
+    {
+      "type": "ideal_for",
+      "name": "Idéal pour",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Affiche le metafield custom.ideal_pour (liste de textes). Masqué s'il est vide."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Titre",
+          "default": "Idéal pour"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1
+    },
+    {
+      "type": "text",
+      "name": "Texte libre",
+      "settings": [
+        { "type": "richtext", "id": "text", "label": "Texte" }
+      ]
+    },
+    {
+      "type": "collapsible",
+      "name": "Accordéon",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            { "value": "truck", "label": "Camion" },
+            { "value": "box", "label": "Colis" },
+            { "value": "shield", "label": "Bouclier" },
+            { "value": "wrench", "label": "Clé" },
+            { "value": "euro", "label": "Euro" },
+            { "value": "invoice", "label": "Facture" },
+            { "value": "clock", "label": "Horloge" },
+            { "value": "check", "label": "Coche" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Titre",
+          "default": "Titre de l'accordéon"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Contenu"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Ou contenu d'une page",
+          "info": "Le contenu de la page choisie s'ajoute sous le texte."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

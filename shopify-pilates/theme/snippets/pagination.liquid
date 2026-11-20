@@ -1,0 +1,26 @@
+{%- comment -%}
+  Pagination accessible. Paramètre : paginate (objet paginate)
+{%- endcomment -%}
+{%- if paginate.pages > 1 -%}
+  <nav class="pagination" aria-label="{{ 'general.pagination.label' | t }}">
+    <ul class="pagination__list">
+      {%- if paginate.previous -%}
+        <li><a class="pagination__item" href="{{ paginate.previous.url }}">{{ 'general.pagination.previous' | t }}</a></li>
+      {%- endif -%}
+      {%- for part in paginate.parts -%}
+        <li>
+          {%- if part.is_link -%}
+            <a class="pagination__item" href="{{ part.url }}" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</a>
+          {%- elsif part.title == paginate.current_page -%}
+            <span class="pagination__item pagination__item--current" aria-current="page">{{ part.title }}</span>
+          {%- else -%}
+            <span class="pagination__item">{{ part.title }}</span>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+      {%- if paginate.next -%}
+        <li><a class="pagination__item" href="{{ paginate.next.url }}">{{ 'general.pagination.next' | t }}</a></li>
+      {%- endif -%}
+    </ul>
+  </nav>
+{%- endif -%}

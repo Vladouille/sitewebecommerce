@@ -1,0 +1,152 @@
+{
+  "general": {
+    "page": "Page {{ page }}",
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "page": "Page {{ number }}"
+    }
+  },
+  "accessibility": {
+    "skip_to_content": "Aller au contenu"
+  },
+  "sections": {
+    "announcement": {
+      "label": "Informations"
+    },
+    "header": {
+      "menu": "Menu",
+      "call": "Appeler le {{ phone }}",
+      "cart_count": {
+        "one": "Panier, {{ count }} article",
+        "other": "Panier, {{ count }} articles"
+      },
+      "fallback": {
+        "machines": "Machines",
+        "packs": "Packs studio",
+        "parts": "Accessoires et pièces",
+        "pros": "Professionnels",
+        "faq": "FAQ",
+        "contact": "Contact"
+      }
+    },
+    "footer": {
+      "payment": "Moyens de paiement acceptés",
+      "fallback": {
+        "shipping": "Livraison et montage",
+        "returns": "Retours",
+        "warranty": "Garantie et pièces",
+        "terms": "CGV",
+        "legal": "Mentions légales",
+        "contact": "Contact"
+      }
+    },
+    "trust": {
+      "label": "Nos engagements"
+    },
+    "featured_collection": {
+      "empty_editor": "Visible seulement dans l'éditeur : choisis une collection qui contient des produits, ou vérifie son identifiant (machines, packs-studio, accessoires-et-pieces)."
+    },
+    "testimonials": {
+      "empty_editor": "Visible seulement dans l'éditeur : ajouter ici de vrais avis clients (bouton « Ajouter un bloc »). Tant qu'aucun avis n'est ajouté, cette section reste invisible sur le site. N'invente jamais d'avis."
+    }
+  },
+  "products": {
+    "price": {
+      "from": "À partir de"
+    },
+    "gallery": {
+      "label": "Images et vidéos du produit",
+      "show_media": "Afficher le média {{ index }}"
+    },
+    "variant": "Modèle",
+    "quantity": "Quantité",
+    "quantity_decrease": "Diminuer la quantité",
+    "quantity_increase": "Augmenter la quantité",
+    "add_to_cart": "Ajouter au panier",
+    "sold_out": "Indisponible",
+    "tiers": {
+      "quantity": "Quantité",
+      "discount": "Remise",
+      "unit_price_ht": "Prix unitaire HT",
+      "range": "{{ min }} à {{ max }}",
+      "and_more": "{{ min }} et plus"
+    }
+  },
+  "collections": {
+    "product_count": {
+      "zero": "Aucun produit",
+      "one": "{{ count }} produit",
+      "other": "{{ count }} produits"
+    },
+    "empty": "Aucun produit ne correspond à ces filtres.",
+    "filters": {
+      "title": "Filtrer",
+      "apply": "Appliquer",
+      "remove": "Retirer ce filtre",
+      "clear_all": "Effacer les filtres",
+      "from": "De",
+      "to": "à"
+    },
+    "sort": {
+      "title": "Trier"
+    }
+  },
+  "cart": {
+    "title": "Votre panier",
+    "product": "Produit",
+    "quantity": "Quantité",
+    "quantity_for": "Quantité pour {{ title }}",
+    "total": "Total",
+    "unit": "unité",
+    "remove": "Retirer",
+    "before_discount": "Prix avant remise",
+    "update": "Mettre à jour le panier",
+    "summary": "Récapitulatif",
+    "total_ht": "Total HT",
+    "vat": "TVA ({{ rate }} %)",
+    "total_ttc": "Total TTC",
+    "tax_note": "Montants HT et TVA donnés à titre indicatif. La TVA définitive est calculée au paiement et figure sur la facture.",
+    "checkout": "Passer commande",
+    "add_suggestion": "Ajouter",
+    "empty": "Votre panier est vide.",
+    "continue": "Voir les machines"
+  },
+  "contact": {
+    "name": "Nom",
+    "company": "Studio ou entreprise",
+    "email": "Email",
+    "phone": "Téléphone",
+    "message": "Message",
+    "send": "Envoyer",
+    "success": "Merci, votre message est bien envoyé. Nous vous répondons rapidement.",
+    "error": "Le message n'a pas pu être envoyé. Vérifiez les champs ci-dessous."
+  },
+  "blogs": {
+    "empty": "Aucun article pour le moment."
+  },
+  "templates": {
+    "404": {
+      "title": "Page introuvable",
+      "subtext": "Cette page n'existe pas ou a été déplacée.",
+      "link": "Voir les machines"
+    },
+    "search": {
+      "title": "Recherche",
+      "label": "Rechercher sur le site",
+      "placeholder": "Reformer, ressorts, Cadillac…",
+      "submit": "Rechercher",
+      "results_count": {
+        "zero": "Aucun résultat pour « {{ terms }} »",
+        "one": "{{ count }} résultat pour « {{ terms }} »",
+        "other": "{{ count }} résultats pour « {{ terms }} »"
+      }
+    }
+  },
+  "password": {
+    "label": "Mot de passe",
+    "submit": "Entrer",
+    "error": "Mot de passe incorrect."
+  }
+}

@@ -1,0 +1,22 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+
+<article class="section content-page">
+  <div class="page-width page-width--narrow">
+    <p class="article__back"><a href="{{ blog.url }}">{{ blog.title | escape }}</a></p>
+    <h1 class="content-page__title">{{ article.title | escape }}</h1>
+    <p class="article-list__date">{{ article.published_at | time_tag: format: 'date' }}</p>
+    {%- if article.image -%}
+      <div class="article__image">
+        {{ article.image | image_url: width: 1400 | image_tag: loading: 'eager', widths: '450, 750, 1000, 1400', sizes: '(min-width: 750px) 760px, 100vw' }}
+      </div>
+    {%- endif -%}
+    <div class="rte content-page__body">{{ article.content }}</div>
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Article",
+  "class": "section-main-article"
+}
+{% endschema %}

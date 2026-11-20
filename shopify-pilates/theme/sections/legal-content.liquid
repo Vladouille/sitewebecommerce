@@ -1,0 +1,56 @@
+{%- comment -%}
+  Texte juridique structuré en articles. Modèle à faire valider par un juriste.
+{%- endcomment -%}
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+
+<section class="section legal" aria-labelledby="Legal-{{ section.id }}">
+  <div class="page-width page-width--narrow">
+    <h1 id="Legal-{{ section.id }}" class="content-page__title">{{ section.settings.heading | escape }}</h1>
+    {%- if section.settings.updated != blank -%}
+      <p class="legal__updated">{{ section.settings.updated | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.warning != blank -%}
+      <p class="legal__warning" role="note">{{ section.settings.warning | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.intro != blank -%}
+      <div class="rte legal__intro">{{ section.settings.intro }}</div>
+    {%- endif -%}
+    {%- for block in section.blocks -%}
+      <div class="legal__article" {{ block.shopify_attributes }}>
+        <h2 class="legal__heading">{{ block.settings.heading | escape }}</h2>
+        <div class="rte">{{ block.settings.text }}</div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Texte juridique",
+  "class": "section-legal",
+  "max_blocks": 30,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre de la page", "default": "Titre" },
+    { "type": "text", "id": "updated", "label": "Date de mise à jour", "default": "Dernière mise à jour : [DATE]" },
+    {
+      "type": "text",
+      "id": "warning",
+      "label": "Avertissement (à retirer après validation)",
+      "default": "[À FAIRE VALIDER PAR UN JURISTE] Ce texte est un modèle. Il doit être relu et adapté par un professionnel du droit avant la mise en ligne.",
+      "info": "Vide ce champ une fois le texte validé par un juriste."
+    },
+    { "type": "richtext", "id": "intro", "label": "Introduction" }
+  ],
+  "blocks": [
+    {
+      "type": "article",
+      "name": "Article",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Titre de l'article", "default": "Article" },
+        { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Texte de l'article.</p>" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Texte juridique" }]
+}
+{% endschema %}

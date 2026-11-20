@@ -1,0 +1,66 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": false
+      }
+    },
+    "legal": {
+      "type": "legal-content",
+      "settings": {
+        "heading": "Garantie et pièces de rechange",
+        "updated": "Dernière mise à jour : [DATE]",
+        "warning": "[À FAIRE VALIDER PAR UN JURISTE] Ce texte est un modèle. Il doit être relu et adapté par un professionnel du droit avant la mise en ligne."
+      },
+      "blocks": {
+        "article_1": {
+          "type": "article",
+          "settings": {
+            "heading": "Garantie commerciale de 2 ans",
+            "text": "<p>Nos machines sont garanties 2 ans à compter de la livraison. Cette garantie couvre [À COMPLÉTER : structure, chariot, poulies, pièces mécaniques…] contre les défauts de fabrication.</p><p>Elle ne couvre pas [À COMPLÉTER : usure normale des sangles et mousses, mauvaise utilisation, défaut d'entretien, usage non conforme à l'usage indiqué sur la fiche produit].</p>"
+          }
+        },
+        "article_2": {
+          "type": "article",
+          "settings": {
+            "heading": "Pièces de rechange en stock en France",
+            "text": "<p>Ressorts, sangles, poignées et pièces d'usure sont stockés en France. Vous pouvez les commander directement dans la collection <a href=\"/collections/accessoires-et-pieces\">Accessoires et pièces</a>.</p>"
+          }
+        },
+        "article_3": {
+          "type": "article",
+          "settings": {
+            "heading": "Comment faire une demande",
+            "text": "<p>Contactez-nous par email ou par téléphone en indiquant votre numéro de commande, le produit concerné et une description du problème, avec des photos ou une courte vidéo. Nous identifions la pièce en cause et l'envoyons depuis notre stock en France.</p>"
+          }
+        },
+        "article_4": {
+          "type": "article",
+          "settings": {
+            "heading": "Garanties légales (particuliers)",
+            "text": "<p>Indépendamment de la garantie commerciale, le vendeur reste tenu de la garantie légale de conformité (articles L217-3 et suivants du Code de la consommation) et de la garantie des vices cachés (articles 1641 et suivants du Code civil). La garantie commerciale s'ajoute à ces garanties légales et ne les remplace pas. [À FAIRE VALIDER PAR UN JURISTE]</p>"
+          }
+        }
+      },
+      "block_order": [
+        "article_1",
+        "article_2",
+        "article_3",
+        "article_4"
+      ]
+    },
+    "contact": {
+      "type": "contact-cta",
+      "settings": {
+        "heading": "Une question avant de commander ? Appelez-nous.",
+        "text": "<p>Choix des machines, nombre de reformers pour votre surface, délais : nous vous répondons directement.</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "legal",
+    "contact"
+  ]
+}

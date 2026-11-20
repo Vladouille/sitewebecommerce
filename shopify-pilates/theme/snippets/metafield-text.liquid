@@ -1,0 +1,13 @@
+{%- comment -%}
+  Affiche la valeur d'un metafield en texte, qu'il s'agisse d'un texte simple ou d'une liste.
+  Paramètre : field (le metafield)
+{%- endcomment -%}
+{%- if field.type contains 'list.' -%}
+  {{- field.value | join: ', ' | escape -}}
+{%- elsif field.type == 'multi_line_text_field' -%}
+  {{- field.value | escape | newline_to_br -}}
+{%- elsif field.type == 'rich_text_field' -%}
+  {{- field | metafield_tag -}}
+{%- else -%}
+  {{- field.value | escape -}}
+{%- endif -%}

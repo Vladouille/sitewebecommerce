@@ -1,0 +1,213 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'section-collection.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
+
+{%- paginate collection.products by section.settings.per_page -%}
+  <div class="collection-hero">
+    <div class="page-width">
+      <h1 class="collection-hero__title">{{ collection.title | escape }}</h1>
+      {%- if section.settings.show_description and collection.description != blank -%}
+        <div class="collection-hero__description rte">{{ collection.description }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="page-width collection">
+    {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
+      <form class="facets" id="FacetsForm-{{ section.id }}" data-facets-form>
+        {%- if section.settings.enable_filtering and collection.filters.size > 0 -%}
+          <div class="facets__filters">
+            <span class="facets__label">{{ 'collections.filters.title' | t }}</span>
+            {%- for filter in collection.filters -%}
+              {%- liquid
+                assign active_count = filter.active_values.size
+                if filter.type == 'price_range'
+                  assign active_count = 0
+                  if filter.min_value.value != null or filter.max_value.value != null
+                    assign active_count = 1
+                  endif
+                endif
+              -%}
+              <details class="facet" data-facet>
+                <summary class="facet__summary">
+                  <span>{{ filter.label | escape }}{% if active_count > 0 %} ({{ active_count }}){% endif %}</span>
+                  {% render 'icon', name: 'chevron', class: 'facet__chevron' %}
+                </summary>
+                <div class="facet__panel">
+                  {%- case filter.type -%}
+                    {%- when 'list', 'boolean' -%}
+                      <fieldset>
+                        <legend class="visually-hidden">{{ filter.label | escape }}</legend>
+                        <ul class="facet__list" role="list">
+                          {%- for value in filter.values -%}
+                            <li>
+                              <label class="facet__option{% if value.count == 0 and value.active == false %} facet__option--disabled{% endif %}">
+                                <input
+                                  type="checkbox"
+                                  name="{{ value.param_name }}"
+                                  value="{{ value.value }}"
+                                  {% if value.active %}checked{% endif %}
+                                  {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                                >
+                                <span>{{ value.label | escape }}</span>
+                                <span class="facet__count">({{ value.count }})</span>
+                              </label>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      </fieldset>
+                    {%- when 'price_range' -%}
+                      {%- liquid
+                        assign range_max = filter.range_max | divided_by: 100 | ceil
+                        assign min_val = filter.min_value.value | divided_by: 100
+                        assign max_val = filter.max_value.value | divided_by: 100
+                      -%}
+                      <div class="facet__price">
+                        <label>
+                          <span>{{ 'collections.filters.from' | t }}</span>
+                          <input type="number" inputmode="numeric" min="0" max="{{ range_max }}" name="{{ filter.min_value.param_name }}" {% if filter.min_value.value != null %}value="{{ min_val }}"{% endif %} placeholder="0">
+                        </label>
+                        <label>
+                          <span>{{ 'collections.filters.to' | t }}</span>
+                          <input type="number" inputmode="numeric" min="0" max="{{ range_max }}" name="{{ filter.max_value.param_name }}" {% if filter.max_value.value != null %}value="{{ max_val }}"{% endif %} placeholder="{{ range_max }}">
+                        </label>
+                        <span class="facet__currency">€ {{ settings.label_ttc }}</span>
+                      </div>
+                  {%- endcase -%}
+                </div>
+              </details>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.enable_sorting -%}
+          {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+          <div class="facets__sort">
+            <label class="facets__label" for="SortBy-{{ section.id }}">{{ 'collections.sort.title' | t }}</label>
+            <div class="select">
+              <select id="SortBy-{{ section.id }}" name="sort_by" class="select__input">
+                {%- for option in collection.sort_options -%}
+                  <option value="{{ option.value | escape }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name | escape }}</option>
+                {%- endfor -%}
+              </select>
+              {% render 'icon', name: 'chevron', class: 'select__icon' %}
+            </div>
+          </div>
+        {%- endif -%}
+
+        <button type="submit" class="button button--secondary facets__submit" data-facets-submit>{{ 'collections.filters.apply' | t }}</button>
+      </form>
+
+      {%- liquid
+        assign has_active = false
+        for filter in collection.filters
+          if filter.active_values.size > 0
+            assign has_active = true
+          endif
+          if filter.type == 'price_range'
+            if filter.min_value.value != null or filter.max_value.value != null
+              assign has_active = true
+            endif
+          endif
+        endfor
+      -%}
+      {%- if has_active -%}
+        <ul class="active-facets" role="list">
+          {%- for filter in collection.filters -%}
+            {%- for value in filter.active_values -%}
+              <li>
+                <a class="active-facets__pill" href="{{ value.url_to_remove }}">
+                  <span>{{ filter.label | escape }} : {{ value.label | escape }}</span>
+                  {% render 'icon', name: 'close' %}
+                  <span class="visually-hidden">{{ 'collections.filters.remove' | t }}</span>
+                </a>
+              </li>
+            {%- endfor -%}
+            {%- if filter.type == 'price_range' -%}
+              {%- if filter.min_value.value != null or filter.max_value.value != null -%}
+                <li>
+                  <a class="active-facets__pill" href="{{ filter.url_to_remove }}">
+                    <span>{{ filter.label | escape }}</span>
+                    {% render 'icon', name: 'close' %}
+                    <span class="visually-hidden">{{ 'collections.filters.remove' | t }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+          <li><a class="active-facets__clear" href="{{ collection.url }}?sort_by={{ collection.sort_by }}">{{ 'collections.filters.clear_all' | t }}</a></li>
+        </ul>
+      {%- endif -%}
+    {%- endif -%}
+
+    <p class="collection__count" role="status">{{ 'collections.product_count' | t: count: collection.products_count }}</p>
+
+    {%- if collection.products.size > 0 -%}
+      <ul class="product-grid product-grid--{{ section.settings.columns }}" role="list">
+        {%- for product in collection.products -%}
+          {%- liquid
+            assign lazy = true
+            if forloop.index <= 2
+              assign lazy = false
+            endif
+          -%}
+          <li>{% render 'product-card', product: product, lazy: lazy, heading_level: 'h2' %}</li>
+        {%- endfor -%}
+      </ul>
+      {% render 'pagination', paginate: paginate %}
+    {%- else -%}
+      <div class="collection__empty">
+        <p>{{ 'collections.empty' | t }}</p>
+        <a class="button button--secondary" href="{{ collection.url }}">{{ 'collections.filters.clear_all' | t }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collection",
+  "class": "section-main-collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "per_page",
+      "label": "Produits par page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Colonnes sur ordinateur",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Afficher la description de la collection",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "label": "Activer les filtres",
+      "default": true,
+      "info": "Choisis les filtres (type de produit, matériau, usage) dans l'application Search & Discovery de Shopify."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "label": "Activer le tri",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,128 @@
+{{ 'section-multicolumn.css' | asset_url | stylesheet_tag }}
+
+<section class="section multicolumn{% if section.settings.background == 'surface' %} section--surface{% endif %}" aria-labelledby="Multicolumn-{{ section.id }}">
+  <div class="page-width">
+    <div class="section-header{% if section.settings.center %} section-header--center{% endif %}">
+      <div>
+        {%- if section.settings.heading_level == 'h1' -%}
+          <h1 id="Multicolumn-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h1>
+        {%- else -%}
+          <h2 id="Multicolumn-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}
+          <div class="section-text">{{ section.settings.text }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+    <ul class="multicolumn__list multicolumn__list--{{ section.settings.columns }}" role="list">
+      {%- for block in section.blocks -%}
+        <li class="multicolumn__item" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon != 'none' -%}
+            <span class="multicolumn__icon">{% render 'icon', name: block.settings.icon %}</span>
+          {%- endif -%}
+          <h3 class="multicolumn__title">{{ block.settings.title | escape }}</h3>
+          {%- if block.settings.text != blank -%}
+            <div class="multicolumn__text rte">{{ block.settings.text }}</div>
+          {%- endif -%}
+          {%- if block.settings.link_label != blank and block.settings.link != blank -%}
+            <a class="link-arrow" href="{{ block.settings.link }}">{{ block.settings.link_label | escape }}</a>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+    {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+      <div class="multicolumn__cta">
+        <a class="button button--primary" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Colonnes",
+  "class": "section-multicolumn",
+  "max_blocks": 9,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Titre" },
+    {
+      "type": "select",
+      "id": "heading_level",
+      "label": "Niveau du titre",
+      "options": [
+        { "value": "h2", "label": "Titre de section" },
+        { "value": "h1", "label": "Titre principal de la page" }
+      ],
+      "default": "h2"
+    },
+    { "type": "richtext", "id": "text", "label": "Texte" },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Colonnes sur ordinateur",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ],
+      "default": "3"
+    },
+    { "type": "checkbox", "id": "center", "label": "Centrer le titre", "default": false },
+    { "type": "text", "id": "button_label", "label": "Texte du bouton" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Fond",
+      "options": [
+        { "value": "default", "label": "Blanc cassé" },
+        { "value": "surface", "label": "Beige" }
+      ],
+      "default": "default"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Colonne",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            { "value": "none", "label": "Aucune" },
+            { "value": "tag", "label": "Étiquette prix" },
+            { "value": "euro", "label": "Euro" },
+            { "value": "shield", "label": "Bouclier" },
+            { "value": "wrench", "label": "Clé" },
+            { "value": "truck", "label": "Camion" },
+            { "value": "box", "label": "Colis" },
+            { "value": "card", "label": "Carte bancaire" },
+            { "value": "invoice", "label": "Facture" },
+            { "value": "phone", "label": "Téléphone" },
+            { "value": "studio", "label": "Studio" },
+            { "value": "clock", "label": "Horloge" },
+            { "value": "check", "label": "Coche" }
+          ],
+          "default": "check"
+        },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Titre" },
+        { "type": "richtext", "id": "text", "label": "Texte" },
+        { "type": "text", "id": "link_label", "label": "Texte du lien" },
+        { "type": "url", "id": "link", "label": "Lien" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Colonnes",
+      "blocks": [
+        { "type": "column" },
+        { "type": "column" },
+        { "type": "column" }
+      ]
+    }
+  ]
+}
+{% endschema %}

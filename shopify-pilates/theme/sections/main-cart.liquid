@@ -1,0 +1,214 @@
+{{ 'section-cart.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign vat_factor = settings.vat_rate | divided_by: 100.0 | plus: 1
+  assign total_ttc = cart.total_price
+  assign total_ht = total_ttc | divided_by: vat_factor | round
+  assign total_vat = total_ttc | minus: total_ht
+-%}
+
+<div class="page-width cart-page">
+  <h1 class="cart-page__title">{{ 'cart.title' | t }}</h1>
+
+  {%- if cart.item_count > 0 -%}
+    <form action="{{ routes.cart_url }}" method="post" id="CartForm" class="cart" data-cart-form>
+      <div class="cart__items">
+        <table class="cart-table">
+          <caption class="visually-hidden">{{ 'cart.title' | t }}</caption>
+          <thead class="visually-hidden">
+            <tr>
+              <th scope="col">{{ 'cart.product' | t }}</th>
+              <th scope="col">{{ 'cart.quantity' | t }}</th>
+              <th scope="col">{{ 'cart.total' | t }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for item in cart.items -%}
+              {%- assign line_ht = item.final_line_price | divided_by: vat_factor | round -%}
+              <tr class="cart-item">
+                <td class="cart-item__main">
+                  <div class="cart-item__product">
+                  <a class="cart-item__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+                    {%- if item.image -%}
+                      {{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: '' }}
+                    {%- else -%}
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    {%- endif -%}
+                  </a>
+                  <div class="cart-item__details">
+                    <a class="cart-item__title" href="{{ item.url }}">{{ item.product.title | escape }}</a>
+                    {%- unless item.product.has_only_default_variant -%}
+                      <p class="cart-item__variant">{{ item.variant.title | escape }}</p>
+                    {%- endunless -%}
+                    <p class="cart-item__unit">
+                      {{ item.original_price | money }} {{ settings.label_ttc }} / {{ 'cart.unit' | t }}
+                    </p>
+                    {%- for allocation in item.line_level_discount_allocations -%}
+                      <p class="cart-item__discount">
+                        {% render 'icon', name: 'tag' %}
+                        <span>{{ allocation.discount_application.title | escape }} (−{{ allocation.amount | money }})</span>
+                      </p>
+                    {%- endfor -%}
+                    {% render 'delivery-badge', product: item.product, class: 'cart-item__delivery' %}
+                  </div>
+                  </div>
+                </td>
+                <td class="cart-item__qty">
+                  <div class="cart-item__qty-inner">
+                  <label class="visually-hidden" for="Quantity-{{ item.index | plus: 1 }}">{{ 'cart.quantity_for' | t: title: item.product.title }}</label>
+                  <div class="quantity" data-quantity>
+                    <button type="button" class="quantity__button" data-quantity-minus aria-label="{{ 'products.quantity_decrease' | t }}">{% render 'icon', name: 'minus' %}</button>
+                    <input id="Quantity-{{ item.index | plus: 1 }}" class="quantity__input" type="number" name="updates[]" value="{{ item.quantity }}" min="0" step="1" inputmode="numeric" data-quantity-input data-cart-autoupdate>
+                    <button type="button" class="quantity__button" data-quantity-plus aria-label="{{ 'products.quantity_increase' | t }}">{% render 'icon', name: 'plus' %}</button>
+                  </div>
+                  <a class="cart-item__remove" href="{{ item.url_to_remove }}">{{ 'cart.remove' | t }}<span class="visually-hidden"> {{ item.product.title | escape }}</span></a>
+                  </div>
+                </td>
+                <td class="cart-item__total">
+                  {%- if item.original_line_price != item.final_line_price -%}
+                    <s class="cart-item__original"><span class="visually-hidden">{{ 'cart.before_discount' | t }}</span>{{ item.original_line_price | money }}</s>
+                  {%- endif -%}
+                  <span class="cart-item__final">{{ item.final_line_price | money }} {{ settings.label_ttc }}</span>
+                  <span class="cart-item__ht">{{ line_ht | money }} {{ settings.label_ht }}</span>
+                </td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+        <noscript>
+          <button type="submit" name="update" class="button button--secondary">{{ 'cart.update' | t }}</button>
+        </noscript>
+        <button type="submit" name="update" class="button button--secondary cart__update" data-cart-update>{{ 'cart.update' | t }}</button>
+
+        {%- if section.settings.show_note -%}
+          <div class="cart__note">
+            <label for="CartNote">{{ section.settings.note_label | escape }}</label>
+            <textarea id="CartNote" name="note" rows="3">{{ cart.note }}</textarea>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <aside class="cart__summary" aria-labelledby="CartSummary">
+        <h2 id="CartSummary" class="cart__summary-title">{{ 'cart.summary' | t }}</h2>
+        <dl class="cart__totals">
+          {%- for application in cart.cart_level_discount_applications -%}
+            <div class="cart__row cart__row--discount">
+              <dt>{{ application.title | escape }}</dt>
+              <dd>−{{ application.total_allocated_amount | money }}</dd>
+            </div>
+          {%- endfor -%}
+          <div class="cart__row">
+            <dt>{{ 'cart.total_ht' | t }}</dt>
+            <dd>{{ total_ht | money }}</dd>
+          </div>
+          <div class="cart__row">
+            <dt>{{ 'cart.vat' | t: rate: settings.vat_rate }}</dt>
+            <dd>{{ total_vat | money }}</dd>
+          </div>
+          <div class="cart__row">
+            <dt>{{ section.settings.shipping_label | escape }}</dt>
+            <dd>{{ section.settings.shipping_value | escape }}</dd>
+          </div>
+          <div class="cart__row cart__row--total">
+            <dt>{{ 'cart.total_ttc' | t }}</dt>
+            <dd>{{ total_ttc | money_with_currency }}</dd>
+          </div>
+        </dl>
+        <p class="cart__tax-note">{{ 'cart.tax_note' | t }}</p>
+
+        <button type="submit" name="checkout" class="button button--primary button--full button--large">{{ 'cart.checkout' | t }}</button>
+
+        <ul class="reassurance reassurance--cart" role="list">
+          {%- if section.settings.reminder_delivery != blank -%}
+            <li>{% render 'icon', name: 'truck' %}<span>{{ section.settings.reminder_delivery | escape }}</span></li>
+          {%- endif -%}
+          {%- if section.settings.reminder_warranty != blank -%}
+            <li>{% render 'icon', name: 'shield' %}<span>{{ section.settings.reminder_warranty | escape }}</span></li>
+          {%- endif -%}
+          {%- if section.settings.reminder_payment != blank -%}
+            <li>{% render 'icon', name: 'card' %}<span>{{ section.settings.reminder_payment | escape }}</span></li>
+          {%- endif -%}
+        </ul>
+      </aside>
+    </form>
+
+    {%- liquid
+      assign suggestion = section.settings.suggested_product
+      assign suggestion_in_cart = false
+      if suggestion != blank
+        for item in cart.items
+          if item.product_id == suggestion.id
+            assign suggestion_in_cart = true
+          endif
+        endfor
+      endif
+    -%}
+    {%- if suggestion != blank and suggestion_in_cart == false and suggestion.available -%}
+      <div class="cart-suggestion">
+        <p class="cart-suggestion__heading">{{ section.settings.suggestion_heading | escape }}</p>
+        <div class="cart-suggestion__inner">
+          <a class="cart-suggestion__media" href="{{ suggestion.url }}" tabindex="-1" aria-hidden="true">
+            {%- if suggestion.featured_media -%}
+              {{ suggestion.featured_media | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag }}
+            {%- endif -%}
+          </a>
+          <div class="cart-suggestion__details">
+            <a class="cart-suggestion__title" href="{{ suggestion.url }}">{{ suggestion.title | escape }}</a>
+            {% render 'price', price: suggestion.price %}
+          </div>
+          {%- form 'product', suggestion, class: 'cart-suggestion__form' -%}
+            <input type="hidden" name="id" value="{{ suggestion.selected_or_first_available_variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+            <button type="submit" class="button button--secondary">{{ 'cart.add_suggestion' | t }}</button>
+          {%- endform -%}
+        </div>
+      </div>
+    {%- endif -%}
+  {%- else -%}
+    <div class="cart-empty">
+      <p>{{ 'cart.empty' | t }}</p>
+      <a class="button button--primary" href="{{ routes.collections_url }}/machines">{{ 'cart.continue' | t }}</a>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Panier",
+  "class": "section-main-cart",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Récapitulatif"
+    },
+    { "type": "text", "id": "shipping_label", "label": "Libellé livraison", "default": "Livraison et montage" },
+    { "type": "text", "id": "shipping_value", "label": "Valeur livraison", "default": "Inclus (France métropolitaine)" },
+    {
+      "type": "header",
+      "content": "Rappels sous le bouton"
+    },
+    { "type": "text", "id": "reminder_delivery", "label": "Délai", "default": "Délai de livraison indiqué pour chaque produit ci-dessus" },
+    { "type": "text", "id": "reminder_warranty", "label": "Garantie", "default": "Garantie 2 ans, pièces en stock en France" },
+    { "type": "text", "id": "reminder_payment", "label": "Paiement", "default": "Paiement sécurisé, facture avec TVA" },
+    {
+      "type": "header",
+      "content": "Note de commande"
+    },
+    { "type": "checkbox", "id": "show_note", "label": "Afficher le champ de note", "default": true },
+    { "type": "text", "id": "note_label", "label": "Libellé de la note", "default": "Informations pour la facture ou la livraison (raison sociale, accès, étage…)" },
+    {
+      "type": "header",
+      "content": "Suggestion (une seule)"
+    },
+    {
+      "type": "product",
+      "id": "suggested_product",
+      "label": "Accessoire suggéré",
+      "info": "Un seul accessoire, masqué s'il est déjà dans le panier. Laisse vide pour ne rien suggérer."
+    },
+    { "type": "text", "id": "suggestion_heading", "label": "Titre de la suggestion", "default": "Pensez aussi à" }
+  ]
+}
+{% endschema %}

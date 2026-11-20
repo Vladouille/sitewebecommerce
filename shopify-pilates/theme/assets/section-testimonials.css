@@ -1,0 +1,42 @@
+.testimonials__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 750px) {
+  .testimonials__list {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+.testimonials__item figure {
+  margin: 0;
+  height: 100%;
+  padding: 1.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.testimonials__quote {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+.testimonials__author {
+  margin-top: auto;
+  display: grid;
+  font-size: 0.9rem;
+}
+
+.testimonials__author span {
+  color: var(--color-text-muted);
+}
