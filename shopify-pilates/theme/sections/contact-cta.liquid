@@ -2,12 +2,17 @@
 
 {%- assign phone_tel = settings.phone | remove: ' ' | remove: '.' | remove: '-' -%}
 
+{%- if settings.phone == blank and settings.email == blank -%}
+  {%- if request.design_mode -%}
+    <div class="page-width section"><p class="editor-notice">{{ 'sections.contact.empty_editor' | t }}</p></div>
+  {%- endif -%}
+{%- else -%}
 <section class="section contact-cta" aria-labelledby="ContactCta-{{ section.id }}">
   <div class="page-width contact-cta__inner">
     <div class="contact-cta__content">
-      <h2 id="ContactCta-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h2>
+      <h2 id="ContactCta-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
       {%- if section.settings.text != blank -%}
-        <div class="section-text">{{ section.settings.text }}</div>
+        <div class="section-text">{% render 'tokens', text: section.settings.text %}</div>
       {%- endif -%}
     </div>
     <div class="contact-cta__actions">
@@ -29,6 +34,7 @@
     </div>
   </div>
 </section>
+{%- endif -%}
 
 {% schema %}
 {

@@ -80,7 +80,7 @@
         </div>
       {%- else -%}
         <div class="gallery gallery--empty">
-          {{ 'product-1' | placeholder_svg_tag: 'gallery__placeholder' }}
+          {% render 'reformer-drawing' %}
         </div>
       {%- endif -%}
     </div>
@@ -105,7 +105,7 @@
             <div class="product__price" {{ block.shopify_attributes }}>
               {% render 'price', price: current_variant.price, size: 'large' %}
               {%- if block.settings.note != blank -%}
-                <p class="product__price-note">{{ block.settings.note | escape }}</p>
+                <p class="product__price-note">{% render 'tokens', text: block.settings.note, escape: true %}</p>
               {%- endif -%}
             </div>
 
@@ -166,7 +166,7 @@
                   <button
                     type="submit"
                     name="add"
-                    class="button button--primary button--full product-form__submit"
+                    class="button button--buy button--full product-form__submit"
                     data-add-button
                     data-label-add="{{ 'products.add_to_cart' | t }}"
                     data-label-soldout="{{ 'products.sold_out' | t }}"
@@ -183,22 +183,22 @@
 
               <ul class="reassurance" role="list">
                 {%- if block.settings.reassurance_1 != blank -%}
-                  <li>{% render 'icon', name: 'shield' %}<span>{{ block.settings.reassurance_1 | escape }}</span></li>
+                  <li>{% render 'icon', name: 'shield' %}<span>{% render 'tokens', text: block.settings.reassurance_1, escape: true %}</span></li>
                 {%- endif -%}
                 {%- if block.settings.reassurance_2 != blank -%}
-                  <li>{% render 'icon', name: 'truck' %}<span>{{ block.settings.reassurance_2 | escape }}</span></li>
+                  <li>{% render 'icon', name: 'truck' %}<span>{% render 'tokens', text: block.settings.reassurance_2, escape: true %}</span></li>
                 {%- endif -%}
                 {%- if block.settings.reassurance_3 != blank -%}
-                  <li>{% render 'icon', name: 'card' %}<span>{{ block.settings.reassurance_3 | escape }}</span></li>
+                  <li>{% render 'icon', name: 'card' %}<span>{% render 'tokens', text: block.settings.reassurance_3, escape: true %}</span></li>
                 {%- endif -%}
                 {%- if block.settings.reassurance_4 != blank -%}
-                  <li>{% render 'icon', name: 'invoice' %}<span>{{ block.settings.reassurance_4 | escape }}</span></li>
+                  <li>{% render 'icon', name: 'invoice' %}<span>{% render 'tokens', text: block.settings.reassurance_4, escape: true %}</span></li>
                 {%- endif -%}
               </ul>
 
               {%- if block.settings.show_phone and settings.phone != blank -%}
                 <p class="product__phone">
-                  {{ block.settings.phone_text | escape }}
+                  {% render 'tokens', text: block.settings.phone_text, escape: true %}
                   <a href="tel:{{ phone_tel }}">{{ settings.phone | escape }}</a>
                 </p>
               {%- endif -%}
@@ -216,7 +216,7 @@
             -%}
             {%- if ideal_items != blank and ideal_items.size > 0 -%}
               <div class="ideal-for" {{ block.shopify_attributes }}>
-                <p class="ideal-for__heading">{{ block.settings.heading | escape }}</p>
+                <p class="ideal-for__heading">{% render 'tokens', text: block.settings.heading, escape: true %}</p>
                 <ul class="ideal-for__list" role="list">
                   {%- for item in ideal_items -%}
                     <li class="ideal-for__item">{% render 'icon', name: 'check' %}<span>{{ item | strip | escape }}</span></li>
@@ -234,7 +234,7 @@
 
           {%- when 'text' -%}
             {%- if block.settings.text != blank -%}
-              <div class="product__text rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+              <div class="product__text rte" {{ block.shopify_attributes }}>{% render 'tokens', text: block.settings.text %}</div>
             {%- endif -%}
 
           {%- when 'collapsible' -%}
@@ -242,12 +242,12 @@
               <summary class="accordion__summary">
                 <span class="accordion__title">
                   {% render 'icon', name: block.settings.icon %}
-                  <span>{{ block.settings.heading | escape }}</span>
+                  <span>{% render 'tokens', text: block.settings.heading, escape: true %}</span>
                 </span>
                 {% render 'icon', name: 'plus', class: 'accordion__icon' %}
               </summary>
               <div class="accordion__content rte">
-                {{ block.settings.content }}
+                {% render 'tokens', text: block.settings.content %}
                 {%- if block.settings.page != blank -%}
                   {{ block.settings.page.content }}
                 {%- endif -%}
@@ -320,7 +320,7 @@
           "type": "text",
           "id": "text",
           "label": "Texte par défaut",
-          "default": "Qualité studio, prix usine."
+          "default": "Qualité studio, importé directement de l'usine."
         }
       ]
     },
@@ -384,7 +384,7 @@
           "type": "text",
           "id": "reassurance_1",
           "label": "Ligne 1 (bouclier)",
-          "default": "Garantie 2 ans"
+          "default": "Garantie [GARANTIE]"
         },
         {
           "type": "text",

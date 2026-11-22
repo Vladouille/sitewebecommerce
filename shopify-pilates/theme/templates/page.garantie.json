@@ -17,22 +17,22 @@
         "article_1": {
           "type": "article",
           "settings": {
-            "heading": "Garantie commerciale de 2 ans",
-            "text": "<p>Nos machines sont garanties 2 ans à compter de la livraison. Cette garantie couvre [À COMPLÉTER : structure, chariot, poulies, pièces mécaniques…] contre les défauts de fabrication.</p><p>Elle ne couvre pas [À COMPLÉTER : usure normale des sangles et mousses, mauvaise utilisation, défaut d'entretien, usage non conforme à l'usage indiqué sur la fiche produit].</p>"
+            "heading": "Garantie commerciale de [GARANTIE]",
+            "text": "<p>Nos machines sont garanties [GARANTIE] à compter de la livraison. Cette garantie couvre [À COMPLÉTER : structure, chariot, poulies, pièces mécaniques…] contre les défauts de fabrication.</p><p>Elle ne couvre pas [À COMPLÉTER : usure normale des sangles et mousses, mauvaise utilisation, défaut d'entretien, usage non conforme à l'usage indiqué sur la fiche produit].</p>"
           }
         },
         "article_2": {
           "type": "article",
           "settings": {
-            "heading": "Pièces de rechange en stock en France",
-            "text": "<p>Ressorts, sangles, poignées et pièces d'usure sont stockés en France. Vous pouvez les commander directement dans la collection <a href=\"/collections/accessoires-et-pieces\">Accessoires et pièces</a>.</p>"
+            "heading": "Pièces de rechange",
+            "text": "<p>[PIECES]. Ressorts, sangles, poignées et pièces d'usure : vous pouvez commander les pièces courantes directement dans la collection <a href=\"/collections/accessoires-et-pieces\">Accessoires et pièces</a>.</p>"
           }
         },
         "article_3": {
           "type": "article",
           "settings": {
             "heading": "Comment faire une demande",
-            "text": "<p>Contactez-nous par email ou par téléphone en indiquant votre numéro de commande, le produit concerné et une description du problème, avec des photos ou une courte vidéo. Nous identifions la pièce en cause et l'envoyons depuis notre stock en France.</p>"
+            "text": "<p>Contactez-nous par email ou par téléphone en indiquant votre numéro de commande, le produit concerné et une description du problème, avec des photos ou une courte vidéo. Nous identifions la pièce en cause et organisons son remplacement.</p>"
           }
         },
         "article_4": {

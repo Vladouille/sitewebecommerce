@@ -11,12 +11,12 @@
             {%- when 'brand' -%}
               <p class="footer__brand">{{ settings.brand_name | escape }}</p>
               {%- if block.settings.text != blank -%}
-                <div class="footer__text">{{ block.settings.text }}</div>
+                <div class="footer__text">{% render 'tokens', text: block.settings.text %}</div>
               {%- endif -%}
 
             {%- when 'links' -%}
               {%- if block.settings.heading != blank -%}
-                <h2 class="footer__heading">{{ block.settings.heading | escape }}</h2>
+                <h2 class="footer__heading">{% render 'tokens', text: block.settings.heading, escape: true %}</h2>
               {%- endif -%}
               <ul class="footer__links" role="list">
                 {%- if block.settings.menu != blank and block.settings.menu.links.size > 0 -%}
@@ -35,7 +35,7 @@
 
             {%- when 'contact' -%}
               {%- if block.settings.heading != blank -%}
-                <h2 class="footer__heading">{{ block.settings.heading | escape }}</h2>
+                <h2 class="footer__heading">{% render 'tokens', text: block.settings.heading, escape: true %}</h2>
               {%- endif -%}
               <ul class="footer__links footer__links--contact" role="list">
                 {%- if settings.phone != blank -%}
@@ -43,6 +43,9 @@
                 {%- endif -%}
                 {%- if settings.email != blank -%}
                   <li><a href="mailto:{{ settings.email }}">{% render 'icon', name: 'mail' %}<span>{{ settings.email | escape }}</span></a></li>
+                {%- endif -%}
+                {%- if settings.phone == blank and settings.email == blank and request.design_mode -%}
+                  <li class="footer__hours">{{ 'sections.contact.empty_editor' | t }}</li>
                 {%- endif -%}
                 {%- if settings.phone_hours != blank -%}
                   <li class="footer__hours">{{ settings.phone_hours | escape }}</li>
@@ -103,7 +106,7 @@
           "type": "richtext",
           "id": "text",
           "label": "Texte",
-          "default": "<p>Équipement Pilates de qualité studio, importé directement d'usine. Garantie 2 ans, pièces en stock en France.</p>"
+          "default": "<p>Équipement Pilates de qualité studio, importé directement de l'usine, sans distributeur intermédiaire.</p>"
         }
       ]
     },

@@ -11,7 +11,7 @@
       "settings": {
         "heading": "Équiper mon studio",
         "heading_level": "h1",
-        "text": "<p>Vous ouvrez un studio, vous agrandissez votre salle ou vous équipez un cabinet de kinésithérapie ? Nous vendons directement l'équipement de qualité studio, sans intermédiaire, avec des prix affichés et une facture en bonne et due forme.</p>",
+        "text": "<p>Vous ouvrez un studio, vous agrandissez votre salle ou vous équipez un cabinet de kinésithérapie ? Nous vendons un équipement de qualité studio importé directement de l'usine, sans distributeur intermédiaire, avec des prix affichés et une facture en bonne et due forme.</p>",
         "button_label": "Voir les packs studio",
         "button_link": "/collections/packs-studio",
         "button_style": "primary",
@@ -75,8 +75,10 @@
           "type": "column",
           "settings": {
             "icon": "wrench",
-            "title": "SAV et pièces en France",
-            "text": "<p>Garantie 2 ans et pièces d'usure en stock en France, pour ne pas laisser une machine à l'arrêt.</p>"
+            "title": "SAV et pièces de rechange",
+            "text": "<p>Garantie [GARANTIE]. [PIECES]. Un interlocuteur direct pour ne pas laisser une machine à l'arrêt.</p>",
+            "link_label": "Conditions de garantie",
+            "link": "/pages/garantie-et-pieces-de-rechange"
           }
         }
       },
@@ -106,8 +108,8 @@
         "step_2": {
           "type": "step",
           "settings": {
-            "title": "Nous fabriquons et expédions",
-            "text": "<p>Le délai est annoncé sur chaque fiche produit.</p>"
+            "title": "Fabrication et contrôle",
+            "text": "<p>Votre commande est fabriquée par notre usine partenaire, contrôlée, puis expédiée. Le délai est annoncé sur chaque fiche produit.</p>"
           }
         },
         "step_3": {

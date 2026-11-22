@@ -2,7 +2,7 @@
 
 <div class="section">
   <div class="page-width">
-    <h1 class="section-heading">{{ section.settings.heading | escape }}</h1>
+    <h1 class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h1>
     <ul class="product-grid product-grid--3" role="list">
       {%- for collection in collections -%}
         {%- if collection.handle != 'frontpage' and collection.products_count > 0 -%}

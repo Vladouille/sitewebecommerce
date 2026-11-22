@@ -5,20 +5,20 @@
 
 <section class="section legal" aria-labelledby="Legal-{{ section.id }}">
   <div class="page-width page-width--narrow">
-    <h1 id="Legal-{{ section.id }}" class="content-page__title">{{ section.settings.heading | escape }}</h1>
+    <h1 id="Legal-{{ section.id }}" class="content-page__title">{% render 'tokens', text: section.settings.heading, escape: true %}</h1>
     {%- if section.settings.updated != blank -%}
-      <p class="legal__updated">{{ section.settings.updated | escape }}</p>
+      <p class="legal__updated">{% render 'tokens', text: section.settings.updated, escape: true %}</p>
     {%- endif -%}
     {%- if section.settings.warning != blank -%}
-      <p class="legal__warning" role="note">{{ section.settings.warning | escape }}</p>
+      <p class="legal__warning" role="note">{% render 'tokens', text: section.settings.warning, escape: true %}</p>
     {%- endif -%}
     {%- if section.settings.intro != blank -%}
-      <div class="rte legal__intro">{{ section.settings.intro }}</div>
+      <div class="rte legal__intro">{% render 'tokens', text: section.settings.intro %}</div>
     {%- endif -%}
     {%- for block in section.blocks -%}
       <div class="legal__article" {{ block.shopify_attributes }}>
-        <h2 class="legal__heading">{{ block.settings.heading | escape }}</h2>
-        <div class="rte">{{ block.settings.text }}</div>
+        <h2 class="legal__heading">{% render 'tokens', text: block.settings.heading, escape: true %}</h2>
+        <div class="rte">{% render 'tokens', text: block.settings.text %}</div>
       </div>
     {%- endfor -%}
   </div>

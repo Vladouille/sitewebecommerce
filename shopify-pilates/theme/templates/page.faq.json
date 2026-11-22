@@ -39,7 +39,7 @@
           "type": "question",
           "settings": {
             "question": "Comment fonctionne la garantie ?",
-            "answer": "<p>Toutes les machines sont garanties 2 ans. En cas de problème, contactez-nous : nous identifions la pièce en cause et l'envoyons depuis notre stock en France.</p>"
+            "answer": "<p>Les machines sont garanties [GARANTIE], selon les conditions détaillées sur la page <a href=\"/pages/garantie-et-pieces-de-rechange\">Garantie et pièces de rechange</a>. En cas de problème, contactez-nous : nous identifions la pièce en cause et organisons son remplacement.</p>"
           }
         },
         "question_5": {
@@ -80,29 +80,36 @@
         "question_10": {
           "type": "question",
           "settings": {
+            "question": "Puis-je retourner un produit ?",
+            "answer": "<p>Particuliers : vous disposez d'un droit de rétractation de 14 jours après la livraison, frais de retour à votre charge. Achats professionnels : ils ne bénéficient pas du droit de rétractation. [À FAIRE VALIDER PAR UN JURISTE]</p>"
+          }
+        },
+        "question_11": {
+          "type": "question",
+          "settings": {
             "question": "Puis-je payer par virement ?",
             "answer": "<p>Oui. Choisissez le virement bancaire au moment du paiement. La commande est lancée en fabrication à réception du virement.</p>"
           }
         },
-        "question_11": {
+        "question_12": {
           "type": "question",
           "settings": {
             "question": "Les machines supportent-elles un usage intensif en studio ?",
             "answer": "<p>L'usage prévu (studio commercial ou domicile) est indiqué dans les caractéristiques techniques de chaque fiche produit.</p>"
           }
         },
-        "question_12": {
-          "type": "question",
-          "settings": {
-            "question": "Puis-je retourner un produit ?",
-            "answer": "<p>Particuliers : oui, sous 14 jours après la livraison, frais de retour à votre charge. Achats professionnels : pas de droit de rétractation. Tous les détails sont sur la page Retours.</p>"
-          }
-        },
         "question_13": {
           "type": "question",
           "settings": {
+            "question": "Comment commander une pièce qui n'est pas en ligne ?",
+            "answer": "<p>Appelez-nous ou écrivez-nous avec la référence de votre machine : nous vous indiquons le délai et le prix.</p>"
+          }
+        },
+        "question_14": {
+          "type": "question",
+          "settings": {
             "question": "Je suis un particulier, puis-je commander ?",
-            "answer": "<p>Oui. Le site est ouvert à tous : prix affichés, paiement en ligne, livraison et montage inclus en France métropolitaine.</p>"
+            "answer": "<p>Oui. Le site est ouvert à tous : prix affichés, paiement en ligne, livraison et montage inclus en France métropolitaine. Vous bénéficiez du droit de rétractation de 14 jours (frais de retour à votre charge). [À FAIRE VALIDER PAR UN JURISTE]</p>"
           }
         }
       },
@@ -119,7 +126,8 @@
         "question_10",
         "question_11",
         "question_12",
-        "question_13"
+        "question_13",
+        "question_14"
       ]
     },
     "contact": {

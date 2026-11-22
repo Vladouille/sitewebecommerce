@@ -24,9 +24,9 @@
       <div class="page-width">
         <div class="section-header">
           <div>
-            <h2 id="Complementary-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h2>
+            <h2 id="Complementary-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
           </div>
-          <a class="link-arrow" href="{{ source.url }}">{{ section.settings.view_all_label | escape }}</a>
+          <a class="link-arrow" href="{{ source.url }}">{% render 'tokens', text: section.settings.view_all_label, escape: true %}</a>
         </div>
         <ul class="product-grid product-grid--4" role="list">
           {{ items }}

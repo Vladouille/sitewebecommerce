@@ -4,9 +4,11 @@
       "type": "hero",
       "settings": {
         "layout": "split",
-        "eyebrow": "Importé directement d'usine",
-        "heading": "Équipement Pilates de studio, jusqu'à 30 % moins cher.",
-        "text": "<p>Reformers, Cadillac et chaises de qualité studio. Garantie 2 ans. Pièces de rechange en stock en France. Livraison et montage inclus.</p>",
+        "image_alt": "Reformers Pilates installés dans un studio lumineux",
+        "eyebrow": "Qualité studio, prix affichés",
+        "heading": "Équipement Pilates de studio",
+        "show_savings": true,
+        "text": "<p>Reformers, Cadillac et chaises importés directement de l'usine, sans distributeur intermédiaire. Garantie [GARANTIE]. Livraison et montage inclus.</p>",
         "button_1_label": "Équiper mon studio",
         "button_1_link": "/collections/packs-studio",
         "button_2_label": "Voir les machines",
@@ -22,24 +24,25 @@
         "item_1": {
           "type": "item",
           "settings": {
-            "icon": "tag",
-            "title": "Prix usine",
-            "text": "Jusqu'à 30 % moins cher, sans intermédiaire."
+            "icon": "box",
+            "title": "Importé de l'usine",
+            "text": "Sans distributeur intermédiaire."
           }
         },
         "item_2": {
           "type": "item",
           "settings": {
             "icon": "shield",
-            "title": "Garantie 2 ans",
-            "text": "Sur toutes les machines."
+            "title": "Garantie [GARANTIE]",
+            "text": "Voir les conditions de garantie.",
+            "link": "/pages/garantie-et-pieces-de-rechange"
           }
         },
         "item_3": {
           "type": "item",
           "settings": {
             "icon": "wrench",
-            "title": "Pièces en stock en France",
+            "title": "[PIECES]",
             "text": "Ressorts, sangles, poignées."
           }
         },
@@ -76,13 +79,25 @@
       "type": "featured-collection",
       "settings": {
         "heading": "Les machines",
-        "text": "<p>Reformers, Cadillac et chaise : la même qualité que les grandes marques de studio.</p>",
+        "text": "<p>Reformers, Cadillac et chaise de qualité studio, pour un usage professionnel ou à domicile.</p>",
         "collection_handle": "machines",
         "limit": 6,
         "columns": "3",
         "show_view_all": true,
         "view_all_label": "Voir toutes les machines",
         "background": "surface"
+      }
+    },
+    "calculator": {
+      "type": "studio-calculator",
+      "settings": {
+        "heading": "Combien coûte votre studio ?",
+        "text": "<p>Choisissez la machine et le nombre de postes. La remise par quantité s'applique automatiquement au panier.</p>",
+        "collection_handle": "machines",
+        "default_qty": 4,
+        "max_qty": 12,
+        "note": "Estimation. Le montant exact est calculé au panier. Livraison et montage inclus en France métropolitaine.",
+        "background": "default"
       }
     },
     "steps": {
@@ -102,8 +117,8 @@
         "step_2": {
           "type": "step",
           "settings": {
-            "title": "Nous fabriquons et expédions",
-            "text": "<p>Votre équipement part de l'usine. Nous vous tenons informé à chaque étape.</p>"
+            "title": "Fabrication et contrôle",
+            "text": "<p>Votre commande est fabriquée par notre usine partenaire, contrôlée, puis expédiée. Le délai est annoncé sur chaque fiche produit.</p>"
           }
         },
         "step_3": {
@@ -123,9 +138,9 @@
     "comparison": {
       "type": "comparison",
       "settings": {
-        "heading": "Le circuit classique ou Ressaline",
+        "heading": "Le circuit classique ou [NOM DE MARQUE]",
         "before_label": "Circuit classique",
-        "after_label": "Avec Ressaline",
+        "after_label": "Avec [NOM DE MARQUE]",
         "background": "surface"
       },
       "blocks": {
@@ -133,8 +148,8 @@
           "type": "row",
           "settings": {
             "label": "Prix",
-            "before": "Marges de la marque et des distributeurs",
-            "after": "Prix usine, jusqu'à 30 % moins cher"
+            "before": "Un ou plusieurs intermédiaires entre l'usine et vous",
+            "after": "Importé directement de l'usine, sans distributeur intermédiaire"
           }
         },
         "row_2": {
@@ -150,15 +165,15 @@
           "settings": {
             "label": "SAV",
             "before": "Interlocuteurs multiples",
-            "after": "Un contact direct en France, garantie 2 ans"
+            "after": "Un contact direct, garantie [GARANTIE]"
           }
         },
         "row_4": {
           "type": "row",
           "settings": {
             "label": "Pièces",
-            "before": "Commandées à l'étranger, longues à recevoir",
-            "after": "Ressorts, sangles et poignées en stock en France"
+            "before": "Disponibilité variable selon le revendeur",
+            "after": "[PIECES]"
           }
         }
       },
@@ -172,9 +187,9 @@
     "guarantee": {
       "type": "guarantee",
       "settings": {
-        "heading": "Garantie 2 ans et SAV en France",
-        "text": "<p>Un studio ne peut pas se permettre une machine à l'arrêt. Nos pièces d'usure sont stockées en France et un interlocuteur vous répond directement.</p>",
-        "button_label": "Voir la garantie",
+        "heading": "Garantie [GARANTIE] et service après-vente",
+        "text": "<p>Un studio ne peut pas se permettre une machine à l'arrêt. Un interlocuteur vous répond directement et suit votre demande jusqu'à la remise en service. Ce qui est couvert est détaillé dans les conditions de garantie.</p>",
+        "button_label": "Lire les conditions de garantie",
         "button_link": "/pages/garantie-et-pieces-de-rechange",
         "background": "default"
       },
@@ -182,13 +197,13 @@
         "point_1": {
           "type": "point",
           "settings": {
-            "text": "Garantie 2 ans sur toutes les machines"
+            "text": "Garantie [GARANTIE] sur les machines, selon les conditions de garantie"
           }
         },
         "point_2": {
           "type": "point",
           "settings": {
-            "text": "Ressorts, sangles et poignées en stock en France"
+            "text": "[PIECES]"
           }
         },
         "point_3": {
@@ -245,7 +260,7 @@
           "type": "question",
           "settings": {
             "question": "Comment fonctionne la garantie ?",
-            "answer": "<p>Toutes les machines sont garanties 2 ans. En cas de problème, contactez-nous : nous identifions la pièce en cause et l'envoyons depuis notre stock en France.</p>"
+            "answer": "<p>Les machines sont garanties [GARANTIE], selon les conditions détaillées sur la page <a href=\"/pages/garantie-et-pieces-de-rechange\">Garantie et pièces de rechange</a>. En cas de problème, contactez-nous : nous identifions la pièce en cause et organisons son remplacement.</p>"
           }
         },
         "question_4": {
@@ -268,6 +283,13 @@
             "question": "Puis-je payer en plusieurs fois ?",
             "answer": "<p>Oui, pour les professionnels. Contactez-nous pour connaître les modalités adaptées à votre projet.</p>"
           }
+        },
+        "question_7": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je retourner un produit ?",
+            "answer": "<p>Particuliers : vous disposez d'un droit de rétractation de 14 jours après la livraison, frais de retour à votre charge. Achats professionnels : ils ne bénéficient pas du droit de rétractation. [À FAIRE VALIDER PAR UN JURISTE]</p>"
+          }
         }
       },
       "block_order": [
@@ -276,7 +298,8 @@
         "question_3",
         "question_4",
         "question_5",
-        "question_6"
+        "question_6",
+        "question_7"
       ]
     },
     "contact": {
@@ -292,6 +315,7 @@
     "trust",
     "packs",
     "machines",
+    "calculator",
     "steps",
     "comparison",
     "guarantee",

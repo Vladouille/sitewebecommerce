@@ -6,66 +6,65 @@
         "show_title": false
       }
     },
-    "intro": {
-      "type": "rich-text",
+    "legal": {
+      "type": "legal-content",
       "settings": {
         "heading": "Livraison et montage",
-        "heading_level": "h1",
-        "text": "<p>La livraison et le montage sont inclus pour toute commande livrée en France métropolitaine. Vous n'avez rien à porter ni à assembler.</p>",
-        "alignment": "left",
-        "background": "default"
-      }
-    },
-    "details": {
-      "type": "multicolumn",
-      "settings": {
-        "heading": "Comment se passe la livraison",
-        "heading_level": "h2",
-        "columns": "3",
-        "center": false,
-        "background": "surface"
+        "updated": "Dernière mise à jour : [DATE]",
+        "warning": "[À FAIRE VALIDER PAR UN JURISTE] Ce texte est un modèle. Il doit être relu et adapté par un professionnel du droit avant la mise en ligne."
       },
       "blocks": {
-        "column_1": {
-          "type": "column",
+        "article_1": {
+          "type": "article",
           "settings": {
-            "icon": "clock",
-            "title": "Délais",
-            "text": "<p>Le délai est indiqué sur chaque fiche produit. Pièces et accessoires en stock : expédiés rapidement. Machines fabriquées à la commande : délai annoncé sur la fiche, à partir de la confirmation de la commande.</p>"
+            "heading": "Livraison et montage inclus",
+            "text": "<p>La livraison et le montage sont inclus pour toute commande livrée en France métropolitaine. Vous n'avez rien à porter ni à assembler.</p>"
           }
         },
-        "column_2": {
-          "type": "column",
+        "article_2": {
+          "type": "article",
           "settings": {
-            "icon": "phone",
-            "title": "Prise de rendez-vous",
+            "heading": "Délais",
+            "text": "<p>Le délai est indiqué sur chaque fiche produit et rappelé dans le panier. Il court à partir de la confirmation de la commande (ou de la réception du virement). Les machines sont fabriquées par notre usine partenaire, contrôlées, puis expédiées.</p>"
+          }
+        },
+        "article_3": {
+          "type": "article",
+          "settings": {
+            "heading": "Prise de rendez-vous",
             "text": "<p>Avant la livraison, nous vous appelons pour fixer un créneau et vérifier l'accès : étage, ascenseur, largeur des portes, stationnement.</p>"
           }
         },
-        "column_3": {
-          "type": "column",
+        "article_4": {
+          "type": "article",
           "settings": {
-            "icon": "wrench",
-            "title": "Montage sur place",
-            "text": "<p>Nos équipes montent les machines dans la pièce de votre choix et vérifient leur bon fonctionnement. Les emballages sont [À COMPLÉTER : repris ou laissés sur place].</p>"
+            "heading": "Montage sur place",
+            "text": "<p>Les machines sont montées dans la pièce de votre choix et leur bon fonctionnement est vérifié. Les emballages sont [À COMPLÉTER : repris ou laissés sur place].</p>"
+          }
+        },
+        "article_5": {
+          "type": "article",
+          "settings": {
+            "heading": "Zone de livraison",
+            "text": "<p>France métropolitaine. Corse, outre-mer et autres pays : contactez-nous avant de commander pour obtenir un prix. [À COMPLÉTER : préciser le cas de la Corse]</p>"
+          }
+        },
+        "article_6": {
+          "type": "article",
+          "settings": {
+            "heading": "Réception",
+            "text": "<p>Vérifiez l'état des colis en présence du livreur et notez toute réserve précise sur le bon de livraison. Prévenez-nous ensuite par email ou téléphone, avec des photos.</p>"
           }
         }
       },
       "block_order": [
-        "column_1",
-        "column_2",
-        "column_3"
+        "article_1",
+        "article_2",
+        "article_3",
+        "article_4",
+        "article_5",
+        "article_6"
       ]
-    },
-    "zone": {
-      "type": "rich-text",
-      "settings": {
-        "heading": "Zone de livraison",
-        "heading_level": "h2",
-        "text": "<p>Livraison et montage inclus en France métropolitaine. Corse, outre-mer et autres pays : contactez-nous avant de commander pour obtenir un prix.</p><p>À la réception, vérifiez l'état des colis en présence du livreur et notez toute réserve précise sur le bon de livraison. Prévenez-nous ensuite par email ou téléphone.</p>",
-        "alignment": "left",
-        "background": "default"
-      }
     },
     "contact": {
       "type": "contact-cta",
@@ -77,9 +76,7 @@
   },
   "order": [
     "main",
-    "intro",
-    "details",
-    "zone",
+    "legal",
     "contact"
   ]
 }

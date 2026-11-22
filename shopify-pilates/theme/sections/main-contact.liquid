@@ -5,9 +5,9 @@
 <section class="section contact-page" aria-labelledby="Contact-{{ section.id }}">
   <div class="page-width contact-page__inner">
     <div class="contact-page__intro">
-      <h1 id="Contact-{{ section.id }}" class="content-page__title">{{ section.settings.heading | escape }}</h1>
+      <h1 id="Contact-{{ section.id }}" class="content-page__title">{% render 'tokens', text: section.settings.heading, escape: true %}</h1>
       {%- if section.settings.text != blank -%}
-        <div class="rte">{{ section.settings.text }}</div>
+        <div class="rte">{% render 'tokens', text: section.settings.text %}</div>
       {%- endif -%}
       <ul class="contact-page__direct" role="list">
         {%- if settings.phone != blank -%}
@@ -53,7 +53,7 @@
           <label for="ContactForm-body">{{ 'contact.message' | t }}</label>
           <textarea id="ContactForm-body" name="contact[body]" rows="6">{{ form.body }}</textarea>
         </div>
-        <p class="form__privacy">{{ section.settings.privacy_text | escape }}</p>
+        <p class="form__privacy">{% render 'tokens', text: section.settings.privacy_text, escape: true %}</p>
         <button type="submit" class="button button--primary">{{ 'contact.send' | t }}</button>
       {%- endform -%}
     </div>

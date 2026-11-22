@@ -4,9 +4,9 @@
   <div class="page-width">
     <div class="section-header section-header--center">
       <div>
-        <h2 id="Steps-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h2>
+        <h2 id="Steps-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
         {%- if section.settings.text != blank -%}
-          <div class="section-text">{{ section.settings.text }}</div>
+          <div class="section-text">{% render 'tokens', text: section.settings.text %}</div>
         {%- endif -%}
       </div>
     </div>
@@ -14,9 +14,9 @@
       {%- for block in section.blocks -%}
         <li class="steps__item" {{ block.shopify_attributes }}>
           <span class="steps__number" aria-hidden="true">{{ forloop.index }}</span>
-          <h3 class="steps__title">{{ block.settings.title | escape }}</h3>
+          <h3 class="steps__title">{% render 'tokens', text: block.settings.title, escape: true %}</h3>
           {%- if block.settings.text != blank -%}
-            <div class="steps__text">{{ block.settings.text }}</div>
+            <div class="steps__text">{% render 'tokens', text: block.settings.text %}</div>
           {%- endif -%}
         </li>
       {%- endfor -%}
@@ -76,7 +76,7 @@
       "name": "Comment ça marche",
       "blocks": [
         { "type": "step", "settings": { "title": "Vous commandez en ligne", "text": "<p>Prix affichés, paiement sécurisé. Une question ? Appelez-nous avant de commander.</p>" } },
-        { "type": "step", "settings": { "title": "Nous fabriquons et expédions", "text": "<p>Votre équipement part de l'usine. Nous vous tenons informé à chaque étape.</p>" } },
+        { "type": "step", "settings": { "title": "Fabrication et contrôle", "text": "<p>Votre commande est fabriquée par notre usine partenaire, contrôlée, puis expédiée. Le délai est annoncé sur chaque fiche produit.</p>" } },
         { "type": "step", "settings": { "title": "Livraison et montage dans votre studio", "text": "<p>Nos équipes livrent et montent vos machines. Vous n'avez plus qu'à ouvrir vos cours.</p>" } }
       ]
     }

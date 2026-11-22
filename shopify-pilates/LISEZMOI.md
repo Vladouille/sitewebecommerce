@@ -7,6 +7,8 @@ Ce dossier contient tout ce qu'il faut pour lancer la boutique sur Shopify :
 | `theme.zip` | Le thème, à téléverser tel quel dans Shopify |
 | `theme/` | Le même thème, en fichiers (utile seulement pour un développeur) |
 | `products.csv` | Les 10 produits, à importer dans Shopify (en brouillon, prix à vérifier) |
+
+L'ancienne page `site-vitrine.html` (fond nuit, Google Fonts) a été supprimée : tout son contenu utile est maintenant dans le thème.
 | `LISEZMOI.md` | Ce guide |
 
 > **Suis les étapes dans l'ordre.** L'ordre compte : par exemple, les collections doivent exister avant que la page d'accueil affiche des produits, et les définitions de metafields doivent exister avant de les remplir.
@@ -22,14 +24,23 @@ Partout dans ce guide, « Admin » veut dire l'administration Shopify (la page `
 3. Choisis `theme.zip`. Attends la fin du téléversement.
 4. Ne clique **pas** encore sur « Publier ». Clique sur **Personnaliser** pour le voir.
 
-Le thème est en français et ne charge aucun script ni police depuis un site extérieur (les polices viennent de la bibliothèque Shopify).
+Le thème est en français et ne charge aucun script ni police depuis un site extérieur (les polices viennent de la bibliothèque Shopify, sans Google Fonts).
+
+La page d'accueil contient, dans l'ordre (chaque section se déplace, se masque ou se modifie dans l'éditeur) : bannière, bandeau d'arguments, packs studio, machines, **calculateur de studio**, comment ça marche, comparatif, garantie, avis clients (invisible tant qu'il n'y en a pas), FAQ, contact.
+
+Le **calculateur de studio** lit les produits de la collection Machines : prix Shopify, paliers de remise (`custom.paliers_quantite`) et délai (`custom.delai_livraison`) de chaque machine. Son bouton ajoute réellement la machine et la quantité au panier.
 
 ## Étape 2 — Régler le thème (5 minutes)
 
 Dans **Personnaliser**, clique sur l'icône **engrenage** (Paramètres du thème) en bas à gauche :
 
-- **Marque et contact** : nom de la marque (déjà réglé sur « Ressaline »), logo, favicon, **téléphone**, horaires, **email**. Le numéro et l'email fournis sont des exemples : remplace-les.
-- **Couleurs** : fond blanc cassé, beige, bois clair, texte presque noir, et la **couleur d'accent** (boutons). Garde une couleur d'accent foncée pour que le texte des boutons reste lisible.
+- **Marque et contact** : nom de la marque (déjà réglé sur « Ressaline »), logo, favicon, **téléphone**, horaires, **email**. Le téléphone et l'email sont **vides** : tant qu'ils le restent, ils sont masqués partout sur le site, et un rappel s'affiche dans l'éditeur.
+- **Promesses** : c'est ici que se règlent les promesses affichées sur tout le site :
+  - **Durée de la garantie** (2 ans par défaut). Elle doit correspondre exactement à ta page de conditions de garantie.
+  - **Stock de pièces en France : oui/non** (non par défaut). Tant que la case n'est pas cochée, le site affiche « Pièces de rechange disponibles et garanties ». Coche-la seulement quand le stock existe réellement en France.
+  - **Promesse d'économie** (« jusqu'à 30 % moins cher ») et sa **mention** (« Par rapport aux prix publics constatés des marques de studio, [DATE À COMPLÉTER] »). Elle n'apparaît qu'une fois, dans la bannière d'accueil. Complète la date et garde une preuve écrite de la comparaison ; laisse le champ vide pour ne rien afficher.
+  - Dans les textes des sections, les marqueurs `[GARANTIE]`, `[PIECES]`, `[ECONOMIE]` et `[NOM DE MARQUE]` sont remplacés automatiquement par ces réglages. Garde-les quand tu modifies un texte : un seul changement de réglage met alors tout le site à jour.
+- **Couleurs** : fond blanc cassé, beige, bois clair, texte presque noir, **couleur d'accent** (vert sauge) et **couleur des boutons d'achat** (terre cuite). La couleur d'achat est réservée à « Ajouter au panier » et « Passer commande » : ne l'utilise nulle part ailleurs, pour qu'elle reste repérable.
 - **Typographie** : police des titres (Cormorant) et du texte (DM Sans), modifiables.
 - **Prix et TVA** : taux de TVA (20 % par défaut) et prix mis en avant (TTC ou HT).
 
@@ -54,6 +65,7 @@ Admin → **Paramètres** → **Données personnalisées** (ou « Metafields et 
 | Garantie | `custom.garantie` | Texte sur une seule ligne | `2 ans` | Caractéristiques techniques |
 | Idéal pour | `custom.ideal_pour` | Texte sur une seule ligne → coche **Liste de valeurs** | `Studio`, `Salle de sport`, `Kiné`, `Domicile` | Pastilles « Idéal pour » |
 | Promesse (facultatif) | `custom.promesse` | Texte sur une seule ligne | `Le reformer des studios exigeants.` | Phrase sous le titre (sinon texte par défaut du thème) |
+| Nombre de postes (packs, facultatif) | `custom.nombre_postes` | Nombre entier | `4` | « soit 1 873 € HT par poste » sur la carte du pack |
 
 Pour **Matériaux** et **Usage**, active aussi l'option **« Filtrage des produits »** / « Filtres de la boutique » si elle est proposée dans la définition (elle sert aux filtres de collection, étape 7).
 
@@ -94,7 +106,7 @@ Admin → **Boutique en ligne** → **Pages** → **Ajouter une page**. Pour cha
 | Titre exact | Modèle | Adresse obtenue |
 |---|---|---|
 | Professionnels | `professionnels` | `/pages/professionnels` |
-| Livraison et montage | `livraison` | `/pages/livraison-et-montage` |
+| Livraison et montage | `livraison` | `/pages/livraison-et-montage` (texte marqué `[À FAIRE VALIDER PAR UN JURISTE]`) |
 | Retours | `retours` | `/pages/retours` |
 | Garantie et pièces de rechange | `garantie` | `/pages/garantie-et-pieces-de-rechange` |
 | FAQ | `faq` | `/pages/faq` |
@@ -194,7 +206,14 @@ Le délai affiché vient du metafield `delai_livraison` de chaque produit. Garde
    - l'exclusion du droit de rétractation pour les professionnels ;
    - le contenu exact de ta **garantie commerciale de 2 ans** (ce qui est couvert, ce qui ne l'est pas).
 
-## Étape 14 — Contrôles avant d'ouvrir la boutique
+## Étape 14 — Référencement (Google)
+
+- **Page d'accueil** : Admin → Boutique en ligne → **Préférences** → titre et méta-description de la page d'accueil.
+- **Chaque produit, collection et page** : en bas de sa fiche, bloc **« Référencement sur les moteurs de recherche »** → Modifier : titre et description. Le CSV remplit déjà ceux des produits.
+- **Photos** : sur chaque image, clique sur « … » → **Ajouter un texte alternatif** (ex. « Reformer en chêne installé dans un studio lumineux »). Sans texte, le thème utilise le nom du produit.
+- Les données structurées des produits (prix, disponibilité) sont générées automatiquement par le thème pour Google.
+
+## Étape 15 — Contrôles avant d'ouvrir la boutique
 
 - [ ] Publier le thème : **Boutique en ligne → Thèmes → … → Publier**.
 - [ ] Passer chaque produit complété en **Actif**.
@@ -212,8 +231,10 @@ Le délai affiché vient du metafield `delai_livraison` de chaque produit. Garde
 | Quoi | Où |
 |---|---|
 | Nom de marque « Ressaline » (seulement si tu changes de nom) | Paramètres du thème → Marque et contact ; **Vendor** et titres SEO des produits ; textes juridiques et page d'accueil (section « Avant / Avec ») ; nom de la boutique (Paramètres → Général) |
-| Téléphone `01 23 45 67 89` (exemple) | Paramètres du thème → Marque et contact |
-| Email `contact@exemple.fr` (exemple) | Paramètres du thème → Marque et contact |
+| Téléphone et email (vides au départ) | Paramètres du thème → Marque et contact |
+| Date de la comparaison de prix `[DATE À COMPLÉTER]` | Paramètres du thème → Promesses |
+| Case « Stock de pièces en France » (à cocher seulement si c'est vrai) | Paramètres du thème → Promesses |
+| Texte alternatif de la photo d'accueil | Personnaliser → Accueil → Bannière principale |
 | Logo, favicon | Paramètres du thème → Marque et contact |
 | Photo de la bannière d'accueil (et image facultative de la section garantie) | Personnaliser → Accueil |
 | Photos et vidéos des 10 produits | Fiche de chaque produit |
@@ -262,7 +283,7 @@ Le délai affiché vient du metafield `delai_livraison` de chaque produit. Garde
 
 ## Avant d'ouvrir : 4 points business à ne pas négliger
 
-1. **« Jusqu'à 30 % moins cher »** : c'est une publicité comparative. Garde une preuve écrite (tarifs publics datés des marques comparables, modèle par modèle). Sans preuve, cette phrase peut être jugée trompeuse. Elle est dans la bannière d'accueil, le bandeau d'arguments et le tableau « Avant / Avec ».
+1. **« Jusqu'à 30 % moins cher »** : c'est une publicité comparative. Garde une preuve écrite (tarifs publics datés des marques comparables, modèle par modèle) et complète la date de la mention. Sans preuve, vide le champ « Promesse d'économie » : la phrase disparaît du site.
 2. **Livraison et montage inclus** : fais chiffrer par un transporteur spécialisé (livraison avec montage) le coût réel d'un reformer, d'un Cadillac et d'un pack de 900 kg, y compris en étage et en Corse, **avant** de fixer tes prix définitifs. C'est le poste qui peut faire disparaître ta marge.
-3. **Pièces en stock en France** : la promesse doit être vraie dès le premier jour. Commande un stock initial de ressorts, sangles et poignées avant d'ouvrir.
+3. **Pièces en stock en France** : ne coche la case qu'une fois le stock réellement en France. En attendant, le site dit « Pièces de rechange disponibles et garanties », ce qui t'engage quand même à pouvoir fournir les pièces.
 4. **Délais usine** : un délai annoncé de 6 à 8 semaines et non tenu, c'est un client particulier qui peut annuler, et un studio qui ne peut pas ouvrir à la date prévue. Annonce le délai le plus long réaliste.

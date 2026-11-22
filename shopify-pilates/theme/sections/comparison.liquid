@@ -1,40 +1,38 @@
 {{ 'section-comparison.css' | asset_url | stylesheet_tag }}
 
-{%- assign brand = settings.brand_name -%}
-{%- assign after_label = section.settings.after_label | replace: '[NOM DE MARQUE]', brand -%}
 
 <section class="section comparison{% if section.settings.background == 'surface' %} section--surface{% endif %}" aria-labelledby="Comparison-{{ section.id }}">
   <div class="page-width">
     <div class="section-header section-header--center">
       <div>
-        <h2 id="Comparison-{{ section.id }}" class="section-heading">{{ section.settings.heading | replace: '[NOM DE MARQUE]', brand | escape }}</h2>
+        <h2 id="Comparison-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
         {%- if section.settings.text != blank -%}
-          <div class="section-text">{{ section.settings.text }}</div>
+          <div class="section-text">{% render 'tokens', text: section.settings.text %}</div>
         {%- endif -%}
       </div>
     </div>
 
     <div class="comparison__table-wrap">
       <table class="comparison__table">
-        <caption class="visually-hidden">{{ section.settings.heading | replace: '[NOM DE MARQUE]', brand | escape }}</caption>
+        <caption class="visually-hidden">{% render 'tokens', text: section.settings.heading, escape: true %}</caption>
         <thead>
           <tr>
             <td></td>
-            <th scope="col" class="comparison__col comparison__col--before">{{ section.settings.before_label | escape }}</th>
-            <th scope="col" class="comparison__col comparison__col--after">{{ after_label | escape }}</th>
+            <th scope="col" class="comparison__col comparison__col--before">{% render 'tokens', text: section.settings.before_label, escape: true %}</th>
+            <th scope="col" class="comparison__col comparison__col--after">{% render 'tokens', text: section.settings.after_label, escape: true %}</th>
           </tr>
         </thead>
         <tbody>
           {%- for block in section.blocks -%}
             <tr {{ block.shopify_attributes }}>
-              <th scope="row" class="comparison__label">{{ block.settings.label | escape }}</th>
+              <th scope="row" class="comparison__label">{% render 'tokens', text: block.settings.label, escape: true %}</th>
               <td class="comparison__before">
-                <span class="comparison__mobile-label">{{ section.settings.before_label | escape }}</span>
-                <span class="comparison__value">{% render 'icon', name: 'cross' %}<span>{{ block.settings.before | escape }}</span></span>
+                <span class="comparison__mobile-label">{% render 'tokens', text: section.settings.before_label, escape: true %}</span>
+                <span class="comparison__value">{% render 'icon', name: 'cross' %}<span>{% render 'tokens', text: block.settings.before, escape: true %}</span></span>
               </td>
               <td class="comparison__after">
-                <span class="comparison__mobile-label">{{ after_label | escape }}</span>
-                <span class="comparison__value">{% render 'icon', name: 'check' %}<span>{{ block.settings.after | escape }}</span></span>
+                <span class="comparison__mobile-label">{% render 'tokens', text: section.settings.after_label, escape: true %}</span>
+                <span class="comparison__value">{% render 'icon', name: 'check' %}<span>{% render 'tokens', text: block.settings.after, escape: true %}</span></span>
               </td>
             </tr>
           {%- endfor -%}
@@ -55,7 +53,7 @@
       "id": "heading",
       "label": "Titre",
       "default": "Le circuit classique ou Ressaline",
-      "info": "Astuce : écris [NOM DE MARQUE] pour afficher automatiquement le nom réglé dans Paramètres du thème."
+      "info": "Marqueurs possibles : [NOM DE MARQUE], [GARANTIE], [PIECES]."
     },
     {
       "type": "richtext",
@@ -100,10 +98,10 @@
     {
       "name": "Avant / Avec",
       "blocks": [
-        { "type": "row", "settings": { "label": "Prix", "before": "Marges de la marque et des distributeurs", "after": "Prix usine, jusqu'à 30 % moins cher" } },
+        { "type": "row", "settings": { "label": "Prix", "before": "Un ou plusieurs intermédiaires entre l'usine et vous", "after": "Importé directement de l'usine, sans distributeur intermédiaire" } },
         { "type": "row", "settings": { "label": "Délai", "before": "Devis et allers-retours avant même de commander", "after": "Prix affichés, commande en ligne, délai annoncé sur chaque fiche" } },
-        { "type": "row", "settings": { "label": "SAV", "before": "Interlocuteurs multiples", "after": "Un contact direct en France, garantie 2 ans" } },
-        { "type": "row", "settings": { "label": "Pièces", "before": "Commandées à l'étranger, longues à recevoir", "after": "Ressorts, sangles et poignées en stock en France" } }
+        { "type": "row", "settings": { "label": "SAV", "before": "Interlocuteurs multiples", "after": "Un contact direct, garantie [GARANTIE]" } },
+        { "type": "row", "settings": { "label": "Pièces", "before": "Disponibilité variable selon le revendeur", "after": "[PIECES]" } }
       ]
     }
   ]

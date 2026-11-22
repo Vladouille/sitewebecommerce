@@ -5,12 +5,12 @@
     <div class="section-header{% if section.settings.center %} section-header--center{% endif %}">
       <div>
         {%- if section.settings.heading_level == 'h1' -%}
-          <h1 id="Multicolumn-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h1>
+          <h1 id="Multicolumn-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h1>
         {%- else -%}
-          <h2 id="Multicolumn-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h2>
+          <h2 id="Multicolumn-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
         {%- endif -%}
         {%- if section.settings.text != blank -%}
-          <div class="section-text">{{ section.settings.text }}</div>
+          <div class="section-text">{% render 'tokens', text: section.settings.text %}</div>
         {%- endif -%}
       </div>
     </div>
@@ -20,19 +20,19 @@
           {%- if block.settings.icon != 'none' -%}
             <span class="multicolumn__icon">{% render 'icon', name: block.settings.icon %}</span>
           {%- endif -%}
-          <h3 class="multicolumn__title">{{ block.settings.title | escape }}</h3>
+          <h3 class="multicolumn__title">{% render 'tokens', text: block.settings.title, escape: true %}</h3>
           {%- if block.settings.text != blank -%}
-            <div class="multicolumn__text rte">{{ block.settings.text }}</div>
+            <div class="multicolumn__text rte">{% render 'tokens', text: block.settings.text %}</div>
           {%- endif -%}
           {%- if block.settings.link_label != blank and block.settings.link != blank -%}
-            <a class="link-arrow" href="{{ block.settings.link }}">{{ block.settings.link_label | escape }}</a>
+            <a class="link-arrow" href="{{ block.settings.link }}">{% render 'tokens', text: block.settings.link_label, escape: true %}</a>
           {%- endif -%}
         </li>
       {%- endfor -%}
     </ul>
     {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
       <div class="multicolumn__cta">
-        <a class="button button--primary" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }}</a>
+        <a class="button button--primary" href="{{ section.settings.button_link }}">{% render 'tokens', text: section.settings.button_label, escape: true %}</a>
       </div>
     {%- endif -%}
   </div>

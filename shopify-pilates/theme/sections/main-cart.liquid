@@ -82,7 +82,7 @@
 
         {%- if section.settings.show_note -%}
           <div class="cart__note">
-            <label for="CartNote">{{ section.settings.note_label | escape }}</label>
+            <label for="CartNote">{% render 'tokens', text: section.settings.note_label, escape: true %}</label>
             <textarea id="CartNote" name="note" rows="3">{{ cart.note }}</textarea>
           </div>
         {%- endif -%}
@@ -106,8 +106,8 @@
             <dd>{{ total_vat | money }}</dd>
           </div>
           <div class="cart__row">
-            <dt>{{ section.settings.shipping_label | escape }}</dt>
-            <dd>{{ section.settings.shipping_value | escape }}</dd>
+            <dt>{% render 'tokens', text: section.settings.shipping_label, escape: true %}</dt>
+            <dd>{% render 'tokens', text: section.settings.shipping_value, escape: true %}</dd>
           </div>
           <div class="cart__row cart__row--total">
             <dt>{{ 'cart.total_ttc' | t }}</dt>
@@ -116,17 +116,17 @@
         </dl>
         <p class="cart__tax-note">{{ 'cart.tax_note' | t }}</p>
 
-        <button type="submit" name="checkout" class="button button--primary button--full button--large">{{ 'cart.checkout' | t }}</button>
+        <button type="submit" name="checkout" class="button button--buy button--full button--large">{{ 'cart.checkout' | t }}</button>
 
         <ul class="reassurance reassurance--cart" role="list">
           {%- if section.settings.reminder_delivery != blank -%}
-            <li>{% render 'icon', name: 'truck' %}<span>{{ section.settings.reminder_delivery | escape }}</span></li>
+            <li>{% render 'icon', name: 'truck' %}<span>{% render 'tokens', text: section.settings.reminder_delivery, escape: true %}</span></li>
           {%- endif -%}
           {%- if section.settings.reminder_warranty != blank -%}
-            <li>{% render 'icon', name: 'shield' %}<span>{{ section.settings.reminder_warranty | escape }}</span></li>
+            <li>{% render 'icon', name: 'shield' %}<span>{% render 'tokens', text: section.settings.reminder_warranty, escape: true %}</span></li>
           {%- endif -%}
           {%- if section.settings.reminder_payment != blank -%}
-            <li>{% render 'icon', name: 'card' %}<span>{{ section.settings.reminder_payment | escape }}</span></li>
+            <li>{% render 'icon', name: 'card' %}<span>{% render 'tokens', text: section.settings.reminder_payment, escape: true %}</span></li>
           {%- endif -%}
         </ul>
       </aside>
@@ -145,7 +145,7 @@
     -%}
     {%- if suggestion != blank and suggestion_in_cart == false and suggestion.available -%}
       <div class="cart-suggestion">
-        <p class="cart-suggestion__heading">{{ section.settings.suggestion_heading | escape }}</p>
+        <p class="cart-suggestion__heading">{% render 'tokens', text: section.settings.suggestion_heading, escape: true %}</p>
         <div class="cart-suggestion__inner">
           <a class="cart-suggestion__media" href="{{ suggestion.url }}" tabindex="-1" aria-hidden="true">
             {%- if suggestion.featured_media -%}
@@ -161,7 +161,7 @@
           {%- form 'product', suggestion, class: 'cart-suggestion__form' -%}
             <input type="hidden" name="id" value="{{ suggestion.selected_or_first_available_variant.id }}">
             <input type="hidden" name="quantity" value="1">
-            <button type="submit" class="button button--secondary">{{ 'cart.add_suggestion' | t }}</button>
+            <button type="submit" class="button button--buy">{{ 'cart.add_suggestion' | t }}</button>
           {%- endform -%}
         </div>
       </div>
@@ -190,7 +190,7 @@
       "content": "Rappels sous le bouton"
     },
     { "type": "text", "id": "reminder_delivery", "label": "Délai", "default": "Délai de livraison indiqué pour chaque produit ci-dessus" },
-    { "type": "text", "id": "reminder_warranty", "label": "Garantie", "default": "Garantie 2 ans, pièces en stock en France" },
+    { "type": "text", "id": "reminder_warranty", "label": "Garantie", "default": "Garantie [GARANTIE]. [PIECES]." },
     { "type": "text", "id": "reminder_payment", "label": "Paiement", "default": "Paiement sécurisé, facture avec TVA" },
     {
       "type": "header",

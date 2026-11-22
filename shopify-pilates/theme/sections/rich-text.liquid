@@ -4,16 +4,16 @@
   <div class="page-width page-width--narrow">
     {%- if section.settings.heading != blank -%}
       {%- if section.settings.heading_level == 'h1' -%}
-        <h1 id="RichText-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h1>
+        <h1 id="RichText-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h1>
       {%- else -%}
-        <h2 id="RichText-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h2>
+        <h2 id="RichText-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
       {%- endif -%}
     {%- endif -%}
     {%- if section.settings.text != blank -%}
-      <div class="rte rich-text__body">{{ section.settings.text }}</div>
+      <div class="rte rich-text__body">{% render 'tokens', text: section.settings.text %}</div>
     {%- endif -%}
     {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
-      <a class="button button--{{ section.settings.button_style }}" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }}</a>
+      <a class="button button--{{ section.settings.button_style }}" href="{{ section.settings.button_link }}">{% render 'tokens', text: section.settings.button_label, escape: true %}</a>
     {%- endif -%}
   </div>
 </section>

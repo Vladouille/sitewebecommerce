@@ -3,16 +3,22 @@
 <section class="trust-bar{% if section.settings.background == 'surface' %} trust-bar--surface{% endif %}"{% if section.settings.heading != blank %} aria-labelledby="Trust-{{ section.id }}"{% else %} aria-label="{{ 'sections.trust.label' | t }}"{% endif %}>
   <div class="page-width">
     {%- if section.settings.heading != blank -%}
-      <h2 id="Trust-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h2>
+      <h2 id="Trust-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
     {%- endif -%}
     <ul class="trust-bar__list" role="list">
       {%- for block in section.blocks -%}
         <li class="trust-bar__item" {{ block.shopify_attributes }}>
           <span class="trust-bar__icon">{% render 'icon', name: block.settings.icon %}</span>
           <div>
-            <p class="trust-bar__title">{{ block.settings.title | escape }}</p>
+            <p class="trust-bar__title">
+              {%- if block.settings.link != blank -%}
+                <a href="{{ block.settings.link }}">{% render 'tokens', text: block.settings.title, escape: true %}</a>
+              {%- else -%}
+                {% render 'tokens', text: block.settings.title, escape: true %}
+              {%- endif -%}
+            </p>
             {%- if block.settings.text != blank -%}
-              <p class="trust-bar__text">{{ block.settings.text | escape }}</p>
+              <p class="trust-bar__text">{% render 'tokens', text: block.settings.text, escape: true %}</p>
             {%- endif -%}
           </div>
         </li>
@@ -78,6 +84,12 @@
           "type": "text",
           "id": "text",
           "label": "Texte"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Lien (facultatif)",
+          "info": "Par exemple vers la page des conditions de garantie."
         }
       ]
     }
@@ -86,9 +98,9 @@
     {
       "name": "Bandeau d'arguments",
       "blocks": [
-        { "type": "item", "settings": { "icon": "tag", "title": "Prix usine", "text": "Jusqu'à 30 % moins cher, sans intermédiaire." } },
-        { "type": "item", "settings": { "icon": "shield", "title": "Garantie 2 ans", "text": "Sur toutes les machines." } },
-        { "type": "item", "settings": { "icon": "wrench", "title": "Pièces en stock en France", "text": "Ressorts, sangles, poignées : expédiés rapidement." } },
+        { "type": "item", "settings": { "icon": "box", "title": "Importé de l'usine", "text": "Sans distributeur intermédiaire." } },
+        { "type": "item", "settings": { "icon": "shield", "title": "Garantie [GARANTIE]", "text": "Voir les conditions de garantie." } },
+        { "type": "item", "settings": { "icon": "wrench", "title": "[PIECES]", "text": "Ressorts, sangles, poignées." } },
         { "type": "item", "settings": { "icon": "truck", "title": "Livraison et montage inclus", "text": "En France métropolitaine." } }
       ]
     }

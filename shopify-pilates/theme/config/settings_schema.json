@@ -42,8 +42,7 @@
         "type": "text",
         "id": "phone",
         "label": "Téléphone affiché",
-        "default": "01 23 45 67 89",
-        "info": "Remplace ce numéro d'exemple par ton vrai numéro."
+        "info": "À compléter : sans numéro, le téléphone est masqué partout sur le site."
       },
       {
         "type": "text",
@@ -55,8 +54,7 @@
         "type": "text",
         "id": "email",
         "label": "Email affiché",
-        "default": "contact@exemple.fr",
-        "info": "Remplace cet email d'exemple par ton vrai email."
+        "info": "À compléter : sans email, l'adresse est masquée partout sur le site."
       }
     ]
   },
@@ -99,6 +97,19 @@
         "label": "Couleur d'accent (boutons, liens)",
         "default": "#4E5B47",
         "info": "Choisis une couleur assez foncée pour que le texte des boutons reste lisible."
+      },
+      {
+        "type": "color",
+        "id": "color_buy",
+        "label": "Boutons d'achat (Ajouter au panier, Passer commande)",
+        "default": "#9A4A2C",
+        "info": "Couleur réservée à l'achat : ne l'utilise nulle part ailleurs pour qu'elle reste repérable."
+      },
+      {
+        "type": "color",
+        "id": "color_buy_text",
+        "label": "Texte des boutons d'achat",
+        "default": "#FFFFFF"
       },
       {
         "type": "color",
@@ -158,6 +169,67 @@
     ]
   },
   {
+    "name": "Promesses",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Ces réglages pilotent les promesses affichées partout sur le site. Dans les textes des sections, écris [GARANTIE], [PIECES] ou [ECONOMIE] : ils sont remplacés automatiquement par les valeurs ci-dessous."
+      },
+      {
+        "type": "header",
+        "content": "Garantie"
+      },
+      {
+        "type": "text",
+        "id": "warranty_duration",
+        "label": "Durée de la garantie commerciale",
+        "default": "2 ans",
+        "info": "Remplace [GARANTIE]. Elle doit correspondre exactement à ta page de conditions de garantie."
+      },
+      {
+        "type": "header",
+        "content": "Pièces de rechange"
+      },
+      {
+        "type": "checkbox",
+        "id": "parts_stock_france",
+        "label": "Stock de pièces en France",
+        "default": false,
+        "info": "Coche seulement quand le stock existe réellement en France."
+      },
+      {
+        "type": "text",
+        "id": "parts_text_yes",
+        "label": "Texte si le stock est en France",
+        "default": "Pièces de rechange en stock en France"
+      },
+      {
+        "type": "text",
+        "id": "parts_text_no",
+        "label": "Texte sinon",
+        "default": "Pièces de rechange disponibles et garanties"
+      },
+      {
+        "type": "header",
+        "content": "Comparaison de prix"
+      },
+      {
+        "type": "text",
+        "id": "claim_savings",
+        "label": "Promesse d'économie",
+        "default": "jusqu'à 30 % moins cher",
+        "info": "Remplace [ECONOMIE]. Laisse vide pour ne rien afficher. Garde une preuve datée de la comparaison."
+      },
+      {
+        "type": "text",
+        "id": "claim_savings_note",
+        "label": "Mention sous la promesse",
+        "default": "Par rapport aux prix publics constatés des marques de studio, [DATE À COMPLÉTER].",
+        "info": "Affichée discrètement dans la bannière d'accueil, sous la promesse."
+      }
+    ]
+  },
+  {
     "name": "Prix et TVA",
     "settings": [
       {
@@ -179,8 +251,14 @@
         "id": "price_primary",
         "label": "Prix mis en avant",
         "options": [
-          { "value": "ttc", "label": "TTC (recommandé si tu vends aussi aux particuliers)" },
-          { "value": "ht", "label": "HT (si tu vends surtout aux professionnels)" }
+          {
+            "value": "ttc",
+            "label": "TTC (recommandé si tu vends aussi aux particuliers)"
+          },
+          {
+            "value": "ht",
+            "label": "HT (si tu vends surtout aux professionnels)"
+          }
         ],
         "default": "ttc"
       },
@@ -206,9 +284,18 @@
         "id": "card_image_ratio",
         "label": "Format des images",
         "options": [
-          { "value": "square", "label": "Carré" },
-          { "value": "portrait", "label": "Portrait" },
-          { "value": "landscape", "label": "Paysage" }
+          {
+            "value": "square",
+            "label": "Carré"
+          },
+          {
+            "value": "portrait",
+            "label": "Portrait"
+          },
+          {
+            "value": "landscape",
+            "label": "Paysage"
+          }
         ],
         "default": "landscape"
       },
@@ -223,6 +310,13 @@
         "id": "card_show_secondary_image",
         "label": "Afficher la deuxième image au survol",
         "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_add_to_cart",
+        "label": "Afficher « Ajouter au panier » sur les cartes",
+        "default": true,
+        "info": "Pour les produits sans variantes. Les autres affichent « Choisir »."
       }
     ]
   },

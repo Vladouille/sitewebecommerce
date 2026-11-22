@@ -1,0 +1,18 @@
+{%- comment -%}
+  Remplace les marqueurs des textes par les réglages du thème (Paramètres du thème > Promesses) :
+  [GARANTIE] → durée de garantie ; [PIECES] → texte sur les pièces de rechange ;
+  [ECONOMIE] → promesse d'économie ; [NOM DE MARQUE] → nom de la marque.
+  Paramètres : text (obligatoire), escape (true pour du texte simple)
+{%- endcomment -%}
+{%- liquid
+  assign parts_text = settings.parts_text_no
+  if settings.parts_stock_france
+    assign parts_text = settings.parts_text_yes
+  endif
+  assign out = text | replace: '[PIECES]', parts_text | replace: '[GARANTIE]', settings.warranty_duration | replace: '[ECONOMIE]', settings.claim_savings | replace: '[NOM DE MARQUE]', settings.brand_name
+  if escape
+    echo out | escape
+  else
+    echo out
+  endif
+-%}

@@ -320,3 +320,12 @@
 .product__description {
   color: var(--color-text);
 }
+
+.gallery--empty {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  padding: 12%;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+}

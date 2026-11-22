@@ -18,7 +18,7 @@
           "type": "article",
           "settings": {
             "heading": "Article 1 – Objet et champ d'application",
-            "text": "<p>Les présentes conditions générales de vente (CGV) s'appliquent à toutes les ventes conclues sur ce site entre Ressaline et ses clients, consommateurs ou professionnels. Toute commande implique l'acceptation des CGV en vigueur au jour de la commande.</p>"
+            "text": "<p>Les présentes conditions générales de vente (CGV) s'appliquent à toutes les ventes conclues sur ce site entre [NOM DE MARQUE] et ses clients, consommateurs ou professionnels. Toute commande implique l'acceptation des CGV en vigueur au jour de la commande.</p>"
           }
         },
         "article_2": {
@@ -81,7 +81,7 @@
           "type": "article",
           "settings": {
             "heading": "Article 10 – Droit de rétractation (consommateurs)",
-            "text": "<p>Le consommateur dispose de 14 jours à compter de la réception du produit pour exercer son droit de rétractation, sans motif. Les frais de retour sont à sa charge ; leur coût estimé est indiqué sur la page Retours. Le remboursement intervient dans les 14 jours suivant la décision de rétractation, sous réserve de la récupération du produit ou de la preuve de son expédition.</p><p>Modèle de formulaire de rétractation : « À l'attention de Ressaline, [adresse], [email] : je vous notifie par la présente ma rétractation du contrat portant sur la vente du bien ci-dessous : commandé le / reçu le, nom, adresse, signature (en cas de notification sur papier), date. »</p>"
+            "text": "<p>Le consommateur dispose de 14 jours à compter de la réception du produit pour exercer son droit de rétractation, sans motif. Les frais de retour sont à sa charge ; leur coût estimé est indiqué sur la page Retours. Le remboursement intervient dans les 14 jours suivant la décision de rétractation, sous réserve de la récupération du produit ou de la preuve de son expédition.</p><p>Modèle de formulaire de rétractation : « À l'attention de [NOM DE MARQUE], [adresse], [email] : je vous notifie par la présente ma rétractation du contrat portant sur la vente du bien ci-dessous : commandé le / reçu le, nom, adresse, signature (en cas de notification sur papier), date. »</p>"
           }
         },
         "article_11": {
@@ -102,7 +102,7 @@
           "type": "article",
           "settings": {
             "heading": "Article 13 – Garantie commerciale",
-            "text": "<p>Les machines bénéficient d'une garantie commerciale de 2 ans à compter de la livraison, dont l'étendue et les exclusions sont décrites sur la page Garantie et pièces de rechange. Elle s'ajoute aux garanties légales.</p>"
+            "text": "<p>Les machines bénéficient d'une garantie commerciale de [GARANTIE] à compter de la livraison, dont l'étendue et les exclusions sont décrites sur la page Garantie et pièces de rechange. Elle s'ajoute aux garanties légales.</p>"
           }
         },
         "article_14": {

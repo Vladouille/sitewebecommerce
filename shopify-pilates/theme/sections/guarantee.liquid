@@ -17,22 +17,22 @@
     {%- endif -%}
     <div class="guarantee__content">
       <span class="guarantee__seal" aria-hidden="true">{% render 'icon', name: 'shield' %}</span>
-      <h2 id="Guarantee-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h2>
+      <h2 id="Guarantee-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
       {%- if section.settings.text != blank -%}
-        <div class="section-text">{{ section.settings.text }}</div>
+        <div class="section-text">{% render 'tokens', text: section.settings.text %}</div>
       {%- endif -%}
       {%- if section.blocks.size > 0 -%}
         <ul class="check-list" role="list">
           {%- for block in section.blocks -%}
             <li {{ block.shopify_attributes }}>
               {% render 'icon', name: 'check' %}
-              <span>{{ block.settings.text | escape }}</span>
+              <span>{% render 'tokens', text: block.settings.text, escape: true %}</span>
             </li>
           {%- endfor -%}
         </ul>
       {%- endif -%}
       {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
-        <a class="button button--secondary" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }}</a>
+        <a class="button button--secondary" href="{{ section.settings.button_link }}">{% render 'tokens', text: section.settings.button_label, escape: true %}</a>
       {%- endif -%}
     </div>
   </div>
@@ -53,19 +53,19 @@
       "type": "text",
       "id": "heading",
       "label": "Titre",
-      "default": "Garantie 2 ans et SAV en France"
+      "default": "Garantie [GARANTIE] et service après-vente"
     },
     {
       "type": "richtext",
       "id": "text",
       "label": "Texte",
-      "default": "<p>Un studio ne peut pas se permettre une machine à l'arrêt. Nos pièces d'usure sont stockées en France et un interlocuteur vous répond directement.</p>"
+      "default": "<p>Un studio ne peut pas se permettre une machine à l'arrêt. Un interlocuteur vous répond directement et suit votre demande jusqu'à la remise en service. Ce qui est couvert est détaillé dans les conditions de garantie.</p>"
     },
     {
       "type": "text",
       "id": "button_label",
       "label": "Texte du bouton",
-      "default": "Voir la garantie"
+      "default": "Lire les conditions de garantie"
     },
     {
       "type": "url",
@@ -97,8 +97,8 @@
     {
       "name": "Garantie et SAV",
       "blocks": [
-        { "type": "point", "settings": { "text": "Garantie 2 ans sur toutes les machines" } },
-        { "type": "point", "settings": { "text": "Ressorts, sangles et poignées en stock en France" } },
+        { "type": "point", "settings": { "text": "Garantie [GARANTIE] sur les machines, selon les conditions de garantie" } },
+        { "type": "point", "settings": { "text": "[PIECES]" } },
         { "type": "point", "settings": { "text": "Un interlocuteur unique pour le SAV" } },
         { "type": "point", "settings": { "text": "Livraison et montage inclus en France métropolitaine" } }
       ]

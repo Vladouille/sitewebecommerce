@@ -11,13 +11,13 @@
   <div class="page-width">
     <div class="section-header">
       <div>
-        <h2 id="Featured-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h2>
+        <h2 id="Featured-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
         {%- if section.settings.text != blank -%}
-          <div class="section-text">{{ section.settings.text }}</div>
+          <div class="section-text">{% render 'tokens', text: section.settings.text %}</div>
         {%- endif -%}
       </div>
       {%- if section.settings.show_view_all and featured != blank and featured.products_count > 0 -%}
-        <a class="link-arrow" href="{{ featured.url }}">{{ section.settings.view_all_label | escape }}</a>
+        <a class="link-arrow" href="{{ featured.url }}">{% render 'tokens', text: section.settings.view_all_label, escape: true %}</a>
       {%- endif -%}
     </div>
 

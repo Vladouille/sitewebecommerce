@@ -18,7 +18,7 @@
           "type": "article",
           "settings": {
             "heading": "Éditeur du site",
-            "text": "<ul><li>Nom commercial : Ressaline</li><li>Dénomination et forme juridique : [À COMPLÉTER]</li><li>Capital social : [À COMPLÉTER]</li><li>Siège social : [À COMPLÉTER : adresse]</li><li>SIRET : [À COMPLÉTER] – RCS : [À COMPLÉTER]</li><li>TVA intracommunautaire : [À COMPLÉTER]</li><li>Email : [À COMPLÉTER] – Téléphone : [À COMPLÉTER]</li><li>Directeur de la publication : [À COMPLÉTER : prénom et nom]</li></ul>"
+            "text": "<ul><li>Nom commercial : [NOM DE MARQUE]</li><li>Dénomination et forme juridique : [À COMPLÉTER]</li><li>Capital social : [À COMPLÉTER]</li><li>Siège social : [À COMPLÉTER : adresse]</li><li>SIRET : [À COMPLÉTER] – RCS : [À COMPLÉTER]</li><li>TVA intracommunautaire : [À COMPLÉTER]</li><li>Email : [À COMPLÉTER] – Téléphone : [À COMPLÉTER]</li><li>Directeur de la publication : [À COMPLÉTER : prénom et nom]</li></ul>"
           }
         },
         "article_2": {
@@ -32,7 +32,7 @@
           "type": "article",
           "settings": {
             "heading": "Propriété intellectuelle",
-            "text": "<p>Le nom Ressaline, le logo, les textes, photos et vidéos du site sont protégés. Toute reproduction sans autorisation écrite est interdite.</p>"
+            "text": "<p>Le nom [NOM DE MARQUE], le logo, les textes, photos et vidéos du site sont protégés. Toute reproduction sans autorisation écrite est interdite.</p>"
           }
         },
         "article_4": {

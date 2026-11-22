@@ -2,9 +2,9 @@
   <div class="announcement-bar" role="region" aria-label="{{ 'sections.announcement.label' | t }}">
     <div class="page-width announcement-bar__inner">
       {%- if section.settings.link != blank -%}
-        <a class="announcement-bar__text" href="{{ section.settings.link }}">{{ section.settings.text | escape }}</a>
+        <a class="announcement-bar__text" href="{{ section.settings.link }}">{% render 'tokens', text: section.settings.text, escape: true %}</a>
       {%- else -%}
-        <p class="announcement-bar__text">{{ section.settings.text | escape }}</p>
+        <p class="announcement-bar__text">{% render 'tokens', text: section.settings.text, escape: true %}</p>
       {%- endif -%}
     </div>
   </div>
@@ -20,7 +20,7 @@
       "type": "text",
       "id": "text",
       "label": "Texte",
-      "default": "Livraison et montage inclus · Garantie 2 ans · Pièces en stock en France"
+      "default": "Livraison et montage inclus · Garantie [GARANTIE] · [PIECES]"
     },
     {
       "type": "url",

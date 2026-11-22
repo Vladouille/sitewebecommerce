@@ -11,7 +11,7 @@
         "promise_2": {
           "type": "promise",
           "settings": {
-            "text": "Qualité studio, prix usine."
+            "text": "Qualité studio, importé directement de l'usine."
           }
         },
         "price_3": {
@@ -34,7 +34,7 @@
         "buy_buttons_6": {
           "type": "buy_buttons",
           "settings": {
-            "reassurance_1": "Garantie 2 ans",
+            "reassurance_1": "Garantie [GARANTIE]",
             "reassurance_2": "Livraison et montage inclus",
             "reassurance_3": "Paiement sécurisé",
             "reassurance_4": "Paiement en plusieurs fois pour les professionnels",
@@ -73,7 +73,7 @@
           "settings": {
             "icon": "shield",
             "heading": "Garantie et pièces",
-            "content": "<p>Garantie 2 ans. Ressorts, sangles et poignées de rechange sont stockés en France.</p><p>Conditions détaillées sur la page <a href=\"/pages/garantie-et-pieces-de-rechange\">Garantie et pièces de rechange</a>.</p>"
+            "content": "<p>Garantie [GARANTIE]. [PIECES].</p><p>Conditions détaillées sur la page <a href=\"/pages/garantie-et-pieces-de-rechange\">Garantie et pièces de rechange</a>.</p>"
           }
         },
         "collapsible_12": {

@@ -5,12 +5,12 @@
     <div class="section-header section-header--center">
       <div>
         {%- if section.settings.heading_level == 'h1' -%}
-          <h1 id="Faq-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h1>
+          <h1 id="Faq-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h1>
         {%- else -%}
-          <h2 id="Faq-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h2>
+          <h2 id="Faq-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
         {%- endif -%}
         {%- if section.settings.text != blank -%}
-          <div class="section-text">{{ section.settings.text }}</div>
+          <div class="section-text">{% render 'tokens', text: section.settings.text %}</div>
         {%- endif -%}
       </div>
     </div>
@@ -19,10 +19,10 @@
       {%- for block in section.blocks -%}
         <details class="accordion" {{ block.shopify_attributes }}>
           <summary class="accordion__summary">
-            <span>{{ block.settings.question | escape }}</span>
+            <span>{% render 'tokens', text: block.settings.question, escape: true %}</span>
             {% render 'icon', name: 'plus', class: 'accordion__icon' %}
           </summary>
-          <div class="accordion__content rte">{{ block.settings.answer }}</div>
+          <div class="accordion__content rte">{% render 'tokens', text: block.settings.answer %}</div>
         </details>
       {%- endfor -%}
     </div>
@@ -101,7 +101,7 @@
       "blocks": [
         { "type": "question", "settings": { "question": "Quel est le délai de livraison ?", "answer": "<p>Le délai est indiqué sur chaque fiche produit. Les pièces et accessoires en stock partent rapidement. Les machines fabriquées à la commande sont livrées dans le délai annoncé sur la fiche.</p>" } },
         { "type": "question", "settings": { "question": "La livraison et le montage sont-ils vraiment inclus ?", "answer": "<p>Oui, en France métropolitaine. Nous livrons et montons vos machines dans votre studio. Hors France métropolitaine, contactez-nous avant de commander.</p>" } },
-        { "type": "question", "settings": { "question": "Comment fonctionne la garantie ?", "answer": "<p>Toutes les machines sont garanties 2 ans. En cas de problème, contactez-nous : nous diagnostiquons la panne et envoyons la pièce depuis notre stock en France.</p>" } },
+        { "type": "question", "settings": { "question": "Comment fonctionne la garantie ?", "answer": "<p>Les machines sont garanties [GARANTIE], selon les conditions détaillées sur la page Garantie. En cas de problème, contactez-nous : nous identifions la pièce en cause et organisons son remplacement.</p>" } },
         { "type": "question", "settings": { "question": "Recevrai-je une facture avec TVA ?", "answer": "<p>Oui. Chaque commande donne lieu à une facture avec la TVA détaillée, au nom de votre entreprise si vous le précisez lors de la commande.</p>" } },
         { "type": "question", "settings": { "question": "Y a-t-il des remises si j'achète plusieurs machines ?", "answer": "<p>Oui. Les remises par quantité sont indiquées sur chaque fiche produit et s'appliquent automatiquement dans le panier.</p>" } },
         { "type": "question", "settings": { "question": "Puis-je payer en plusieurs fois ?", "answer": "<p>Oui, pour les professionnels. Contactez-nous pour connaître les modalités adaptées à votre projet.</p>" } }

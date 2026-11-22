@@ -5,7 +5,7 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "settings": {
-        "text": "Livraison et montage inclus · Garantie 2 ans · Pièces en stock en France"
+        "text": "Livraison et montage inclus · Garantie [GARANTIE] · [PIECES]"
       }
     },
     "header": {

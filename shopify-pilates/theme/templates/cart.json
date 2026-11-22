@@ -6,7 +6,7 @@
         "shipping_label": "Livraison et montage",
         "shipping_value": "Inclus (France métropolitaine)",
         "reminder_delivery": "Délai de livraison indiqué pour chaque produit ci-dessus",
-        "reminder_warranty": "Garantie 2 ans, pièces en stock en France",
+        "reminder_warranty": "Garantie [GARANTIE]. [PIECES].",
         "reminder_payment": "Paiement sécurisé, facture avec TVA",
         "show_note": true,
         "note_label": "Informations pour la facture ou la livraison (raison sociale, accès, étage…)",

@@ -17,7 +17,7 @@
   {{ 'section-product-specs.css' | asset_url | stylesheet_tag }}
   <section class="section product-specs{% if section.settings.background == 'surface' %} section--surface{% endif %}" aria-labelledby="Specs-{{ section.id }}">
     <div class="page-width page-width--narrow">
-      <h2 id="Specs-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h2>
+      <h2 id="Specs-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
       <table class="specs">
         <tbody>
           {%- for key in keys -%}

@@ -31,11 +31,11 @@
 <header class="header{% if section.settings.sticky %} header--sticky{% endif %}">
   <div class="page-width header__inner">
     <details class="header__drawer" data-header-drawer>
-      <summary class="header__icon header__icon--menu" aria-label="{{ 'sections.header.menu' | t }}">
+      <summary class="header__icon header__icon--menu" aria-label="{{ 'sections.header.menu' | t }}" aria-controls="MenuDrawer-{{ section.id }}" aria-expanded="false">
         <span class="header__icon-open">{% render 'icon', name: 'menu' %}</span>
         <span class="header__icon-close">{% render 'icon', name: 'close' %}</span>
       </summary>
-      <nav class="drawer" aria-label="{{ 'sections.header.menu' | t }}">
+      <nav class="drawer" id="MenuDrawer-{{ section.id }}" aria-label="{{ 'sections.header.menu' | t }}">
         <ul class="drawer__list" role="list">
           {{ nav_links }}
         </ul>

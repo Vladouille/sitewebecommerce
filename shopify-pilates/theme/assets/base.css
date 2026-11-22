@@ -582,3 +582,50 @@ p {
   color: var(--color-bg);
   border-color: var(--color-text);
 }
+
+/* --------------------------------------------------------------------------
+   Boutons d'achat : couleur réservée (Ajouter au panier, Passer commande)
+   -------------------------------------------------------------------------- */
+
+.button--buy {
+  background: var(--color-buy);
+  border-color: var(--color-buy);
+  color: var(--color-buy-text);
+  min-height: 3rem;
+}
+
+.button--buy:hover {
+  background: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+/* Dessin de remplacement quand aucune photo n'est choisie */
+.reformer-drawing {
+  width: 100%;
+  height: auto;
+  max-width: 520px;
+}
+
+/* --------------------------------------------------------------------------
+   Apparition douce au défilement : tout est visible au chargement ;
+   seules les sections situées sous l'écran sont préparées puis révélées.
+   -------------------------------------------------------------------------- */
+
+.js .reveal-pending {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.js .reveal-done {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal-pending {
+    opacity: 1;
+    transform: none;
+  }
+}

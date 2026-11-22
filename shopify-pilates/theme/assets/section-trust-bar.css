@@ -62,3 +62,9 @@
     align-items: flex-start;
   }
 }
+
+.trust-bar__title a {
+  text-decoration: underline;
+  text-decoration-color: var(--color-wood);
+  text-underline-offset: 0.2em;
+}

@@ -9,17 +9,17 @@
     <div class="page-width">
       <div class="section-header">
         <div>
-          <h2 id="Testimonials-{{ section.id }}" class="section-heading">{{ section.settings.heading | escape }}</h2>
+          <h2 id="Testimonials-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
         </div>
       </div>
       <ul class="testimonials__list" role="list">
         {%- for block in section.blocks -%}
           <li class="testimonials__item" {{ block.shopify_attributes }}>
             <figure>
-              <blockquote class="testimonials__quote">{{ block.settings.quote }}</blockquote>
+              <blockquote class="testimonials__quote">{% render 'tokens', text: block.settings.quote %}</blockquote>
               <figcaption class="testimonials__author">
-                <strong>{{ block.settings.author | escape }}</strong>
-                {%- if block.settings.role != blank -%}<span>{{ block.settings.role | escape }}</span>{%- endif -%}
+                <strong>{% render 'tokens', text: block.settings.author, escape: true %}</strong>
+                {%- if block.settings.role != blank -%}<span>{% render 'tokens', text: block.settings.role, escape: true %}</span>{%- endif -%}
               </figcaption>
             </figure>
           </li>

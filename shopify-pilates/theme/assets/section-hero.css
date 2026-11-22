@@ -49,8 +49,24 @@
   fill: var(--color-text-muted);
 }
 
-.hero--no-image .hero__media:empty {
-  display: none;
+.hero__claim {
+  color: var(--color-accent);
+}
+
+.hero__note {
+  margin: 1rem 0 0;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  max-width: 34rem;
+}
+
+.hero__drawing {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  padding: 10%;
+  background: var(--color-bg);
+  border-radius: var(--radius);
 }
 
 @media (min-width: 600px) {
@@ -76,11 +92,6 @@
   .hero__image,
   .hero__placeholder {
     aspect-ratio: 5 / 4;
-  }
-
-  .hero--no-image .hero__inner {
-    grid-template-columns: 1fr;
-    max-width: 900px;
   }
 
   /* Texte sur l'image */

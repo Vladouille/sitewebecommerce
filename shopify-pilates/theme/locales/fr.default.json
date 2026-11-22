@@ -6,7 +6,8 @@
       "previous": "Précédent",
       "next": "Suivant",
       "page": "Page {{ number }}"
-    }
+    },
+    "drawing_alt": "Dessin d'un reformer Pilates"
   },
   "accessibility": {
     "skip_to_content": "Aller au contenu"
@@ -50,11 +51,29 @@
     },
     "testimonials": {
       "empty_editor": "Visible seulement dans l'éditeur : ajouter ici de vrais avis clients (bouton « Ajouter un bloc »). Tant qu'aucun avis n'est ajouté, cette section reste invisible sur le site. N'invente jamais d'avis."
+    },
+    "contact": {
+      "empty_editor": "Visible seulement dans l'éditeur : renseigne le téléphone et l'email dans Paramètres du thème > Marque et contact. Sans eux, ce bloc reste masqué sur le site."
+    },
+    "calculator": {
+      "machine": "Machine",
+      "quantity": "Nombre de machines :",
+      "total": "Total estimé",
+      "base_price": "Prix de base",
+      "tier_range": "{{ min }} à {{ max }} machines",
+      "tier_more": "{{ min }} machines et plus",
+      "per_unit": "{{ price }} par machine",
+      "save": "Vous économisez {{ amount }}",
+      "discount_from": "Remise dès {{ min }} machines",
+      "no_discount": "Pas de remise par quantité sur ce produit",
+      "add": "Ajouter au panier",
+      "see_product": "Voir la fiche produit"
     }
   },
   "products": {
     "price": {
-      "from": "À partir de"
+      "from": "À partir de",
+      "per_post": "soit {{ price }} HT par poste"
     },
     "gallery": {
       "label": "Images et vidéos du produit",
@@ -72,7 +91,8 @@
       "unit_price_ht": "Prix unitaire HT",
       "range": "{{ min }} à {{ max }}",
       "and_more": "{{ min }} et plus"
-    }
+    },
+    "choose": "Choisir"
   },
   "collections": {
     "product_count": {

@@ -6,8 +6,13 @@
   // Menu mobile : fermer avec Échap, bloquer le défilement de la page quand il est ouvert
   var drawer = document.querySelector('[data-header-drawer]');
   if (drawer) {
+    var summary = drawer.querySelector('summary');
     drawer.addEventListener('toggle', function () {
       document.body.style.overflow = drawer.open ? 'hidden' : '';
+      summary.setAttribute('aria-expanded', drawer.open ? 'true' : 'false');
+    });
+    drawer.addEventListener('click', function (event) {
+      if (event.target.closest('a')) drawer.open = false;
     });
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape' && drawer.open) {
@@ -17,6 +22,26 @@
     });
     window.matchMedia('(min-width: 1100px)').addEventListener('change', function (mq) {
       if (mq.matches) drawer.open = false;
+    });
+  }
+
+  // Apparition douce des sections situées sous l'écran (jamais dans l'éditeur de thème)
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var inEditor = window.Shopify && window.Shopify.designMode;
+  if (!reduceMotion && !inEditor && 'IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.remove('reveal-pending');
+        entry.target.classList.add('reveal-done');
+        revealObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.main-content > .shopify-section').forEach(function (section) {
+      if (section.getBoundingClientRect().top > window.innerHeight) {
+        section.classList.add('reveal-pending');
+        revealObserver.observe(section);
+      }
     });
   }
 
