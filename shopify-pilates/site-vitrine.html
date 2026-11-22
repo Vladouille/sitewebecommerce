@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>[NOM DE MARQUE] — Équipement Pilates de studio, jusqu'à 30 % moins cher</title>
+<title>Ressaline — Équipement Pilates de studio, jusqu'à 30 % moins cher</title>
 <meta name="description" content="Reformers, Cadillac et chaises Pilates de qualité studio, importés d'usine. Garantie 2 ans, pièces en stock en France, livraison et montage inclus.">
 <meta name="theme-color" content="#070B14">
 <!-- Polices : Space Grotesk (titres, chiffres) + Inter (texte). En production, héberge-les toi-même (RGPD). -->
@@ -224,14 +224,14 @@ footer a{text-decoration:none}footer a:hover{color:var(--text)}
 .legal{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:.82rem}
 
 /* Apparition au défilement */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
-.reveal.in{opacity:1;transform:none}
+.reveal{transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.pre{opacity:0;transform:translateY(28px)}
 .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
 
 /* Accessibilité : aucune animation si le visiteur l'a demandé */
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-  .reveal{opacity:1;transform:none}
+  .reveal.pre{opacity:1;transform:none}
   #particles{display:none}
 }
 </style>
@@ -271,12 +271,13 @@ footer a{text-decoration:none}footer a:hover{color:var(--text)}
 
 <header>
   <div class="wrap nav">
-    <a class="logo" href="#top"><i aria-hidden="true"></i>[NOM DE MARQUE]</a>
+    <a class="logo" href="#top"><i aria-hidden="true"></i>Ressaline</a>
     <nav aria-label="Menu principal">
       <ul class="menu">
         <li><a href="#machines">Machines</a></li>
         <li><a href="#packs">Packs studio</a></li>
-        <li><a href="#calcul">Remises pros</a></li>
+        <li><a href="#pieces">Accessoires et pièces</a></li>
+        <li><a href="#calcul">Professionnels</a></li>
         <li><a href="#garantie">Garantie</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
@@ -359,6 +360,15 @@ footer a{text-decoration:none}footer a:hover{color:var(--text)}
     </div>
   </section>
 
+  <!-- ACCESSOIRES ET PIÈCES -->
+  <section class="section" id="pieces">
+    <div class="wrap">
+      <h2 class="reveal">Accessoires et pièces</h2>
+      <p class="lead reveal d1">En stock en France : vos machines ne restent jamais à l'arrêt.</p>
+      <div class="products" id="parts-list"></div>
+    </div>
+  </section>
+
   <!-- CALCULATEUR : le visiteur manipule lui-même son économie -->
   <section class="section" id="calcul">
     <div class="wrap">
@@ -405,7 +415,7 @@ footer a{text-decoration:none}footer a:hover{color:var(--text)}
     <div class="wrap">
       <h2 class="reveal">Le circuit classique, <span class="grad">ou le nôtre.</span></h2>
       <div class="compare reveal d1" role="table" aria-label="Comparaison">
-        <div class="row head" role="row"><div role="columnheader"></div><div class="old" role="columnheader">Circuit classique</div><div class="new" role="columnheader">Avec [NOM DE MARQUE]</div></div>
+        <div class="row head" role="row"><div role="columnheader"></div><div class="old" role="columnheader">Circuit classique</div><div class="new" role="columnheader">Avec Ressaline</div></div>
         <div class="row" role="row"><div class="k" role="rowheader">Prix</div><div class="old" role="cell"><svg><use href="#i-cross"/></svg>Marges de la marque et des distributeurs</div><div class="new" role="cell"><svg><use href="#i-check"/></svg>Prix usine, jusqu'à 30 % moins cher</div></div>
         <div class="row" role="row"><div class="k" role="rowheader">Commande</div><div class="old" role="cell"><svg><use href="#i-cross"/></svg>Devis et allers-retours</div><div class="new" role="cell"><svg><use href="#i-check"/></svg>Prix affichés, délai annoncé sur chaque fiche</div></div>
         <div class="row" role="row"><div class="k" role="rowheader">SAV</div><div class="old" role="cell"><svg><use href="#i-cross"/></svg>Interlocuteurs multiples</div><div class="new" role="cell"><svg><use href="#i-check"/></svg>Un contact direct en France</div></div>
@@ -468,7 +478,7 @@ footer a{text-decoration:none}footer a:hover{color:var(--text)}
 <footer>
   <div class="wrap">
     <div class="f-grid">
-      <div><a class="logo" href="#top"><i aria-hidden="true"></i>[NOM DE MARQUE]</a><p style="margin-top:14px">Équipement Pilates de qualité studio, importé directement d'usine.</p></div>
+      <div><a class="logo" href="#top"><i aria-hidden="true"></i>Ressaline</a><p style="margin-top:14px">Équipement Pilates de qualité studio, importé directement d'usine.</p></div>
       <div><h3>Informations</h3><ul>
         <li><a class="js-link" data-path="/pages/livraison-et-montage" href="#">Livraison et montage</a></li>
         <li><a class="js-link" data-path="/pages/retours" href="#">Retours</a></li>
@@ -482,7 +492,7 @@ footer a{text-decoration:none}footer a:hover{color:var(--text)}
         <li class="js-hours"></li>
       </ul></div>
     </div>
-    <p class="legal">© <span id="year"></span> [NOM DE MARQUE] · Prix TTC, TVA 20 % incluse · Paiement sécurisé</p>
+    <p class="legal">© <span id="year"></span> Ressaline · Prix TTC, TVA 20 % incluse · Paiement sécurisé</p>
   </div>
 </footer>
 
@@ -511,6 +521,11 @@ var MACHINES = [
   { handle: "reformer-half-tower", image: "", title: "Reformer Half Tower", sub: "Reformer et demi-tour sur un appareil", price: 2890 },
   { handle: "cadillac-studio", image: "", title: "Cadillac Studio", sub: "Cours privés et rééducation", price: 3990 },
   { handle: "chaise-pilates-wunda", image: "", title: "Chaise Pilates Wunda", sub: "Compacte, très polyvalente", price: 990 }
+];
+var PARTS = [
+  { handle: "kit-ressorts-rechange", image: "", title: "Kit de ressorts de rechange", sub: "Des résistances régulières d'un cours à l'autre", price: 149 },
+  { handle: "sangles-poignees-rechange", image: "", title: "Sangles et poignées", sub: "Un studio impeccable, des clients en confiance", price: 59 },
+  { handle: "box-planche-de-saut", image: "", title: "Box et planche de saut", sub: "Multipliez les exercices sur vos reformers", price: 189 }
 ];
 
 /* ========================================================================== */
@@ -549,6 +564,8 @@ var MACHINES = [
   PACKS.forEach(function (p) { packList.appendChild(card(p, true)); });
   var machList = document.getElementById("machines-list");
   MACHINES.forEach(function (p) { machList.appendChild(card(p, false)); });
+  var partsList = document.getElementById("parts-list");
+  PARTS.forEach(function (p) { partsList.appendChild(card(p, false)); });
 
   // Calculateur de remises
   var sel = document.getElementById("calc-machine"), qty = document.getElementById("calc-qty");
@@ -574,14 +591,17 @@ var MACHINES = [
 
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Apparition au défilement
+  // Apparition au défilement : tout est visible au chargement ; seuls les éléments
+  // situés plus bas que l'écran sont masqués puis apparaissent quand on y arrive.
   var items = document.querySelectorAll(".reveal");
   if (!reduce && "IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.remove("pre"); io.unobserve(e.target); } });
     }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
-    items.forEach(function (el) { io.observe(el); });
-  } else { items.forEach(function (el) { el.classList.add("in"); }); }
+    items.forEach(function (el) {
+      if (el.getBoundingClientRect().top > innerHeight) { el.classList.add("pre"); io.observe(el); }
+    });
+  }
 
   if (reduce) return;
 

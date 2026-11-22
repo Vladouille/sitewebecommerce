@@ -3,7 +3,7 @@
     "name": "theme_info",
     "theme_name": "Studio Pilates",
     "theme_version": "1.0.0",
-    "theme_author": "[NOM DE MARQUE]",
+    "theme_author": "Ressaline",
     "theme_documentation_url": "https://help.shopify.com/fr/manual/online-store/themes",
     "theme_support_url": "https://help.shopify.com/fr"
   },
@@ -14,7 +14,7 @@
         "type": "text",
         "id": "brand_name",
         "label": "Nom de la marque",
-        "default": "[NOM DE MARQUE]",
+        "default": "Ressaline",
         "info": "Utilisé dans les textes du site quand aucun logo n'est choisi."
       },
       {

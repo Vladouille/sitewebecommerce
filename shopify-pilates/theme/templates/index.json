@@ -123,9 +123,9 @@
     "comparison": {
       "type": "comparison",
       "settings": {
-        "heading": "Le circuit classique ou [NOM DE MARQUE]",
+        "heading": "Le circuit classique ou Ressaline",
         "before_label": "Circuit classique",
-        "after_label": "Avec [NOM DE MARQUE]",
+        "after_label": "Avec Ressaline",
         "background": "surface"
       },
       "blocks": {

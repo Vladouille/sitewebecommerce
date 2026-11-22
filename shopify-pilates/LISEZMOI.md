@@ -28,7 +28,7 @@ Le thème est en français et ne charge aucun script ni police depuis un site ex
 
 Dans **Personnaliser**, clique sur l'icône **engrenage** (Paramètres du thème) en bas à gauche :
 
-- **Marque et contact** : nom de la marque (remplace `[NOM DE MARQUE]`), logo, favicon, **téléphone**, horaires, **email**. Le numéro et l'email fournis sont des exemples : remplace-les.
+- **Marque et contact** : nom de la marque (déjà réglé sur « Ressaline »), logo, favicon, **téléphone**, horaires, **email**. Le numéro et l'email fournis sont des exemples : remplace-les.
 - **Couleurs** : fond blanc cassé, beige, bois clair, texte presque noir, et la **couleur d'accent** (boutons). Garde une couleur d'accent foncée pour que le texte des boutons reste lisible.
 - **Typographie** : police des titres (Cormorant) et du texte (DM Sans), modifiables.
 - **Prix et TVA** : taux de TVA (20 % par défaut) et prix mis en avant (TTC ou HT).
@@ -211,7 +211,7 @@ Le délai affiché vient du metafield `delai_livraison` de chaque produit. Garde
 
 | Quoi | Où |
 |---|---|
-| `[NOM DE MARQUE]` | Paramètres du thème → Marque et contact (s'applique partout dans le thème) ; **Vendor** des produits (éditeur en masse) ; titres SEO des produits ; textes juridiques ; nom de la boutique (Paramètres → Général) |
+| Nom de marque « Ressaline » (seulement si tu changes de nom) | Paramètres du thème → Marque et contact ; **Vendor** et titres SEO des produits ; textes juridiques et page d'accueil (section « Avant / Avec ») ; nom de la boutique (Paramètres → Général) |
 | Téléphone `01 23 45 67 89` (exemple) | Paramètres du thème → Marque et contact |
 | Email `contact@exemple.fr` (exemple) | Paramètres du thème → Marque et contact |
 | Logo, favicon | Paramètres du thème → Marque et contact |
