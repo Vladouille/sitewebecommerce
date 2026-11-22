@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[NOM DE MARQUE] — Équipement Pilates de studio, jusqu'à 30 % moins cher</title>
+<meta name="description" content="Reformers, Cadillac et chaises Pilates de qualité studio, importés d'usine. Garantie 2 ans, pièces en stock en France, livraison et montage inclus.">
+<meta name="theme-color" content="#070B14">
+<!-- Polices : Space Grotesk (titres, chiffres) + Inter (texte). En production, héberge-les toi-même (RGPD). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   Palette (choix expliqués dans le LISEZMOI) :
+   - nuit profonde : premium, sérieux ; - bleu : confiance et compétence ;
+   - menthe : santé, calme, Pilates ; - ambre : uniquement pour les boutons d'achat
+     (couleur isolée = repérée immédiatement, effet de von Restorff).
+   ========================================================================== */
+:root{
+  --bg:#070B14; --bg-2:#0D1424; --glass:rgba(255,255,255,.045); --glass-2:rgba(255,255,255,.08);
+  --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.18);
+  --text:#EEF2F7; --muted:#A3AFC0; --trust:#6F9BFF; --calm:#46E3B7; --cta:#FFB547; --cta-text:#1A1206;
+  --radius:18px; --max:1240px;
+  --font-head:"Space Grotesk",system-ui,sans-serif; --font-body:"Inter",system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.65 var(--font-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--font-head);font-weight:600;line-height:1.08;letter-spacing:-.02em;margin:0 0 .5em;text-wrap:balance}
+h1{font-size:clamp(2.4rem,7.5vw,5rem)}
+h2{font-size:clamp(1.9rem,4.6vw,3.2rem)}
+h3{font-size:1.3rem}
+p{margin:0 0 1em}
+:focus-visible{outline:2px solid var(--calm);outline-offset:3px;border-radius:6px}
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 20px}
+.section{position:relative;padding:88px 0}
+.lead{color:var(--muted);font-size:1.08rem;max-width:620px}
+.center{text-align:center}.center .lead,.lead.center{margin-left:auto;margin-right:auto}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Fond animé : halos lumineux + grille */
+.bg-fx{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:drift 22s ease-in-out infinite alternate}
+.orb.o1{width:520px;height:520px;background:radial-gradient(circle,#2B4CFF 0%,transparent 70%);top:-160px;left:-140px}
+.orb.o2{width:460px;height:460px;background:radial-gradient(circle,#18B48C 0%,transparent 70%);top:30%;right:-180px;animation-duration:26s}
+.orb.o3{width:380px;height:380px;background:radial-gradient(circle,#6B3BFF 0%,transparent 70%);bottom:-140px;left:30%;animation-duration:30s;opacity:.35}
+@keyframes drift{to{transform:translate3d(60px,40px,0) scale(1.12)}}
+.grid-fx{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 70%);opacity:.35}
+#particles{position:fixed;inset:0;z-index:-1;pointer-events:none}
+
+/* Boutons : l'ambre est réservé à l'achat */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:52px;padding:.85rem 1.5rem;border-radius:999px;font:600 1rem/1.2 var(--font-body);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.btn-buy{background:var(--cta);color:var(--cta-text);box-shadow:0 10px 30px -8px rgba(255,181,71,.55)}
+.btn-buy:hover{transform:translateY(-2px);box-shadow:0 16px 40px -8px rgba(255,181,71,.7)}
+.btn-ghost{background:var(--glass);border-color:var(--line-2);color:var(--text);backdrop-filter:blur(10px)}
+.btn-ghost:hover{background:var(--glass-2);transform:translateY(-2px)}
+.btn svg{width:18px;height:18px}
+
+/* Barre de réassurance + en-tête */
+.topbar{background:linear-gradient(90deg,rgba(70,227,183,.12),rgba(111,155,255,.12));border-bottom:1px solid var(--line);font-size:.82rem;text-align:center;padding:9px 16px;color:#D6DEE9}
+header{position:sticky;top:0;z-index:50;background:rgba(7,11,20,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.logo{font:700 1.15rem var(--font-head);letter-spacing:.06em;text-decoration:none;display:flex;align-items:center;gap:10px;white-space:nowrap}
+.logo i{width:26px;height:26px;border-radius:8px;background:conic-gradient(from 200deg,var(--calm),var(--trust),var(--calm));box-shadow:0 0 18px rgba(70,227,183,.6)}
+.menu{display:none;gap:26px;list-style:none;margin:0;padding:0;font-size:.95rem}
+.menu a{text-decoration:none;color:#C9D3E0}.menu a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.phone{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:.95rem;min-height:44px}
+.phone span{display:none}
+.phone svg{width:20px;height:20px;color:var(--calm)}
+@media(min-width:640px){.phone span{display:inline}}
+@media(min-width:1080px){.menu{display:flex}}
+
+/* HERO */
+.hero{padding:56px 0 40px;overflow:hidden}
+.hero-grid{display:grid;gap:40px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:999px;background:var(--glass);border:1px solid var(--line-2);font-size:.85rem;color:#D6DEE9;margin-bottom:22px}
+.pill b{display:inline-grid;place-items:center;height:22px;padding:0 9px;border-radius:999px;background:rgba(70,227,183,.16);color:var(--calm);font-weight:600;font-size:.75rem}
+.grad{background:linear-gradient(100deg,var(--calm) 0%,var(--trust) 50%,var(--calm) 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+.hero .lead{font-size:1.15rem;margin-bottom:28px}
+.cta-row{display:flex;flex-direction:column;gap:12px}
+@media(min-width:560px){.cta-row{flex-direction:row;flex-wrap:wrap}}
+.trust-row{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:26px;color:#C9D3E0;font-size:.9rem;list-style:none;padding:0}
+.trust-row li{display:flex;align-items:center;gap:8px}
+.trust-row svg{width:18px;height:18px;color:var(--calm)}
+
+/* Scène flottante */
+.stage{position:relative;height:420px;perspective:1000px}
+.machine{position:absolute;inset:14% 4% auto 4%;animation:float 7s ease-in-out infinite}
+.machine svg{width:100%;filter:drop-shadow(0 30px 40px rgba(70,227,183,.18))}
+.ring{position:absolute;left:50%;top:56%;width:86%;aspect-ratio:1;transform:translate(-50%,-50%) rotateX(72deg);border-radius:50%;border:1px solid rgba(70,227,183,.35);box-shadow:0 0 60px rgba(70,227,183,.25),inset 0 0 40px rgba(111,155,255,.25);animation:spin 18s linear infinite}
+.ring.r2{width:62%;border-color:rgba(111,155,255,.35);animation-direction:reverse;animation-duration:24s}
+@keyframes spin{to{transform:translate(-50%,-50%) rotateX(72deg) rotateZ(360deg)}}
+@keyframes float{0%,100%{transform:translate3d(0,0,0) rotate(-1deg)}50%{transform:translate3d(0,-16px,0) rotate(1deg)}}
+.chip{position:absolute;display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:16px;background:rgba(13,20,36,.65);border:1px solid var(--line-2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 20px 40px -20px rgba(0,0,0,.6);font-size:.85rem;line-height:1.25;white-space:nowrap;animation:float 6s ease-in-out infinite}
+.chip strong{display:block;font:600 1.05rem var(--font-head)}
+.chip small{color:var(--muted)}
+.chip .ic{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:rgba(70,227,183,.14);color:var(--calm)}
+.chip .ic svg{width:20px;height:20px}
+.c1{top:2%;left:0;animation-delay:-1s}
+.c2{top:40%;right:0;animation-delay:-3s;animation-duration:7s}
+.c3{bottom:2%;left:8%;animation-delay:-2s;animation-duration:8s}
+.c3 .ic{background:rgba(111,155,255,.16);color:var(--trust)}
+@media(min-width:980px){.hero{padding:90px 0 70px}.hero-grid{grid-template-columns:1.05fr 1fr}.stage{height:540px}}
+@media(max-width:420px){.chip{padding:10px 12px;font-size:.78rem}.chip strong{font-size:.95rem}.chip .ic{width:30px;height:30px}}
+
+/* Bandeau de mots qui défilent */
+.marquee{border-block:1px solid var(--line);background:rgba(255,255,255,.02);overflow:hidden;padding:18px 0}
+.marquee-track{display:flex;gap:48px;width:max-content;animation:marquee 34s linear infinite;font:500 1.15rem var(--font-head);color:#C9D3E0;white-space:nowrap}
+.marquee-track span{display:flex;align-items:center;gap:48px}
+.marquee-track span::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--calm);box-shadow:0 0 12px var(--calm)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* Cartes en verre (bento) */
+.bento{display:grid;gap:16px;margin-top:40px}
+@media(min-width:760px){.bento{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1080px){.bento{grid-template-columns:repeat(4,1fr)}}
+.card{position:relative;padding:26px;border-radius:var(--radius);background:linear-gradient(180deg,var(--glass-2),var(--glass));border:1px solid var(--line);overflow:hidden;transition:transform .25s ease,border-color .25s ease;transform-style:preserve-3d}
+.card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:radial-gradient(400px circle at var(--mx,50%) var(--my,0%),rgba(70,227,183,.55),transparent 40%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s}
+.card:hover::before{opacity:1}
+.card .ic{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:rgba(70,227,183,.12);color:var(--calm);margin-bottom:18px;animation:bob 5s ease-in-out infinite}
+.card .ic svg{width:24px;height:24px}
+.card p{color:var(--muted);margin:0}
+.big{font:600 2.6rem/1 var(--font-head);margin-bottom:8px;background:linear-gradient(180deg,#fff,#9FB3CF);-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* Produits */
+.tabs-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px}
+.products{display:grid;gap:18px;margin-top:36px}
+@media(min-width:680px){.products{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1080px){.products{grid-template-columns:repeat(3,1fr)}#packs-list{grid-template-columns:repeat(2,1fr);max-width:860px}}
+.p-media img{width:100%;height:100%;object-fit:cover}
+.product{display:flex;flex-direction:column;border-radius:var(--radius);background:linear-gradient(180deg,var(--glass-2),var(--glass));border:1px solid var(--line);overflow:hidden;transition:transform .25s ease,border-color .25s ease}
+.product:hover{transform:translateY(-4px);border-color:var(--line-2)}
+.product.featured{border-color:rgba(70,227,183,.5);box-shadow:0 0 0 1px rgba(70,227,183,.25),0 30px 60px -30px rgba(70,227,183,.35)}
+.p-media{position:relative;aspect-ratio:16/10;display:grid;place-items:center;background:radial-gradient(circle at 50% 70%,rgba(70,227,183,.18),transparent 60%),#0B1222;border-bottom:1px solid var(--line)}
+.p-media svg{width:78%;animation:float 8s ease-in-out infinite}
+.p-badge{position:absolute;top:14px;left:14px;padding:5px 11px;border-radius:999px;background:rgba(70,227,183,.16);border:1px solid rgba(70,227,183,.4);color:var(--calm);font-size:.78rem;font-weight:600}
+.p-body{display:flex;flex-direction:column;gap:10px;padding:22px;flex:1}
+.p-body p{color:var(--muted);margin:0;font-size:.95rem}
+.price{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-top:auto;padding-top:8px}
+.price .ttc{font:600 1.6rem var(--font-head)}
+.price .ttc small,.price .ht{color:var(--muted);font-size:.9rem;font-family:var(--font-body);font-weight:400}
+.per{font-size:.85rem;color:var(--calm)}
+.p-body .btn{margin-top:8px;width:100%}
+
+/* Calculateur de remises */
+.calc{display:grid;gap:24px;margin-top:36px;padding:28px;border-radius:24px;background:linear-gradient(135deg,rgba(111,155,255,.10),rgba(70,227,183,.08));border:1px solid var(--line-2)}
+@media(min-width:900px){.calc{grid-template-columns:1fr 1fr;padding:40px;gap:40px}}
+.field{display:grid;gap:8px;margin-bottom:18px}
+.field label{font-weight:600;font-size:.92rem}
+select,input[type=range]{width:100%}
+select{min-height:50px;padding:0 14px;border-radius:12px;background:#0D1424;color:var(--text);border:1px solid var(--line-2);font:inherit}
+input[type=range]{accent-color:var(--calm);height:32px}
+.qty-out{font:600 1.1rem var(--font-head)}
+.tiers{display:flex;gap:8px;flex-wrap:wrap}
+.tier{flex:1;min-width:90px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);font-size:.85rem;color:var(--muted);transition:all .25s}
+.tier b{display:block;color:var(--text);font-family:var(--font-head)}
+.tier.on{border-color:var(--calm);background:rgba(70,227,183,.1);color:var(--text)}
+.result{display:grid;gap:6px;align-content:center;padding:26px;border-radius:18px;background:rgba(7,11,20,.55);border:1px solid var(--line)}
+.result .lbl{color:var(--muted);font-size:.9rem}
+.result .total{font:600 clamp(2rem,6vw,2.8rem)/1.1 var(--font-head)}
+.result .save{color:var(--calm);font-weight:600}
+.result .note{font-size:.8rem;color:var(--muted);margin-top:6px}
+
+/* Étapes */
+.steps{display:grid;gap:18px;margin-top:40px;counter-reset:s;list-style:none;padding:0}
+@media(min-width:900px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{position:relative;padding:28px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--line)}
+.step::before{counter-increment:s;content:"0" counter(s);display:block;font:700 3rem/1 var(--font-head);margin-bottom:14px;background:linear-gradient(180deg,var(--calm),transparent);-webkit-background-clip:text;background-clip:text;color:transparent}
+.step p{color:var(--muted);margin:0}
+
+/* Comparatif */
+.compare{margin-top:40px;border-radius:24px;overflow:hidden;border:1px solid var(--line)}
+.row{display:grid;grid-template-columns:1fr;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row>div{padding:16px 20px}
+.row .k{font:600 1.05rem var(--font-head);padding-bottom:0}
+.row .old{color:var(--muted);display:flex;gap:10px}
+.row .new{display:flex;gap:10px;background:rgba(70,227,183,.06);font-weight:500}
+.row svg{width:18px;height:18px;flex-shrink:0;margin-top:4px}
+.row .old svg{color:#7D8899}.row .new svg{color:var(--calm)}
+.row.head{display:none}
+@media(min-width:760px){.row{grid-template-columns:.7fr 1fr 1fr}.row .k{padding-bottom:16px}.row.head{display:grid;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.03)}.row.head .new{color:var(--calm);font-weight:600}}
+
+/* Garantie */
+.guarantee{display:grid;gap:36px;align-items:center;padding:36px;border-radius:28px;background:radial-gradient(600px circle at 20% 30%,rgba(70,227,183,.16),transparent 60%),var(--bg-2);border:1px solid rgba(70,227,183,.3)}
+@media(min-width:900px){.guarantee{grid-template-columns:.8fr 1.2fr;padding:56px}}
+.shield{position:relative;width:min(240px,60vw);margin:0 auto;animation:float 6s ease-in-out infinite}
+.shield svg{width:100%;filter:drop-shadow(0 0 30px rgba(70,227,183,.45))}
+.checks{list-style:none;padding:0;margin:20px 0 28px;display:grid;gap:12px}
+.checks li{display:flex;gap:12px}
+.checks svg{width:22px;height:22px;color:var(--calm);flex-shrink:0}
+
+/* FAQ */
+.faq{max-width:820px;margin:40px auto 0}
+details{border-bottom:1px solid var(--line)}
+summary{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:64px;padding:16px 0;cursor:pointer;list-style:none;font:500 1.08rem var(--font-head)}
+summary::-webkit-details-marker{display:none}
+summary i{position:relative;width:18px;height:18px;flex-shrink:0}
+summary i::before,summary i::after{content:"";position:absolute;inset:8px 0 auto;height:2px;background:var(--calm);transition:transform .25s}
+summary i::after{transform:rotate(90deg)}
+details[open] summary i::after{transform:rotate(0)}
+details p{color:var(--muted);padding-bottom:18px;margin:0}
+
+/* Contact final */
+.final{position:relative;padding:56px 28px;border-radius:32px;text-align:center;overflow:hidden;background:linear-gradient(135deg,#132044,#0B2A2A);border:1px solid var(--line-2)}
+.final::before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,rgba(70,227,183,.25),transparent 30%);animation:spinflat 10s linear infinite}
+@keyframes spinflat{to{transform:rotate(360deg)}}
+.final>*{position:relative}
+.final .cta-row{justify-content:center;margin-top:24px}
+.final small{display:block;margin-top:16px;color:var(--muted)}
+
+footer{margin-top:88px;border-top:1px solid var(--line);padding:48px 0 32px;color:var(--muted);font-size:.92rem}
+.f-grid{display:grid;gap:28px}
+@media(min-width:760px){.f-grid{grid-template-columns:1.4fr 1fr 1fr}}
+footer h3{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:#C9D3E0;font-family:var(--font-body);font-weight:600}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer a{text-decoration:none}footer a:hover{color:var(--text)}
+.legal{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:.82rem}
+
+/* Apparition au défilement */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+/* Accessibilité : aucune animation si le visiteur l'a demandé */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  #particles{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Icônes réutilisables -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-cross" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.5h11v9h-11z"/><path d="M13.5 9.5h4l3 3v3h-7"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.1L3.6 17.1a1.5 1.5 0 0 0 2.1 2.1l5.7-5.7a4 4 0 0 0 5.1-5.4l-2.4 2.4-2.1-.6-.6-2.1 2.4-2.4Z"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16.4v2.8a1.9 1.9 0 0 1-2 1.9A18.8 18.8 0 0 1 2.9 5 1.9 1.9 0 0 1 4.8 3h2.8a1.9 1.9 0 0 1 1.9 1.6c.1.9.4 1.8.7 2.7a1.9 1.9 0 0 1-.4 2L8.6 10.5a15 15 0 0 0 4.9 4.9l1.2-1.2a1.9 1.9 0 0 1 2-.4c.9.3 1.8.6 2.7.7a1.9 1.9 0 0 1 1.6 1.9Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <!-- Silhouette de reformer en traits lumineux -->
+  <symbol id="reformer" viewBox="0 0 520 200">
+    <defs><linearGradient id="gl" x1="0" x2="1"><stop offset="0" stop-color="#46E3B7"/><stop offset="1" stop-color="#6F9BFF"/></linearGradient></defs>
+    <g fill="none" stroke="url(#gl)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="40" y="96" width="440" height="22" rx="11"/>
+      <rect x="150" y="70" width="120" height="26" rx="8" fill="rgba(70,227,183,.10)"/>
+      <path d="M170 70v-16M250 70v-16M168 52h22M232 52h22"/>
+      <path d="M455 96V44M440 44h30"/>
+      <path d="M60 96V60l-14-8"/>
+      <path d="M272 108c10-6 20 6 30 0s20 6 30 0 20 6 30 0 20 6 30 0" opacity=".8"/>
+      <path d="M70 118v44M450 118v44M60 162h22M440 162h22"/>
+      <circle cx="95" cy="107" r="5"/><circle cx="420" cy="107" r="5"/>
+    </g>
+  </symbol>
+</svg>
+
+<div class="bg-fx" aria-hidden="true"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="grid-fx"></div></div>
+<canvas id="particles" aria-hidden="true"></canvas>
+
+<p class="topbar">Livraison et montage inclus · Garantie 2 ans · Pièces en stock en France</p>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top"><i aria-hidden="true"></i>[NOM DE MARQUE]</a>
+    <nav aria-label="Menu principal">
+      <ul class="menu">
+        <li><a href="#machines">Machines</a></li>
+        <li><a href="#packs">Packs studio</a></li>
+        <li><a href="#calcul">Remises pros</a></li>
+        <li><a href="#garantie">Garantie</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <a class="phone js-phone" href="#"><svg><use href="#i-phone"/></svg><span class="js-phone-text"></span><b class="vh">Appeler</b></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO : promesse claire + preuve de confiance immédiate (première impression en 50 ms) -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="pill reveal"><b>Prix usine</b> Reformers, Cadillac, chaises</p>
+        <h1 class="reveal d1">Équipement Pilates de studio, <span class="grad">jusqu'à 30 % moins cher.</span></h1>
+        <p class="lead reveal d2">Importé directement d'usine. Garantie 2 ans. Pièces de rechange en stock en France. Livraison et montage inclus.</p>
+        <div class="cta-row reveal d3">
+          <a class="btn btn-buy js-link" data-path="/collections/packs-studio" href="#packs">Équiper mon studio <svg><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost js-link" data-path="/collections/machines" href="#machines">Voir les machines</a>
+        </div>
+        <ul class="trust-row reveal d3">
+          <li><svg><use href="#i-shield"/></svg>Garantie 2 ans</li>
+          <li><svg><use href="#i-wrench"/></svg>Pièces en France</li>
+          <li><svg><use href="#i-truck"/></svg>Livraison et montage inclus</li>
+        </ul>
+      </div>
+
+      <div class="stage" id="stage" aria-hidden="true">
+        <div class="ring"></div><div class="ring r2"></div>
+        <div class="machine" data-depth="14"><svg viewBox="0 0 520 200"><use href="#reformer"/></svg></div>
+        <div class="chip c1" data-depth="30"><span class="ic"><svg><use href="#i-tag"/></svg></span><span><strong>−30 %</strong><small>jusqu'à, prix usine</small></span></div>
+        <div class="chip c2" data-depth="40"><span class="ic"><svg><use href="#i-shield"/></svg></span><span><strong>2 ans</strong><small>de garantie</small></span></div>
+        <div class="chip c3" data-depth="24"><span class="ic"><svg><use href="#i-truck"/></svg></span><span><strong>0 € livraison</strong><small>montage inclus</small></span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Reformer chêne</span><span>Reformer aluminium</span><span>Half Tower</span><span>Cadillac</span><span>Chaise Wunda</span><span>Pièces en France</span><span>Montage inclus</span>
+      <span>Reformer chêne</span><span>Reformer aluminium</span><span>Half Tower</span><span>Cadillac</span><span>Chaise Wunda</span><span>Pièces en France</span><span>Montage inclus</span>
+    </div>
+  </div>
+
+  <!-- ARGUMENTS -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="reveal">La qualité studio, <span class="grad">sans la marge des intermédiaires.</span></h2>
+      <p class="lead reveal d1">Quatre engagements, écrits noir sur blanc, pour acheter un équipement à plusieurs milliers d'euros l'esprit tranquille.</p>
+      <div class="bento">
+        <article class="card reveal"><div class="ic"><svg><use href="#i-tag"/></svg></div><div class="big">−30 %</div><h3>Prix usine</h3><p>Jusqu'à 30 % moins cher. Les prix sont affichés : pas de devis à attendre.</p></article>
+        <article class="card reveal d1"><div class="ic"><svg><use href="#i-shield"/></svg></div><div class="big">2 ans</div><h3>Garantie</h3><p>Sur toutes les machines, en plus des garanties légales.</p></article>
+        <article class="card reveal d2"><div class="ic"><svg><use href="#i-wrench"/></svg></div><div class="big">FR</div><h3>Pièces en stock</h3><p>Ressorts, sangles et poignées expédiés depuis la France.</p></article>
+        <article class="card reveal d3"><div class="ic"><svg><use href="#i-truck"/></svg></div><div class="big">0 €</div><h3>Livraison et montage</h3><p>Inclus en France métropolitaine. Vous n'avez rien à porter.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKS : le plus cher d'abord (ancrage), le prix ramené au poste (calcul mental plus facile) -->
+  <section class="section" id="packs">
+    <div class="wrap">
+      <div class="tabs-head">
+        <div>
+          <h2 class="reveal">Packs studio clé en main</h2>
+          <p class="lead reveal d1">Une commande, une livraison, un montage. Votre studio est prêt à ouvrir.</p>
+        </div>
+      </div>
+      <div class="products" id="packs-list"></div>
+    </div>
+  </section>
+
+  <!-- MACHINES -->
+  <section class="section" id="machines">
+    <div class="wrap">
+      <h2 class="reveal">Les machines</h2>
+      <p class="lead reveal d1">Prix TTC et HT affichés. Les professionnels récupèrent la TVA sur facture.</p>
+      <div class="products" id="machines-list"></div>
+    </div>
+  </section>
+
+  <!-- CALCULATEUR : le visiteur manipule lui-même son économie -->
+  <section class="section" id="calcul">
+    <div class="wrap">
+      <h2 class="reveal center">Combien coûte <span class="grad">votre studio</span> ?</h2>
+      <p class="lead center reveal d1">Choisissez la machine et le nombre de postes. La remise par quantité s'applique automatiquement au panier.</p>
+      <div class="calc reveal d2">
+        <div>
+          <div class="field">
+            <label for="calc-machine">Machine</label>
+            <select id="calc-machine"></select>
+          </div>
+          <div class="field">
+            <label for="calc-qty">Nombre de machines : <span class="qty-out" id="calc-qty-out">4</span></label>
+            <input id="calc-qty" type="range" min="1" max="12" value="4">
+          </div>
+          <div class="tiers" id="calc-tiers"></div>
+        </div>
+        <div class="result" aria-live="polite">
+          <span class="lbl">Total estimé</span>
+          <span class="total" id="calc-total">—</span>
+          <span class="lbl" id="calc-ht">—</span>
+          <span class="save" id="calc-save"></span>
+          <a class="btn btn-buy js-link" id="calc-cta" data-path="/collections/machines" href="#machines">Commander ces machines <svg><use href="#i-arrow"/></svg></a>
+          <span class="note">Estimation. Le montant exact est calculé au panier. Livraison et montage inclus en France métropolitaine.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÉTAPES : réduire l'incertitude, c'est augmenter la confiance -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="reveal">Comment ça marche</h2>
+      <ol class="steps">
+        <li class="step reveal"><h3>Vous commandez en ligne</h3><p>Prix affichés, paiement sécurisé. Une question ? Appelez-nous avant.</p></li>
+        <li class="step reveal d1"><h3>Nous fabriquons et expédions</h3><p>Le délai est annoncé sur chaque fiche produit. Nous vous tenons informé.</p></li>
+        <li class="step reveal d2"><h3>Livraison et montage chez vous</h3><p>Nous livrons et montons vos machines. Vous ouvrez vos cours.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- COMPARATIF -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="reveal">Le circuit classique, <span class="grad">ou le nôtre.</span></h2>
+      <div class="compare reveal d1" role="table" aria-label="Comparaison">
+        <div class="row head" role="row"><div role="columnheader"></div><div class="old" role="columnheader">Circuit classique</div><div class="new" role="columnheader">Avec [NOM DE MARQUE]</div></div>
+        <div class="row" role="row"><div class="k" role="rowheader">Prix</div><div class="old" role="cell"><svg><use href="#i-cross"/></svg>Marges de la marque et des distributeurs</div><div class="new" role="cell"><svg><use href="#i-check"/></svg>Prix usine, jusqu'à 30 % moins cher</div></div>
+        <div class="row" role="row"><div class="k" role="rowheader">Commande</div><div class="old" role="cell"><svg><use href="#i-cross"/></svg>Devis et allers-retours</div><div class="new" role="cell"><svg><use href="#i-check"/></svg>Prix affichés, délai annoncé sur chaque fiche</div></div>
+        <div class="row" role="row"><div class="k" role="rowheader">SAV</div><div class="old" role="cell"><svg><use href="#i-cross"/></svg>Interlocuteurs multiples</div><div class="new" role="cell"><svg><use href="#i-check"/></svg>Un contact direct en France</div></div>
+        <div class="row" role="row"><div class="k" role="rowheader">Pièces</div><div class="old" role="cell"><svg><use href="#i-cross"/></svg>Commandées à l'étranger</div><div class="new" role="cell"><svg><use href="#i-check"/></svg>En stock en France</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GARANTIE : inversion du risque -->
+  <section class="section" id="garantie">
+    <div class="wrap">
+      <div class="guarantee reveal">
+        <div class="shield"><svg viewBox="0 0 24 24" style="color:#46E3B7"><use href="#i-shield"/></svg></div>
+        <div>
+          <h2>Garantie 2 ans. <span class="grad">SAV en France.</span></h2>
+          <p class="lead">Un studio ne peut pas se permettre une machine à l'arrêt. Nos pièces d'usure sont stockées en France et un interlocuteur vous répond directement.</p>
+          <ul class="checks">
+            <li><svg><use href="#i-check"/></svg>Garantie 2 ans sur toutes les machines</li>
+            <li><svg><use href="#i-check"/></svg>Ressorts, sangles et poignées en stock en France</li>
+            <li><svg><use href="#i-check"/></svg>Facture avec TVA pour chaque commande</li>
+            <li><svg><use href="#i-check"/></svg>Livraison et montage inclus en France métropolitaine</li>
+          </ul>
+          <a class="btn btn-ghost js-link" data-path="/pages/garantie-et-pieces-de-rechange" href="#faq">Lire les conditions de garantie</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVIS CLIENTS : volontairement absent. Ajoute ici uniquement de vrais avis, avec accord écrit. -->
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <h2 class="reveal center">Questions fréquentes</h2>
+      <div class="faq reveal d1">
+        <details><summary>Quel est le délai de livraison ?<i></i></summary><p>Il est indiqué sur chaque fiche produit. Les pièces en stock partent rapidement ; les machines fabriquées à la commande sont livrées dans le délai annoncé.</p></details>
+        <details><summary>La livraison et le montage sont-ils vraiment inclus ?<i></i></summary><p>Oui, en France métropolitaine. Ailleurs, contactez-nous avant de commander.</p></details>
+        <details><summary>Les prix sont-ils HT ou TTC ?<i></i></summary><p>Les deux sont affichés. Vous payez le prix TTC ; si vous êtes assujetti, vous récupérez la TVA grâce à la facture.</p></details>
+        <details><summary>Y a-t-il des remises si j'achète plusieurs machines ?<i></i></summary><p>Oui. Les paliers sont affichés sur chaque fiche et la remise s'applique automatiquement dans le panier.</p></details>
+        <details><summary>Puis-je payer par virement ?<i></i></summary><p>Oui. La commande est lancée en fabrication à réception du virement.</p></details>
+        <details><summary>Je suis un particulier, puis-je commander ?<i></i></summary><p>Oui. Le site est ouvert à tous, avec un droit de rétractation de 14 jours pour les particuliers (frais de retour à votre charge).</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="final reveal">
+        <h2>Une question avant de commander ?</h2>
+        <p class="lead" style="margin:0 auto">Nombre de reformers pour votre surface, bois ou aluminium, délais : nous vous répondons directement.</p>
+        <div class="cta-row">
+          <a class="btn btn-buy js-phone" href="#"><svg><use href="#i-phone"/></svg><span class="js-phone-text"></span></a>
+          <a class="btn btn-ghost js-mail" href="#">Écrire un email</a>
+        </div>
+        <small class="js-hours"></small>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div><a class="logo" href="#top"><i aria-hidden="true"></i>[NOM DE MARQUE]</a><p style="margin-top:14px">Équipement Pilates de qualité studio, importé directement d'usine.</p></div>
+      <div><h3>Informations</h3><ul>
+        <li><a class="js-link" data-path="/pages/livraison-et-montage" href="#">Livraison et montage</a></li>
+        <li><a class="js-link" data-path="/pages/retours" href="#">Retours</a></li>
+        <li><a class="js-link" data-path="/pages/garantie-et-pieces-de-rechange" href="#">Garantie et pièces</a></li>
+        <li><a class="js-link" data-path="/pages/cgv" href="#">CGV</a></li>
+        <li><a class="js-link" data-path="/pages/mentions-legales" href="#">Mentions légales</a></li>
+      </ul></div>
+      <div><h3>Contact</h3><ul>
+        <li><a class="js-phone" href="#"><span class="js-phone-text"></span></a></li>
+        <li><a class="js-mail" href="#"><span class="js-mail-text"></span></a></li>
+        <li class="js-hours"></li>
+      </ul></div>
+    </div>
+    <p class="legal">© <span id="year"></span> [NOM DE MARQUE] · Prix TTC, TVA 20 % incluse · Paiement sécurisé</p>
+  </div>
+</footer>
+
+<script>
+/* ==========================================================================
+   CONFIGURATION : tout ce que tu dois modifier est ici.
+   ========================================================================== */
+var CONFIG = {
+  shopUrl: "",                         // ex. "https://ta-boutique.myshopify.com" : les boutons mèneront aux vraies pages Shopify
+  phone: "01 23 45 67 89",             // EXEMPLE : remplace par ton numéro
+  email: "contact@exemple.fr",         // EXEMPLE : remplace par ton email
+  hours: "Du lundi au vendredi, 9 h – 18 h",
+  vatRate: 20,
+  // Paliers de remise : doivent correspondre aux réductions automatiques créées dans Shopify
+  tiers: [{ min: 1, remise: 0 }, { min: 4, remise: 8 }, { min: 8, remise: 15 }]
+};
+// Prix TTC (mêmes produits et adresses que products.csv). Les packs sont affichés du plus cher au moins cher.
+// image : mets l'adresse d'une vraie photo (ex. copiée depuis Shopify). Vide = dessin lumineux provisoire.
+var PACKS = [
+  { handle: "pack-studio-8-reformers-cadillac", image: "", title: "Pack Studio", sub: "8 reformers + 1 Cadillac + accessoires", price: 19990, posts: 9 },
+  { handle: "pack-studio-starter", image: "", title: "Pack Studio Starter", sub: "4 reformers + accessoires", price: 8990, posts: 4, featured: true }
+];
+var MACHINES = [
+  { handle: "reformer-studio-bois-chene", image: "", title: "Reformer Studio Bois", sub: "Cadre en chêne, finition haut de gamme", price: 2390 },
+  { handle: "reformer-studio-aluminium", image: "", title: "Reformer Studio Aluminium", sub: "Robuste, facile à entretenir", price: 2290 },
+  { handle: "reformer-half-tower", image: "", title: "Reformer Half Tower", sub: "Reformer et demi-tour sur un appareil", price: 2890 },
+  { handle: "cadillac-studio", image: "", title: "Cadillac Studio", sub: "Cours privés et rééducation", price: 3990 },
+  { handle: "chaise-pilates-wunda", image: "", title: "Chaise Pilates Wunda", sub: "Compacte, très polyvalente", price: 990 }
+];
+
+/* ========================================================================== */
+(function () {
+  "use strict";
+  var fmt = function (n) { return n.toLocaleString("fr-FR", { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + " €"; };
+  var fmt2 = function (n) { return n.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €"; };
+  var ht = function (ttc) { return ttc / (1 + CONFIG.vatRate / 100); };
+  var link = function (path, fallback) { return CONFIG.shopUrl ? CONFIG.shopUrl + path : fallback; };
+
+  // Contact
+  var tel = "tel:" + CONFIG.phone.replace(/[\s.\-]/g, "");
+  document.querySelectorAll(".js-phone").forEach(function (a) { a.href = tel; });
+  document.querySelectorAll(".js-phone-text").forEach(function (s) { s.textContent = CONFIG.phone; });
+  document.querySelectorAll(".js-mail").forEach(function (a) { a.href = "mailto:" + CONFIG.email; });
+  document.querySelectorAll(".js-mail-text").forEach(function (s) { s.textContent = CONFIG.email; });
+  document.querySelectorAll(".js-hours").forEach(function (s) { s.textContent = CONFIG.hours; });
+  document.querySelectorAll(".js-link").forEach(function (a) { if (CONFIG.shopUrl) a.href = CONFIG.shopUrl + a.dataset.path; });
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Cartes produits
+  function card(p, isPack) {
+    var el = document.createElement("article");
+    el.className = "product reveal" + (p.featured ? " featured" : "");
+    var per = isPack ? '<span class="per">soit ' + fmt(Math.round(ht(p.price) / p.posts)) + " HT par poste</span>" : "";
+    el.innerHTML =
+      '<div class="p-media">' + (p.featured ? '<span class="p-badge">Recommandé pour démarrer</span>' : "") +
+      (p.image ? '<img src="' + p.image + '" alt="' + p.title + '" loading="lazy">' : '<svg viewBox="0 0 520 200" aria-hidden="true"><use href="#reformer"/></svg>') + "</div>" +
+      '<div class="p-body"><h3>' + p.title + "</h3><p>" + p.sub + "</p>" +
+      '<div class="price"><span class="ttc">' + fmt(p.price) + " <small>TTC</small></span>" +
+      '<span class="ht">' + fmt2(ht(p.price)) + " HT</span></div>" + per +
+      '<a class="btn ' + (isPack || p.featured ? "btn-buy" : "btn-ghost") + '" href="' + link("/products/" + p.handle, "#calcul") + '">Voir le produit</a></div>';
+    return el;
+  }
+  var packList = document.getElementById("packs-list");
+  PACKS.forEach(function (p) { packList.appendChild(card(p, true)); });
+  var machList = document.getElementById("machines-list");
+  MACHINES.forEach(function (p) { machList.appendChild(card(p, false)); });
+
+  // Calculateur de remises
+  var sel = document.getElementById("calc-machine"), qty = document.getElementById("calc-qty");
+  var qtyOut = document.getElementById("calc-qty-out"), tiersBox = document.getElementById("calc-tiers");
+  MACHINES.forEach(function (m, i) { var o = document.createElement("option"); o.value = i; o.textContent = m.title + " — " + fmt(m.price) + " TTC"; sel.appendChild(o); });
+  CONFIG.tiers.forEach(function (t, i) {
+    var next = CONFIG.tiers[i + 1], label = next ? (t.min + " à " + (next.min - 1)) : (t.min + " et +");
+    var d = document.createElement("div"); d.className = "tier"; d.innerHTML = "<b>" + (t.remise ? "−" + t.remise + " %" : "Prix de base") + "</b>" + label + " machines";
+    tiersBox.appendChild(d);
+  });
+  function calc() {
+    var m = MACHINES[sel.value], q = parseInt(qty.value, 10), tier = CONFIG.tiers[0], idx = 0;
+    CONFIG.tiers.forEach(function (t, i) { if (q >= t.min) { tier = t; idx = i; } });
+    var full = m.price * q, total = full * (1 - tier.remise / 100);
+    qtyOut.textContent = q;
+    document.getElementById("calc-total").textContent = fmt2(total) + " TTC";
+    document.getElementById("calc-ht").textContent = fmt2(ht(total)) + " HT · " + fmt2(ht(total) / q) + " HT par machine";
+    document.getElementById("calc-save").textContent = tier.remise ? "Vous économisez " + fmt2(full - total) + " TTC" : "Remise dès " + CONFIG.tiers[1].min + " machines";
+    document.getElementById("calc-cta").href = link("/products/" + m.handle, "#machines");
+    tiersBox.querySelectorAll(".tier").forEach(function (el, i) { el.classList.toggle("on", i === idx); });
+  }
+  sel.addEventListener("change", calc); qty.addEventListener("input", calc); calc();
+
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Apparition au défilement
+  var items = document.querySelectorAll(".reveal");
+  if (!reduce && "IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    items.forEach(function (el) { io.observe(el); });
+  } else { items.forEach(function (el) { el.classList.add("in"); }); }
+
+  if (reduce) return;
+
+  // Parallaxe du hero (souris sur ordinateur)
+  var stage = document.getElementById("stage");
+  if (stage && window.matchMedia("(hover: hover)").matches) {
+    var layers = stage.querySelectorAll("[data-depth]");
+    window.addEventListener("mousemove", function (e) {
+      var x = e.clientX / innerWidth - 0.5, y = e.clientY / innerHeight - 0.5;
+      layers.forEach(function (l) { var d = +l.dataset.depth; l.style.translate = (x * d) + "px " + (y * d) + "px"; });
+    }, { passive: true });
+  }
+
+  // Halo qui suit la souris sur les cartes
+  document.querySelectorAll(".card").forEach(function (c) {
+    c.addEventListener("mousemove", function (e) {
+      var r = c.getBoundingClientRect();
+      c.style.setProperty("--mx", (e.clientX - r.left) + "px"); c.style.setProperty("--my", (e.clientY - r.top) + "px");
+    });
+  });
+
+  // Particules reliées (constellation), légères et mises en pause hors écran
+  var cv = document.getElementById("particles"), ctx = cv.getContext("2d"), pts = [], W, H, running = true;
+  function size() { W = cv.width = innerWidth; H = cv.height = innerHeight; }
+  size(); addEventListener("resize", size);
+  var n = innerWidth < 700 ? 28 : 55;
+  for (var i = 0; i < n; i++) pts.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .25, vy: (Math.random() - .5) * .25 });
+  function tick() {
+    if (!running) return;
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < pts.length; i++) {
+      var p = pts[i]; p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1;
+      ctx.fillStyle = "rgba(70,227,183,.55)"; ctx.beginPath(); ctx.arc(p.x, p.y, 1.4, 0, 6.283); ctx.fill();
+      for (var j = i + 1; j < pts.length; j++) {
+        var q = pts[j], dx = p.x - q.x, dy = p.y - q.y, d = dx * dx + dy * dy;
+        if (d < 16000) { ctx.strokeStyle = "rgba(111,155,255," + (0.12 * (1 - d / 16000)) + ")"; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke(); }
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+  document.addEventListener("visibilitychange", function () { running = !document.hidden; if (running) tick(); });
+  tick();
+})();
+</script>
+</body>
+</html>
