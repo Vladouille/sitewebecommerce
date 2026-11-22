@@ -1,32 +1,110 @@
 .hero {
-  background: var(--color-surface);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: calc(100svh - 4.25rem);
   overflow: hidden;
+  background: var(--ambiance, var(--color-ambiance));
+  color: var(--color-text);
+  isolation: isolate;
 }
 
-.hero__inner {
-  display: grid;
-  gap: 2rem;
-  padding-top: 2.5rem;
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.hero__video,
+.hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__image--mobile {
+  display: none;
+}
+
+@media (max-width: 749px) {
+  .hero__video--desktop {
+    display: none;
+  }
+
+  .hero__image--mobile {
+    display: block;
+  }
+}
+
+.hero__model {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__model model-viewer {
+  width: 100%;
+  height: 100%;
+  --poster-color: transparent;
+}
+
+/* Voile pour la lisibilité du texte sur la vidéo ou la photo */
+.hero--media {
+  color: var(--color-dark-text);
+}
+
+.hero--media .hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(23, 21, 18, 0.62) 0%, rgba(23, 21, 18, 0.18) 45%, rgba(23, 21, 18, 0.05) 100%);
+  pointer-events: none;
+}
+
+.hero--media .eyebrow,
+.hero--media .hero__text {
+  color: inherit;
+}
+
+.hero--media .button--primary {
+  background: var(--color-dark-text);
+  color: var(--color-dark);
+  border-color: var(--color-dark-text);
+}
+
+.hero--media .button--secondary {
+  border-color: currentColor;
+  color: inherit;
+}
+
+.hero__content {
+  padding-top: 7rem;
   padding-bottom: 2.5rem;
 }
 
-.hero__eyebrow {
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  color: var(--color-text-muted);
-  margin-bottom: 1rem;
+.hero__title {
+  font-size: calc(clamp(3rem, 12.5vw, 13rem) * var(--heading-scale));
+  line-height: 0.88;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  max-width: 14ch;
+  margin-bottom: 2rem;
 }
 
-.hero__title {
-  font-size: calc(2.5rem * var(--heading-scale));
-  margin-bottom: 1rem;
+.hero__bottom {
+  display: grid;
+  gap: 1.5rem;
 }
 
 .hero__text {
-  font-size: 1.05rem;
-  color: var(--color-text-muted);
   max-width: 34rem;
-  margin-bottom: 1.75rem;
+  font-size: 1.05rem;
+}
+
+.hero__text p:last-child {
+  margin: 0;
 }
 
 .hero__buttons {
@@ -35,38 +113,11 @@
   gap: 0.75rem;
 }
 
-.hero__image,
-.hero__placeholder {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: var(--radius);
-}
-
-.hero__placeholder {
-  background: var(--color-wood);
-  fill: var(--color-text-muted);
-}
-
-.hero__claim {
-  color: var(--color-accent);
-}
-
 .hero__note {
-  margin: 1rem 0 0;
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-  max-width: 34rem;
-}
-
-.hero__drawing {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 4 / 3;
-  padding: 10%;
-  background: var(--color-bg);
-  border-radius: var(--radius);
+  margin: 1.5rem 0 0;
+  font-size: 0.75rem;
+  opacity: 0.85;
+  max-width: 40rem;
 }
 
 @media (min-width: 600px) {
@@ -77,50 +128,13 @@
 }
 
 @media (min-width: 990px) {
-  .hero__inner {
-    grid-template-columns: 1fr 1.15fr;
-    align-items: center;
-    gap: 4rem;
-    padding-top: 4.5rem;
-    padding-bottom: 4.5rem;
+  .hero__content {
+    padding-bottom: 3.5rem;
   }
 
-  .hero__title {
-    font-size: calc(4rem * var(--heading-scale));
-  }
-
-  .hero__image,
-  .hero__placeholder {
-    aspect-ratio: 5 / 4;
-  }
-
-  /* Texte sur l'image */
-  .hero--overlay {
-    position: relative;
-  }
-
-  .hero--overlay .hero__inner {
-    grid-template-columns: 1fr;
-    position: relative;
-    min-height: 620px;
-  }
-
-  .hero--overlay .hero__media {
-    position: absolute;
-    inset: 0;
-  }
-
-  .hero--overlay .hero__image {
-    aspect-ratio: auto;
-    border-radius: 0;
-  }
-
-  .hero--overlay .hero__content {
-    position: relative;
-    z-index: 1;
-    max-width: 560px;
-    padding: 2.5rem;
-    background: var(--color-bg);
-    border-radius: var(--radius);
+  .hero__bottom {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 3rem;
   }
 }

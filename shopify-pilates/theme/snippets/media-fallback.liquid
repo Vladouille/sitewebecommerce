@@ -1,0 +1,11 @@
+{%- comment -%}
+  Remplace un média absent : bloc de couleur unie (couleur d'ambiance du produit si elle existe).
+  Le texte « Ajouter une photo ou une vidéo » n'apparaît que dans l'éditeur de thème.
+  Paramètres : product (facultatif)
+{%- endcomment -%}
+{%- assign fallback_color = product.metafields.custom.couleur_ambiance.value | default: settings.color_ambiance_default -%}
+<div class="media-fallback" style="--ambiance: {{ fallback_color }};">
+  {%- if request.design_mode -%}
+    <span class="media-fallback__note">{{ 'general.add_media' | t }}</span>
+  {%- endif -%}
+</div>

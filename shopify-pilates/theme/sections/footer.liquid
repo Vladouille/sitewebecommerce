@@ -79,6 +79,16 @@
       <p class="footer__copyright">© {{ 'now' | date: '%Y' }} {{ settings.brand_name | escape }}</p>
     </div>
   </div>
+
+  {%- if section.settings.show_giant_word -%}
+    {%- assign giant = section.settings.giant_word | default: settings.brand_name | upcase | strip -%}
+    {%- assign letters = giant | split: '' -%}
+    <div class="footer__giant" aria-hidden="true" data-giant-word style="--chars: {{ letters.size }};">
+      {%- for letter in letters -%}
+        <span style="--i: {{ forloop.index0 }}">{% if letter == ' ' %}&nbsp;{% else %}{{ letter | escape }}{% endif %}</span>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
 </footer>
 
 {% schema %}
@@ -94,6 +104,19 @@
       "label": "Afficher les moyens de paiement",
       "default": true,
       "info": "Les logos s'affichent automatiquement selon les moyens de paiement activés dans Shopify."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_giant_word",
+      "label": "Afficher le nom en lettres géantes",
+      "default": true,
+      "info": "Le mot occupe toute la largeur et se révèle lettre par lettre au défilement."
+    },
+    {
+      "type": "text",
+      "id": "giant_word",
+      "label": "Mot géant",
+      "info": "Laisse vide pour utiliser le nom de la marque."
     }
   ],
   "blocks": [

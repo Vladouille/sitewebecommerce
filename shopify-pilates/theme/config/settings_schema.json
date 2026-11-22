@@ -65,37 +65,37 @@
         "type": "color",
         "id": "color_background",
         "label": "Fond principal (blanc cassé)",
-        "default": "#FAF7F2"
+        "default": "#F6F1E9"
       },
       {
         "type": "color",
         "id": "color_surface",
-        "label": "Fond secondaire (beige)",
-        "default": "#F0E8DC"
+        "label": "Sable (fonds secondaires)",
+        "default": "#ECE3D4"
       },
       {
         "type": "color",
         "id": "color_wood",
-        "label": "Bois clair (détails, bordures)",
-        "default": "#D9C4A6"
+        "label": "Sable foncé (filets, détails)",
+        "default": "#D9CBB4"
       },
       {
         "type": "color",
         "id": "color_text",
         "label": "Texte",
-        "default": "#1E1C19"
+        "default": "#171512"
       },
       {
         "type": "color",
         "id": "color_text_muted",
         "label": "Texte secondaire",
-        "default": "#5C564E"
+        "default": "#5B554C"
       },
       {
         "type": "color",
         "id": "color_accent",
         "label": "Couleur d'accent (boutons, liens)",
-        "default": "#4E5B47",
+        "default": "#4F5B46",
         "info": "Choisis une couleur assez foncée pour que le texte des boutons reste lisible."
       },
       {
@@ -121,19 +121,74 @@
         "type": "color",
         "id": "color_dark",
         "label": "Fond foncé (barre du haut, pied de page)",
-        "default": "#1E1C19"
+        "default": "#171512"
       },
       {
         "type": "color",
         "id": "color_dark_text",
         "label": "Texte sur fond foncé",
-        "default": "#F4EEE5"
+        "default": "#F6F1E9"
+      },
+      {
+        "type": "color",
+        "id": "color_ambiance_default",
+        "label": "Couleur d'ambiance par défaut",
+        "default": "#E6D8C3",
+        "info": "Utilisée pour une machine sans metafield custom.couleur_ambiance, et comme fond quand aucun média n'est choisi."
       }
     ]
   },
   {
     "name": "Typographie",
     "settings": [
+      {
+        "type": "select",
+        "id": "font_source",
+        "label": "Polices",
+        "options": [
+          {
+            "value": "theme",
+            "label": "Archivo étroit et Inter (incluses dans le thème)"
+          },
+          {
+            "value": "shopify",
+            "label": "Bibliothèque de polices Shopify (choix ci-dessous)"
+          }
+        ],
+        "default": "theme",
+        "info": "Archivo et Inter sont sous licence libre (SIL Open Font License) et hébergées dans le thème : aucune donnée n'est envoyée à Google."
+      },
+      {
+        "type": "range",
+        "id": "heading_width",
+        "label": "Largeur des titres (Archivo)",
+        "min": 62,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "default": 72,
+        "info": "Plus la valeur est basse, plus les titres sont serrés."
+      },
+      {
+        "type": "select",
+        "id": "heading_weight",
+        "label": "Graisse des titres (Archivo)",
+        "options": [
+          {
+            "value": "500",
+            "label": "Moyenne"
+          },
+          {
+            "value": "600",
+            "label": "Demi-grasse"
+          },
+          {
+            "value": "700",
+            "label": "Grasse"
+          }
+        ],
+        "default": "600"
+      },
       {
         "type": "font_picker",
         "id": "font_heading",
@@ -260,6 +315,59 @@
         "id": "eu_responsible",
         "label": "Personne responsable dans l'UE (par défaut)",
         "info": "Nom et adresse de l'importateur (Ressaline). Utilisé sur chaque fiche produit si le metafield custom.personne_responsable_ue est vide. Laisse vide tant que l'adresse n'est pas connue."
+      }
+    ]
+  },
+  {
+    "name": "Mouvement",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Toutes les animations sont coupées automatiquement si le visiteur a demandé moins de mouvement sur son appareil, et dans l'éditeur de thème."
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_loader",
+        "label": "Écran de chargement (logo et compteur)",
+        "default": true,
+        "info": "Une seule fois par visite, 1,2 seconde maximum."
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_smooth_scroll",
+        "label": "Défilement fluide (page d'accueil)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_motion",
+        "label": "Animations au défilement (page d'accueil)",
+        "default": true,
+        "info": "Titres ligne par ligne, révélation des images, narration épinglée de LA GAMME, ratures, mot géant du pied de page."
+      },
+      {
+        "type": "checkbox",
+        "id": "custom_cursor",
+        "label": "Curseur personnalisé",
+        "default": false,
+        "info": "Sur ordinateur uniquement, jamais sur écran tactile."
+      },
+      {
+        "type": "header",
+        "content": "Ambiance sonore"
+      },
+      {
+        "type": "checkbox",
+        "id": "sound_enabled",
+        "label": "Proposer une ambiance sonore",
+        "default": false,
+        "info": "Aucun son ne démarre seul : le visiteur l'active avec un bouton, et peut le couper à tout moment."
+      },
+      {
+        "type": "url",
+        "id": "sound_url",
+        "label": "Adresse du fichier MP3",
+        "info": "Téléverse le fichier dans Contenu > Fichiers, puis colle son adresse ici. 1 Mo maximum."
       }
     ]
   },

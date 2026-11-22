@@ -1,0 +1,123 @@
+.strike__heading {
+  max-width: 14ch;
+  text-transform: uppercase;
+}
+
+.strike__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.strike__item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.35rem 1.5rem;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--color-border-strong);
+}
+
+.strike__label {
+  font-size: 0.72rem;
+  font-weight: var(--font-body-weight-bold);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.strike__old,
+.strike__new {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-stretch: var(--font-heading-stretch);
+  font-size: clamp(1.8rem, 6vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.strike__old {
+  position: relative;
+  justify-self: start;
+  color: var(--color-text-muted);
+  opacity: 0.55;
+}
+
+.strike__old del {
+  text-decoration: none;
+}
+
+/* Trait de rature (état final par défaut) */
+.strike__line {
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  top: 52%;
+  height: 0.08em;
+  background: var(--color-buy);
+  transform-origin: left center;
+  transform: rotate(-2deg);
+}
+
+.strike__x {
+  display: inline-block;
+  margin-right: 0.2em;
+  color: var(--color-buy);
+  opacity: 1;
+}
+
+.strike__arrow {
+  display: none;
+}
+
+.strike__new {
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+@media (min-width: 990px) {
+  .strike__item {
+    grid-template-columns: 10rem minmax(0, 1fr) 3rem minmax(0, 1fr);
+    align-items: center;
+    padding: 2.25rem 0;
+  }
+
+  .strike__arrow {
+    display: block;
+    font-size: 2rem;
+    color: var(--color-text-muted);
+  }
+}
+
+/* Animation : seulement quand le mouvement est permis (motion.js ajoute « is-struck ») */
+.motion-advanced .strike__item .strike__line {
+  transform: rotate(-2deg) scaleX(0);
+  transition: transform 0.8s var(--ease-out) 0.1s;
+}
+
+.motion-advanced .strike__item .strike__new {
+  opacity: 0;
+  transform: translateY(0.4em);
+  transition: opacity 0.6s ease 0.55s, transform 0.8s var(--ease-out) 0.55s;
+}
+
+.motion-advanced .strike__item .strike__x {
+  opacity: 0;
+  transform: scale(0.4) rotate(-45deg);
+  transition: opacity 0.4s ease, transform 0.6s var(--ease-out);
+}
+
+.motion-advanced .strike__item.is-struck .strike__x {
+  opacity: 1;
+  transform: none;
+}
+
+.motion-advanced .strike__item.is-struck .strike__line {
+  transform: rotate(-2deg) scaleX(1);
+}
+
+.motion-advanced .strike__item.is-struck .strike__new {
+  opacity: 1;
+  transform: none;
+}

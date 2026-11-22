@@ -1,16 +1,37 @@
 {%- liquid
-  assign body_bold = settings.font_body | font_modify: 'weight', 'bold'
-  assign body_medium = settings.font_body | font_modify: 'weight', '500'
-  assign body_italic = settings.font_body | font_modify: 'style', 'italic'
-  assign heading_bold = settings.font_heading | font_modify: 'weight', '600'
+  assign use_theme_fonts = true
+  if settings.font_source == 'shopify'
+    assign use_theme_fonts = false
+  endif
 -%}
 <style>
-  {{ settings.font_heading | font_face: font_display: 'swap' }}
-  {{ settings.font_body | font_face: font_display: 'swap' }}
-  {%- if body_bold %}{{ body_bold | font_face: font_display: 'swap' }}{% endif -%}
-  {%- if body_medium %}{{ body_medium | font_face: font_display: 'swap' }}{% endif -%}
-  {%- if body_italic %}{{ body_italic | font_face: font_display: 'swap' }}{% endif -%}
-  {%- if heading_bold %}{{ heading_bold | font_face: font_display: 'swap' }}{% endif -%}
+  {%- if use_theme_fonts -%}
+    /* Archivo et Inter : SIL Open Font License 1.1, hébergées dans le thème */
+    @font-face {
+      font-family: 'Archivo Ressaline';
+      src: url('{{ 'archivo-variable.woff2' | asset_url }}') format('woff2');
+      font-weight: 100 900;
+      font-stretch: 62% 125%;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter Ressaline';
+      src: url('{{ 'inter-variable.woff2' | asset_url }}') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  {%- else -%}
+    {%- liquid
+      assign body_bold = settings.font_body | font_modify: 'weight', 'bold'
+      assign heading_bold = settings.font_heading | font_modify: 'weight', '700'
+    -%}
+    {{ settings.font_heading | font_face: font_display: 'swap' }}
+    {{ settings.font_body | font_face: font_display: 'swap' }}
+    {%- if body_bold %}{{ body_bold | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_bold %}{{ heading_bold | font_face: font_display: 'swap' }}{% endif -%}
+  {%- endif -%}
 
   :root {
     --color-bg: {{ settings.color_background }};
@@ -24,14 +45,25 @@
     --color-buy-text: {{ settings.color_buy_text }};
     --color-dark: {{ settings.color_dark }};
     --color-dark-text: {{ settings.color_dark_text }};
+    --color-ambiance: {{ settings.color_ambiance_default }};
     --color-border: {{ settings.color_text | color_modify: 'alpha', 0.14 }};
     --color-border-strong: {{ settings.color_text | color_modify: 'alpha', 0.28 }};
 
+    {%- if use_theme_fonts %}
+    --font-heading: 'Archivo Ressaline', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+    --font-heading-weight: {{ settings.heading_weight }};
+    --font-heading-stretch: {{ settings.heading_width }}%;
+    --font-body: 'Inter Ressaline', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-body-weight: 400;
+    --font-body-weight-bold: 600;
+    {%- else %}
     --font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
     --font-heading-weight: {{ settings.font_heading.weight }};
+    --font-heading-stretch: 100%;
     --font-body: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
     --font-body-weight: {{ settings.font_body.weight }};
     --font-body-weight-bold: {% if body_bold %}{{ body_bold.weight }}{% else %}700{% endif %};
+    {%- endif %}
 
     --heading-scale: {{ settings.heading_scale | divided_by: 100.0 }};
     --body-scale: {{ settings.body_scale | divided_by: 100.0 }};
@@ -39,5 +71,6 @@
     --page-width: {{ settings.page_width }}px;
     --radius: {{ settings.radius }}px;
     --logo-width: {{ settings.logo_width }}px;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   }
 </style>

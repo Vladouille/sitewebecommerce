@@ -7,7 +7,11 @@
       "next": "Suivant",
       "page": "Page {{ number }}"
     },
-    "drawing_alt": "Dessin d'un reformer Pilates"
+    "add_media": "Ajouter une photo ou une vidéo",
+    "sound": {
+      "on": "Activer le son",
+      "off": "Couper le son"
+    }
   },
   "accessibility": {
     "skip_to_content": "Aller au contenu"
@@ -30,7 +34,9 @@
         "pros": "Professionnels",
         "faq": "FAQ",
         "contact": "Contact"
-      }
+      },
+      "menu_button": "Menu",
+      "close_button": "Fermer"
     },
     "footer": {
       "payment": "Moyens de paiement acceptés",
@@ -92,7 +98,8 @@
       "range": "{{ min }} à {{ max }}",
       "and_more": "{{ min }} et plus"
     },
-    "choose": "Choisir"
+    "choose": "Choisir",
+    "see_details": "Voir le détail"
   },
   "collections": {
     "product_count": {

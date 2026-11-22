@@ -49,6 +49,68 @@ Dans **Personnaliser**, clique sur l'icône **engrenage** (Paramètres du thème
 
 Chaque section de chaque page (textes, images, boutons, ordre) se modifie en cliquant dessus dans l'éditeur. Les sections de la page d'accueil se réordonnent par glisser-déposer.
 
+## Étape 2 bis — Direction artistique, mouvement et médias
+
+**L'idée** : un site immersif et calme, raconté au défilement. Chaque machine a sa couleur d'ambiance, les titres sont très grands, une seule idée par écran. Aucun dessin de machine : uniquement de vraies photos, vidéos ou un modèle 3D. Tant qu'un média manque, un bloc de couleur unie le remplace. Le rappel « Ajouter une photo ou une vidéo » n'apparaît que dans l'éditeur.
+
+**Page d'accueil, dans l'ordre** (chaque section se déplace ou se masque dans l'éditeur) :
+1. écran de chargement (logo et compteur, une fois par visite) ;
+2. bannière plein écran (vidéo, photo pour mobile, modèle 3D en option) ;
+3. **LA GAMME** : chaque machine occupe l'écran à tour de rôle avec sa couleur. Sur ordinateur, la section est épinglée ; sur mobile, les machines s'enchaînent simplement ;
+4. **AVANT / AVEC** : les anciennes façons de faire sont rayées au défilement ;
+5. packs studio en grandes images, avec le prix par poste ;
+6. calculateur, avec le total en très grand ;
+7. garantie et service après-vente ;
+8. questions fréquentes ;
+9. contact (masqué tant que téléphone et email sont vides) ;
+10. pied de page avec le nom RESSALINE en lettres géantes.
+
+**Réglages** : Paramètres du thème → **Mouvement** (écran de chargement, défilement fluide, animations, curseur personnalisé, ambiance sonore). Le curseur et le son sont désactivés par défaut. Quand le son est activé, il ne démarre jamais tout seul : le visiteur l'active avec un bouton et peut le couper.
+
+**Ce qui est garanti dans tous les cas** :
+- sans JavaScript, tout le contenu reste lisible et cliquable ;
+- si le visiteur a demandé « moins de mouvement » sur son appareil : aucune animation, pas de défilement fluide, pas d'épinglage, pas d'écran de chargement ;
+- dans l'éditeur de thème : pas d'écran de chargement ni d'épinglage, pour pouvoir modifier chaque section ;
+- les bibliothèques d'animation (GSAP et Lenis) ne sont chargées que sur la page d'accueil.
+
+**Polices** : Archivo (titres, largeur réglable) et Inter (texte), sous licence libre SIL Open Font License, hébergées dans le thème. Aucune donnée n'est envoyée à Google. Paramètres du thème → Typographie permet aussi de revenir aux polices de la bibliothèque Shopify.
+
+**Bibliothèques incluses** : GSAP 3.15 avec ScrollTrigger et SplitText (licence « Standard » de GSAP : gratuite, usage commercial autorisé) et Lenis 1.3 (licence MIT).
+
+### Médias à fournir
+
+| Média | Où l'ajouter | Format | Durée | Poids |
+|---|---|---|---|---|
+| Vidéo de la bannière (reformer en studio, lumière naturelle, plan lent) | Personnaliser → Accueil → Bannière plein écran → Vidéo d'ambiance | MP4 (H.264), 1920 × 1080 maximum, sans son, en boucle propre (même image au début et à la fin) | 8 à 15 secondes | 3 Mo maximum |
+| Photo de remplacement de la bannière | Même section → Photo | JPG ou WebP, 2400 px de large | — | 500 Ko maximum |
+| Photo de la bannière pour mobile | Même section → Photo pour mobile | JPG ou WebP, portrait 1200 × 1600 px | — | 300 Ko maximum |
+| Une vidéo par machine (Érable, Chêne, Aluminium, Cadillac, chaise) | Fiche du produit → Médias (la première vidéo est utilisée dans LA GAMME) | MP4 (H.264), 1920 × 1080 maximum, sans son | 6 à 12 secondes | 3 Mo maximum chacune |
+| Ou une photo par machine | Fiche du produit → Médias (photo principale) | JPG ou WebP, 2400 px de large, cadrage horizontal | — | 500 Ko maximum |
+| Photos des fiches produit (3 minimum : ensemble, détail, en situation) | Fiche du produit → Médias | JPG ou WebP, carré 2000 × 2000 px | — | 400 Ko maximum chacune |
+| Photos des packs | Fiche du pack → Médias | JPG ou WebP, 2000 × 1500 px | — | 400 Ko maximum |
+| Modèle 3D (facultatif) du Reformer Studio Érable | Fiche du produit → Médias → ajouter le fichier GLB, puis Personnaliser → Bannière → « Afficher le modèle 3D » | GLB, textures 2048 px maximum | — | 10 Mo maximum (idéalement moins de 5 Mo) |
+| Ambiance sonore (facultatif) | Contenu → Fichiers, puis Paramètres du thème → Mouvement | MP3 en boucle, 128 kb/s | 30 à 60 secondes | 1 Mo maximum |
+
+Shopify accepte les vidéos MP4 et les convertit lui-même dans les formats adaptés à chaque navigateur : inutile de fournir un WebM.
+
+### Compresser une vidéo pour rester sous 3 Mo
+
+**Sans ligne de commande (gratuit)** : installe **HandBrake** (handbrake.fr). Ouvre la vidéo, choisis le préréglage **« Web → Creator 1080p60 »**, puis :
+- onglet **Dimensions** : largeur 1920 (ou 1280 pour une vidéo encore plus légère) ;
+- onglet **Vidéo** : encodeur H.264, images par seconde 25, qualité constante **RF 26 à 30** (plus le chiffre est haut, plus le fichier est léger) ;
+- onglet **Audio** : supprime toutes les pistes ;
+- coche **« Optimisé pour le web »**, puis Démarrer. Si le fichier dépasse 3 Mo, monte le RF de 2 et recommence, ou raccourcis la vidéo.
+
+**Avec ffmpeg** (une seule commande) :
+
+```
+ffmpeg -i source.mov -t 12 -vf "scale=1920:-2,fps=25" -c:v libx264 -preset slow -crf 28 -profile:v high -pix_fmt yuv420p -movflags +faststart -an hero.mp4
+```
+
+Monte `-crf` (30, 32…) si le fichier dépasse 3 Mo. `-an` supprime le son, `-t 12` garde 12 secondes.
+
+**Avant de téléverser** : vérifie que la vidéo tourne en boucle sans à-coup, qu'aucun texte n'est incrusté dedans, et que l'on reconnaît la machine sans le son.
+
 ## Étape 3 — Créer les définitions de metafields (avant d'importer les produits)
 
 Les metafields sont des champs en plus sur chaque produit : délai, remises par quantité, caractéristiques. Le thème les lit automatiquement. **Si un champ est vide, le bloc correspondant est simplement masqué.**
@@ -69,6 +131,8 @@ Admin → **Paramètres** → **Données personnalisées** (ou « Metafields et 
 | Idéal pour | `custom.ideal_pour` | Texte sur une seule ligne → coche **Liste de valeurs** | `Studio`, `Salle de sport`, `Kiné`, `Domicile` | Pastilles « Idéal pour » |
 | Promesse (facultatif) | `custom.promesse` | Texte sur une seule ligne | `Le reformer des studios exigeants.` | Phrase sous le titre (sinon texte par défaut du thème) |
 | Nombre de postes (packs, facultatif) | `custom.nombre_postes` | Nombre entier | `4` | « soit 1 873 € HT par poste » sur la carte du pack |
+| Couleur d'ambiance | `custom.couleur_ambiance` | Couleur | Érable `#E8CC97` (miel clair), Chêne `#C9A06A` (bois doré), Aluminium `#C9CDD1` (gris argent), sauge `#A9B79A` | Fond de la machine dans LA GAMME, de sa fiche et de ses blocs sans photo |
+| Points clés | `custom.points_cles` | Texte sur une seule ligne → coche **Liste de valeurs** | `Cadre en érable massif`, `Sellerie crème, vert sauge ou noir`, `Pour un usage en cours collectifs` | Les 3 points affichés dans LA GAMME (sinon : dimensions, poids, charge maximale) |
 
 ### Informations de sécurité produit (règlement européen RSGP 2023/988)
 
@@ -263,7 +327,8 @@ Le délai affiché vient du metafield `delai_livraison` de chaque produit. Garde
 | Texte alternatif de la photo d'accueil | Personnaliser → Accueil → Bannière principale |
 | Logo, favicon | Paramètres du thème → Marque et contact |
 | Photo de la bannière d'accueil (et image facultative de la section garantie) | Personnaliser → Accueil |
-| Photos et vidéos des 10 produits | Fiche de chaque produit |
+| Photos et vidéos des 10 produits, vidéo de la bannière, modèle 3D facultatif | Voir le tableau « Médias à fournir » (étape 2 bis) |
+| Couleur d'ambiance et points clés de chaque machine | Metafields `custom.couleur_ambiance` et `custom.points_cles` |
 | Prix TTC des 10 produits | Fiche de chaque produit (vérifier ceux du CSV) |
 | Poids réels | Fiche de chaque produit (ceux du CSV sont estimés) |
 | Contenu des packs, compatibilité des pièces (`[À PRÉCISER]`) | Description des produits concernés |

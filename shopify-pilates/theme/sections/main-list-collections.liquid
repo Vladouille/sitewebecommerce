@@ -14,7 +14,7 @@
                   {%- if image -%}
                     {{ image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '300, 450, 600, 900', sizes: '(min-width: 990px) 33vw, 100vw', alt: collection.title, class: 'card__image' }}
                   {%- else -%}
-                    {{ 'collection-1' | placeholder_svg_tag: 'card__placeholder' }}
+                    {% render 'media-fallback' %}
                   {%- endif -%}
                 </div>
                 <div class="card__body">

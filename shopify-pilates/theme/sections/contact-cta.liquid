@@ -10,7 +10,10 @@
 <section class="section contact-cta" aria-labelledby="ContactCta-{{ section.id }}">
   <div class="page-width contact-cta__inner">
     <div class="contact-cta__content">
-      <h2 id="ContactCta-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{% render 'tokens', text: section.settings.eyebrow, escape: true %}</p>
+      {%- endif -%}
+      <h2 id="ContactCta-{{ section.id }}" class="section-heading" data-split>{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
       {%- if section.settings.text != blank -%}
         <div class="section-text">{% render 'tokens', text: section.settings.text %}</div>
       {%- endif -%}
@@ -41,6 +44,7 @@
   "name": "Bloc contact",
   "class": "section-contact-cta",
   "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Petit libellé", "default": "Une question ?" },
     {
       "type": "paragraph",
       "content": "Le téléphone, l'email et les horaires se règlent dans Paramètres du thème > Marque et contact."

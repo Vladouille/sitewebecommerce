@@ -32,7 +32,7 @@
                     {%- if item.image -%}
                       {{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: '' }}
                     {%- else -%}
-                      {{ 'product-1' | placeholder_svg_tag }}
+                      <span class="cart-media-fallback">{% render 'media-fallback', product: item.product %}</span>
                     {%- endif -%}
                   </a>
                   <div class="cart-item__details">
@@ -151,7 +151,7 @@
             {%- if suggestion.featured_media -%}
               {{ suggestion.featured_media | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}
             {%- else -%}
-              {{ 'product-1' | placeholder_svg_tag }}
+              <span class="cart-media-fallback">{% render 'media-fallback', product: suggestion %}</span>
             {%- endif -%}
           </a>
           <div class="cart-suggestion__details">

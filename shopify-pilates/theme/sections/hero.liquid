@@ -3,90 +3,209 @@
 {%- liquid
   assign url_1 = section.settings.button_1_link | default: '/collections/packs-studio'
   assign url_2 = section.settings.button_2_link | default: '/collections/machines'
+  assign video = section.settings.video
+  assign image = section.settings.image
+  assign mobile_image = section.settings.mobile_image | default: image
+  assign model = nil
+  if section.settings.show_3d and section.settings.model_product != blank
+    for media in section.settings.model_product.media
+      if media.media_type == 'model'
+        assign model = media
+        break
+      endif
+    endfor
+  endif
+  assign has_media = false
+  if video != blank or image != blank or model != nil
+    assign has_media = true
+  endif
 -%}
 
-<section class="hero hero--{{ section.settings.layout }}{% if section.settings.image == blank %} hero--no-image{% endif %}" aria-labelledby="Hero-{{ section.id }}">
-  <div class="page-width hero__inner">
-    <div class="hero__content">
-      {%- if section.settings.eyebrow != blank -%}
-        <p class="hero__eyebrow">{% render 'tokens', text: section.settings.eyebrow, escape: true %}</p>
-      {%- endif -%}
-      <h1 id="Hero-{{ section.id }}" class="hero__title">
-        {%- render 'tokens', text: section.settings.heading, escape: true -%}
-        {%- if settings.show_price_claim and settings.claim_savings != blank -%}
-          , <span class="hero__claim">{{ settings.claim_savings | escape }}.</span>
-        {%- elsif section.settings.heading_end != blank -%}
-          , {% render 'tokens', text: section.settings.heading_end, escape: true %}.
+<section class="hero{% if has_media %} hero--media{% endif %}" aria-labelledby="Hero-{{ section.id }}" style="--ambiance: {{ section.settings.ambiance }};" data-hero>
+  <div class="hero__media" data-hero-media>
+    {%- if model != nil -%}
+      <div class="hero__model" data-hero-model>
+        {{ model | model_viewer_tag: image_size: '1600x', reveal: 'auto', camera-controls: true, interaction-prompt: 'none', shadow-intensity: '0.6', loading: 'eager', disable-zoom: true }}
+      </div>
+    {%- elsif video != blank -%}
+      {%- liquid
+        assign poster = video.preview_image
+        assign best = nil
+        for source in video.sources
+          if source.mime_type == 'video/mp4' and source.height <= 1080
+            if best == nil or source.height > best.height
+              assign best = source
+            endif
+          endif
+        endfor
+      -%}
+      <video
+        class="hero__video{% if section.settings.mobile_use_image and mobile_image != blank %} hero__video--desktop{% endif %}"
+        autoplay muted loop playsinline
+        preload="metadata"
+        {% if poster %}poster="{{ poster | image_url: width: 1920 }}"{% endif %}
+        aria-hidden="true"
+      >
+        {%- for source in video.sources -%}
+          {%- if source.mime_type == 'video/webm' and source.height <= 1080 -%}
+            <source src="{{ source.url }}" type="video/webm">
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if best -%}
+          <source src="{{ best.url }}" type="video/mp4">
         {%- endif -%}
-      </h1>
+      </video>
+      {%- if section.settings.mobile_use_image and mobile_image != blank -%}
+        <script>
+          (function (v) {
+            if (v && window.matchMedia('(max-width: 749px)').matches) v.parentNode.removeChild(v);
+          })(document.currentScript.previousElementSibling);
+        </script>
+        {{
+          mobile_image
+          | image_url: width: 1200
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            widths: '450, 750, 1000, 1200',
+            sizes: '100vw',
+            alt: mobile_image.alt | default: section.settings.image_alt,
+            class: 'hero__image hero__image--mobile'
+        }}
+      {%- endif -%}
+    {%- elsif image != blank -%}
+      {{
+        image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '450, 750, 1000, 1400, 1920, 2400',
+          sizes: '100vw',
+          alt: image.alt | default: section.settings.image_alt,
+          class: 'hero__image'
+      }}
+    {%- else -%}
+      <div class="media-fallback">
+        {%- if request.design_mode -%}
+          <span class="media-fallback__note">{{ 'general.add_media' | t }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="page-width hero__content">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="eyebrow hero__eyebrow">{% render 'tokens', text: section.settings.eyebrow, escape: true %}</p>
+    {%- endif -%}
+    <h1 id="Hero-{{ section.id }}" class="hero__title" data-split>
+      {%- render 'tokens', text: section.settings.heading, escape: true -%}
+      {%- if settings.show_price_claim and settings.claim_savings != blank -%}
+        , {{ settings.claim_savings | escape }}.
+      {%- elsif section.settings.heading_end != blank -%}
+        , {% render 'tokens', text: section.settings.heading_end, escape: true %}.
+      {%- endif -%}
+    </h1>
+    <div class="hero__bottom">
       {%- if section.settings.text != blank -%}
         <div class="hero__text">{% render 'tokens', text: section.settings.text %}</div>
       {%- endif -%}
       <div class="hero__buttons">
         {%- if section.settings.button_1_label != blank -%}
-          <a class="button button--primary" href="{{ url_1 }}">{% render 'tokens', text: section.settings.button_1_label, escape: true %}</a>
+          <a class="button button--primary" href="{{ url_1 }}" data-magnetic>{% render 'tokens', text: section.settings.button_1_label, escape: true %}</a>
         {%- endif -%}
         {%- if section.settings.button_2_label != blank -%}
-          <a class="button button--secondary" href="{{ url_2 }}">{% render 'tokens', text: section.settings.button_2_label, escape: true %}</a>
+          <a class="button button--secondary" href="{{ url_2 }}" data-magnetic>{% render 'tokens', text: section.settings.button_2_label, escape: true %}</a>
         {%- endif -%}
       </div>
-      {%- if settings.show_price_claim and settings.claim_savings != blank and settings.claim_savings_note != blank and settings.claim_savings_date != blank -%}
-        <p class="hero__note">{{ settings.claim_savings_note | escape }}, {{ settings.claim_savings_date | escape }}.</p>
-      {%- endif -%}
     </div>
-
-    <div class="hero__media">
-      {%- if section.settings.image != blank -%}
-        {{
-          section.settings.image
-          | image_url: width: 2000
-          | image_tag:
-            loading: 'eager',
-            fetchpriority: 'high',
-            widths: '450, 750, 1000, 1400, 2000',
-            sizes: '(min-width: 990px) 55vw, 100vw',
-            alt: section.settings.image.alt | default: section.settings.image_alt,
-            class: 'hero__image'
-        }}
-      {%- else -%}
-        <div class="hero__drawing">{% render 'reformer-drawing' %}</div>
-      {%- endif -%}
-    </div>
+    {%- if settings.show_price_claim and settings.claim_savings != blank and settings.claim_savings_note != blank and settings.claim_savings_date != blank -%}
+      <p class="hero__note">{{ settings.claim_savings_note | escape }}, {{ settings.claim_savings_date | escape }}.</p>
+    {%- endif -%}
   </div>
 </section>
 
+{%- if model != nil -%}
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      if (window.Shopify && Shopify.loadFeatures) {
+        Shopify.loadFeatures([{ name: 'model-viewer-ui', version: '1.0', onLoad: function () {} }]);
+      }
+    });
+  </script>
+{%- endif -%}
+
 {% schema %}
 {
-  "name": "Bannière principale",
+  "name": "Bannière plein écran",
   "class": "section-hero",
   "settings": [
     {
+      "type": "header",
+      "content": "Média"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Vidéo d'ambiance",
+      "info": "Reformer en studio, en boucle, sans son. MP4 (H.264), 1080p maximum, 3 Mo maximum, 8 à 15 secondes. Son image d'aperçu sert d'image de remplacement."
+    },
+    {
       "type": "image_picker",
       "id": "image",
-      "label": "Image",
-      "info": "Photo d'un studio équipé, en lumière naturelle. 2000 px de large conseillés. Sans photo, un dessin de reformer s'affiche."
+      "label": "Photo (si pas de vidéo)",
+      "info": "2400 px de large conseillés, lumière naturelle."
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_use_image",
+      "label": "Sur mobile, afficher une photo à la place de la vidéo",
+      "default": true,
+      "info": "Plus rapide sur réseau mobile."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Photo pour mobile (format portrait)",
+      "info": "1200 × 1600 px conseillés. Sans photo mobile, la photo principale est utilisée."
     },
     {
       "type": "text",
       "id": "image_alt",
-      "label": "Texte alternatif de l'image",
-      "default": "Reformers Pilates installés dans un studio lumineux",
-      "info": "Décris la photo pour les personnes malvoyantes et pour Google. Utilisé si l'image n'a pas déjà de texte alternatif."
+      "label": "Texte alternatif de la photo",
+      "default": "Reformer Pilates dans un studio baigné de lumière naturelle",
+      "info": "Utilisé si la photo n'a pas déjà de texte alternatif dans Shopify."
     },
     {
-      "type": "select",
-      "id": "layout",
-      "label": "Disposition",
-      "options": [
-        { "value": "split", "label": "Texte à gauche, image à droite" },
-        { "value": "overlay", "label": "Texte sur l'image" }
-      ],
-      "default": "split"
+      "type": "color",
+      "id": "ambiance",
+      "label": "Couleur du fond sans média",
+      "default": "#E6D8C3"
+    },
+    {
+      "type": "header",
+      "content": "Modèle 3D (facultatif)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_3d",
+      "label": "Afficher le modèle 3D du produit phare",
+      "default": false,
+      "info": "Remplace la vidéo si le produit choisi contient un modèle 3D (fichier GLB ajouté dans ses médias). Il pivote doucement au défilement et se manipule au doigt ou à la souris."
+    },
+    {
+      "type": "product",
+      "id": "model_product",
+      "label": "Produit phare"
+    },
+    {
+      "type": "header",
+      "content": "Textes"
     },
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Petit texte au-dessus du titre",
+      "label": "Petit libellé au-dessus du titre",
       "default": "Reformers, Cadillac et chaises"
     },
     {
@@ -100,13 +219,13 @@
       "id": "heading_end",
       "label": "Fin du titre (sans argument de prix)",
       "default": "prix affichés",
-      "info": "Affichée après une virgule quand l'argument de prix est désactivé dans Paramètres du thème > Promesses. Sinon, la promesse d'économie la remplace."
+      "info": "Affichée après une virgule quand l'argument de prix est désactivé dans Paramètres du thème > Promesses."
     },
     {
       "type": "richtext",
       "id": "text",
-      "label": "Sous-titre",
-      "default": "<p>Reformers, Cadillac et chaises importés directement de l'usine, sans distributeur intermédiaire. Garantie [GARANTIE]. Livraison et montage inclus.</p>"
+      "label": "Texte",
+      "default": "<p>Importés directement de l'usine, sans distributeur intermédiaire. Garantie [GARANTIE]. Livraison et montage inclus.</p>"
     },
     {
       "type": "text",
@@ -124,7 +243,7 @@
       "type": "text",
       "id": "button_2_label",
       "label": "Bouton secondaire : texte",
-      "default": "Voir les machines"
+      "default": "Voir la gamme"
     },
     {
       "type": "url",
@@ -133,6 +252,6 @@
       "info": "Par défaut : la collection Machines."
     }
   ],
-  "presets": [{ "name": "Bannière principale" }]
+  "presets": [{ "name": "Bannière plein écran" }]
 }
 {% endschema %}

@@ -43,7 +43,7 @@
           }}
         {%- endif -%}
       {%- else -%}
-        <div class="card__drawing">{% render 'reformer-drawing' %}</div>
+        {% render 'media-fallback', product: product %}
       {%- endif -%}
     </div>
     <{{ heading_tag }} class="card__title">{{ product.title | escape }}</{{ heading_tag }}>

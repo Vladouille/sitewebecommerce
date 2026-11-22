@@ -105,3 +105,41 @@
   margin: 0;
   opacity: 0.75;
 }
+
+/* Nom de la marque en lettres géantes, sur toute la largeur */
+.footer {
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+.footer__giant {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding: 0 max(0.5rem, env(safe-area-inset-left, 0px)) 0 max(0.5rem, env(safe-area-inset-right, 0px));
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-stretch: var(--font-heading-stretch);
+  font-size: calc((100vw - 1rem) / (var(--chars, 9) * 0.56));
+  line-height: 0.78;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--color-dark-text);
+  user-select: none;
+  overflow: hidden;
+}
+
+.footer__giant span {
+  display: inline-block;
+  padding-top: 0.04em;
+}
+
+.motion-ok .footer__giant span {
+  transform: translateY(105%);
+  transition: transform 0.9s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 0.05s);
+}
+
+.motion-ok .footer__giant.is-in span {
+  transform: none;
+}

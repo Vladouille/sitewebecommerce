@@ -13,7 +13,7 @@
 <section class="product-section" data-product-section data-section-id="{{ section.id }}">
   <div class="page-width product">
     {%- comment -%} Galerie {%- endcomment -%}
-    <div class="product__media-wrapper">
+    <div class="product__media-wrapper" style="--ambiance: {{ product.metafields.custom.couleur_ambiance.value | default: settings.color_ambiance_default }};">
       {%- if product.media.size > 0 -%}
         <div class="gallery" data-gallery>
           <ul class="gallery__track" role="list" data-gallery-track aria-label="{{ 'products.gallery.label' | t }}">
@@ -80,7 +80,7 @@
         </div>
       {%- else -%}
         <div class="gallery gallery--empty">
-          {% render 'reformer-drawing' %}
+          {% render 'media-fallback', product: product %}
         </div>
       {%- endif -%}
     </div>

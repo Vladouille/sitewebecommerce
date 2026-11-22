@@ -1,4 +1,7 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.style == 'large' -%}
+  {{ 'component-feature-row.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 
 {%- liquid
   assign featured = section.settings.collection
@@ -11,7 +14,10 @@
   <div class="page-width">
     <div class="section-header">
       <div>
-        <h2 id="Featured-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="eyebrow">{% render 'tokens', text: section.settings.eyebrow, escape: true %}</p>
+        {%- endif -%}
+        <h2 id="Featured-{{ section.id }}" class="section-heading" data-split>{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
         {%- if section.settings.text != blank -%}
           <div class="section-text">{% render 'tokens', text: section.settings.text %}</div>
         {%- endif -%}
@@ -21,7 +27,13 @@
       {%- endif -%}
     </div>
 
-    {%- if featured != blank and featured.products_count > 0 -%}
+    {%- if featured != blank and featured.products_count > 0 and section.settings.style == 'large' -%}
+      <ul class="feature-rows" role="list">
+        {%- for product in featured.products limit: section.settings.limit -%}
+          <li>{% render 'feature-row', product: product, flip: forloop.index0 %}</li>
+        {%- endfor -%}
+      </ul>
+    {%- elsif featured != blank and featured.products_count > 0 -%}
       <ul class="product-grid product-grid--{{ section.settings.columns }}" role="list">
         {%- for product in featured.products limit: section.settings.limit -%}
           <li>{% render 'product-card', product: product %}</li>
@@ -38,6 +50,21 @@
   "name": "Collection en avant",
   "class": "section-featured-collection",
   "settings": [
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Présentation",
+      "options": [
+        { "value": "grid", "label": "Grille de cartes" },
+        { "value": "large", "label": "Grandes images, une par ligne" }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Petit libellé"
+    },
     {
       "type": "text",
       "id": "heading",

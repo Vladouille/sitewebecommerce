@@ -16,8 +16,10 @@
       </div>
     {%- endif -%}
     <div class="guarantee__content">
-      <span class="guarantee__seal" aria-hidden="true">{% render 'icon', name: 'shield' %}</span>
-      <h2 id="Guarantee-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{% render 'tokens', text: section.settings.eyebrow, escape: true %}</p>
+      {%- endif -%}
+      <h2 id="Guarantee-{{ section.id }}" class="section-heading" data-split>{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
       {%- if section.settings.text != blank -%}
         <div class="section-text">{% render 'tokens', text: section.settings.text %}</div>
       {%- endif -%}
@@ -44,6 +46,7 @@
   "class": "section-guarantee",
   "max_blocks": 8,
   "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Petit libellé", "default": "Garantie et service après-vente" },
     {
       "type": "image_picker",
       "id": "image",

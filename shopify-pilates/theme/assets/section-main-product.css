@@ -37,7 +37,7 @@
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
-  background: var(--color-surface);
+  background: var(--ambiance, var(--color-surface));
   border-radius: var(--radius);
   margin-left: -1.25rem;
   margin-right: -1.25rem;
@@ -322,10 +322,15 @@
 }
 
 .gallery--empty {
-  display: grid;
-  place-items: center;
+  position: relative;
   aspect-ratio: 1 / 1;
-  padding: 12%;
-  background: var(--color-surface);
   border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* Direction artistique : nom du produit en grand, en capitales */
+.product__title {
+  font-size: calc(clamp(2.4rem, 7vw, 5rem) * var(--heading-scale));
+  text-transform: uppercase;
+  line-height: 0.92;
 }

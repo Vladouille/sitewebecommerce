@@ -1,0 +1,76 @@
+{%- comment -%}
+  AVANT / AVEC : chaque argument est une rature. L'ancienne façon est barrée par un trait
+  animé au défilement, la nouvelle apparaît. Sans animation, l'état final (barré + nouveau)
+  est affiché directement : tout reste lisible.
+{%- endcomment -%}
+{{ 'section-strike-list.css' | asset_url | stylesheet_tag }}
+
+<section class="section strike{% if section.settings.background == 'surface' %} section--surface{% endif %}" aria-labelledby="Strike-{{ section.id }}" data-strike>
+  <div class="page-width">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">{% render 'tokens', text: section.settings.eyebrow, escape: true %}</p>
+        <h2 id="Strike-{{ section.id }}" class="section-heading strike__heading" data-split>{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
+      </div>
+    </div>
+
+    <ol class="strike__list" role="list">
+      {%- for block in section.blocks -%}
+        <li class="strike__item" {{ block.shopify_attributes }} data-strike-item>
+          <span class="strike__label">{% render 'tokens', text: block.settings.label, escape: true %}</span>
+          <span class="strike__old">
+            <span class="strike__x" aria-hidden="true">×</span>
+            <del>{% render 'tokens', text: block.settings.before, escape: true %}</del>
+            <span class="strike__line" aria-hidden="true"></span>
+          </span>
+          <span class="strike__arrow" aria-hidden="true">→</span>
+          <ins class="strike__new">{% render 'tokens', text: block.settings.after, escape: true %}</ins>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Avant / avec (ratures)",
+  "class": "section-strike-list",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Petit libellé", "default": "Avant / avec [NOM DE MARQUE]" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "On a rayé ce qui compliquait tout." },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Fond",
+      "options": [
+        { "value": "default", "label": "Blanc cassé" },
+        { "value": "surface", "label": "Sable" }
+      ],
+      "default": "default"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Rature",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Sujet", "default": "Sujet" },
+        { "type": "text", "id": "before", "label": "Avant (barré)", "default": "L'ancienne façon" },
+        { "type": "text", "id": "after", "label": "Avec", "default": "La nouvelle façon" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Avant / avec (ratures)",
+      "blocks": [
+        { "type": "row", "settings": { "label": "Commande", "before": "Devis et allers-retours", "after": "Prix affichés" } },
+        { "type": "row", "settings": { "label": "Service", "before": "Interlocuteurs multiples", "after": "Un contact direct" } },
+        { "type": "row", "settings": { "label": "Achat", "before": "Un ou plusieurs intermédiaires", "after": "Importé directement de l'usine" } },
+        { "type": "row", "settings": { "label": "Installation", "before": "Montage à organiser soi-même", "after": "Livraison et montage inclus" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

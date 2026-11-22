@@ -305,3 +305,17 @@
   padding: 3rem 0;
   text-align: center;
 }
+
+.cart-media-fallback {
+  position: relative;
+  display: block;
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.cart-suggestion__media .cart-media-fallback {
+  width: 4.5rem;
+  height: 4.5rem;
+}

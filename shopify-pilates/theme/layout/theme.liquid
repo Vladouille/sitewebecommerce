@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="{{ settings.color_background }}">
     <link rel="canonical" href="{{ canonical_url }}">
-    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
@@ -25,24 +24,71 @@
 
     {% render 'meta-tags' %}
 
-    {%- unless settings.font_heading.system? -%}
-      {{ settings.font_heading | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
-    {%- endunless -%}
-    {%- unless settings.font_body.system? -%}
-      {{ settings.font_body | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
-    {%- endunless -%}
+    {%- if settings.font_source == 'shopify' -%}
+      {%- unless settings.font_heading.system? -%}
+        {{ settings.font_heading | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
+      {%- endunless -%}
+    {%- else -%}
+      {{ 'archivo-variable.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
+      {{ 'inter-variable.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
+    {%- endif -%}
 
     {% render 'css-variables' %}
 
+    {%- liquid
+      assign advanced_motion = false
+      if template.name == 'index' and settings.enable_motion
+        assign advanced_motion = true
+      endif
+    -%}
+
+    {%- comment -%}
+      Décide avant l'affichage : JavaScript actif, animations permises (pas de demande
+      « moins de mouvement », pas d'éditeur de thème), écran de chargement (une fois par visite).
+    {%- endcomment -%}
+    <script>
+      (function () {
+        var d = document.documentElement;
+        d.className = d.className.replace('no-js', 'js');
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var editor = {{ request.design_mode | json }};
+        if (reduce || editor) return;
+        d.classList.add('motion-ok');
+        {%- if advanced_motion %}
+        d.classList.add('motion-advanced');
+        setTimeout(function () { if (!d.classList.contains('motion-ready')) d.classList.remove('motion-ok', 'motion-advanced'); }, 3000);
+        {%- endif %}
+        {%- if settings.enable_loader %}
+        try {
+          if (!sessionStorage.getItem('rsl-loader')) {
+            sessionStorage.setItem('rsl-loader', '1');
+            d.classList.add('has-loader');
+          }
+        } catch (e) {}
+        {%- endif %}
+      })();
+    </script>
+
     {{ 'base.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    {%- if advanced_motion -%}
+      <script src="{{ 'gsap.min.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'gsap-scrolltrigger.min.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'gsap-splittext.min.js' | asset_url }}" defer="defer"></script>
+      {%- if settings.enable_smooth_scroll -%}
+        <script src="{{ 'lenis.min.js' | asset_url }}" defer="defer"></script>
+      {%- endif -%}
+      <script src="{{ 'motion.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
 
     {{ content_for_header }}
-
-    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
   </head>
 
   <body class="template-{{ template.name | handle }}">
+    {%- if settings.enable_loader -%}
+      {% render 'loader' %}
+    {%- endif -%}
+
     <a class="skip-link visually-hidden-focusable" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
 
     {% sections 'header-group' %}
@@ -52,5 +98,16 @@
     </main>
 
     {% sections 'footer-group' %}
+
+    {%- if settings.sound_enabled and settings.sound_url != blank -%}
+      <button type="button" class="sound-toggle" data-sound-toggle aria-pressed="false" data-label-on="{{ 'general.sound.off' | t }}" data-label-off="{{ 'general.sound.on' | t }}">
+        <span data-sound-label>{{ 'general.sound.on' | t }}</span>
+      </button>
+      <audio data-sound src="{{ settings.sound_url }}" loop preload="none"></audio>
+    {%- endif -%}
+
+    {%- if settings.custom_cursor -%}
+      <div class="cursor" data-cursor aria-hidden="true"></div>
+    {%- endif -%}
   </body>
 </html>

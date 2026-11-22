@@ -70,3 +70,32 @@
 .safety__row a {
   text-decoration: underline;
 }
+
+/* Direction artistique : questions en typographie forte, ouverture fluide */
+.faq .section-heading {
+  text-transform: uppercase;
+}
+
+.faq .accordion__summary {
+  min-height: 4.5rem;
+  padding: 1.4rem 0;
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-stretch: var(--font-heading-stretch);
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.accordion__icon {
+  transition: transform 0.45s var(--ease-out);
+}
+
+.accordion[open] .accordion__content {
+  animation: accordion-in 0.55s var(--ease-out) both;
+}
+
+@keyframes accordion-in {
+  from { opacity: 0; transform: translateY(-0.5rem); }
+  to { opacity: 1; transform: none; }
+}

@@ -1,0 +1,154 @@
+{%- comment -%}
+  LA GAMME : narration au défilement. Chaque machine de la collection choisie occupe
+  tout l'écran à tour de rôle, avec sa vidéo ou sa photo et sa couleur d'ambiance
+  (metafield custom.couleur_ambiance). Sur ordinateur, la section est épinglée et les
+  machines glissent l'une sur l'autre (motion.js). Sur mobile, sans JavaScript,
+  avec « moins de mouvement » ou dans l'éditeur : les machines s'enchaînent simplement.
+{%- endcomment -%}
+{{ 'section-range-story.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign source = section.settings.collection
+  if source == blank and section.settings.collection_handle != blank
+    assign source = collections[section.settings.collection_handle]
+  endif
+  assign total = 0
+  if source != blank
+    assign total = source.products_count
+    if total > section.settings.limit
+      assign total = section.settings.limit
+    endif
+  endif
+-%}
+
+{%- if source != blank and total > 0 -%}
+  <section class="range" aria-labelledby="Range-{{ section.id }}" data-range>
+    <div class="page-width range__header">
+      <div>
+        <p class="eyebrow">{% render 'tokens', text: section.settings.eyebrow, escape: true %}</p>
+        <h2 id="Range-{{ section.id }}" class="range__heading" data-split>{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
+      </div>
+      {%- if section.settings.hint != blank -%}
+        <p class="range__hint" aria-hidden="true">{% render 'tokens', text: section.settings.hint, escape: true %}<span class="range__hint-line"></span></p>
+      {%- endif -%}
+    </div>
+
+    <div class="range__stage" data-range-stage>
+      {%- for product in source.products limit: section.settings.limit -%}
+        {%- liquid
+          assign mf = product.metafields.custom
+          assign ambiance = mf.couleur_ambiance.value | default: settings.color_ambiance_default
+          assign video = nil
+          for media in product.media
+            if media.media_type == 'video'
+              assign video = media
+              break
+            endif
+          endfor
+          assign has_media = false
+          if video != nil or product.featured_image != blank
+            assign has_media = true
+          endif
+          assign index = forloop.index | prepend: '0' | slice: -2, 2
+          assign total_label = total | prepend: '0' | slice: -2, 2
+        -%}
+        <article class="range__slide{% if has_media %} range__slide--media{% endif %}" style="--ambiance: {{ ambiance }};" data-range-slide aria-label="{{ product.title | escape }}">
+          <div class="range__media" data-range-media>
+            {%- if video != nil -%}
+              {%- liquid
+                assign best = nil
+                for s in video.sources
+                  if s.mime_type == 'video/mp4' and s.height <= 1080
+                    if best == nil or s.height > best.height
+                      assign best = s
+                    endif
+                  endif
+                endfor
+              -%}
+              <video class="range__video" muted loop playsinline preload="none" data-lazy-video aria-hidden="true"
+                {% if video.preview_image %}poster="{{ video.preview_image | image_url: width: 1920 }}"{% endif %}>
+                {%- if best -%}<source data-src="{{ best.url }}" type="video/mp4">{%- endif -%}
+              </video>
+            {%- elsif product.featured_image != blank -%}
+              {{
+                product.featured_image
+                | image_url: width: 2400
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '600, 900, 1200, 1600, 2000, 2400',
+                  sizes: '100vw',
+                  alt: product.featured_image.alt | default: product.title,
+                  class: 'range__image'
+              }}
+            {%- else -%}
+              <div class="media-fallback">
+                {%- if request.design_mode -%}
+                  <span class="media-fallback__note">{{ 'general.add_media' | t }}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+
+          <div class="page-width range__content" data-range-content>
+            <p class="range__index"><span>{{ index }}</span> / {{ total_label }}</p>
+            <h3 class="display range__name">{{ product.title | escape }}</h3>
+            <div class="range__details">
+              <ul class="range__points" role="list">
+                {%- if mf.points_cles.value != blank -%}
+                  {%- for point in mf.points_cles.value limit: 3 -%}
+                    <li>{{ point | escape }}</li>
+                  {%- endfor -%}
+                {%- else -%}
+                  {%- if mf.dimensions.value != blank -%}<li>{{ section.settings.label_dimensions | escape }} : {{ mf.dimensions.value | escape }}</li>{%- endif -%}
+                  {%- if mf.poids.value != blank -%}<li>{{ section.settings.label_weight | escape }} : {{ mf.poids.value | escape }}</li>{%- endif -%}
+                  {%- if mf.charge_max.value != blank -%}<li>{{ section.settings.label_load | escape }} : {{ mf.charge_max.value | escape }}</li>{%- endif -%}
+                {%- endif -%}
+              </ul>
+              <div class="range__buy">
+                {% render 'price', price: product.price, size: 'large' %}
+                {% render 'delivery-badge', product: product %}
+                <a class="button button--primary" href="{{ product.url }}" data-magnetic>{% render 'tokens', text: section.settings.button_label, escape: true %}<span class="visually-hidden"> : {{ product.title | escape }}</span></a>
+              </div>
+            </div>
+          </div>
+        </article>
+      {%- endfor -%}
+
+      <div class="range__ui" aria-hidden="true">
+        <span class="range__counter"><span data-range-current>01</span> / {{ total | prepend: '0' | slice: -2, 2 }}</span>
+        <span class="range__progress"><span data-range-progress></span></span>
+      </div>
+    </div>
+  </section>
+{%- elsif request.design_mode -%}
+  <div class="page-width section"><p class="editor-notice">{{ 'sections.featured_collection.empty_editor' | t }}</p></div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "La gamme (narration)",
+  "class": "section-range-story",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Chaque machine prend sa première vidéo produit (ou sa photo principale) et sa couleur d'ambiance (metafield custom.couleur_ambiance). Ses 3 points clés viennent du metafield custom.points_cles, sinon de ses dimensions, poids et charge maximale."
+    },
+    { "type": "text", "id": "eyebrow", "label": "Petit libellé", "default": "La gamme" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Une machine, une ambiance." },
+    { "type": "text", "id": "hint", "label": "Indication de défilement", "default": "Scroller pour découvrir" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    {
+      "type": "text",
+      "id": "collection_handle",
+      "label": "Ou identifiant de la collection",
+      "default": "machines"
+    },
+    { "type": "range", "id": "limit", "label": "Nombre de machines", "min": 2, "max": 6, "step": 1, "default": 3 },
+    { "type": "text", "id": "button_label", "label": "Texte du bouton", "default": "Voir la machine" },
+    { "type": "text", "id": "label_dimensions", "label": "Libellé : dimensions", "default": "Dimensions" },
+    { "type": "text", "id": "label_weight", "label": "Libellé : poids", "default": "Poids" },
+    { "type": "text", "id": "label_load", "label": "Libellé : charge maximale", "default": "Charge maximale" }
+  ],
+  "presets": [{ "name": "La gamme (narration)" }]
+}
+{% endschema %}

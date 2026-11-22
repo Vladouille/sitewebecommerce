@@ -1,0 +1,223 @@
+.range {
+  position: relative;
+  padding-top: 5rem;
+}
+
+.range__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 3rem;
+  margin-bottom: 2.5rem;
+}
+
+.range__heading {
+  margin: 0;
+  max-width: 12ch;
+  text-transform: uppercase;
+}
+
+.range__hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: var(--font-body-weight-bold);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.range__hint-line {
+  width: 3rem;
+  height: 1px;
+  background: currentColor;
+  transform-origin: left;
+  animation: hint-line 2.4s var(--ease-out) infinite;
+}
+
+@keyframes hint-line {
+  0% { transform: scaleX(0); }
+  60% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+
+/* Chaque machine : un écran entier, sa couleur d'ambiance */
+.range__stage {
+  position: relative;
+}
+
+.range__slide {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 92svh;
+  overflow: hidden;
+  background: var(--ambiance);
+  color: var(--color-text);
+  isolation: isolate;
+}
+
+.range__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.range__video,
+.range__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.range__slide--media {
+  color: var(--color-dark-text);
+}
+
+.range__slide--media .range__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(23, 21, 18, 0.66) 0%, rgba(23, 21, 18, 0.2) 50%, rgba(23, 21, 18, 0) 100%);
+}
+
+.range__slide--media .button--primary {
+  background: var(--color-dark-text);
+  color: var(--color-dark);
+  border-color: var(--color-dark-text);
+}
+
+.range__slide--media .price__label,
+.range__slide--media .price__secondary {
+  color: inherit;
+  opacity: 0.8;
+}
+
+.range__slide--media .badge-delivery {
+  border-color: currentColor;
+}
+
+.range__content {
+  padding-top: 6rem;
+  padding-bottom: 3rem;
+}
+
+.range__index {
+  margin: 0 0 1rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  font-variant-numeric: tabular-nums;
+}
+
+.range__name {
+  margin-bottom: 2rem;
+  overflow-wrap: anywhere;
+}
+
+.range__details {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.range__points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.range__points li {
+  padding-top: 0.5rem;
+  border-top: 1px solid currentColor;
+  border-top-color: color-mix(in srgb, currentColor 30%, transparent);
+}
+
+.range__buy {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+/* Compteur et barre de progression : visibles seulement quand la section est épinglée */
+.range__ui {
+  display: none;
+}
+
+@media (min-width: 990px) {
+  .range {
+    padding-top: 9rem;
+  }
+
+  .range__slide {
+    min-height: 100vh;
+  }
+
+  .range__details {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 4rem;
+  }
+
+  .range__points {
+    max-width: 28rem;
+  }
+
+  .range__buy {
+    justify-items: end;
+    text-align: right;
+  }
+
+  /* Mode épinglé (activé par motion.js) */
+  .range--pinned .range__stage {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .range--pinned .range__slide {
+    position: absolute;
+    inset: 0;
+    min-height: 0;
+  }
+
+  .range--pinned .range__index {
+    visibility: hidden;
+  }
+
+  .range--pinned .range__ui {
+    position: absolute;
+    top: 2rem;
+    left: 3rem;
+    right: 3rem;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    font-variant-numeric: tabular-nums;
+    color: var(--range-ui-color, var(--color-dark-text));
+    mix-blend-mode: difference;
+  }
+
+  .range__progress {
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+  }
+
+  .range__progress span {
+    display: block;
+    height: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+}

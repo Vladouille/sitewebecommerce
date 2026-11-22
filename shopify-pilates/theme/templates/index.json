@@ -3,178 +3,80 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "layout": "split",
-        "image_alt": "Reformers Pilates installés dans un studio lumineux",
+        "mobile_use_image": true,
+        "image_alt": "Reformer Pilates dans un studio baigné de lumière naturelle",
+        "ambiance": "#E6D8C3",
+        "show_3d": false,
         "eyebrow": "Reformers, Cadillac et chaises",
         "heading": "Équipement Pilates de qualité studio",
         "heading_end": "prix affichés",
-        "text": "<p>Reformers, Cadillac et chaises importés directement de l'usine, sans distributeur intermédiaire. Garantie [GARANTIE]. Livraison et montage inclus.</p>",
+        "text": "<p>Importés directement de l'usine, sans distributeur intermédiaire. Garantie [GARANTIE]. Livraison et montage inclus.</p>",
         "button_1_label": "Équiper mon studio",
         "button_1_link": "/collections/packs-studio",
-        "button_2_label": "Voir les machines",
+        "button_2_label": "Voir la gamme",
         "button_2_link": "/collections/machines"
       }
     },
-    "trust": {
-      "type": "trust-bar",
+    "range": {
+      "type": "range-story",
       "settings": {
-        "background": "surface"
-      },
-      "blocks": {
-        "item_1": {
-          "type": "item",
-          "settings": {
-            "icon": "box",
-            "title": "Importé de l'usine",
-            "text": "Sans distributeur intermédiaire."
-          }
-        },
-        "item_2": {
-          "type": "item",
-          "settings": {
-            "icon": "shield",
-            "title": "Garantie [GARANTIE]",
-            "text": "Voir les conditions de garantie.",
-            "link": "/pages/garantie-et-pieces-de-rechange"
-          }
-        },
-        "item_3": {
-          "type": "item",
-          "settings": {
-            "icon": "wrench",
-            "title": "[PIECES]",
-            "text": "Ressorts, sangles, poignées."
-          }
-        },
-        "item_4": {
-          "type": "item",
-          "settings": {
-            "icon": "truck",
-            "title": "Livraison et montage inclus",
-            "text": "En France métropolitaine."
-          }
-        }
-      },
-      "block_order": [
-        "item_1",
-        "item_2",
-        "item_3",
-        "item_4"
-      ]
-    },
-    "packs": {
-      "type": "featured-collection",
-      "settings": {
-        "heading": "Packs studio",
-        "text": "<p>Tout l'équipement pour ouvrir ou agrandir votre studio, en une seule commande.</p>",
-        "collection_handle": "packs-studio",
+        "eyebrow": "La gamme",
+        "heading": "Une machine, une ambiance.",
+        "hint": "Scroller pour découvrir",
+        "collection_handle": "machines",
         "limit": 3,
-        "columns": "3",
-        "show_view_all": true,
-        "view_all_label": "Voir les packs",
-        "background": "default"
+        "button_label": "Voir la machine",
+        "label_dimensions": "Dimensions",
+        "label_weight": "Poids",
+        "label_load": "Charge maximale"
       }
     },
-    "machines": {
-      "type": "featured-collection",
+    "strike": {
+      "type": "strike-list",
       "settings": {
-        "heading": "Les machines",
-        "text": "<p>Reformers, Cadillac et chaise de qualité studio, pour un usage professionnel ou à domicile.</p>",
-        "collection_handle": "machines",
-        "limit": 6,
-        "columns": "3",
-        "show_view_all": true,
-        "view_all_label": "Voir toutes les machines",
-        "background": "surface"
-      }
-    },
-    "calculator": {
-      "type": "studio-calculator",
-      "settings": {
-        "heading": "Combien coûte votre studio ?",
-        "text": "<p>Choisissez la machine et le nombre de postes. La remise par quantité s'applique automatiquement au panier.</p>",
-        "collection_handle": "machines",
-        "default_product_handle": "reformer-studio-erable",
-        "default_qty": 4,
-        "max_qty": 12,
-        "note": "Estimation. Le montant exact est calculé au panier. Livraison et montage inclus en France métropolitaine.",
-        "background": "default"
-      }
-    },
-    "steps": {
-      "type": "steps",
-      "settings": {
-        "heading": "Comment ça marche",
-        "background": "default"
-      },
-      "blocks": {
-        "step_1": {
-          "type": "step",
-          "settings": {
-            "title": "Vous commandez en ligne",
-            "text": "<p>Prix affichés, paiement sécurisé. Une question ? Appelez-nous avant de commander.</p>"
-          }
-        },
-        "step_2": {
-          "type": "step",
-          "settings": {
-            "title": "Fabrication et contrôle",
-            "text": "<p>Votre commande est fabriquée par notre usine partenaire, contrôlée, puis expédiée. Le délai est annoncé sur chaque fiche produit.</p>"
-          }
-        },
-        "step_3": {
-          "type": "step",
-          "settings": {
-            "title": "Livraison et montage dans votre studio",
-            "text": "<p>Nous livrons et montons vos machines. Vous n'avez plus qu'à ouvrir vos cours.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "step_1",
-        "step_2",
-        "step_3"
-      ]
-    },
-    "comparison": {
-      "type": "comparison",
-      "settings": {
-        "heading": "Le circuit classique ou [NOM DE MARQUE]",
-        "before_label": "Circuit classique",
-        "after_label": "Avec [NOM DE MARQUE]",
+        "eyebrow": "Avant / avec [NOM DE MARQUE]",
+        "heading": "On a rayé ce qui compliquait tout.",
         "background": "surface"
       },
       "blocks": {
         "row_1": {
           "type": "row",
           "settings": {
-            "label": "Prix",
-            "before": "Un ou plusieurs intermédiaires entre l'usine et vous",
-            "after": "Importé directement de l'usine, sans distributeur intermédiaire"
+            "label": "Commande",
+            "before": "Devis et allers-retours",
+            "after": "Prix affichés"
           }
         },
         "row_2": {
           "type": "row",
           "settings": {
-            "label": "Délai",
-            "before": "Devis et allers-retours avant même de commander",
-            "after": "Prix affichés, commande en ligne, délai annoncé sur chaque fiche"
+            "label": "Service",
+            "before": "Interlocuteurs multiples",
+            "after": "Un contact direct"
           }
         },
         "row_3": {
           "type": "row",
           "settings": {
-            "label": "SAV",
-            "before": "Interlocuteurs multiples",
-            "after": "Un contact direct, garantie [GARANTIE]"
+            "label": "Achat",
+            "before": "Un ou plusieurs intermédiaires",
+            "after": "Importé directement de l'usine"
           }
         },
         "row_4": {
           "type": "row",
           "settings": {
-            "label": "Pièces",
-            "before": "Disponibilité variable selon le revendeur",
-            "after": "[PIECES]"
+            "label": "Installation",
+            "before": "Montage à organiser soi-même",
+            "after": "Livraison et montage inclus"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Délai",
+            "before": "Délai découvert après la commande",
+            "after": "Délai annoncé sur chaque fiche"
           }
         }
       },
@@ -182,12 +84,43 @@
         "row_1",
         "row_2",
         "row_3",
-        "row_4"
+        "row_4",
+        "row_5"
       ]
+    },
+    "packs": {
+      "type": "featured-collection",
+      "settings": {
+        "style": "large",
+        "eyebrow": "Packs studio",
+        "heading": "Un studio entier, en une commande.",
+        "text": "<p>Les machines et les accessoires, livrés et montés en une seule fois.</p>",
+        "collection_handle": "packs-studio",
+        "limit": 3,
+        "columns": "3",
+        "show_view_all": true,
+        "view_all_label": "Tous les packs",
+        "background": "default"
+      }
+    },
+    "calculator": {
+      "type": "studio-calculator",
+      "settings": {
+        "eyebrow": "Calculateur",
+        "heading": "Combien coûte votre studio ?",
+        "text": "<p>Choisissez la machine et le nombre de postes. La remise par quantité s'applique automatiquement au panier.</p>",
+        "collection_handle": "machines",
+        "default_product_handle": "reformer-studio-erable",
+        "default_qty": 4,
+        "max_qty": 12,
+        "note": "Estimation. Le montant exact est calculé au panier. Livraison et montage inclus en France métropolitaine.",
+        "background": "surface"
+      }
     },
     "guarantee": {
       "type": "guarantee",
       "settings": {
+        "eyebrow": "Garantie et service après-vente",
         "heading": "Garantie [GARANTIE] et service après-vente",
         "text": "<p>Un studio ne peut pas se permettre une machine à l'arrêt. Un interlocuteur vous répond directement et suit votre demande jusqu'à la remise en service. Ce qui est couvert est détaillé dans les conditions de garantie.</p>",
         "button_label": "Lire les conditions de garantie",
@@ -238,7 +171,8 @@
     "faq": {
       "type": "faq",
       "settings": {
-        "heading": "Questions fréquentes",
+        "eyebrow": "Questions fréquentes",
+        "heading": "Vos questions, nos réponses.",
         "heading_level": "h2",
         "background": "surface"
       },
@@ -306,19 +240,18 @@
     "contact": {
       "type": "contact-cta",
       "settings": {
-        "heading": "Une question avant de commander ? Appelez-nous.",
-        "text": "<p>Choix des machines, nombre de reformers pour votre surface, délais : nous vous répondons directement.</p>"
+        "eyebrow": "Une question ?",
+        "heading": "Parlons de votre studio.",
+        "text": "<p>Nombre de reformers pour votre surface, choix du bois, délais : nous vous répondons directement.</p>"
       }
     }
   },
   "order": [
     "hero",
-    "trust",
+    "range",
+    "strike",
     "packs",
-    "machines",
     "calculator",
-    "steps",
-    "comparison",
     "guarantee",
     "testimonials",
     "faq",

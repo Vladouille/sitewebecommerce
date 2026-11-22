@@ -25,10 +25,101 @@
     });
   }
 
-  // Apparition douce des sections situées sous l'écran (jamais dans l'éditeur de thème)
+  var root = document.documentElement;
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var inEditor = window.Shopify && window.Shopify.designMode;
-  if (!reduceMotion && !inEditor && 'IntersectionObserver' in window) {
+  var motionOk = root.classList.contains('motion-ok');
+
+  // En-tête : se cache en descendant, réapparaît en remontant
+  var header = document.querySelector('.header--sticky[data-header]');
+  if (header) {
+    var lastY = window.scrollY, ticking = false;
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var y = window.scrollY;
+        var menuOpen = drawer && drawer.open;
+        header.classList.toggle('is-hidden', !menuOpen && y > lastY && y > 160);
+        lastY = y;
+        ticking = false;
+      });
+    }, { passive: true });
+  }
+
+  // Vidéos : chargées seulement à l'approche de l'écran, mises en pause hors écran
+  var lazyVideos = document.querySelectorAll('video[data-lazy-video]');
+  if (lazyVideos.length && 'IntersectionObserver' in window) {
+    var videoObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var video = entry.target;
+        if (entry.isIntersecting) {
+          if (!video.dataset.loaded) {
+            video.querySelectorAll('source[data-src]').forEach(function (source) { source.src = source.dataset.src; });
+            video.load();
+            video.dataset.loaded = '1';
+          }
+          if (!reduceMotion) {
+            var playing = video.play();
+            if (playing && playing.catch) playing.catch(function () {});
+          }
+        } else if (video.dataset.loaded) {
+          video.pause();
+        }
+      });
+    }, { rootMargin: '300px 0px' });
+    lazyVideos.forEach(function (video) { videoObserver.observe(video); });
+  }
+
+  // Nom géant du pied de page : révélation lettre par lettre
+  var giant = document.querySelector('[data-giant-word]');
+  if (giant) {
+    if (motionOk && 'IntersectionObserver' in window) {
+      var giantObserver = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          giant.classList.add('is-in');
+          giantObserver.disconnect();
+        }
+      }, { threshold: 0.35 });
+      giantObserver.observe(giant);
+    } else {
+      giant.classList.add('is-in');
+    }
+  }
+
+  // Ambiance sonore : jamais automatique, activée et coupée par le visiteur
+  var soundButton = document.querySelector('[data-sound-toggle]');
+  var sound = document.querySelector('audio[data-sound]');
+  if (soundButton && sound) {
+    sound.volume = 0.35;
+    soundButton.addEventListener('click', function () {
+      var on = soundButton.getAttribute('aria-pressed') !== 'true';
+      if (on) {
+        var p = sound.play();
+        if (p && p.catch) p.catch(function () {});
+      } else {
+        sound.pause();
+      }
+      soundButton.setAttribute('aria-pressed', on ? 'true' : 'false');
+      soundButton.querySelector('[data-sound-label]').textContent = soundButton.getAttribute(on ? 'data-label-on' : 'data-label-off');
+    });
+  }
+
+  // Curseur personnalisé : option, ordinateur uniquement (jamais sur écran tactile)
+  var cursor = document.querySelector('[data-cursor]');
+  if (cursor && motionOk && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    root.classList.add('cursor-on');
+    var cx = 0, cy = 0, hover = false;
+    var place = function () { cursor.style.transform = 'translate(' + cx + 'px, ' + cy + 'px)' + (hover ? ' scale(3.2)' : ''); };
+    window.addEventListener('mousemove', function (e) { cx = e.clientX; cy = e.clientY; place(); }, { passive: true });
+    document.addEventListener('mouseover', function (e) {
+      hover = !!e.target.closest('a, button, summary, input, select, [data-magnetic]');
+      place();
+    });
+  }
+
+  // Apparition douce des sections situées sous l'écran (pages sans animations avancées)
+  if (motionOk && !root.classList.contains('motion-advanced') && 'IntersectionObserver' in window) {
     var revealObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;

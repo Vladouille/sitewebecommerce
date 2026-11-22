@@ -5,9 +5,12 @@
     <div class="section-header section-header--center">
       <div>
         {%- if section.settings.heading_level == 'h1' -%}
-          <h1 id="Faq-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h1>
+          <h1 id="Faq-{{ section.id }}" class="section-heading" data-split>{% render 'tokens', text: section.settings.heading, escape: true %}</h1>
         {%- else -%}
-          <h2 id="Faq-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="eyebrow">{% render 'tokens', text: section.settings.eyebrow, escape: true %}</p>
+          {%- endif -%}
+          <h2 id="Faq-{{ section.id }}" class="section-heading" data-split>{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
         {%- endif -%}
         {%- if section.settings.text != blank -%}
           <div class="section-text">{% render 'tokens', text: section.settings.text %}</div>
@@ -55,6 +58,7 @@
   "class": "section-faq",
   "max_blocks": 30,
   "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Petit libellé", "default": "Questions fréquentes" },
     {
       "type": "text",
       "id": "heading",
