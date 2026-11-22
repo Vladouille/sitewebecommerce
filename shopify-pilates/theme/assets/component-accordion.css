@@ -49,3 +49,24 @@
 .product__info .accordion:first-of-type {
   border-top: 1px solid var(--color-border-strong);
 }
+
+/* Informations produit et sécurité */
+.safety {
+  margin: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.safety__row dt {
+  font-weight: var(--font-body-weight-bold);
+  color: var(--color-text);
+  font-size: 0.9rem;
+}
+
+.safety__row dd {
+  margin: 0.15rem 0 0;
+}
+
+.safety__row a {
+  text-decoration: underline;
+}

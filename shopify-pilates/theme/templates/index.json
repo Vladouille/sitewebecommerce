@@ -5,9 +5,9 @@
       "settings": {
         "layout": "split",
         "image_alt": "Reformers Pilates installés dans un studio lumineux",
-        "eyebrow": "Qualité studio, prix affichés",
-        "heading": "Équipement Pilates de studio",
-        "show_savings": true,
+        "eyebrow": "Reformers, Cadillac et chaises",
+        "heading": "Équipement Pilates de qualité studio",
+        "heading_end": "prix affichés",
         "text": "<p>Reformers, Cadillac et chaises importés directement de l'usine, sans distributeur intermédiaire. Garantie [GARANTIE]. Livraison et montage inclus.</p>",
         "button_1_label": "Équiper mon studio",
         "button_1_link": "/collections/packs-studio",
@@ -94,6 +94,7 @@
         "heading": "Combien coûte votre studio ?",
         "text": "<p>Choisissez la machine et le nombre de postes. La remise par quantité s'applique automatiquement au panier.</p>",
         "collection_handle": "machines",
+        "default_product_handle": "reformer-studio-erable",
         "default_qty": 4,
         "max_qty": 12,
         "note": "Estimation. Le montant exact est calculé au panier. Livraison et montage inclus en France métropolitaine.",
@@ -197,7 +198,7 @@
         "point_1": {
           "type": "point",
           "settings": {
-            "text": "Garantie [GARANTIE] sur les machines, selon les conditions de garantie"
+            "text": "Machines garanties [GARANTIE], selon les conditions de garantie"
           }
         },
         "point_2": {

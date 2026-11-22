@@ -36,10 +36,12 @@
       "@type": "FAQPage",
       "mainEntity": [
         {%- for block in section.blocks -%}
+          {%- capture faq_q -%}{% render 'tokens', text: block.settings.question %}{%- endcapture -%}
+          {%- capture faq_a -%}{% render 'tokens', text: block.settings.answer %}{%- endcapture -%}
           {
             "@type": "Question",
-            "name": {{ block.settings.question | json }},
-            "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} }
+            "name": {{ faq_q | strip_html | strip | json }},
+            "acceptedAnswer": { "@type": "Answer", "text": {{ faq_a | strip_html | strip | json }} }
           }{% unless forloop.last %},{% endunless %}
         {%- endfor -%}
       ]

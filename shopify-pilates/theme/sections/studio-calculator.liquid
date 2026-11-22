@@ -40,13 +40,17 @@
                       if first == nil
                         assign first = item
                       endif
+                      if item.handle == section.settings.default_product_handle
+                        assign first = item
+                      endif
                     -%}
                     <option
                       value="{{ v.id }}"
+                      {% if item.handle == section.settings.default_product_handle %}selected{% endif %}
                       data-price="{{ v.price }}"
                       data-title="{{ item.title | escape }}"
                       data-url="{{ item.url }}"
-                      data-delay="{{ item.metafields.custom.delai_livraison.value | escape }}"
+                      data-delay="{{ item.metafields.custom.delai_livraison.value | default: settings.default_delivery | escape }}"
                       data-tiers="{{ item.metafields.custom.paliers_quantite.value | json | escape }}"
                     >
                       {{- item.title | escape }} — {{ v.price | money }} {{ settings.label_ttc -}}
@@ -177,6 +181,13 @@
       "id": "collection_handle",
       "label": "Ou identifiant de la collection",
       "default": "machines"
+    },
+    {
+      "type": "text",
+      "id": "default_product_handle",
+      "label": "Machine sélectionnée au départ (identifiant)",
+      "default": "reformer-studio-erable",
+      "info": "Identifiant (handle) du produit, visible dans son adresse : /products/reformer-studio-erable."
     },
     { "type": "range", "id": "default_qty", "label": "Quantité affichée au départ", "min": 1, "max": 12, "step": 1, "default": 4 },
     { "type": "range", "id": "max_qty", "label": "Quantité maximale", "min": 4, "max": 30, "step": 1, "default": 12 },

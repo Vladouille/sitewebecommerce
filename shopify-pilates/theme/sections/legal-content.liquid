@@ -9,7 +9,7 @@
     {%- if section.settings.updated != blank -%}
       <p class="legal__updated">{% render 'tokens', text: section.settings.updated, escape: true %}</p>
     {%- endif -%}
-    {%- if section.settings.warning != blank -%}
+    {%- if section.settings.warning != blank and request.design_mode -%}
       <p class="legal__warning" role="note">{% render 'tokens', text: section.settings.warning, escape: true %}</p>
     {%- endif -%}
     {%- if section.settings.intro != blank -%}
@@ -37,7 +37,7 @@
       "id": "warning",
       "label": "Avertissement (à retirer après validation)",
       "default": "[À FAIRE VALIDER PAR UN JURISTE] Ce texte est un modèle. Il doit être relu et adapté par un professionnel du droit avant la mise en ligne.",
-      "info": "Vide ce champ une fois le texte validé par un juriste."
+      "info": "Visible seulement dans l'éditeur de thème. Vide ce champ une fois le texte validé par un juriste."
     },
     { "type": "richtext", "id": "intro", "label": "Introduction" }
   ],

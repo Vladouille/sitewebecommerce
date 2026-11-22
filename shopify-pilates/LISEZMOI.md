@@ -36,9 +36,12 @@ Dans **Personnaliser**, clique sur l'icône **engrenage** (Paramètres du thème
 
 - **Marque et contact** : nom de la marque (déjà réglé sur « Ressaline »), logo, favicon, **téléphone**, horaires, **email**. Le téléphone et l'email sont **vides** : tant qu'ils le restent, ils sont masqués partout sur le site, et un rappel s'affiche dans l'éditeur.
 - **Promesses** : c'est ici que se règlent les promesses affichées sur tout le site :
-  - **Durée de la garantie** (2 ans par défaut). Elle doit correspondre exactement à ta page de conditions de garantie.
+  - **Durée de garantie affichée** (2 ans par défaut). Un seul réglage pour tout le site : barre d'annonce, arguments, comparatif, section garantie, FAQ et données Google. Elle doit correspondre exactement à ta page de conditions de garantie. **Tant que la durée n'est pas fixée avec le fournisseur, vide ce champ** : toutes les mentions de durée disparaissent et le site affiche « Garantie et service après-vente ».
   - **Stock de pièces en France : oui/non** (non par défaut). Tant que la case n'est pas cochée, le site affiche « Pièces de rechange disponibles et garanties ». Coche-la seulement quand le stock existe réellement en France.
-  - **Promesse d'économie** (« jusqu'à 30 % moins cher ») et sa **mention** (« Par rapport aux prix publics constatés des marques de studio, [DATE À COMPLÉTER] »). Elle n'apparaît qu'une fois, dans la bannière d'accueil. Complète la date et garde une preuve écrite de la comparaison ; laisse le champ vide pour ne rien afficher.
+  - **Afficher l'argument de prix (jusqu'à X % moins cher)** : **désactivé par défaut**. Désactivé, le titre d'accueil est « Équipement Pilates de qualité studio, prix affichés. » Activé, il devient « …, jusqu'à 30 % moins cher. » et la mention « Par rapport aux prix publics constatés des marques de studio, [date] » s'affiche dessous, **seulement si le champ « Date du relevé de prix » est rempli**. N'active ce réglage qu'avec une preuve écrite et datée de la comparaison.
+  - **Délai de livraison par défaut** (« Expédié sous 10 à 12 semaines ») : affiché sur tous les produits dont le metafield `custom.delai_livraison` est vide.
+  - **Personne responsable dans l'UE (par défaut)** : nom et adresse de Ressaline en tant qu'importateur, affichés dans l'accordéon « Informations produit et sécurité » de chaque fiche (voir étape 3). Vide par défaut.
+- Les mentions `[À FAIRE VALIDER PAR UN JURISTE]` et l'avertissement rouge des pages légales ne sont visibles **que dans l'éditeur de thème**, jamais sur la boutique publique. Les champs `[À COMPLÉTER]` des pages légales, eux, restent visibles : remplis-les avant d'ouvrir.
   - Dans les textes des sections, les marqueurs `[GARANTIE]`, `[PIECES]`, `[ECONOMIE]` et `[NOM DE MARQUE]` sont remplacés automatiquement par ces réglages. Garde-les quand tu modifies un texte : un seul changement de réglage met alors tout le site à jour.
 - **Couleurs** : fond blanc cassé, beige, bois clair, texte presque noir, **couleur d'accent** (vert sauge) et **couleur des boutons d'achat** (terre cuite). La couleur d'achat est réservée à « Ajouter au panier » et « Passer commande » : ne l'utilise nulle part ailleurs, pour qu'elle reste repérable.
 - **Typographie** : police des titres (Cormorant) et du texte (DM Sans), modifiables.
@@ -54,7 +57,7 @@ Admin → **Paramètres** → **Données personnalisées** (ou « Metafields et 
 
 | Nom affiché | Espace de noms et clé | Type à choisir | Exemple de valeur | Où ça s'affiche |
 |---|---|---|---|---|
-| Délai de livraison | `custom.delai_livraison` | Texte sur une seule ligne | `Expédié sous 6 à 8 semaines` ou `En stock — livré en 3 à 5 jours` | Badge sur la fiche, les cartes produit et le panier |
+| Délai de livraison | `custom.delai_livraison` | Texte sur une seule ligne | `Expédié sous 10 à 12 semaines` ou `En stock — livré en 3 à 5 jours` | Badge sur la fiche, les cartes, le calculateur et le panier. Vide = délai par défaut du thème |
 | Paliers de quantité | `custom.paliers_quantite` | JSON | `[{"min":1,"remise":0},{"min":4,"remise":8},{"min":8,"remise":15}]` | Tableau des remises sur la fiche |
 | Dimensions | `custom.dimensions` | Texte sur une seule ligne | `240 × 68 × 40 cm` | Caractéristiques techniques |
 | Poids | `custom.poids` | Texte sur une seule ligne | `85 kg` | Caractéristiques techniques |
@@ -67,6 +70,21 @@ Admin → **Paramètres** → **Données personnalisées** (ou « Metafields et 
 | Promesse (facultatif) | `custom.promesse` | Texte sur une seule ligne | `Le reformer des studios exigeants.` | Phrase sous le titre (sinon texte par défaut du thème) |
 | Nombre de postes (packs, facultatif) | `custom.nombre_postes` | Nombre entier | `4` | « soit 1 873 € HT par poste » sur la carte du pack |
 
+### Informations de sécurité produit (règlement européen RSGP 2023/988)
+
+`[À FAIRE VALIDER PAR UN JURISTE]` Le règlement européen sur la sécurité générale des produits impose d'afficher sur chaque fiche vendue en ligne, au minimum : le fabricant (nom et adresse), la personne responsable dans l'UE (nom et adresse), la référence permettant d'identifier le produit, les avertissements et consignes de sécurité, et la notice en français. Fais confirmer la liste exacte et la rédaction par un juriste.
+
+Ces champs alimentent l'accordéon **« Informations produit et sécurité »** de la fiche produit. Chaque ligne vide est masquée ; si tout est vide, l'accordéon n'apparaît pas.
+
+| Nom affiché | Espace de noms et clé | Type à choisir | Ce qu'il faut y mettre |
+|---|---|---|---|
+| Fabricant | `custom.fabricant` | Texte multiligne | Nom et adresse postale du fabricant (l'usine) |
+| Personne responsable UE | `custom.personne_responsable_ue` | Texte multiligne | Nom et adresse de l'importateur dans l'UE (Ressaline, adresse à compléter). Vide = valeur par défaut des Paramètres du thème |
+| Référence du modèle | `custom.reference_produit` | Texte sur une seule ligne | Ta référence (par exemple le SKU), jamais la référence du fournisseur |
+| Charge maximale utilisateur | `custom.charge_max_utilisateur` | Texte sur une seule ligne | Poids maximal de l'utilisateur indiqué par l'usine |
+| Avertissements | `custom.avertissements` | Texte multiligne | Consignes et avertissements de sécurité |
+| Notice PDF | `custom.notice_pdf` | Fichier (choisis « Fichier ») | La notice d'utilisation **en français**, au format PDF |
+
 Pour **Matériaux** et **Usage**, active aussi l'option **« Filtrage des produits »** / « Filtres de la boutique » si elle est proposée dans la définition (elle sert aux filtres de collection, étape 7).
 
 **Règles pour éviter les erreurs :**
@@ -77,12 +95,14 @@ Pour **Matériaux** et **Usage**, active aussi l'option **« Filtrage des produi
 
 1. Admin → **Produits** → **Importer**.
 2. Choisis `products.csv` → **Aperçu** → **Importer les produits**.
-3. Les 10 produits arrivent en **brouillon** (invisibles sur le site) avec : titre, description, type, tags, SKU, prix TTC, poids.
+3. Les 10 produits arrivent en **brouillon** (invisibles sur le site) avec : titre, description, type, tags, SKU, prix TTC, poids, et pour les machines (Reformer Studio Érable, Chêne, Aluminium, Cadillac, chaise) l'option **Couleur de sellerie** : Crème, Vert sauge, Noir, au même prix.
+4. Le fichier remplit aussi 4 metafields : délai de livraison (« Expédié sous 10 à 12 semaines » pour tous), dimensions et poids des 3 reformers, nombre de postes des packs. **Ces colonnes ne sont importées que si les définitions de l'étape 3 existent déjà.** Sinon, Shopify les ignore : le délai par défaut du thème prend le relais, et tu saisis les autres à la main.
 
 À savoir :
 - Le fichier utilise le format CSV historique de Shopify (colonnes `Handle`, `Title`, `Body (HTML)`, `Variant SKU`…), que l'import accepte toujours. Si Shopify affiche un avertissement sur le format, télécharge son modèle CSV depuis la fenêtre d'import et recopie les valeurs colonne par colonne : les noms correspondent un à un.
 - **Prix** : ce sont les prix TTC que tu as indiqués. Vérifie-les un par un.
-- **Poids** : ce sont des **estimations** (reformer 75 à 110 kg, Cadillac 150 kg, packs 400 et 900 kg…). Remplace-les par les poids réels donnés par l'usine.
+- **Poids** : ceux des reformers sont les poids nets donnés (83 kg pour l'Érable et le Chêne, 75 kg pour l'Aluminium). Ceux du Cadillac (150 kg), de la chaise (35 kg), des packs (360 et 830 kg) et des accessoires sont des **estimations** : remplace-les par les poids réels.
+- **Couleur de sellerie** : si une couleur n'est finalement pas disponible, supprime la variante plutôt que de la laisser en vente. Les packs n'ont pas d'option couleur : la couleur se précise dans le champ « Informations pour la facture ou la livraison » du panier, ou ajoute l'option plus tard.
 - **Stock** : suivi activé, quantité 0, et « Continuer à vendre en cas de rupture » activé. Cela permet la vente sur commande. Pour les pièces réellement stockées en France, saisis la vraie quantité et désactive « Continuer à vendre ».
 - **Descriptions** : elles contiennent des mentions `[À PRÉCISER : …]` (contenu des packs, compatibilité des pièces). Complète-les avant de passer les produits en « Actif ».
 - **Images** : ajoute au moins 3 photos par produit (vue d'ensemble, détail, en situation dans un studio) et, si possible, une **vidéo** : téléverse le fichier vidéo directement dans les médias du produit. Une vidéo YouTube fonctionne aussi, mais YouTube dépose des cookies : il faut alors le bandeau de consentement (étape 12).
@@ -96,6 +116,8 @@ Admin → **Produits** → **Collections** → **Créer une collection**. Pour c
 | Machines | `Machines` | `/collections/machines` |
 | Packs studio | `Packs studio` | `/collections/packs-studio` |
 | Accessoires et pièces | `Accessoires et pièces` | `/collections/accessoires-et-pieces` |
+
+**Ordre des machines** : dans la collection Machines, choisis le tri **« Manuel »** et place le **Reformer Studio Érable en premier** (modèle phare). Le calculateur de studio le sélectionne déjà par défaut.
 
 **Vérifie l'adresse** (en bas de la page de la collection, « Référencement / SEO ») : elle doit être exactement `machines`, `packs-studio`, `accessoires-et-pieces`. La page d'accueil, le menu par défaut et les produits complémentaires utilisent ces adresses. Si l'une diffère, corrige-la ou choisis la collection directement dans la section concernée de l'éditeur.
 
@@ -128,8 +150,8 @@ Si tu écris un texte dans le contenu de la page Shopify, il s'affiche **en plus
 
 Ouvre chaque produit → tout en bas, bloc **Metafields** → remplis les champs. Plus rapide : sélectionne plusieurs produits → **Modifier les produits** (éditeur en masse) → **Colonnes** → ajoute les metafields, et remplis-les comme un tableur.
 
-Exemple pour le Reformer Studio Bois :
-- Délai de livraison : `Expédié sous 6 à 8 semaines`
+Exemple pour le Reformer Studio Érable :
+- Délai de livraison : `Expédié sous 10 à 12 semaines` (déjà rempli par le CSV)
 - Paliers : `[{"min":1,"remise":0},{"min":4,"remise":8},{"min":8,"remise":15}]`
 - Idéal pour : `Studio`, `Salle de sport`, `Kiné`, `Domicile`
 - Les caractéristiques : **uniquement des valeurs vérifiées** sur la fiche technique de l'usine. N'invente aucune charge maximale ou dimension : en cas d'accident, c'est ta responsabilité.
@@ -232,7 +254,11 @@ Le délai affiché vient du metafield `delai_livraison` de chaque produit. Garde
 |---|---|
 | Nom de marque « Ressaline » (seulement si tu changes de nom) | Paramètres du thème → Marque et contact ; **Vendor** et titres SEO des produits ; textes juridiques et page d'accueil (section « Avant / Avec ») ; nom de la boutique (Paramètres → Général) |
 | Téléphone et email (vides au départ) | Paramètres du thème → Marque et contact |
-| Date de la comparaison de prix `[DATE À COMPLÉTER]` | Paramètres du thème → Promesses |
+| Argument de prix : à activer seulement avec une preuve, et date du relevé | Paramètres du thème → Promesses |
+| Durée de garantie (vide tant qu'elle n'est pas fixée avec le fournisseur) | Paramètres du thème → Promesses |
+| Adresse de l'entreprise (personne responsable dans l'UE) | Paramètres du thème → Promesses, et pages légales |
+| Metafields de sécurité (fabricant, référence, charge maximale, avertissements) | Fiche de chaque machine, bloc Metafields |
+| Notices d'utilisation en français (PDF) | Contenu → Fichiers, puis metafield `custom.notice_pdf` de chaque machine |
 | Case « Stock de pièces en France » (à cocher seulement si c'est vrai) | Paramètres du thème → Promesses |
 | Texte alternatif de la photo d'accueil | Personnaliser → Accueil → Bannière principale |
 | Logo, favicon | Paramètres du thème → Marque et contact |
@@ -283,7 +309,7 @@ Le délai affiché vient du metafield `delai_livraison` de chaque produit. Garde
 
 ## Avant d'ouvrir : 4 points business à ne pas négliger
 
-1. **« Jusqu'à 30 % moins cher »** : c'est une publicité comparative. Garde une preuve écrite (tarifs publics datés des marques comparables, modèle par modèle) et complète la date de la mention. Sans preuve, vide le champ « Promesse d'économie » : la phrase disparaît du site.
+1. **« Jusqu'à 30 % moins cher »** : c'est une publicité comparative, désactivée par défaut. Ne l'active qu'avec une preuve écrite (tarifs publics datés des marques comparables, modèle par modèle) et la date du relevé.
 2. **Livraison et montage inclus** : fais chiffrer par un transporteur spécialisé (livraison avec montage) le coût réel d'un reformer, d'un Cadillac et d'un pack de 900 kg, y compris en étage et en Corse, **avant** de fixer tes prix définitifs. C'est le poste qui peut faire disparaître ta marge.
 3. **Pièces en stock en France** : ne coche la case qu'une fois le stock réellement en France. En attendant, le site dit « Pièces de rechange disponibles et garanties », ce qui t'engage quand même à pouvoir fournir les pièces.
-4. **Délais usine** : un délai annoncé de 6 à 8 semaines et non tenu, c'est un client particulier qui peut annuler, et un studio qui ne peut pas ouvrir à la date prévue. Annonce le délai le plus long réaliste.
+4. **Délais usine** : un délai annoncé et non tenu, c'est un client particulier qui peut annuler, et un studio qui ne peut pas ouvrir à la date prévue. Annonce le délai le plus long réaliste.

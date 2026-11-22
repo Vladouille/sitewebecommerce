@@ -182,9 +182,9 @@
       {
         "type": "text",
         "id": "warranty_duration",
-        "label": "Durée de la garantie commerciale",
+        "label": "Durée de garantie affichée",
         "default": "2 ans",
-        "info": "Remplace [GARANTIE]. Elle doit correspondre exactement à ta page de conditions de garantie."
+        "info": "Utilisée partout (barre d'annonce, arguments, comparatif, garantie, FAQ, données Google). Laisse vide tant que la durée n'est pas fixée avec le fournisseur : seules les mentions « Garantie et service après-vente » restent."
       },
       {
         "type": "header",
@@ -214,18 +214,52 @@
         "content": "Comparaison de prix"
       },
       {
+        "type": "checkbox",
+        "id": "show_price_claim",
+        "label": "Afficher l'argument de prix (jusqu'à X % moins cher)",
+        "default": false,
+        "info": "Désactivé : le titre d'accueil devient « Équipement Pilates de qualité studio, prix affichés. »"
+      },
+      {
         "type": "text",
         "id": "claim_savings",
         "label": "Promesse d'économie",
         "default": "jusqu'à 30 % moins cher",
-        "info": "Remplace [ECONOMIE]. Laisse vide pour ne rien afficher. Garde une preuve datée de la comparaison."
+        "info": "Affiché seulement si l'argument de prix est activé. Garde une preuve datée de la comparaison."
       },
       {
         "type": "text",
         "id": "claim_savings_note",
         "label": "Mention sous la promesse",
-        "default": "Par rapport aux prix publics constatés des marques de studio, [DATE À COMPLÉTER].",
-        "info": "Affichée discrètement dans la bannière d'accueil, sous la promesse."
+        "default": "Par rapport aux prix publics constatés des marques de studio",
+        "info": "La date ci-dessous est ajoutée à la fin. Sans date, la mention ne s'affiche pas."
+      },
+      {
+        "type": "text",
+        "id": "claim_savings_date",
+        "label": "Date du relevé de prix",
+        "info": "Exemple : mars 2026. Obligatoire pour afficher la mention."
+      },
+      {
+        "type": "header",
+        "content": "Livraison"
+      },
+      {
+        "type": "text",
+        "id": "default_delivery",
+        "label": "Délai de livraison par défaut",
+        "default": "Expédié sous 10 à 12 semaines",
+        "info": "Affiché quand le produit n'a pas de délai dans son metafield custom.delai_livraison."
+      },
+      {
+        "type": "header",
+        "content": "Sécurité produit (RSGP)"
+      },
+      {
+        "type": "textarea",
+        "id": "eu_responsible",
+        "label": "Personne responsable dans l'UE (par défaut)",
+        "info": "Nom et adresse de l'importateur (Ressaline). Utilisé sur chaque fiche produit si le metafield custom.personne_responsable_ue est vide. Laisse vide tant que l'adresse n'est pas connue."
       }
     ]
   },

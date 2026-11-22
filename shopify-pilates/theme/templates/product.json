@@ -76,7 +76,13 @@
             "content": "<p>Garantie [GARANTIE]. [PIECES].</p><p>Conditions détaillées sur la page <a href=\"/pages/garantie-et-pieces-de-rechange\">Garantie et pièces de rechange</a>.</p>"
           }
         },
-        "collapsible_12": {
+        "safety_12": {
+          "type": "safety",
+          "settings": {
+            "heading": "Informations produit et sécurité"
+          }
+        },
+        "collapsible_13": {
           "type": "collapsible",
           "settings": {
             "icon": "euro",
@@ -97,7 +103,8 @@
         "collapsible_9",
         "collapsible_10",
         "collapsible_11",
-        "collapsible_12"
+        "safety_12",
+        "collapsible_13"
       ]
     },
     "specs": {
