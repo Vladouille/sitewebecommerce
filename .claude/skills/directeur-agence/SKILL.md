@@ -42,8 +42,9 @@ tes questions en une seule fois. Reformule l'objectif en une phrase mesurable
 ### 2. Direction artistique
 Si une charte existe (logo, `autoflow-brand`), elle s'impose : l'originalité porte alors
 sur la mise en page, le rythme et l'élément marquant, pas sur la palette. Sinon, suis le
-skill `frontend-design` : palette de 4 à 6 hex, typographies et rôles, wireframe ASCII,
-puis confronte le plan aux défauts génériques de l'IA avant de coder. Un seul élément
+skill `frontend-design` : palette de 4 à 6 hex, typographies et rôles, wireframe ASCII.
+Dans tous les cas, applique `site-unique` : objet du métier, catalogue des clichés et
+test du remplacement, avant de coder. Un seul élément
 mémorable par page ; tout le reste discipliné.
 
 ### 3. Spécialistes : proportionnés à la tâche
@@ -90,6 +91,8 @@ Relis comme un client exigeant qui cherche la faute. Contrôles minimaux :
   textes alternatifs, ordre de lecture logique.
 - **Contenu** : aucune promesse ni preuve inventée, orthographe, ton de la marque.
 - **Technique** : aucune erreur console, aucun fichier manquant, pages légales liées.
+- **Clichés et finition** : `node .claude/skills/site-unique/scripts/detecter-cliches.mjs <pages>`
+  (tout site), puis les contrôles à l'œil de `site-unique`.
 - **Script projet** : s'il existe un script de vérification, lance-le. Pour Autoflow :
   `node .claude/skills/autoflow-brand/scripts/verifier-site.mjs`
 
