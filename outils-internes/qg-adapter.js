@@ -1,37 +1,44 @@
-/* QG des associés : version hors Claude.
-   Remplace window.claude.use(...) par une couche qui parle à la fonction Supabase "qg".
-   Le reste de l'app est identique à la version artifact. */
+/* QG des associés : version autonome (une page HTML + une base Supabase gratuite).
+   Remplace window.claude.use(...) par une couche qui parle directement à Supabase.
+   Chaque appel envoie le code commun ; la base le vérifie avant toute lecture ou écriture. */
 (() => {
   'use strict';
-  const URL_FN = (window.QG_CONFIG && window.QG_CONFIG.FUNCTION_URL) || '';
+  const CFG = window.QG_CONFIG || {};
+  const BASE = String(CFG.SUPABASE_URL || '').replace(/\/+$/, '');
+  const KEY = String(CFG.SUPABASE_KEY || '');
   const CODE_KEY = 'qg.code.v1';
   const POLL_MS = 8000;
   const lsGet = (k) => { try { return localStorage.getItem(k); } catch { return null; } };
   const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
   const lsDel = (k) => { try { localStorage.removeItem(k); } catch {} };
   const escH = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const configured = /^https:\/\/[^/]+$/.test(BASE) && !BASE.includes('VOTRE-PROJET') && KEY.length > 20 && !KEY.includes('VOTRE-CLE');
 
-  async function call(op, payload = {}, signal, codeOverride) {
+  async function rpc(fn, args, codeOverride) {
+    const headers = { 'content-type': 'application/json', apikey: KEY };
+    if (KEY.startsWith('eyJ')) headers.authorization = 'Bearer ' + KEY;
     let res;
     try {
-      res = await fetch(URL_FN, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json', 'x-qg-code': codeOverride ?? lsGet(CODE_KEY) ?? '' },
-        body: JSON.stringify(Object.assign({ op }, payload)),
-        signal,
+      res = await fetch(BASE + '/rest/v1/rpc/' + fn, {
+        method: 'POST', headers,
+        body: JSON.stringify(Object.assign({ p_code: codeOverride ?? lsGet(CODE_KEY) ?? '' }, args)),
       });
-    } catch (e) {
-      if (signal && signal.aborted) throw { code: 'cancelled' };
+    } catch {
       throw { code: 'unavailable', message: 'Réseau indisponible' };
     }
     let j = null;
     try { j = await res.json(); } catch {}
     if (!res.ok) {
-      const code = (j && j.code) || 'unavailable';
+      const msg = (j && (j.message || j.msg)) || '';
+      let code = 'unavailable';
+      if (/bad_code/.test(msg)) code = 'bad_code';
+      else if (/invalid_argument/.test(msg)) code = 'invalid_argument';
+      else if (res.status === 404 || (j && j.code === 'PGRST202')) code = 'not_configured';
+      else if (res.status === 401) code = 'bad_key';
       if (code === 'bad_code' && codeOverride === undefined) { lsDel(CODE_KEY); location.reload(); }
-      throw { code, message: (j && j.message) || '' };
+      throw { code, message: msg };
     }
-    return j || {};
+    return j;
   }
 
   /* ---------- Écran du code commun ---------- */
@@ -39,8 +46,8 @@
   function needUnlock() {
     if (unlocked) return unlocked;
     unlocked = new Promise((resolve) => {
-      if (!/^https:\/\//.test(URL_FN) || URL_FN.includes('VOTRE-PROJET')) {
-        return showMsg('App pas encore branchée', 'Renseigne l’adresse de la fonction Supabase dans QG_CONFIG.FUNCTION_URL, en haut du fichier index.html, puis renvoie le fichier sur Hostinger.');
+      if (!configured) {
+        return showMsg('App pas encore branchée', 'Renseigne SUPABASE_URL et SUPABASE_KEY en haut du fichier HTML (voir le guide d’installation), puis rouvre la page.');
       }
       if (lsGet(CODE_KEY)) return resolve();
       const render = (err) => {
@@ -59,9 +66,13 @@
           ev.preventDefault();
           const btn = ev.target.querySelector('button'); btn.disabled = true; btn.textContent = 'Vérification…';
           const code = input.value.trim();
-          try { await call('ping', {}, undefined, code); lsSet(CODE_KEY, code); resolve(); }
+          try { await rpc('qg_ping', {}, code); lsSet(CODE_KEY, code); resolve(); }
           catch (e) {
-            render(e.code === 'bad_code' ? 'Code incorrect.' : e.code === 'not_configured' ? 'Le code n’est pas encore réglé côté serveur (secret QG_CODE).' : 'Serveur injoignable. Vérifie ta connexion puis réessaie.');
+            render({
+              bad_code: 'Code incorrect.',
+              not_configured: 'La base n’est pas prête : le script schema.sql n’a pas été exécuté dans Supabase.',
+              bad_key: 'Clé Supabase refusée : vérifie SUPABASE_KEY en haut du fichier.',
+            }[e.code] || 'Serveur injoignable. Vérifie ta connexion puis réessaie.');
           }
         });
       };
@@ -75,7 +86,7 @@
     g.innerHTML = `<div class="box"><div class="logo">QG DES ASSOCIÉS</div><h1>${escH(title)}</h1><p class="muted">${escH(text)}</p></div>`;
   }
 
-  /* ---------- Base de données (même interface que le db des artifacts) ---------- */
+  /* ---------- Base de données (même interface que dans la version d'origine) ---------- */
   const server = new Map(); // "col/id" -> data
   const overlay = new Map(); // écritures pas encore confirmées : "col/id" -> data | null (supprimé)
   let loaded = false;
@@ -102,9 +113,9 @@
   let refreshing = null;
   function refresh() {
     if (refreshing) return refreshing;
-    refreshing = call('list').then((r) => {
+    refreshing = rpc('qg_list', {}).then((rows) => {
       server.clear();
-      for (const it of r.items || []) server.set(it.col + '/' + it.id, it.data);
+      for (const it of rows || []) server.set(it.col + '/' + it.id, it.data);
       loaded = true; notify();
     }).catch(() => {}).finally(() => { refreshing = null; });
     return refreshing;
@@ -122,29 +133,27 @@
     const a = new Uint8Array(12); crypto.getRandomValues(a);
     return Array.from(a, (b) => 'abcdefghijklmnopqrstuvwxyz0123456789'[b % 36]).join('');
   };
+  const clone = (o) => JSON.parse(JSON.stringify(o));
   function docRef(path) {
     const [col, id] = path.split('/');
     return {
       id, path,
       async get() { await refresh(); return snapDoc(id, view().get(path)); },
       async set(data) {
-        overlay.set(path, JSON.parse(JSON.stringify(data))); notify();
-        await call('set', { col, id, data });
-        server.set(path, JSON.parse(JSON.stringify(data))); overlay.delete(path); notify();
+        overlay.set(path, clone(data)); notify();
+        await rpc('qg_set', { p_col: col, p_id: id, p_data: data });
+        server.set(path, clone(data)); overlay.delete(path); notify();
       },
       async update(data) {
         const base = view().get(path) || {};
-        overlay.set(path, Object.assign({}, base, JSON.parse(JSON.stringify(data)))); notify();
-        try { await call('update', { col, id, data }); }
-        catch (e) {
-          if (e.code === 'missing') { overlay.delete(path); server.delete(path); notify(); throw { code: 'invalid_argument' }; }
-          throw e;
-        }
+        overlay.set(path, Object.assign({}, base, clone(data))); notify();
+        const found = await rpc('qg_merge', { p_col: col, p_id: id, p_patch: data });
+        if (found === false) { overlay.delete(path); server.delete(path); notify(); throw { code: 'invalid_argument' }; }
         server.set(path, overlay.get(path)); overlay.delete(path); notify();
       },
       async delete() {
         overlay.set(path, null); notify();
-        await call('delete', { col, id });
+        await rpc('qg_delete', { p_col: col, p_id: id });
         server.delete(path); overlay.delete(path); notify();
       },
       onSnapshot(next) {
@@ -167,14 +176,7 @@
     }),
   });
 
-  /* ---------- Analyse IA (passe par la fonction serveur) ---------- */
-  const sample = async () => { throw { code: 'invalid_request' }; };
-  sample.json = async (prompt, opts = {}) => {
-    const r = await call('analyse', { prompt }, opts.signal);
-    return r.result;
-  };
-
-  /* ---------- Sauvegarde : téléchargement direct ---------- */
+  /* ---------- Sauvegarde : téléchargement direct du fichier ---------- */
   const downloads = Object.freeze({
     async save({ filename, data }) {
       const blob = new Blob([data], { type: 'application/json' });
@@ -187,9 +189,6 @@
   });
   const user = Object.freeze({ can: async () => true });
 
-  const caps = { db, sample, downloads, user };
-  window.claude = Object.freeze({
-    use: async (name) => { await needUnlock(); return caps[name] || null; },
-  });
-  window.QG_LOCK = () => { lsDel(CODE_KEY); location.reload(); };
+  const caps = { db, downloads, user };
+  window.claude = Object.freeze({ use: async (name) => { await needUnlock(); return caps[name] || null; } });
 })();
