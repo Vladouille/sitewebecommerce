@@ -6,19 +6,18 @@
 -%}
 <style>
   {%- if use_theme_fonts -%}
-    /* Archivo et Inter : SIL Open Font License 1.1, hébergées dans le thème */
+    /* Fraunces et Manrope : SIL Open Font License 1.1, hébergées dans le thème */
     @font-face {
-      font-family: 'Archivo Ressaline';
-      src: url('{{ 'archivo-variable.woff2' | asset_url }}') format('woff2');
+      font-family: 'Fraunces Ressaline';
+      src: url('{{ 'fraunces-variable.woff2' | asset_url }}') format('woff2');
       font-weight: 100 900;
-      font-stretch: 62% 125%;
       font-style: normal;
       font-display: swap;
     }
     @font-face {
-      font-family: 'Inter Ressaline';
-      src: url('{{ 'inter-variable.woff2' | asset_url }}') format('woff2');
-      font-weight: 100 900;
+      font-family: 'Manrope Ressaline';
+      src: url('{{ 'manrope-variable.woff2' | asset_url }}') format('woff2');
+      font-weight: 200 800;
       font-style: normal;
       font-display: swap;
     }
@@ -50,16 +49,18 @@
     --color-border-strong: {{ settings.color_text | color_modify: 'alpha', 0.28 }};
 
     {%- if use_theme_fonts %}
-    --font-heading: 'Archivo Ressaline', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+    --font-heading: 'Fraunces Ressaline', Georgia, 'Times New Roman', serif;
     --font-heading-weight: {{ settings.heading_weight }};
-    --font-heading-stretch: {{ settings.heading_width }}%;
-    --font-body: 'Inter Ressaline', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-heading-stretch: 100%;
+    --font-heading-variation: 'SOFT' {{ settings.heading_softness }};
+    --font-body: 'Manrope Ressaline', system-ui, -apple-system, 'Segoe UI', sans-serif;
     --font-body-weight: 400;
-    --font-body-weight-bold: 600;
+    --font-body-weight-bold: 650;
     {%- else %}
     --font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
     --font-heading-weight: {{ settings.font_heading.weight }};
     --font-heading-stretch: 100%;
+    --font-heading-variation: normal;
     --font-body: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
     --font-body-weight: {{ settings.font_body.weight }};
     --font-body-weight-bold: {% if body_bold %}{{ body_bold.weight }}{% else %}700{% endif %};

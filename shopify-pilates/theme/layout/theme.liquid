@@ -29,8 +29,8 @@
         {{ settings.font_heading | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
       {%- endunless -%}
     {%- else -%}
-      {{ 'archivo-variable.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
-      {{ 'inter-variable.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
+      {{ 'fraunces-variable.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
+      {{ 'manrope-variable.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
     {%- endif -%}
 
     {% render 'css-variables' %}

@@ -96,6 +96,33 @@
   }
 
   /* ---------------------------------------------------------------------
+     Objets flottants : entrée en douceur, parallaxe au défilement et à la souris.
+     La lévitation elle-même est une animation CSS (float-bob), active même sans GSAP.
+     --------------------------------------------------------------------- */
+  var floats = Array.prototype.slice.call(document.querySelectorAll('[data-float]'));
+  var heroFloats = floats.filter(function (f) { return f.closest('[data-hero]'); });
+  if (heroFloats.length) {
+    gsap.from(heroFloats, { opacity: 0, y: 90, scale: 0.9, rotation: 6, duration: 1.8, ease: 'expo.out', stagger: 0.14, delay: introDelay + 0.05 });
+  }
+  floats.forEach(function (el) {
+    if (el.closest('[data-range]')) return; // animés avec les machines de LA GAMME
+    var depth = parseFloat(el.getAttribute('data-depth')) || 0;
+    if (!depth) return;
+    var zone = el.closest('section') || el;
+    gsap.to(el, { yPercent: -depth * 6, ease: 'none', scrollTrigger: { trigger: zone, start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+  if (finePointer && floats.length) {
+    window.addEventListener('mousemove', function (e) {
+      var dx = e.clientX / window.innerWidth - 0.5;
+      var dy = e.clientY / window.innerHeight - 0.5;
+      floats.forEach(function (el) {
+        var depth = parseFloat(el.getAttribute('data-depth')) || 0;
+        gsap.to(el, { x: -dx * depth * 7, y: -dy * depth * 5, duration: 1.2, ease: 'power3.out', overwrite: 'auto' });
+      });
+    }, { passive: true });
+  }
+
+  /* ---------------------------------------------------------------------
      Images : révélation par un cadre qui glisse, et léger zoom arrière
      (même effet qu'une découpe, mais uniquement avec transform)
      --------------------------------------------------------------------- */
@@ -125,7 +152,9 @@
       range.classList.add('range--pinned');
       slides.forEach(function (slide, i) { slide.style.zIndex = i + 1; });
       gsap.set(slides.slice(1), { yPercent: 100 });
-      gsap.set(slides.slice(1).map(function (s) { return s.querySelector('[data-range-media]'); }), { scale: 1.15 });
+      var nextMedia = slides.slice(1).map(function (s) { return s.querySelector('[data-range-media]'); });
+      gsap.set(nextMedia.filter(function (m) { return m && !m.classList.contains('range__object'); }), { scale: 1.15 });
+      gsap.set(nextMedia.filter(function (m) { return m && m.classList.contains('range__object'); }), { yPercent: 35, rotation: 8 });
 
       var tl = gsap.timeline({
         defaults: { ease: 'none' },
@@ -144,8 +173,11 @@
         }
       });
       for (var i = 1; i < n; i++) {
-        tl.to(slides[i], { yPercent: 0 }, i - 1)
-          .to(slides[i].querySelector('[data-range-media]'), { scale: 1 }, i - 1)
+        var media = slides[i].querySelector('[data-range-media]');
+        tl.to(slides[i], { yPercent: 0 }, i - 1);
+        if (media && media.classList.contains('range__object')) tl.to(media, { yPercent: 0, rotation: 0 }, i - 1);
+        else if (media) tl.to(media, { scale: 1 }, i - 1);
+        tl
           .to(slides[i - 1].querySelector('[data-range-content]'), { opacity: 0, yPercent: -10 }, i - 1);
       }
 

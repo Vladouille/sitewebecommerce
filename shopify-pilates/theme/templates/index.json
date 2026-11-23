@@ -15,7 +15,53 @@
         "button_1_link": "/collections/packs-studio",
         "button_2_label": "Voir la gamme",
         "button_2_link": "/collections/machines"
-      }
+      },
+      "blocks": {
+        "floating_1": {
+          "type": "floating",
+          "settings": {
+            "label": "Reformer Studio Érable",
+            "x": 66,
+            "y": 44,
+            "width": 46,
+            "width_mobile": 92,
+            "depth": 4,
+            "rotation": -4,
+            "layer": "back"
+          }
+        },
+        "floating_2": {
+          "type": "floating",
+          "settings": {
+            "label": "Chaise Pilates",
+            "x": 90,
+            "y": 16,
+            "width": 14,
+            "width_mobile": 32,
+            "depth": 8,
+            "rotation": 8,
+            "layer": "back"
+          }
+        },
+        "floating_3": {
+          "type": "floating",
+          "settings": {
+            "label": "Box et planche de saut",
+            "x": 40,
+            "y": 14,
+            "width": 12,
+            "width_mobile": 28,
+            "depth": 7,
+            "rotation": -10,
+            "layer": "back"
+          }
+        }
+      },
+      "block_order": [
+        "floating_1",
+        "floating_2",
+        "floating_3"
+      ]
     },
     "range": {
       "type": "range-story",

@@ -78,19 +78,19 @@ h3,
 h4 {
   font-family: var(--font-heading);
   font-weight: var(--font-heading-weight);
-  font-stretch: var(--font-heading-stretch);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
+  font-variation-settings: var(--font-heading-variation);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
   margin: 0 0 0.5em;
   text-wrap: balance;
 }
 
 h1 {
-  font-size: calc(clamp(2.8rem, 11vw, 9rem) * var(--heading-scale));
+  font-size: calc(clamp(2.3rem, 5.2vw, 4.4rem) * var(--heading-scale));
 }
 
 h2 {
-  font-size: calc(clamp(2.2rem, 8vw, 6.5rem) * var(--heading-scale));
+  font-size: calc(clamp(1.9rem, 3.8vw, 3.3rem) * var(--heading-scale));
 }
 
 h3 {
@@ -102,15 +102,14 @@ p {
   margin: 0 0 1em;
 }
 
-/* Titre géant (jusqu'à 16 vw sur ordinateur) */
+/* Titre fort (nom d'une machine) : élégant, jamais géant */
 .display {
   font-family: var(--font-heading);
   font-weight: var(--font-heading-weight);
-  font-stretch: var(--font-heading-stretch);
-  font-size: calc(clamp(3.4rem, 16vw, 16rem) * var(--heading-scale));
-  line-height: 0.86;
-  letter-spacing: -0.035em;
-  text-transform: uppercase;
+  font-variation-settings: var(--font-heading-variation);
+  font-size: calc(clamp(2.2rem, 4.6vw, 4rem) * var(--heading-scale));
+  line-height: 1.02;
+  letter-spacing: -0.02em;
   margin: 0;
 }
 
@@ -679,10 +678,9 @@ p {
 .loader__logo {
   font-family: var(--font-heading);
   font-weight: var(--font-heading-weight);
-  font-stretch: var(--font-heading-stretch);
-  font-size: clamp(2rem, 7vw, 4.5rem);
+  font-variation-settings: var(--font-heading-variation);
+  font-size: clamp(2rem, 6vw, 3.5rem);
   letter-spacing: -0.02em;
-  text-transform: uppercase;
 }
 
 .loader__count {
@@ -799,5 +797,75 @@ p {
 
   .has-loader .loader {
     display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Objets flottants : images produits détourées en lévitation douce
+   (seulement transform et opacity ; immobiles si « moins de mouvement »)
+   -------------------------------------------------------------------------- */
+
+.float {
+  position: relative;
+  pointer-events: none;
+}
+
+.float__bob {
+  position: relative;
+  z-index: 1;
+  animation: float-bob var(--dur, 7s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+
+.float__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 30px 40px rgba(23, 21, 18, 0.18));
+}
+
+.float__shadow {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: -6%;
+  height: 9%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(23, 21, 18, 0.22), rgba(23, 21, 18, 0));
+  animation: float-shadow var(--dur, 7s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Emplacement visible seulement dans l'éditeur, tant que l'image n'est pas choisie */
+.float__slot {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  padding: 1rem;
+  border: 1.5px dashed var(--color-text-muted);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.35);
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+@keyframes float-bob {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--rot, 0deg)); }
+  50% { transform: translate3d(0, -16px, 0) rotate(calc(var(--rot, 0deg) + 1.5deg)); }
+}
+
+@keyframes float-shadow {
+  0%, 100% { transform: scaleX(1); opacity: 1; }
+  50% { transform: scaleX(0.82); opacity: 0.6; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float__bob,
+  .float__shadow {
+    animation: none;
   }
 }

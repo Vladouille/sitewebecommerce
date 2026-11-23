@@ -12,7 +12,12 @@
 <article class="feature-row{% if is_flipped == 1 %} feature-row--flip{% endif %}">
   <a class="feature-row__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true" style="--ambiance: {{ ambiance }};" data-reveal-media>
     <span class="feature-row__media-inner" data-reveal-inner>
-      {%- if product.featured_media -%}
+      {%- assign cutout = product.metafields.custom.image_detouree.value -%}
+      {%- if cutout != blank -%}
+        <span class="feature-row__object">
+          {% render 'floating-object', image: cutout, label: product.title, alt: product.title, depth: 4, rotation: -3, delay: flip, sizes: '(min-width: 990px) 45vw, 80vw' %}
+        </span>
+      {%- elsif product.featured_media -%}
         {{
           product.featured_media
           | image_url: width: 1800

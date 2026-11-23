@@ -85,12 +85,11 @@
 }
 
 .hero__title {
-  font-size: calc(clamp(3rem, 12.5vw, 13rem) * var(--heading-scale));
-  line-height: 0.88;
-  letter-spacing: -0.035em;
-  text-transform: uppercase;
-  max-width: 14ch;
-  margin-bottom: 2rem;
+  font-size: calc(clamp(2.4rem, 5.4vw, 4.8rem) * var(--heading-scale));
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  max-width: 16ch;
+  margin-bottom: 1.5rem;
 }
 
 .hero__bottom {
@@ -136,5 +135,37 @@
     grid-template-columns: 1fr auto;
     align-items: end;
     gap: 3rem;
+  }
+}
+
+/* Objets flottants de la bannière */
+.hero__floats {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero__float {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 0.58%);
+  width: calc(var(--wm) * 1%);
+  transform: translate(-50%, -50%);
+}
+
+.hero__float--front {
+  z-index: 3;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+}
+
+@media (min-width: 750px) {
+  .hero__float {
+    top: calc(var(--y) * 1%);
+    width: calc(var(--w) * 1%);
   }
 }

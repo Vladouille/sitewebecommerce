@@ -59,10 +59,9 @@
   display: block;
   font-family: var(--font-heading);
   font-weight: var(--font-heading-weight);
-  font-stretch: var(--font-heading-stretch);
-  font-size: 1.45rem;
+  font-variation-settings: var(--font-heading-variation);
+  font-size: 1.6rem;
   letter-spacing: -0.01em;
-  text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -180,11 +179,10 @@
   display: block;
   font-family: var(--font-heading);
   font-weight: var(--font-heading-weight);
-  font-stretch: var(--font-heading-stretch);
-  font-size: clamp(2.6rem, 11vw, 7.5rem);
-  line-height: 1;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
+  font-variation-settings: var(--font-heading-variation);
+  font-size: clamp(2.1rem, 6vw, 4.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
   text-decoration: none;
   padding: 0.08em 0;
   transition: transform 0.35s var(--ease-out), opacity 0.25s ease;

@@ -330,7 +330,6 @@
 
 /* Direction artistique : nom du produit en grand, en capitales */
 .product__title {
-  font-size: calc(clamp(2.4rem, 7vw, 5rem) * var(--heading-scale));
-  text-transform: uppercase;
-  line-height: 0.92;
+  font-size: calc(clamp(2.2rem, 4.4vw, 3.6rem) * var(--heading-scale));
+  line-height: 1.04;
 }

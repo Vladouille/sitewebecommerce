@@ -14,8 +14,7 @@
 
 .range__heading {
   margin: 0;
-  max-width: 12ch;
-  text-transform: uppercase;
+  max-width: 16ch;
 }
 
 .range__hint {
@@ -219,5 +218,43 @@
     background: currentColor;
     transform: scaleX(0);
     transform-origin: left;
+  }
+}
+
+/* Machine détourée qui flotte sur sa couleur d'ambiance */
+.range__slide--object {
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.range__object {
+  position: relative;
+  z-index: 0;
+  width: min(88%, 34rem);
+  margin: 5.5rem auto 0;
+}
+
+@media (min-width: 990px) {
+  .range__slide--object .range__object {
+    position: absolute;
+    top: 50%;
+    right: 4%;
+    width: min(52vw, 56rem);
+    margin: 0;
+    translate: 0 -58%;
+  }
+
+  .range__slide--object .range__content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .range__slide--object .range__name {
+    max-width: 11ch;
+  }
+
+  .range__slide--object .range__details {
+    grid-template-columns: minmax(0, 26rem) auto;
+    justify-content: space-between;
   }
 }

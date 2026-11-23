@@ -94,6 +94,41 @@
     {%- endif -%}
   </div>
 
+  {%- if section.blocks.size > 0 -%}
+    <div class="hero__floats" data-hero-floats>
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign float_image = block.settings.image
+          if float_image == blank and block.settings.product != blank
+            assign float_image = block.settings.product.featured_image
+          endif
+          assign float_eager = false
+          if forloop.first
+            assign float_eager = true
+          endif
+          assign float_delay = forloop.index0 | times: -1.3
+          assign float_duration = forloop.index0 | modulo: 3 | plus: 6.5
+          capture float_style
+            echo '--x: ' | append: block.settings.x | append: '; --y: ' | append: block.settings.y | append: '; --w: ' | append: block.settings.width | append: '; --wm: ' | append: block.settings.width_mobile | append: ';'
+          endcapture
+        -%}
+        <div class="hero__float hero__float--{{ block.settings.layer }}" style="{{ float_style }}" {{ block.shopify_attributes }}>
+          {% render 'floating-object',
+            image: float_image,
+            label: block.settings.label,
+            alt: block.settings.label,
+            depth: block.settings.depth,
+            rotation: block.settings.rotation,
+            delay: float_delay,
+            duration: float_duration,
+            eager: float_eager,
+            sizes: '(min-width: 990px) 45vw, 80vw'
+          %}
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
   <div class="page-width hero__content">
     {%- if section.settings.eyebrow != blank -%}
       <p class="eyebrow hero__eyebrow">{% render 'tokens', text: section.settings.eyebrow, escape: true %}</p>
@@ -139,21 +174,26 @@
 {
   "name": "Bannière plein écran",
   "class": "section-hero",
+  "max_blocks": 6,
   "settings": [
     {
+      "type": "paragraph",
+      "content": "Ajoute des blocs « Objet flottant » pour faire léviter tes images produits détourées autour du titre. Fond de section : couleur ci-dessous, ou vidéo / photo d'ambiance."
+    },
+    {
       "type": "header",
-      "content": "Média"
+      "content": "Fond"
     },
     {
       "type": "video",
       "id": "video",
-      "label": "Vidéo d'ambiance",
+      "label": "Vidéo d'ambiance (facultatif)",
       "info": "Reformer en studio, en boucle, sans son. MP4 (H.264), 1080p maximum, 3 Mo maximum, 8 à 15 secondes. Son image d'aperçu sert d'image de remplacement."
     },
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Photo (si pas de vidéo)",
+      "label": "Photo de fond (facultatif)",
       "info": "2400 px de large conseillés, lumière naturelle."
     },
     {
@@ -179,8 +219,9 @@
     {
       "type": "color",
       "id": "ambiance",
-      "label": "Couleur du fond sans média",
-      "default": "#E6D8C3"
+      "label": "Couleur du fond",
+      "default": "#E6D8C3",
+      "info": "Visible quand aucune vidéo ni photo de fond n'est choisie : c'est le fond idéal pour des objets flottants."
     },
     {
       "type": "header",
@@ -252,6 +293,58 @@
       "info": "Par défaut : la collection Machines."
     }
   ],
-  "presets": [{ "name": "Bannière plein écran" }]
+  "blocks": [
+    {
+      "type": "floating",
+      "name": "Objet flottant",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image détourée",
+          "info": "PNG ou WebP à fond transparent, 2000 px de large, 400 Ko maximum."
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Ou produit (photo principale)",
+          "info": "Utilisé si aucune image n'est choisie ci-dessus."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Description de l'image",
+          "default": "Reformer Studio Érable",
+          "info": "Texte alternatif pour les personnes malvoyantes et Google, et nom de l'emplacement dans l'éditeur."
+        },
+        { "type": "range", "id": "x", "label": "Position horizontale", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 65 },
+        { "type": "range", "id": "y", "label": "Position verticale", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 45 },
+        { "type": "range", "id": "width", "label": "Taille sur ordinateur", "min": 6, "max": 70, "step": 1, "unit": "%", "default": 40 },
+        { "type": "range", "id": "width_mobile", "label": "Taille sur mobile", "min": 15, "max": 100, "step": 1, "unit": "%", "default": 70 },
+        { "type": "range", "id": "depth", "label": "Profondeur (parallaxe)", "min": 0, "max": 10, "step": 1, "default": 5, "info": "Plus la valeur est haute, plus l'objet bouge au défilement et à la souris." },
+        { "type": "range", "id": "rotation", "label": "Inclinaison", "min": -30, "max": 30, "step": 1, "unit": "°", "default": -4 },
+        {
+          "type": "select",
+          "id": "layer",
+          "label": "Plan",
+          "options": [
+            { "value": "back", "label": "Derrière le texte" },
+            { "value": "front", "label": "Devant le texte" }
+          ],
+          "default": "back"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bannière plein écran",
+      "blocks": [
+        { "type": "floating", "settings": { "label": "Reformer Studio Érable", "x": 64, "y": 46, "width": 46, "width_mobile": 92, "depth": 4, "rotation": -4 } },
+        { "type": "floating", "settings": { "label": "Chaise Pilates", "x": 88, "y": 20, "width": 15, "width_mobile": 34, "depth": 8, "rotation": 8 } },
+        { "type": "floating", "settings": { "label": "Box et planche de saut", "x": 38, "y": 16, "width": 13, "width_mobile": 30, "depth": 7, "rotation": -10 } }
+      ]
+    }
+  ]
 }
 {% endschema %}

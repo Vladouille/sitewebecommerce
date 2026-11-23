@@ -68,14 +68,14 @@
 }
 
 .contact-cta .section-heading {
-  text-transform: uppercase;
+  max-width: 16ch;
 }
 
 .contact-cta .button--primary {
   min-height: 4rem;
   font-family: var(--font-heading);
-  font-stretch: var(--font-heading-stretch);
-  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-variation-settings: var(--font-heading-variation);
+  font-size: clamp(1.25rem, 2.6vw, 1.75rem);
   letter-spacing: 0;
   text-transform: none;
 }

@@ -1,0 +1,44 @@
+{%- comment -%}
+  Objet flottant : une image produit détourée (PNG ou WebP à fond transparent) en lévitation douce,
+  avec une ombre portée qui respire. La profondeur (depth) règle l'effet de parallaxe au défilement
+  et à la souris (motion.js). Sans image : rien sur la boutique, un emplacement dans l'éditeur.
+  Paramètres :
+  - image (image ou nil), label (texte de l'emplacement dans l'éditeur)
+  - depth (0 à 10), rotation (degrés), delay (secondes), duration (secondes)
+  - sizes (attribut sizes de l'image), eager (true pour l'image principale du haut de page)
+  - class, style (positionnement)
+{%- endcomment -%}
+{%- liquid
+  assign loading = 'lazy'
+  assign priority = 'auto'
+  if eager
+    assign loading = 'eager'
+    assign priority = 'high'
+  endif
+  assign show = false
+  if image != blank or request.design_mode
+    assign show = true
+  endif
+-%}
+{%- if show -%}
+  <div class="float{% if class %} {{ class }}{% endif %}" data-float data-depth="{{ depth | default: 4 }}" style="--rot: {{ rotation | default: 0 }}deg; --delay: {{ delay | default: 0 }}s; --dur: {{ duration | default: 7 }}s;{% if style %} {{ style }}{% endif %}">
+    <div class="float__bob">
+      {%- if image != blank -%}
+        {{
+          image
+          | image_url: width: 1600
+          | image_tag:
+            loading: loading,
+            fetchpriority: priority,
+            widths: '400, 600, 800, 1000, 1200, 1600',
+            sizes: sizes | default: '(min-width: 990px) 40vw, 70vw',
+            alt: image.alt | default: alt,
+            class: 'float__image'
+        }}
+      {%- else -%}
+        <div class="float__slot"><span>{{ label | default: 'Image produit détourée' | escape }}</span></div>
+      {%- endif -%}
+    </div>
+    <span class="float__shadow" aria-hidden="true"></span>
+  </div>
+{%- endif -%}

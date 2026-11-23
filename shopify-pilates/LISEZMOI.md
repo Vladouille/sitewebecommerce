@@ -51,19 +51,19 @@ Chaque section de chaque page (textes, images, boutons, ordre) se modifie en cli
 
 ## Étape 2 bis — Direction artistique, mouvement et médias
 
-**L'idée** : un site immersif et calme, raconté au défilement. Chaque machine a sa couleur d'ambiance, les titres sont très grands, une seule idée par écran. Aucun dessin de machine : uniquement de vraies photos, vidéos ou un modèle 3D. Tant qu'un média manque, un bloc de couleur unie le remplace. Le rappel « Ajouter une photo ou une vidéo » n'apparaît que dans l'éditeur.
+**L'idée** : un site immersif et calme, raconté au défilement. Les vedettes sont **tes produits, détourés, qui flottent** en lévitation douce sur une couleur d'ambiance (une par machine), avec une ombre qui respire et un effet de profondeur au défilement et à la souris. Les titres restent élégants et mesurés : ce sont les images qui attirent l'œil. Aucun dessin de machine. Tant qu'une image manque, rien ne s'affiche sur la boutique ; dans l'éditeur, un cadre en pointillé indique où la mettre.
 
 **Page d'accueil, dans l'ordre** (chaque section se déplace ou se masque dans l'éditeur) :
 1. écran de chargement (logo et compteur, une fois par visite) ;
-2. bannière plein écran (vidéo, photo pour mobile, modèle 3D en option) ;
-3. **LA GAMME** : chaque machine occupe l'écran à tour de rôle avec sa couleur. Sur ordinateur, la section est épinglée ; sur mobile, les machines s'enchaînent simplement ;
+2. bannière plein écran avec des **objets flottants** : chaque objet est un bloc (« Objet flottant ») où tu choisis l'image détourée, sa position, sa taille sur ordinateur et sur mobile, sa profondeur, son inclinaison et s'il passe devant ou derrière le texte. Fond : couleur unie (idéal), ou vidéo / photo d'ambiance ; modèle 3D en option ;
+3. **LA GAMME** : chaque machine flotte à tour de rôle sur sa couleur d'ambiance, grâce à son image détourée (metafield `custom.image_detouree`). Sur ordinateur, la section est épinglée et chaque machine arrive en s'élevant ; sur mobile, les machines s'enchaînent simplement ;
 4. **AVANT / AVEC** : les anciennes façons de faire sont rayées au défilement ;
 5. packs studio en grandes images, avec le prix par poste ;
 6. calculateur, avec le total en très grand ;
 7. garantie et service après-vente ;
 8. questions fréquentes ;
 9. contact (masqué tant que téléphone et email sont vides) ;
-10. pied de page avec le nom RESSALINE en lettres géantes.
+10. pied de page (le nom en lettres géantes existe en option, désactivé par défaut : Personnaliser → Pied de page).
 
 **Réglages** : Paramètres du thème → **Mouvement** (écran de chargement, défilement fluide, animations, curseur personnalisé, ambiance sonore). Le curseur et le son sont désactivés par défaut. Quand le son est activé, il ne démarre jamais tout seul : le visiteur l'active avec un bouton et peut le couper.
 
@@ -73,7 +73,7 @@ Chaque section de chaque page (textes, images, boutons, ordre) se modifie en cli
 - dans l'éditeur de thème : pas d'écran de chargement ni d'épinglage, pour pouvoir modifier chaque section ;
 - les bibliothèques d'animation (GSAP et Lenis) ne sont chargées que sur la page d'accueil.
 
-**Polices** : Archivo (titres, largeur réglable) et Inter (texte), sous licence libre SIL Open Font License, hébergées dans le thème. Aucune donnée n'est envoyée à Google. Paramètres du thème → Typographie permet aussi de revenir aux polices de la bibliothèque Shopify.
+**Polices** : **Fraunces** pour les titres (sérif doux et haut de gamme ; graisse et « douceur » réglables) et **Manrope** pour le texte (sans-serif moderne, très lisible). Toutes deux sous licence libre SIL Open Font License, hébergées dans le thème : aucune donnée n'est envoyée à Google. Paramètres du thème → Typographie permet aussi de choisir des polices de la bibliothèque Shopify.
 
 **Bibliothèques incluses** : GSAP 3.15 avec ScrollTrigger et SplitText (licence « Standard » de GSAP : gratuite, usage commercial autorisé) et Lenis 1.3 (licence MIT).
 
@@ -81,6 +81,7 @@ Chaque section de chaque page (textes, images, boutons, ordre) se modifie en cli
 
 | Média | Où l'ajouter | Format | Durée | Poids |
 |---|---|---|---|---|
+| **Images détourées des produits** (le cœur du site) : Reformer Studio Érable, Chêne, Aluminium, Cadillac, chaise, box et planche de saut, sangles, ressorts | Bannière : Personnaliser → Accueil → blocs « Objet flottant ». LA GAMME et packs : metafield `custom.image_detouree` de chaque produit | **PNG ou WebP à fond transparent**, 2000 px sur le plus grand côté, produit entier sans ombre portée (le thème ajoute la sienne), même angle de vue (trois quarts légèrement en hauteur) et même lumière pour toutes | — | 400 Ko maximum chacune (WebP conseillé) |
 | Vidéo de la bannière (reformer en studio, lumière naturelle, plan lent) | Personnaliser → Accueil → Bannière plein écran → Vidéo d'ambiance | MP4 (H.264), 1920 × 1080 maximum, sans son, en boucle propre (même image au début et à la fin) | 8 à 15 secondes | 3 Mo maximum |
 | Photo de remplacement de la bannière | Même section → Photo | JPG ou WebP, 2400 px de large | — | 500 Ko maximum |
 | Photo de la bannière pour mobile | Même section → Photo pour mobile | JPG ou WebP, portrait 1200 × 1600 px | — | 300 Ko maximum |
@@ -92,6 +93,10 @@ Chaque section de chaque page (textes, images, boutons, ordre) se modifie en cli
 | Ambiance sonore (facultatif) | Contenu → Fichiers, puis Paramètres du thème → Mouvement | MP3 en boucle, 128 kb/s | 30 à 60 secondes | 1 Mo maximum |
 
 Shopify accepte les vidéos MP4 et les convertit lui-même dans les formats adaptés à chaque navigateur : inutile de fournir un WebM.
+
+### Préparer une image détourée
+
+Pars d'une photo du produit sur fond uni (blanc ou gris clair), bien éclairée, sans ombre dure. Détoure-la avec l'outil « Supprimer l'arrière-plan » de Canva, de Photoshop, ou d'un service en ligne (remove.bg). Exporte en **PNG** puis convertis en **WebP** (squoosh.app, gratuit) pour passer sous 400 Ko en gardant la transparence. Vérifie les bords sur un fond foncé : aucun liseré blanc ne doit rester.
 
 ### Compresser une vidéo pour rester sous 3 Mo
 
@@ -131,6 +136,7 @@ Admin → **Paramètres** → **Données personnalisées** (ou « Metafields et 
 | Idéal pour | `custom.ideal_pour` | Texte sur une seule ligne → coche **Liste de valeurs** | `Studio`, `Salle de sport`, `Kiné`, `Domicile` | Pastilles « Idéal pour » |
 | Promesse (facultatif) | `custom.promesse` | Texte sur une seule ligne | `Le reformer des studios exigeants.` | Phrase sous le titre (sinon texte par défaut du thème) |
 | Nombre de postes (packs, facultatif) | `custom.nombre_postes` | Nombre entier | `4` | « soit 1 873 € HT par poste » sur la carte du pack |
+| Image détourée | `custom.image_detouree` | Fichier → **Image** | PNG ou WebP à fond transparent | Machine qui flotte dans LA GAMME et dans les packs (sinon : vidéo ou photo en plein cadre) |
 | Couleur d'ambiance | `custom.couleur_ambiance` | Couleur | Érable `#E8CC97` (miel clair), Chêne `#C9A06A` (bois doré), Aluminium `#C9CDD1` (gris argent), sauge `#A9B79A` | Fond de la machine dans LA GAMME, de sa fiche et de ses blocs sans photo |
 | Points clés | `custom.points_cles` | Texte sur une seule ligne → coche **Liste de valeurs** | `Cadre en érable massif`, `Sellerie crème, vert sauge ou noir`, `Pour un usage en cours collectifs` | Les 3 points affichés dans LA GAMME (sinon : dimensions, poids, charge maximale) |
 

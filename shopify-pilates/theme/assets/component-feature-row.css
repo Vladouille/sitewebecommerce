@@ -47,8 +47,7 @@
 
 .feature-row__title {
   margin: 0;
-  font-size: calc(clamp(2rem, 5vw, 4rem) * var(--heading-scale));
-  text-transform: uppercase;
+  font-size: calc(clamp(1.9rem, 3.6vw, 3rem) * var(--heading-scale));
 }
 
 .feature-row__title a {
@@ -87,4 +86,15 @@
   .feature-row--flip .feature-row__media {
     order: 2;
   }
+}
+
+.feature-row__object {
+  position: absolute;
+  inset: 8% 12%;
+  display: grid;
+  place-items: center;
+}
+
+.feature-row__object .float {
+  width: 100%;
 }

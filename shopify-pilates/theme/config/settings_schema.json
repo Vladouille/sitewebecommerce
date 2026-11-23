@@ -148,7 +148,7 @@
         "options": [
           {
             "value": "theme",
-            "label": "Archivo étroit et Inter (incluses dans le thème)"
+            "label": "Fraunces et Manrope (incluses dans le thème)"
           },
           {
             "value": "shopify",
@@ -156,38 +156,37 @@
           }
         ],
         "default": "theme",
-        "info": "Archivo et Inter sont sous licence libre (SIL Open Font License) et hébergées dans le thème : aucune donnée n'est envoyée à Google."
-      },
-      {
-        "type": "range",
-        "id": "heading_width",
-        "label": "Largeur des titres (Archivo)",
-        "min": 62,
-        "max": 100,
-        "step": 1,
-        "unit": "%",
-        "default": 72,
-        "info": "Plus la valeur est basse, plus les titres sont serrés."
+        "info": "Fraunces (titres) et Manrope (texte) sont sous licence libre (SIL Open Font License) et hébergées dans le thème : aucune donnée n'est envoyée à Google."
       },
       {
         "type": "select",
         "id": "heading_weight",
-        "label": "Graisse des titres (Archivo)",
+        "label": "Graisse des titres (Fraunces)",
         "options": [
+          {
+            "value": "300",
+            "label": "Légère"
+          },
+          {
+            "value": "400",
+            "label": "Normale"
+          },
           {
             "value": "500",
             "label": "Moyenne"
-          },
-          {
-            "value": "600",
-            "label": "Demi-grasse"
-          },
-          {
-            "value": "700",
-            "label": "Grasse"
           }
         ],
-        "default": "600"
+        "default": "400"
+      },
+      {
+        "type": "range",
+        "id": "heading_softness",
+        "label": "Douceur des titres (Fraunces)",
+        "min": 0,
+        "max": 100,
+        "step": 10,
+        "default": 100,
+        "info": "Arrondit les terminaisons des lettres : 0 = classique, 100 = très doux."
       },
       {
         "type": "font_picker",

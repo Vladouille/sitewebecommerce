@@ -25,11 +25,18 @@
           }
         }
       },
-      "block_order": ["brand", "links", "contact"],
+      "block_order": [
+        "brand",
+        "links",
+        "contact"
+      ],
       "settings": {
-        "show_payment_icons": true
+        "show_payment_icons": true,
+        "show_giant_word": false
       }
     }
   },
-  "order": ["footer"]
+  "order": [
+    "footer"
+  ]
 }

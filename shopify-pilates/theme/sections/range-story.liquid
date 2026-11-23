@@ -45,14 +45,31 @@
               break
             endif
           endfor
+          assign cutout = mf.image_detouree.value
           assign has_media = false
-          if video != nil or product.featured_image != blank
-            assign has_media = true
+          if cutout == blank
+            if video != nil or product.featured_image != blank
+              assign has_media = true
+            endif
           endif
           assign index = forloop.index | prepend: '0' | slice: -2, 2
           assign total_label = total | prepend: '0' | slice: -2, 2
         -%}
-        <article class="range__slide{% if has_media %} range__slide--media{% endif %}" style="--ambiance: {{ ambiance }};" data-range-slide aria-label="{{ product.title | escape }}">
+        <article class="range__slide{% if has_media %} range__slide--media{% else %} range__slide--object{% endif %}" style="--ambiance: {{ ambiance }};" data-range-slide aria-label="{{ product.title | escape }}">
+          {%- unless has_media -%}
+            <div class="range__object" data-range-media>
+              {% render 'floating-object',
+                image: cutout,
+                label: product.title,
+                alt: product.title,
+                depth: 6,
+                rotation: -3,
+                delay: forloop.index0,
+                sizes: '(min-width: 990px) 50vw, 90vw'
+              %}
+            </div>
+          {%- endunless -%}
+          {%- if has_media -%}
           <div class="range__media" data-range-media>
             {%- if video != nil -%}
               {%- liquid
@@ -80,14 +97,9 @@
                   alt: product.featured_image.alt | default: product.title,
                   class: 'range__image'
               }}
-            {%- else -%}
-              <div class="media-fallback">
-                {%- if request.design_mode -%}
-                  <span class="media-fallback__note">{{ 'general.add_media' | t }}</span>
-                {%- endif -%}
-              </div>
             {%- endif -%}
           </div>
+          {%- endif -%}
 
           <div class="page-width range__content" data-range-content>
             <p class="range__index"><span>{{ index }}</span> / {{ total_label }}</p>
@@ -131,7 +143,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Chaque machine prend sa première vidéo produit (ou sa photo principale) et sa couleur d'ambiance (metafield custom.couleur_ambiance). Ses 3 points clés viennent du metafield custom.points_cles, sinon de ses dimensions, poids et charge maximale."
+      "content": "Chaque machine flotte sur sa couleur d'ambiance (metafield custom.couleur_ambiance) grâce à son image détourée (metafield custom.image_detouree). Sans image détourée : sa première vidéo produit ou sa photo principale en plein cadre. Ses 3 points clés viennent du metafield custom.points_cles, sinon de ses dimensions, poids et charge maximale."
     },
     { "type": "text", "id": "eyebrow", "label": "Petit libellé", "default": "La gamme" },
     { "type": "text", "id": "heading", "label": "Titre", "default": "Une machine, une ambiance." },

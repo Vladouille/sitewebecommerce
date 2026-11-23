@@ -73,7 +73,7 @@
 
 /* Direction artistique : questions en typographie forte, ouverture fluide */
 .faq .section-heading {
-  text-transform: uppercase;
+  max-width: 18ch;
 }
 
 .faq .accordion__summary {
@@ -81,8 +81,8 @@
   padding: 1.4rem 0;
   font-family: var(--font-heading);
   font-weight: var(--font-heading-weight);
-  font-stretch: var(--font-heading-stretch);
-  font-size: clamp(1.25rem, 2.6vw, 2rem);
+  font-variation-settings: var(--font-heading-variation);
+  font-size: clamp(1.2rem, 2.2vw, 1.7rem);
   line-height: 1.1;
   letter-spacing: -0.01em;
 }
