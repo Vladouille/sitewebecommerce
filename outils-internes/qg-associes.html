@@ -291,7 +291,6 @@ const S = {
   filter: LS.get('qg.filter', 'all'),
   ideaSort: LS.get('qg.ideaSort', 'score'),
   me: LS.get('qg.me', null),
-  unlock: LS.get('qg.unlock', null),
   sheet: null, analysing: null, saveError: null,
 };
 const name = (i) => (S.cfg && Array.isArray(S.cfg.names) && S.cfg.names[i]) || DEFAULT_NAMES[i] || '—';
@@ -427,8 +426,8 @@ function route() {
     if (S.netSlow) showGate('<div class="box"><div class="logo">QG DES ASSOCIÉS</div><h1>Connexion lente</h1><p class="muted">Les données ne répondent pas encore. Vérifie ta connexion : la page continue d’essayer toute seule.</p><div class="thinking"><span class="spin"></span><span>Nouvel essai en cours…</span></div></div>');
     return;
   }
-  if (!S.cfg || !S.cfg.codeHash) return S.canWrite === false ? noAccess() : setupScreen();
-  if (S.unlock !== S.cfg.codeHash) return lockScreen();
+  const hasNames = S.cfg && Array.isArray(S.cfg.names) && S.cfg.names.length === 3;
+  if (!hasNames) return S.canWrite === false ? noAccess() : setupScreen();
   if (!PEOPLE.includes(S.me)) return whoScreen();
   enterApp();
 }
@@ -436,63 +435,30 @@ function noAccess() {
   showGate('<div class="box"><div class="logo">QG DES ASSOCIÉS</div><h1>Accès en lecture seule</h1><p class="muted">Ton compte ne peut pas écrire dans cette app. Demande au propriétaire de t’inviter par email avec le niveau « Éditeur ».</p></div>');
 }
 
-async function hashCode(code) {
-  const data = new TextEncoder().encode('qg-associes:' + String(code).trim());
-  try {
-    const buf = await crypto.subtle.digest('SHA-256', data);
-    return Array.from(new Uint8Array(buf)).map((x) => x.toString(16).padStart(2, '0')).join('');
-  } catch {
-    let h = 2166136261; for (const b of data) { h ^= b; h = Math.imul(h, 16777619); }
-    return 'f' + (h >>> 0).toString(16);
-  }
-}
-
 function setupScreen() {
   showGate(`<form class="box" id="setupForm" autocomplete="off">
     <div class="logo">QG DES ASSOCIÉS · PREMIÈRE CONFIGURATION</div>
-    <h1>Créez votre espace à trois</h1>
-    <p class="muted">À faire une seule fois. Tes associés n’auront qu’à entrer le code.</p>
+    <h1>Vos trois prénoms</h1>
+    <p class="muted">À faire une seule fois, pour vous trois. Modifiables ensuite dans les réglages.</p>
     ${PEOPLE.map((i) => `<div class="field"><label for="setupName${i}">Prénom ${Number(i) + 1}${i === '0' ? ' (toi)' : ''}</label><input class="input" id="setupName${i}" required maxlength="24" value="${i === '0' ? '' : ''}" placeholder="${esc(DEFAULT_NAMES[i])}"></div>`).join('')}
-    <div class="field"><label for="setupCode">Code commun (6 caractères minimum)</label><input class="input" id="setupCode" required minlength="6" maxlength="40" type="password" autocomplete="new-password"><span class="hint">Donne-le à tes associés de vive voix, pas dans un message.</span></div>
     <div id="setupMsg"></div>
-    <button class="btn primary block" type="submit">Créer l’espace</button>
+    <button class="btn primary block" type="submit">Continuer</button>
   </form>`);
   $('#setupForm').addEventListener('submit', async (ev) => {
     ev.preventDefault();
     const btn = ev.submitter || $('#setupForm button'); btn.disabled = true;
     const names = PEOPLE.map((i) => $('#setupName' + i).value.trim() || DEFAULT_NAMES[i]);
-    const code = $('#setupCode').value;
     try {
       const ref = S.db.doc('config/app');
       const existing = await ref.get();
-      if (existing.exists && existing.data().codeHash) { S.cfg = existing.data(); route(); return; }
-      const codeHash = await hashCode(code);
-      S.unlock = codeHash; LS.set('qg.unlock', codeHash);
+      if (existing.exists && Array.isArray(existing.data().names)) { S.cfg = existing.data(); route(); return; }
       S.me = '0'; LS.set('qg.me', '0');
-      await ref.set({ names, codeHash, createdAt: Date.now() });
-      S.cfg = { names, codeHash }; route();
+      await ref.set({ names, createdAt: Date.now() });
+      S.cfg = { names }; route();
     } catch (err) {
       btn.disabled = false;
       $('#setupMsg').innerHTML = '<p class="msg err">Enregistrement impossible (' + esc(err && err.code || 'erreur') + '). Vérifie ta connexion et que ton compte a le niveau Éditeur.</p>';
     }
-  });
-}
-
-function lockScreen() {
-  showGate(`<form class="box" id="lockForm" autocomplete="off">
-    <div class="logo">QG DES ASSOCIÉS</div>
-    <h1>Code d’accès</h1>
-    <p class="muted">Entre le code commun choisi à la création. Ce téléphone s’en souviendra.</p>
-    <div class="field"><label for="lockCode">Code</label><input class="input" id="lockCode" type="password" required autocomplete="current-password"></div>
-    <div id="lockMsg"></div>
-    <button class="btn primary block" type="submit">Entrer</button>
-  </form>`);
-  setTimeout(() => $('#lockCode') && $('#lockCode').focus(), 50);
-  $('#lockForm').addEventListener('submit', async (ev) => {
-    ev.preventDefault();
-    const h = await hashCode($('#lockCode').value);
-    if (h === S.cfg.codeHash) { S.unlock = h; LS.set('qg.unlock', h); route(); }
-    else { $('#lockMsg').innerHTML = '<p class="msg err">Code incorrect.</p>'; $('#lockCode').select(); }
   });
 }
 
@@ -1043,12 +1009,6 @@ function openSettings() {
       <button type="button" class="btn block" id="exportBtn">Exporter une sauvegarde (JSON)</button>
       <button type="button" class="btn block" id="importBtn" ${ro}>Importer une sauvegarde</button>
       <div id="ioZone"></div></section>
-    <hr class="sep">
-    <section class="field"><h3 style="font-size:16px">Code d’accès</h3>
-      <label for="newCode">Nouveau code commun (6 caractères minimum)</label><input class="input" id="newCode" type="password" minlength="6" autocomplete="new-password" ${ro}>
-      <button type="button" class="btn" id="changeCode" ${ro}>Changer le code</button>
-      <span class="hint">Tes associés devront entrer le nouveau code sur leur téléphone.</span>
-      <button type="button" class="btn" id="lockNow">Verrouiller ce téléphone</button></section>
   </div></div>`;
   sh.hidden = false; document.body.style.overflow = 'hidden'; sh.scrollTop = 0;
   $('#sheetClose').addEventListener('click', closeSheet);
@@ -1060,15 +1020,6 @@ function openSettings() {
   $('#meSel').addEventListener('change', (e) => { S.me = e.target.value; LS.set('qg.me', S.me); toast('Ce téléphone est maintenant celui de ' + name(S.me) + '.'); });
   $('#exportBtn').addEventListener('click', exportJson);
   $('#importBtn').addEventListener('click', () => { const f = $('#importFile'); f.value = ''; f.click(); });
-  $('#changeCode').addEventListener('click', async () => {
-    const v = $('#newCode').value;
-    if (v.trim().length < 6) { toast('Le code doit faire au moins 6 caractères.'); return; }
-    const h = await hashCode(v);
-    S.unlock = h; LS.set('qg.unlock', h); $('#newCode').value = '';
-    await queueWrite('config', 'app', { codeHash: h }, { now: true });
-    toast('Code changé. Donne le nouveau code à tes associés.');
-  });
-  $('#lockNow').addEventListener('click', () => { LS.del('qg.unlock'); S.unlock = null; closeSheet(); route(); });
 }
 
 function buildBackup() {
