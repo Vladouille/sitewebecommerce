@@ -1,0 +1,42 @@
+{
+  "type": "footer",
+  "name": "Pied de page",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "brand": {
+          "type": "brand",
+          "settings": {
+            "text": "<p>Équipement Pilates de qualité studio, importé directement de l'usine, sans distributeur intermédiaire.</p>"
+          }
+        },
+        "links": {
+          "type": "links",
+          "settings": {
+            "heading": "Informations",
+            "menu": "footer"
+          }
+        },
+        "contact": {
+          "type": "contact",
+          "settings": {
+            "heading": "Nous contacter"
+          }
+        }
+      },
+      "block_order": [
+        "brand",
+        "links",
+        "contact"
+      ],
+      "settings": {
+        "show_payment_icons": true,
+        "show_giant_word": false
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

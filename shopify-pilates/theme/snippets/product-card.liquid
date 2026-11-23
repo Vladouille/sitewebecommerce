@@ -1,0 +1,78 @@
+{%- comment -%}
+  Carte produit : photo, titre, prix TTC + HT, prix par poste (packs), délai, bouton d'achat.
+  Paramètres : product (obligatoire), lazy (true par défaut), heading_level ('h3' par défaut)
+  Metafields lus : custom.delai_livraison (texte), custom.nombre_postes (nombre entier, facultatif).
+{%- endcomment -%}
+{%- liquid
+  assign heading_tag = heading_level | default: 'h3'
+  assign loading = 'lazy'
+  if lazy == false
+    assign loading = 'eager'
+  endif
+  assign prefix = nil
+  if product.price_varies
+    assign prefix = 'products.price.from' | t
+  endif
+  assign vat_factor = settings.vat_rate | divided_by: 100.0 | plus: 1
+  assign postes = product.metafields.custom.nombre_postes.value | plus: 0
+-%}
+<article class="card card--{{ settings.card_image_ratio }}">
+  <a class="card__link" href="{{ product.url }}">
+    <div class="card__media">
+      {%- if product.featured_media -%}
+        {{
+          product.featured_media
+          | image_url: width: 900
+          | image_tag:
+            loading: loading,
+            widths: '300, 450, 600, 750, 900',
+            sizes: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw',
+            alt: product.featured_media.alt | default: product.title,
+            class: 'card__image'
+        }}
+        {%- if settings.card_show_secondary_image and product.media[1] != blank -%}
+          {{
+            product.media[1]
+            | image_url: width: 900
+            | image_tag:
+              loading: 'lazy',
+              widths: '300, 450, 600, 750, 900',
+              sizes: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw',
+              alt: '',
+              class: 'card__image card__image--secondary'
+          }}
+        {%- endif -%}
+      {%- else -%}
+        {% render 'media-fallback', product: product %}
+      {%- endif -%}
+    </div>
+    <{{ heading_tag }} class="card__title">{{ product.title | escape }}</{{ heading_tag }}>
+  </a>
+  <div class="card__body">
+    {% render 'price', price: product.price, prefix: prefix %}
+    {%- if postes > 1 -%}
+      {%- assign per_post = product.price | divided_by: vat_factor | divided_by: postes | round | money_without_trailing_zeros -%}
+      <p class="card__per">{{ 'products.price.per_post' | t: price: per_post }}</p>
+    {%- endif -%}
+    {%- if settings.card_show_delivery -%}
+      {% render 'delivery-badge', product: product, class: 'card__badge' %}
+    {%- endif -%}
+    {%- if settings.card_show_add_to_cart -%}
+      {%- if product.has_only_default_variant and product.available -%}
+        {%- form 'product', product, class: 'card__form' -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button type="submit" class="button button--buy button--full">
+            {{- 'products.add_to_cart' | t -}}
+            <span class="visually-hidden"> : {{ product.title | escape }}</span>
+          </button>
+        {%- endform -%}
+      {%- else -%}
+        <a class="button button--secondary button--full" href="{{ product.url }}">
+          {{- 'products.choose' | t -}}
+          <span class="visually-hidden"> : {{ product.title | escape }}</span>
+        </a>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</article>

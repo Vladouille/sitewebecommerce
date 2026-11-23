@@ -1,0 +1,139 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {},
+      "blocks": {
+        "title_1": {
+          "type": "title",
+          "settings": {}
+        },
+        "promise_2": {
+          "type": "promise",
+          "settings": {
+            "text": "Qualité studio, importé directement de l'usine."
+          }
+        },
+        "price_3": {
+          "type": "price",
+          "settings": {
+            "note": "Livraison et montage inclus en France métropolitaine"
+          }
+        },
+        "delivery_4": {
+          "type": "delivery",
+          "settings": {}
+        },
+        "tiers_5": {
+          "type": "tiers",
+          "settings": {
+            "heading": "Remises par quantité",
+            "note": "Remise appliquée automatiquement dans le panier."
+          }
+        },
+        "buy_buttons_6": {
+          "type": "buy_buttons",
+          "settings": {
+            "reassurance_1": "Garantie [GARANTIE]",
+            "reassurance_2": "Livraison et montage inclus",
+            "reassurance_3": "Paiement sécurisé",
+            "reassurance_4": "Paiement en plusieurs fois pour les professionnels",
+            "show_phone": true,
+            "phone_text": "Une question ? Appelez-nous au"
+          }
+        },
+        "ideal_for_7": {
+          "type": "ideal_for",
+          "settings": {
+            "heading": "Idéal pour"
+          }
+        },
+        "description_8": {
+          "type": "description",
+          "settings": {}
+        },
+        "collapsible_9": {
+          "type": "collapsible",
+          "settings": {
+            "icon": "truck",
+            "heading": "Livraison et montage",
+            "content": "<p>Livraison et montage inclus en France métropolitaine. Le délai affiché sur cette page court à partir de la confirmation de votre commande.</p><p>Avant la livraison, nous vous appelons pour fixer un créneau et vérifier l'accès : étage, ascenseur, largeur des portes. Hors France métropolitaine, contactez-nous avant de commander.</p>"
+          }
+        },
+        "collapsible_10": {
+          "type": "collapsible",
+          "settings": {
+            "icon": "box",
+            "heading": "Retours",
+            "content": "<p>Particuliers : 14 jours pour changer d'avis après la livraison, frais de retour à votre charge. Achats professionnels : pas de droit de rétractation.</p><p>Toutes les conditions sur la page <a href=\"/pages/retours\">Retours</a>.</p>"
+          }
+        },
+        "collapsible_11": {
+          "type": "collapsible",
+          "settings": {
+            "icon": "shield",
+            "heading": "Garantie et pièces",
+            "content": "<p>Garantie [GARANTIE]. [PIECES].</p><p>Conditions détaillées sur la page <a href=\"/pages/garantie-et-pieces-de-rechange\">Garantie et pièces de rechange</a>.</p>"
+          }
+        },
+        "safety_12": {
+          "type": "safety",
+          "settings": {
+            "heading": "Informations produit et sécurité"
+          }
+        },
+        "collapsible_13": {
+          "type": "collapsible",
+          "settings": {
+            "icon": "euro",
+            "heading": "Financement",
+            "content": "<p>Professionnels : paiement en plusieurs fois possible. Appelez-nous pour connaître les modalités adaptées à votre projet.</p><p>Paiement par carte bancaire ou par virement bancaire. Facture avec TVA détaillée pour chaque commande.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "title_1",
+        "promise_2",
+        "price_3",
+        "delivery_4",
+        "tiers_5",
+        "buy_buttons_6",
+        "ideal_for_7",
+        "description_8",
+        "collapsible_9",
+        "collapsible_10",
+        "collapsible_11",
+        "safety_12",
+        "collapsible_13"
+      ]
+    },
+    "specs": {
+      "type": "product-specs",
+      "settings": {
+        "heading": "Caractéristiques techniques",
+        "label_dimensions": "Dimensions",
+        "label_poids": "Poids",
+        "label_charge_max": "Charge maximale",
+        "label_materiaux": "Matériaux",
+        "label_ressorts": "Ressorts",
+        "label_usage": "Usage",
+        "label_garantie": "Garantie",
+        "background": "surface"
+      }
+    },
+    "complementary": {
+      "type": "complementary-products",
+      "settings": {
+        "heading": "Accessoires et pièces",
+        "collection_handle": "accessoires-et-pieces",
+        "limit": 4,
+        "view_all_label": "Voir tout"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "specs",
+    "complementary"
+  ]
+}

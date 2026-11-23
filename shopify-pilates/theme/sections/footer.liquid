@@ -1,0 +1,174 @@
+{{ 'section-footer.css' | asset_url | stylesheet_tag }}
+
+{%- assign phone_tel = settings.phone | remove: ' ' | remove: '.' | remove: '-' -%}
+
+<footer class="footer">
+  <div class="page-width">
+    <div class="footer__grid">
+      {%- for block in section.blocks -%}
+        <div class="footer__block footer__block--{{ block.type }}" {{ block.shopify_attributes }}>
+          {%- case block.type -%}
+            {%- when 'brand' -%}
+              <p class="footer__brand">{{ settings.brand_name | escape }}</p>
+              {%- if block.settings.text != blank -%}
+                <div class="footer__text">{% render 'tokens', text: block.settings.text %}</div>
+              {%- endif -%}
+
+            {%- when 'links' -%}
+              {%- if block.settings.heading != blank -%}
+                <h2 class="footer__heading">{% render 'tokens', text: block.settings.heading, escape: true %}</h2>
+              {%- endif -%}
+              <ul class="footer__links" role="list">
+                {%- if block.settings.menu != blank and block.settings.menu.links.size > 0 -%}
+                  {%- for link in block.settings.menu.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                  {%- endfor -%}
+                {%- else -%}
+                  <li><a href="/pages/livraison-et-montage">{{ 'sections.footer.fallback.shipping' | t }}</a></li>
+                  <li><a href="/pages/retours">{{ 'sections.footer.fallback.returns' | t }}</a></li>
+                  <li><a href="/pages/garantie-et-pieces-de-rechange">{{ 'sections.footer.fallback.warranty' | t }}</a></li>
+                  <li><a href="/pages/cgv">{{ 'sections.footer.fallback.terms' | t }}</a></li>
+                  <li><a href="/pages/mentions-legales">{{ 'sections.footer.fallback.legal' | t }}</a></li>
+                  <li><a href="/pages/contact">{{ 'sections.footer.fallback.contact' | t }}</a></li>
+                {%- endif -%}
+              </ul>
+
+            {%- when 'contact' -%}
+              {%- if block.settings.heading != blank -%}
+                <h2 class="footer__heading">{% render 'tokens', text: block.settings.heading, escape: true %}</h2>
+              {%- endif -%}
+              <ul class="footer__links footer__links--contact" role="list">
+                {%- if settings.phone != blank -%}
+                  <li><a href="tel:{{ phone_tel }}">{% render 'icon', name: 'phone' %}<span>{{ settings.phone | escape }}</span></a></li>
+                {%- endif -%}
+                {%- if settings.email != blank -%}
+                  <li><a href="mailto:{{ settings.email }}">{% render 'icon', name: 'mail' %}<span>{{ settings.email | escape }}</span></a></li>
+                {%- endif -%}
+                {%- if settings.phone == blank and settings.email == blank and request.design_mode -%}
+                  <li class="footer__hours">{{ 'sections.contact.empty_editor' | t }}</li>
+                {%- endif -%}
+                {%- if settings.phone_hours != blank -%}
+                  <li class="footer__hours">{{ settings.phone_hours | escape }}</li>
+                {%- endif -%}
+              </ul>
+          {%- endcase -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="footer__bottom">
+      {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+        <div class="footer__payments">
+          <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+          <ul class="footer__payment-list" role="list">
+            {%- for type in shop.enabled_payment_types -%}
+              <li>{{ type | payment_type_svg_tag: class: 'footer__payment-icon' }}</li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- if settings.social_instagram != blank or settings.social_linkedin != blank or settings.social_facebook != blank -%}
+        <ul class="footer__social" role="list">
+          {%- if settings.social_instagram != blank -%}<li><a href="{{ settings.social_instagram }}">Instagram</a></li>{%- endif -%}
+          {%- if settings.social_linkedin != blank -%}<li><a href="{{ settings.social_linkedin }}">LinkedIn</a></li>{%- endif -%}
+          {%- if settings.social_facebook != blank -%}<li><a href="{{ settings.social_facebook }}">Facebook</a></li>{%- endif -%}
+        </ul>
+      {%- endif -%}
+
+      <p class="footer__copyright">© {{ 'now' | date: '%Y' }} {{ settings.brand_name | escape }}</p>
+    </div>
+  </div>
+
+  {%- if section.settings.show_giant_word -%}
+    {%- assign giant = section.settings.giant_word | default: settings.brand_name | upcase | strip -%}
+    {%- assign letters = giant | split: '' -%}
+    <div class="footer__giant" aria-hidden="true" data-giant-word style="--chars: {{ letters.size }};">
+      {%- for letter in letters -%}
+        <span style="--i: {{ forloop.index0 }}">{% if letter == ' ' %}&nbsp;{% else %}{{ letter | escape }}{% endif %}</span>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</footer>
+
+{% schema %}
+{
+  "name": "Pied de page",
+  "class": "section-footer",
+  "enabled_on": { "groups": ["footer"] },
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Afficher les moyens de paiement",
+      "default": true,
+      "info": "Les logos s'affichent automatiquement selon les moyens de paiement activés dans Shopify."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_giant_word",
+      "label": "Afficher le nom en lettres géantes",
+      "default": false,
+      "info": "Le mot occupe toute la largeur et se révèle lettre par lettre au défilement."
+    },
+    {
+      "type": "text",
+      "id": "giant_word",
+      "label": "Mot géant",
+      "info": "Laisse vide pour utiliser le nom de la marque."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Marque",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Texte",
+          "default": "<p>Équipement Pilates de qualité studio, importé directement de l'usine, sans distributeur intermédiaire.</p>"
+        }
+      ]
+    },
+    {
+      "type": "links",
+      "name": "Liens",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Titre",
+          "default": "Informations"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "default": "footer",
+          "info": "Tant que le menu est vide, les liens Livraison, Retours, Garantie, CGV, Mentions légales et Contact s'affichent par défaut."
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Titre",
+          "default": "Nous contacter"
+        },
+        {
+          "type": "paragraph",
+          "content": "Le téléphone et l'email se règlent dans Paramètres du thème > Marque et contact."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

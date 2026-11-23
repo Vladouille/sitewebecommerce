@@ -1,0 +1,36 @@
+{%- comment -%}
+  Remplace les marqueurs des textes par les réglages du thème (Paramètres du thème > Promesses) :
+  [GARANTIE] → durée de garantie affichée ; [PIECES] → texte sur les pièces de rechange ;
+  [ECONOMIE] → promesse d'économie (vide si l'argument de prix est désactivé) ;
+  [NOM DE MARQUE] → nom de la marque.
+  Si la durée de garantie est vide, les mentions de durée disparaissent proprement
+  (« Garantie [GARANTIE] » devient « Garantie et service après-vente »).
+  La mention [À FAIRE VALIDER PAR UN JURISTE] n'est visible que dans l'éditeur de thème,
+  jamais sur la boutique publique.
+  Paramètres : text (obligatoire), escape (true pour du texte simple)
+{%- endcomment -%}
+{%- liquid
+  assign parts_text = settings.parts_text_no
+  if settings.parts_stock_france
+    assign parts_text = settings.parts_text_yes
+  endif
+  assign savings = ''
+  if settings.show_price_claim
+    assign savings = settings.claim_savings
+  endif
+  assign out = text
+  if settings.warranty_duration == blank
+    assign out = out | replace: 'Garantie [GARANTIE] et service après-vente', 'Garantie et service après-vente' | replace: ' de [GARANTIE]', '' | replace: 'Garantie [GARANTIE]', 'Garantie et service après-vente' | replace: ' [GARANTIE]', '' | replace: '[GARANTIE]', ''
+  else
+    assign out = out | replace: '[GARANTIE]', settings.warranty_duration
+  endif
+  unless request.design_mode
+    assign out = out | replace: ' [À FAIRE VALIDER PAR UN JURISTE]', '' | replace: '[À FAIRE VALIDER PAR UN JURISTE] ', '' | replace: '[À FAIRE VALIDER PAR UN JURISTE]', ''
+  endunless
+  assign out = out | replace: '[PIECES]', parts_text | replace: '[ECONOMIE]', savings | replace: '[NOM DE MARQUE]', settings.brand_name
+  if escape
+    echo out | escape
+  else
+    echo out
+  endif
+-%}

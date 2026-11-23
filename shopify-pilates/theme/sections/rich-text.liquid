@@ -1,0 +1,73 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+
+<section class="section rich-text{% if section.settings.background == 'surface' %} section--surface{% endif %} rich-text--{{ section.settings.alignment }}"{% if section.settings.heading != blank %} aria-labelledby="RichText-{{ section.id }}"{% endif %}>
+  <div class="page-width page-width--narrow">
+    {%- if section.settings.heading != blank -%}
+      {%- if section.settings.heading_level == 'h1' -%}
+        <h1 id="RichText-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h1>
+      {%- else -%}
+        <h2 id="RichText-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
+      {%- endif -%}
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
+      <div class="rte rich-text__body">{% render 'tokens', text: section.settings.text %}</div>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+      <a class="button button--{{ section.settings.button_style }}" href="{{ section.settings.button_link }}">{% render 'tokens', text: section.settings.button_label, escape: true %}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Texte",
+  "class": "section-rich-text",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Titre" },
+    {
+      "type": "select",
+      "id": "heading_level",
+      "label": "Niveau du titre",
+      "options": [
+        { "value": "h2", "label": "Titre de section" },
+        { "value": "h1", "label": "Titre principal de la page" }
+      ],
+      "default": "h2"
+    },
+    { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Ton texte ici.</p>" },
+    { "type": "text", "id": "button_label", "label": "Texte du bouton" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Style du bouton",
+      "options": [
+        { "value": "primary", "label": "Plein" },
+        { "value": "secondary", "label": "Contour" }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignement",
+      "options": [
+        { "value": "left", "label": "Gauche" },
+        { "value": "center", "label": "Centré" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Fond",
+      "options": [
+        { "value": "default", "label": "Blanc cassé" },
+        { "value": "surface", "label": "Beige" }
+      ],
+      "default": "default"
+    }
+  ],
+  "presets": [{ "name": "Texte" }]
+}
+{% endschema %}

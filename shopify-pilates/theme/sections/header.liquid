@@ -1,0 +1,124 @@
+{{ 'section-header.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign menu = section.settings.menu
+  assign phone_tel = settings.phone | remove: ' ' | remove: '.' | remove: '-'
+  assign use_fallback = false
+  if menu == blank or menu.links.size == 0
+    assign use_fallback = true
+  endif
+-%}
+
+{%- capture nav_links -%}
+  {%- if use_fallback -%}
+    <li style="--i: 0"><a class="menu-overlay__link" href="{{ routes.collections_url }}/machines">{{ 'sections.header.fallback.machines' | t }}</a></li>
+    <li style="--i: 1"><a class="menu-overlay__link" href="{{ routes.collections_url }}/packs-studio">{{ 'sections.header.fallback.packs' | t }}</a></li>
+    <li style="--i: 2"><a class="menu-overlay__link" href="{{ routes.collections_url }}/accessoires-et-pieces">{{ 'sections.header.fallback.parts' | t }}</a></li>
+    <li style="--i: 3"><a class="menu-overlay__link" href="/pages/professionnels">{{ 'sections.header.fallback.pros' | t }}</a></li>
+    <li style="--i: 4"><a class="menu-overlay__link" href="/pages/faq">{{ 'sections.header.fallback.faq' | t }}</a></li>
+    <li style="--i: 5"><a class="menu-overlay__link" href="/pages/contact">{{ 'sections.header.fallback.contact' | t }}</a></li>
+  {%- else -%}
+    {%- for link in menu.links -%}
+      <li style="--i: {{ forloop.index0 }}">
+        <a class="menu-overlay__link{% if link.active or link.child_active %} is-active{% endif %}" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>
+          {{- link.title | escape -}}
+        </a>
+      </li>
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+
+<header class="header{% if section.settings.sticky %} header--sticky{% endif %}" data-header>
+  <div class="page-width header__inner">
+    <a class="header__logo" href="{{ routes.root_url }}">
+      {%- if settings.logo != blank -%}
+        {%- assign logo_width_2x = settings.logo_width | times: 2 -%}
+        {{
+          settings.logo
+          | image_url: width: logo_width_2x
+          | image_tag:
+            width: settings.logo_width,
+            height: settings.logo.height | times: settings.logo_width | divided_by: settings.logo.width,
+            alt: settings.logo.alt | default: shop.name,
+            loading: 'eager',
+            class: 'header__logo-image'
+        }}
+      {%- else -%}
+        <span class="header__logo-text">{{ settings.brand_name | escape }}</span>
+      {%- endif -%}
+    </a>
+
+    <div class="header__actions">
+      {%- if settings.phone != blank and section.settings.show_phone -%}
+        <a class="header__phone" href="tel:{{ phone_tel }}" aria-label="{{ 'sections.header.call' | t: phone: settings.phone }}">
+          {% render 'icon', name: 'phone' %}
+          <span class="header__phone-number">{{ settings.phone | escape }}</span>
+        </a>
+      {%- endif -%}
+      <a class="header__cart" href="{{ routes.cart_url }}" aria-label="{{ 'sections.header.cart_count' | t: count: cart.item_count }}">
+        {% render 'icon', name: 'cart' %}
+        {%- if cart.item_count > 0 -%}
+          <span class="header__cart-count" aria-hidden="true">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+
+      <details class="menu-overlay" data-header-drawer>
+        <summary class="menu-toggle" aria-controls="MenuOverlay-{{ section.id }}" aria-expanded="false">
+          <span class="menu-toggle__open">{{ 'sections.header.menu_button' | t }}</span>
+          <span class="menu-toggle__close">{{ 'sections.header.close_button' | t }}</span>
+        </summary>
+        <nav class="menu-overlay__panel" id="MenuOverlay-{{ section.id }}" aria-label="{{ 'sections.header.menu' | t }}">
+          <div class="page-width menu-overlay__inner">
+            <ul class="menu-overlay__list" role="list">
+              {{ nav_links }}
+            </ul>
+            <div class="menu-overlay__footer">
+              {%- if settings.phone != blank -%}
+                <a href="tel:{{ phone_tel }}">{{ settings.phone | escape }}</a>
+              {%- endif -%}
+              {%- if settings.email != blank -%}
+                <a href="mailto:{{ settings.email }}">{{ settings.email | escape }}</a>
+              {%- endif -%}
+              {%- if settings.phone_hours != blank and settings.phone != blank -%}
+                <span>{{ settings.phone_hours | escape }}</span>
+              {%- endif -%}
+            </div>
+          </div>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "En-tête",
+  "class": "section-header",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Le logo, le nom de la marque et le téléphone se règlent dans Paramètres du thème > Marque et contact."
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu",
+      "info": "Crée le menu dans Contenu > Menus : Machines, Packs studio, Accessoires et pièces, Professionnels, FAQ, Contact. Tant que le menu est vide, ces liens s'affichent par défaut."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone",
+      "label": "Afficher le téléphone",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "En-tête fixe (se cache en descendant, réapparaît en remontant)",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,33 @@
+{%- if section.settings.text != blank -%}
+  <div class="announcement-bar" role="region" aria-label="{{ 'sections.announcement.label' | t }}">
+    <div class="page-width announcement-bar__inner">
+      {%- if section.settings.link != blank -%}
+        <a class="announcement-bar__text" href="{{ section.settings.link }}">{% render 'tokens', text: section.settings.text, escape: true %}</a>
+      {%- else -%}
+        <p class="announcement-bar__text">{% render 'tokens', text: section.settings.text, escape: true %}</p>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Barre de réassurance",
+  "class": "section-announcement",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Texte",
+      "default": "Livraison et montage inclus · Garantie [GARANTIE] · [PIECES]"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Lien (facultatif)"
+    }
+  ],
+  "presets": [{ "name": "Barre de réassurance" }]
+}
+{% endschema %}

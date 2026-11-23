@@ -1,0 +1,162 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": false
+      }
+    },
+    "legal": {
+      "type": "legal-content",
+      "settings": {
+        "heading": "Conditions générales de vente",
+        "updated": "Dernière mise à jour : [DATE]",
+        "warning": "[À FAIRE VALIDER PAR UN JURISTE] Ce texte est un modèle. Il doit être relu et adapté par un professionnel du droit avant la mise en ligne."
+      },
+      "blocks": {
+        "article_1": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 1 – Objet et champ d'application",
+            "text": "<p>Les présentes conditions générales de vente (CGV) s'appliquent à toutes les ventes conclues sur ce site entre [NOM DE MARQUE] et ses clients, consommateurs ou professionnels. Toute commande implique l'acceptation des CGV en vigueur au jour de la commande.</p>"
+          }
+        },
+        "article_2": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 2 – Identification du vendeur",
+            "text": "<ul><li>Dénomination : [À COMPLÉTER : raison sociale et forme juridique]</li><li>Siège : [À COMPLÉTER : adresse]</li><li>SIRET : [À COMPLÉTER] – RCS : [À COMPLÉTER]</li><li>TVA intracommunautaire : [À COMPLÉTER]</li><li>Email : [À COMPLÉTER] – Téléphone : [À COMPLÉTER]</li></ul>"
+          }
+        },
+        "article_3": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 3 – Produits",
+            "text": "<p>Les caractéristiques essentielles des produits sont présentées sur chaque fiche produit. Les photographies sont aussi fidèles que possible mais n'ont pas de valeur contractuelle pour les variations mineures de teinte du bois ou de finition.</p>"
+          }
+        },
+        "article_4": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 4 – Prix",
+            "text": "<p>Les prix sont indiqués en euros, toutes taxes comprises (TTC). Le prix hors taxes (HT) est affiché à titre indicatif. La livraison et le montage sont inclus pour toute livraison en France métropolitaine. Le prix applicable est celui affiché au moment de la validation de la commande.</p>"
+          }
+        },
+        "article_5": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 5 – Remises par quantité",
+            "text": "<p>Les remises par quantité indiquées sur les fiches produits s'appliquent automatiquement dans le panier lorsque les conditions affichées sont remplies. Seul le montant affiché au moment du paiement fait foi.</p>"
+          }
+        },
+        "article_6": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 6 – Commande",
+            "text": "<p>Le client sélectionne les produits, vérifie le contenu de son panier puis valide sa commande et son paiement. Un email de confirmation récapitule la commande. Le client professionnel indique sa raison sociale et, le cas échéant, son numéro de TVA intracommunautaire, pour l'établissement de la facture.</p>"
+          }
+        },
+        "article_7": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 7 – Paiement",
+            "text": "<p>Le paiement s'effectue par carte bancaire via une plateforme sécurisée ou par virement bancaire. En cas de paiement par virement, la commande est traitée à réception des fonds. Pour les professionnels, un paiement en plusieurs fois peut être accordé selon des conditions particulières convenues par écrit. [À COMPLÉTER : solution et conditions de paiement fractionné]</p><p>Client professionnel : tout retard de paiement entraîne des pénalités au taux prévu à l'article L441-10 du Code de commerce et une indemnité forfaitaire de 40 € pour frais de recouvrement.</p>"
+          }
+        },
+        "article_8": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 8 – Livraison et montage",
+            "text": "<p>La livraison et le montage sont effectués en France métropolitaine, à l'adresse indiquée lors de la commande. Le délai de livraison est indiqué sur chaque fiche produit et court à compter de la confirmation de la commande (ou de la réception du virement).</p><p>Consommateur : en cas de dépassement du délai, le client peut, après mise en demeure restée sans effet, résoudre le contrat dans les conditions des articles L216-6 et suivants du Code de la consommation.</p><p>Le client vérifie l'état des colis à la livraison et porte toute réserve précise sur le bon de livraison.</p>"
+          }
+        },
+        "article_9": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 9 – Transfert de propriété et des risques",
+            "text": "<p>Les produits restent la propriété du vendeur jusqu'au paiement complet du prix. Pour le consommateur, le transfert des risques intervient lors de la prise de possession physique des produits. Pour le professionnel, [À COMPLÉTER]. [À FAIRE VALIDER PAR UN JURISTE]</p>"
+          }
+        },
+        "article_10": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 10 – Droit de rétractation (consommateurs)",
+            "text": "<p>Le consommateur dispose de 14 jours à compter de la réception du produit pour exercer son droit de rétractation, sans motif. Les frais de retour sont à sa charge ; leur coût estimé est indiqué sur la page Retours. Le remboursement intervient dans les 14 jours suivant la décision de rétractation, sous réserve de la récupération du produit ou de la preuve de son expédition.</p><p>Modèle de formulaire de rétractation : « À l'attention de [NOM DE MARQUE], [adresse], [email] : je vous notifie par la présente ma rétractation du contrat portant sur la vente du bien ci-dessous : commandé le / reçu le, nom, adresse, signature (en cas de notification sur papier), date. »</p>"
+          }
+        },
+        "article_11": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 11 – Clients professionnels",
+            "text": "<p>Les achats effectués par un professionnel pour les besoins de son activité ne bénéficient pas du droit de rétractation. [À FAIRE VALIDER PAR UN JURISTE]</p>"
+          }
+        },
+        "article_12": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 12 – Garanties légales",
+            "text": "<p>Le consommateur bénéficie de la garantie légale de conformité (articles L217-3 et suivants du Code de la consommation) et de la garantie des vices cachés (articles 1641 et suivants du Code civil). [À COMPLÉTER : reproduction intégrale des articles L217-3 à L217-5, L217-7, L217-8, L217-9, L217-12, L217-13, L217-16, L217-17, L217-28 du Code de la consommation et 1641 et 1648 alinéa 1 du Code civil, ainsi que l'encadré d'information prévu par la réglementation] [À FAIRE VALIDER PAR UN JURISTE]</p>"
+          }
+        },
+        "article_13": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 13 – Garantie commerciale",
+            "text": "<p>Les machines bénéficient d'une garantie commerciale de [GARANTIE] à compter de la livraison, dont l'étendue et les exclusions sont décrites sur la page Garantie et pièces de rechange. Elle s'ajoute aux garanties légales.</p>"
+          }
+        },
+        "article_14": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 14 – Responsabilité",
+            "text": "<p>Le vendeur n'est pas responsable des dommages résultant d'une utilisation non conforme aux instructions ou à l'usage indiqué sur la fiche produit (commercial ou domicile). [À COMPLÉTER : limitation de responsabilité applicable aux professionnels] [À FAIRE VALIDER PAR UN JURISTE]</p>"
+          }
+        },
+        "article_15": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 15 – Données personnelles",
+            "text": "<p>Les données collectées lors de la commande servent à son traitement et à la relation client. Les modalités et vos droits sont détaillés dans notre politique de confidentialité.</p>"
+          }
+        },
+        "article_16": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 16 – Médiation de la consommation",
+            "text": "<p>En cas de litige, le consommateur peut recourir gratuitement au médiateur de la consommation suivant : [À COMPLÉTER : nom, site internet et adresse du médiateur]. Il peut aussi utiliser la plateforme européenne de règlement en ligne des litiges.</p>"
+          }
+        },
+        "article_17": {
+          "type": "article",
+          "settings": {
+            "heading": "Article 17 – Droit applicable et litiges",
+            "text": "<p>Les présentes CGV sont soumises au droit français. Avec un client professionnel, à défaut d'accord amiable, compétence exclusive est attribuée aux tribunaux de [À COMPLÉTER]. [À FAIRE VALIDER PAR UN JURISTE]</p>"
+          }
+        }
+      },
+      "block_order": [
+        "article_1",
+        "article_2",
+        "article_3",
+        "article_4",
+        "article_5",
+        "article_6",
+        "article_7",
+        "article_8",
+        "article_9",
+        "article_10",
+        "article_11",
+        "article_12",
+        "article_13",
+        "article_14",
+        "article_15",
+        "article_16",
+        "article_17"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "legal"
+  ]
+}

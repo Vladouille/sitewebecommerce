@@ -1,0 +1,130 @@
+.product-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem 1.25rem;
+}
+
+@media (min-width: 560px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 990px) {
+  .product-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .product-grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card__link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card__link:hover {
+  color: inherit;
+}
+
+.card__media {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  aspect-ratio: 4 / 3;
+}
+
+.card--square .card__media {
+  aspect-ratio: 1 / 1;
+}
+
+.card--portrait .card__media {
+  aspect-ratio: 4 / 5;
+}
+
+.card__image,
+.card__placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.35s ease, transform 0.6s ease;
+}
+
+.card__placeholder {
+  fill: var(--color-wood);
+}
+
+.card__image--secondary {
+  opacity: 0;
+}
+
+@media (hover: hover) {
+  .card__link:hover .card__image--secondary {
+    opacity: 1;
+  }
+
+  .card__link:hover .card__image:only-child {
+    transform: scale(1.03);
+  }
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  flex: 1;
+}
+
+.card__title {
+  font-size: calc(1.3rem * var(--heading-scale));
+  margin: 1rem 0 0;
+}
+
+.card__per {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--color-accent);
+}
+
+.card__form,
+.card__body > .button {
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.card__body > .button {
+  margin-top: auto;
+}
+
+.card__link:hover .card__title {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.card__meta {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.card__badge {
+  align-self: flex-start;
+  margin-top: 0.25rem;
+}

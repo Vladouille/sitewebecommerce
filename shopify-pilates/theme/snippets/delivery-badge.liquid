@@ -1,0 +1,19 @@
+{%- comment -%}
+  Badge de délai de livraison, alimenté par le metafield produit custom.delai_livraison,
+  ou par le délai par défaut du thème (Paramètres du thème > Promesses) si le metafield est vide.
+  Paramètres : product (obligatoire), class (facultatif)
+{%- endcomment -%}
+{%- assign delai = product.metafields.custom.delai_livraison.value | default: settings.default_delivery -%}
+{%- if delai != blank -%}
+  {%- liquid
+    assign delai_lower = delai | downcase
+    assign in_stock = false
+    if delai_lower contains 'en stock'
+      assign in_stock = true
+    endif
+  -%}
+  <p class="badge-delivery{% if in_stock %} badge-delivery--stock{% endif %}{% if class %} {{ class }}{% endif %}">
+    {% render 'icon', name: 'truck' %}
+    <span>{{ delai | escape }}</span>
+  </p>
+{%- endif -%}

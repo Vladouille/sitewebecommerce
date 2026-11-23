@@ -1,0 +1,350 @@
+{{ 'section-hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign url_1 = section.settings.button_1_link | default: '/collections/packs-studio'
+  assign url_2 = section.settings.button_2_link | default: '/collections/machines'
+  assign video = section.settings.video
+  assign image = section.settings.image
+  assign mobile_image = section.settings.mobile_image | default: image
+  assign model = nil
+  if section.settings.show_3d and section.settings.model_product != blank
+    for media in section.settings.model_product.media
+      if media.media_type == 'model'
+        assign model = media
+        break
+      endif
+    endfor
+  endif
+  assign has_media = false
+  if video != blank or image != blank or model != nil
+    assign has_media = true
+  endif
+-%}
+
+<section class="hero{% if has_media %} hero--media{% endif %}" aria-labelledby="Hero-{{ section.id }}" style="--ambiance: {{ section.settings.ambiance }};" data-hero>
+  <div class="hero__media" data-hero-media>
+    {%- if model != nil -%}
+      <div class="hero__model" data-hero-model>
+        {{ model | model_viewer_tag: image_size: '1600x', reveal: 'auto', camera-controls: true, interaction-prompt: 'none', shadow-intensity: '0.6', loading: 'eager', disable-zoom: true }}
+      </div>
+    {%- elsif video != blank -%}
+      {%- liquid
+        assign poster = video.preview_image
+        assign best = nil
+        for source in video.sources
+          if source.mime_type == 'video/mp4' and source.height <= 1080
+            if best == nil or source.height > best.height
+              assign best = source
+            endif
+          endif
+        endfor
+      -%}
+      <video
+        class="hero__video{% if section.settings.mobile_use_image and mobile_image != blank %} hero__video--desktop{% endif %}"
+        autoplay muted loop playsinline
+        preload="metadata"
+        {% if poster %}poster="{{ poster | image_url: width: 1920 }}"{% endif %}
+        aria-hidden="true"
+      >
+        {%- for source in video.sources -%}
+          {%- if source.mime_type == 'video/webm' and source.height <= 1080 -%}
+            <source src="{{ source.url }}" type="video/webm">
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if best -%}
+          <source src="{{ best.url }}" type="video/mp4">
+        {%- endif -%}
+      </video>
+      {%- if section.settings.mobile_use_image and mobile_image != blank -%}
+        <script>
+          (function (v) {
+            if (v && window.matchMedia('(max-width: 749px)').matches) v.parentNode.removeChild(v);
+          })(document.currentScript.previousElementSibling);
+        </script>
+        {{
+          mobile_image
+          | image_url: width: 1200
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            widths: '450, 750, 1000, 1200',
+            sizes: '100vw',
+            alt: mobile_image.alt | default: section.settings.image_alt,
+            class: 'hero__image hero__image--mobile'
+        }}
+      {%- endif -%}
+    {%- elsif image != blank -%}
+      {{
+        image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '450, 750, 1000, 1400, 1920, 2400',
+          sizes: '100vw',
+          alt: image.alt | default: section.settings.image_alt,
+          class: 'hero__image'
+      }}
+    {%- else -%}
+      <div class="media-fallback">
+        {%- if request.design_mode -%}
+          <span class="media-fallback__note">{{ 'general.add_media' | t }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="hero__floats" data-hero-floats>
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign float_image = block.settings.image
+          if float_image == blank and block.settings.product != blank
+            assign float_image = block.settings.product.featured_image
+          endif
+          assign float_eager = false
+          if forloop.first
+            assign float_eager = true
+          endif
+          assign float_delay = forloop.index0 | times: -1.3
+          assign float_duration = forloop.index0 | modulo: 3 | plus: 6.5
+          capture float_style
+            echo '--x: ' | append: block.settings.x | append: '; --y: ' | append: block.settings.y | append: '; --w: ' | append: block.settings.width | append: '; --wm: ' | append: block.settings.width_mobile | append: ';'
+          endcapture
+        -%}
+        <div class="hero__float hero__float--{{ block.settings.layer }}" style="{{ float_style }}" {{ block.shopify_attributes }}>
+          {% render 'floating-object',
+            image: float_image,
+            label: block.settings.label,
+            alt: block.settings.label,
+            depth: block.settings.depth,
+            rotation: block.settings.rotation,
+            delay: float_delay,
+            duration: float_duration,
+            eager: float_eager,
+            sizes: '(min-width: 990px) 45vw, 80vw'
+          %}
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  <div class="page-width hero__content">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="eyebrow hero__eyebrow">{% render 'tokens', text: section.settings.eyebrow, escape: true %}</p>
+    {%- endif -%}
+    <h1 id="Hero-{{ section.id }}" class="hero__title" data-split>
+      {%- render 'tokens', text: section.settings.heading, escape: true -%}
+      {%- if settings.show_price_claim and settings.claim_savings != blank -%}
+        , {{ settings.claim_savings | escape }}.
+      {%- elsif section.settings.heading_end != blank -%}
+        , {% render 'tokens', text: section.settings.heading_end, escape: true %}.
+      {%- endif -%}
+    </h1>
+    <div class="hero__bottom">
+      {%- if section.settings.text != blank -%}
+        <div class="hero__text">{% render 'tokens', text: section.settings.text %}</div>
+      {%- endif -%}
+      <div class="hero__buttons">
+        {%- if section.settings.button_1_label != blank -%}
+          <a class="button button--primary" href="{{ url_1 }}" data-magnetic>{% render 'tokens', text: section.settings.button_1_label, escape: true %}</a>
+        {%- endif -%}
+        {%- if section.settings.button_2_label != blank -%}
+          <a class="button button--secondary" href="{{ url_2 }}" data-magnetic>{% render 'tokens', text: section.settings.button_2_label, escape: true %}</a>
+        {%- endif -%}
+      </div>
+    </div>
+    {%- if settings.show_price_claim and settings.claim_savings != blank and settings.claim_savings_note != blank and settings.claim_savings_date != blank -%}
+      <p class="hero__note">{{ settings.claim_savings_note | escape }}, {{ settings.claim_savings_date | escape }}.</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{%- if model != nil -%}
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      if (window.Shopify && Shopify.loadFeatures) {
+        Shopify.loadFeatures([{ name: 'model-viewer-ui', version: '1.0', onLoad: function () {} }]);
+      }
+    });
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Bannière plein écran",
+  "class": "section-hero",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Ajoute des blocs « Objet flottant » pour faire léviter tes images produits détourées autour du titre. Fond de section : couleur ci-dessous, ou vidéo / photo d'ambiance."
+    },
+    {
+      "type": "header",
+      "content": "Fond"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Vidéo d'ambiance (facultatif)",
+      "info": "Reformer en studio, en boucle, sans son. MP4 (H.264), 1080p maximum, 3 Mo maximum, 8 à 15 secondes. Son image d'aperçu sert d'image de remplacement."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Photo de fond (facultatif)",
+      "info": "2400 px de large conseillés, lumière naturelle."
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_use_image",
+      "label": "Sur mobile, afficher une photo à la place de la vidéo",
+      "default": true,
+      "info": "Plus rapide sur réseau mobile."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Photo pour mobile (format portrait)",
+      "info": "1200 × 1600 px conseillés. Sans photo mobile, la photo principale est utilisée."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Texte alternatif de la photo",
+      "default": "Reformer Pilates dans un studio baigné de lumière naturelle",
+      "info": "Utilisé si la photo n'a pas déjà de texte alternatif dans Shopify."
+    },
+    {
+      "type": "color",
+      "id": "ambiance",
+      "label": "Couleur du fond",
+      "default": "#E6D8C3",
+      "info": "Visible quand aucune vidéo ni photo de fond n'est choisie : c'est le fond idéal pour des objets flottants."
+    },
+    {
+      "type": "header",
+      "content": "Modèle 3D (facultatif)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_3d",
+      "label": "Afficher le modèle 3D du produit phare",
+      "default": false,
+      "info": "Remplace la vidéo si le produit choisi contient un modèle 3D (fichier GLB ajouté dans ses médias). Il pivote doucement au défilement et se manipule au doigt ou à la souris."
+    },
+    {
+      "type": "product",
+      "id": "model_product",
+      "label": "Produit phare"
+    },
+    {
+      "type": "header",
+      "content": "Textes"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Petit libellé au-dessus du titre",
+      "default": "Reformers, Cadillac et chaises"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Équipement Pilates de qualité studio"
+    },
+    {
+      "type": "text",
+      "id": "heading_end",
+      "label": "Fin du titre (sans argument de prix)",
+      "default": "prix affichés",
+      "info": "Affichée après une virgule quand l'argument de prix est désactivé dans Paramètres du thème > Promesses."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texte",
+      "default": "<p>Importés directement de l'usine, sans distributeur intermédiaire. Garantie [GARANTIE]. Livraison et montage inclus.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Bouton principal : texte",
+      "default": "Équiper mon studio"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Bouton principal : lien",
+      "info": "Par défaut : la collection Packs studio."
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Bouton secondaire : texte",
+      "default": "Voir la gamme"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Bouton secondaire : lien",
+      "info": "Par défaut : la collection Machines."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "floating",
+      "name": "Objet flottant",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image détourée",
+          "info": "PNG ou WebP à fond transparent, 2000 px de large, 400 Ko maximum."
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Ou produit (photo principale)",
+          "info": "Utilisé si aucune image n'est choisie ci-dessus."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Description de l'image",
+          "default": "Reformer Studio Érable",
+          "info": "Texte alternatif pour les personnes malvoyantes et Google, et nom de l'emplacement dans l'éditeur."
+        },
+        { "type": "range", "id": "x", "label": "Position horizontale", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 65 },
+        { "type": "range", "id": "y", "label": "Position verticale", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 45 },
+        { "type": "range", "id": "width", "label": "Taille sur ordinateur", "min": 6, "max": 70, "step": 1, "unit": "%", "default": 40 },
+        { "type": "range", "id": "width_mobile", "label": "Taille sur mobile", "min": 15, "max": 100, "step": 1, "unit": "%", "default": 70 },
+        { "type": "range", "id": "depth", "label": "Profondeur (parallaxe)", "min": 0, "max": 10, "step": 1, "default": 5, "info": "Plus la valeur est haute, plus l'objet bouge au défilement et à la souris." },
+        { "type": "range", "id": "rotation", "label": "Inclinaison", "min": -30, "max": 30, "step": 1, "unit": "°", "default": -4 },
+        {
+          "type": "select",
+          "id": "layer",
+          "label": "Plan",
+          "options": [
+            { "value": "back", "label": "Derrière le texte" },
+            { "value": "front", "label": "Devant le texte" }
+          ],
+          "default": "back"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bannière plein écran",
+      "blocks": [
+        { "type": "floating", "settings": { "label": "Reformer Studio Érable", "x": 64, "y": 46, "width": 46, "width_mobile": 92, "depth": 4, "rotation": -4 } },
+        { "type": "floating", "settings": { "label": "Chaise Pilates", "x": 88, "y": 20, "width": 15, "width_mobile": 34, "depth": 8, "rotation": 8 } },
+        { "type": "floating", "settings": { "label": "Box et planche de saut", "x": 38, "y": 16, "width": 13, "width_mobile": 30, "depth": 7, "rotation": -10 } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,109 @@
+{{ 'section-comparison.css' | asset_url | stylesheet_tag }}
+
+
+<section class="section comparison{% if section.settings.background == 'surface' %} section--surface{% endif %}" aria-labelledby="Comparison-{{ section.id }}">
+  <div class="page-width">
+    <div class="section-header section-header--center">
+      <div>
+        <h2 id="Comparison-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
+        {%- if section.settings.text != blank -%}
+          <div class="section-text">{% render 'tokens', text: section.settings.text %}</div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="comparison__table-wrap">
+      <table class="comparison__table">
+        <caption class="visually-hidden">{% render 'tokens', text: section.settings.heading, escape: true %}</caption>
+        <thead>
+          <tr>
+            <td></td>
+            <th scope="col" class="comparison__col comparison__col--before">{% render 'tokens', text: section.settings.before_label, escape: true %}</th>
+            <th scope="col" class="comparison__col comparison__col--after">{% render 'tokens', text: section.settings.after_label, escape: true %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            <tr {{ block.shopify_attributes }}>
+              <th scope="row" class="comparison__label">{% render 'tokens', text: block.settings.label, escape: true %}</th>
+              <td class="comparison__before">
+                <span class="comparison__mobile-label">{% render 'tokens', text: section.settings.before_label, escape: true %}</span>
+                <span class="comparison__value">{% render 'icon', name: 'cross' %}<span>{% render 'tokens', text: block.settings.before, escape: true %}</span></span>
+              </td>
+              <td class="comparison__after">
+                <span class="comparison__mobile-label">{% render 'tokens', text: section.settings.after_label, escape: true %}</span>
+                <span class="comparison__value">{% render 'icon', name: 'check' %}<span>{% render 'tokens', text: block.settings.after, escape: true %}</span></span>
+              </td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Avant / Avec",
+  "class": "section-comparison",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Le circuit classique ou Ressaline",
+      "info": "Marqueurs possibles : [NOM DE MARQUE], [GARANTIE], [PIECES]."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texte"
+    },
+    {
+      "type": "text",
+      "id": "before_label",
+      "label": "Titre de la colonne « Avant »",
+      "default": "Circuit classique"
+    },
+    {
+      "type": "text",
+      "id": "after_label",
+      "label": "Titre de la colonne « Avec »",
+      "default": "Avec Ressaline"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Fond",
+      "options": [
+        { "value": "default", "label": "Blanc cassé" },
+        { "value": "surface", "label": "Beige" }
+      ],
+      "default": "default"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Ligne",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Critère", "default": "Critère" },
+        { "type": "text", "id": "before", "label": "Avant", "default": "Ancienne situation" },
+        { "type": "text", "id": "after", "label": "Avec", "default": "Nouvelle situation" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Avant / Avec",
+      "blocks": [
+        { "type": "row", "settings": { "label": "Prix", "before": "Un ou plusieurs intermédiaires entre l'usine et vous", "after": "Importé directement de l'usine, sans distributeur intermédiaire" } },
+        { "type": "row", "settings": { "label": "Délai", "before": "Devis et allers-retours avant même de commander", "after": "Prix affichés, commande en ligne, délai annoncé sur chaque fiche" } },
+        { "type": "row", "settings": { "label": "SAV", "before": "Interlocuteurs multiples", "after": "Un contact direct, garantie [GARANTIE]" } },
+        { "type": "row", "settings": { "label": "Pièces", "before": "Disponibilité variable selon le revendeur", "after": "[PIECES]" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

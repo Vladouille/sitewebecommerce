@@ -1,0 +1,33 @@
+{%- comment -%}
+  Volontairement, aucun prix barré n'est affiché : un prix de référence barré doit
+  correspondre au prix le plus bas pratiqué dans les 30 jours précédents (Code de la consommation).
+  Affiche un prix TTC et son équivalent HT.
+  Les prix sont saisis TTC dans Shopify. HT = TTC ÷ (1 + taux de TVA du thème).
+  Paramètres :
+  - price (obligatoire) : montant TTC en centimes
+  - size : 'large' pour la fiche produit
+  - prefix : texte avant le prix (ex. « À partir de »)
+{%- endcomment -%}
+{%- liquid
+  assign vat_factor = settings.vat_rate | divided_by: 100.0 | plus: 1
+  assign price_ht = price | divided_by: vat_factor | round
+-%}
+<div class="price{% if size == 'large' %} price--large{% endif %}" data-price>
+  {%- if settings.price_primary == 'ht' -%}
+    <span class="price__main">
+      {%- if prefix != blank %}<span class="price__prefix">{{ prefix }}</span> {% endif -%}
+      <span data-price-ht>{{ price_ht | money }}</span>&nbsp;<span class="price__label">{{ settings.label_ht }}</span>
+    </span>
+    <span class="price__secondary">
+      <span data-price-ttc>{{ price | money }}</span>&nbsp;{{ settings.label_ttc }}
+    </span>
+  {%- else -%}
+    <span class="price__main">
+      {%- if prefix != blank %}<span class="price__prefix">{{ prefix }}</span> {% endif -%}
+      <span data-price-ttc>{{ price | money }}</span>&nbsp;<span class="price__label">{{ settings.label_ttc }}</span>
+    </span>
+    <span class="price__secondary">
+      <span data-price-ht>{{ price_ht | money }}</span>&nbsp;{{ settings.label_ht }}
+    </span>
+  {%- endif -%}
+</div>

@@ -1,0 +1,146 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": false
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "heading": "Questions fréquentes",
+        "heading_level": "h1",
+        "background": "default"
+      },
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question": "Quel est le délai de livraison ?",
+            "answer": "<p>Le délai est indiqué sur chaque fiche produit. Les pièces et accessoires en stock partent rapidement. Les machines fabriquées à la commande sont livrées dans le délai annoncé sur la fiche.</p>"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "La livraison et le montage sont-ils vraiment inclus ?",
+            "answer": "<p>Oui, en France métropolitaine. Nous livrons et montons vos machines dans votre studio. Hors France métropolitaine, contactez-nous avant de commander.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "Livrez-vous hors de France métropolitaine ?",
+            "answer": "<p>Contactez-nous avant de commander : nous vous indiquons si la livraison est possible et à quel prix.</p>"
+          }
+        },
+        "question_4": {
+          "type": "question",
+          "settings": {
+            "question": "Comment fonctionne la garantie ?",
+            "answer": "<p>Les machines sont garanties [GARANTIE], selon les conditions détaillées sur la page <a href=\"/pages/garantie-et-pieces-de-rechange\">Garantie et pièces de rechange</a>. En cas de problème, contactez-nous : nous identifions la pièce en cause et organisons son remplacement.</p>"
+          }
+        },
+        "question_5": {
+          "type": "question",
+          "settings": {
+            "question": "Comment commander des pièces de rechange ?",
+            "answer": "<p>Les pièces courantes sont en vente dans la collection Accessoires et pièces. Pour une pièce qui n'y figure pas, appelez-nous avec la référence de votre machine.</p>"
+          }
+        },
+        "question_6": {
+          "type": "question",
+          "settings": {
+            "question": "Les prix sont-ils HT ou TTC ?",
+            "answer": "<p>Les deux sont affichés. Vous payez le prix TTC. Si vous êtes assujetti à la TVA, vous la récupérez comme d'habitude grâce à la facture.</p>"
+          }
+        },
+        "question_7": {
+          "type": "question",
+          "settings": {
+            "question": "Recevrai-je une facture au nom de mon entreprise ?",
+            "answer": "<p>Oui. Indiquez votre raison sociale lors de la commande : la facture est établie à son nom, avec la TVA détaillée.</p>"
+          }
+        },
+        "question_8": {
+          "type": "question",
+          "settings": {
+            "question": "Y a-t-il des remises si j'achète plusieurs machines ?",
+            "answer": "<p>Oui. Les remises par quantité sont indiquées sur chaque fiche produit et s'appliquent automatiquement dans le panier.</p>"
+          }
+        },
+        "question_9": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je payer en plusieurs fois ?",
+            "answer": "<p>Oui, pour les professionnels. Contactez-nous pour connaître les modalités adaptées à votre projet.</p>"
+          }
+        },
+        "question_10": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je retourner un produit ?",
+            "answer": "<p>Particuliers : vous disposez d'un droit de rétractation de 14 jours après la livraison, frais de retour à votre charge. Achats professionnels : ils ne bénéficient pas du droit de rétractation. [À FAIRE VALIDER PAR UN JURISTE]</p>"
+          }
+        },
+        "question_11": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je payer par virement ?",
+            "answer": "<p>Oui. Choisissez le virement bancaire au moment du paiement. La commande est lancée en fabrication à réception du virement.</p>"
+          }
+        },
+        "question_12": {
+          "type": "question",
+          "settings": {
+            "question": "Les machines supportent-elles un usage intensif en studio ?",
+            "answer": "<p>L'usage prévu (studio commercial ou domicile) est indiqué dans les caractéristiques techniques de chaque fiche produit.</p>"
+          }
+        },
+        "question_13": {
+          "type": "question",
+          "settings": {
+            "question": "Comment commander une pièce qui n'est pas en ligne ?",
+            "answer": "<p>Appelez-nous ou écrivez-nous avec la référence de votre machine : nous vous indiquons le délai et le prix.</p>"
+          }
+        },
+        "question_14": {
+          "type": "question",
+          "settings": {
+            "question": "Je suis un particulier, puis-je commander ?",
+            "answer": "<p>Oui. Le site est ouvert à tous : prix affichés, paiement en ligne, livraison et montage inclus en France métropolitaine. Vous bénéficiez du droit de rétractation de 14 jours (frais de retour à votre charge). [À FAIRE VALIDER PAR UN JURISTE]</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3",
+        "question_4",
+        "question_5",
+        "question_6",
+        "question_7",
+        "question_8",
+        "question_9",
+        "question_10",
+        "question_11",
+        "question_12",
+        "question_13",
+        "question_14"
+      ]
+    },
+    "contact": {
+      "type": "contact-cta",
+      "settings": {
+        "heading": "Une question avant de commander ? Appelez-nous.",
+        "text": "<p>Choix des machines, nombre de reformers pour votre surface, délais : nous vous répondons directement.</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "faq",
+    "contact"
+  ]
+}

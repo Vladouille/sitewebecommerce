@@ -1,0 +1,31 @@
+{{ 'section-content.css' | asset_url | stylesheet_tag }}
+
+<div class="section content-page">
+  <div class="page-width page-width--narrow">
+    {%- if section.settings.show_title -%}
+      <h1 class="content-page__title">{{ page.title | escape }}</h1>
+    {%- endif -%}
+    {%- if page.content != blank -%}
+      <div class="rte content-page__body">{{ page.content }}</div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contenu de la page",
+  "class": "section-main-page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Afficher le titre de la page",
+      "default": true
+    },
+    {
+      "type": "paragraph",
+      "content": "Le texte saisi dans Boutique en ligne > Pages s'affiche ici. S'il est vide, rien ne s'affiche : les sections suivantes portent alors le contenu."
+    }
+  ]
+}
+{% endschema %}

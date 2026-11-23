@@ -1,0 +1,127 @@
+.comparison__table-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.comparison__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.comparison__table thead {
+  display: none;
+}
+
+.comparison__table tr {
+  display: block;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.comparison__table th,
+.comparison__table td {
+  display: block;
+  text-align: left;
+  padding: 0;
+}
+
+.comparison__label {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 1.35rem;
+  margin-bottom: 0.6rem;
+}
+
+.comparison__before,
+.comparison__after {
+  margin-top: 0.5rem;
+}
+
+.comparison__mobile-label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 0.15rem;
+}
+
+.comparison__value {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.comparison__before {
+  color: var(--color-text-muted);
+}
+
+.comparison__before .icon {
+  color: var(--color-text-muted);
+  margin-top: 0.15rem;
+}
+
+.comparison__after {
+  font-weight: var(--font-body-weight-bold);
+}
+
+.comparison__after .icon {
+  color: var(--color-accent);
+  margin-top: 0.15rem;
+}
+
+@media (min-width: 750px) {
+  .comparison__table thead {
+    display: table-header-group;
+  }
+
+  .comparison__table tr {
+    display: table-row;
+    padding: 0;
+  }
+
+  .comparison__table th,
+  .comparison__table td {
+    display: table-cell;
+    padding: 1.25rem 1rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .comparison__label {
+    font-size: 1.25rem;
+    width: 20%;
+    margin: 0;
+  }
+
+  .comparison__before,
+  .comparison__after {
+    margin: 0;
+    width: 40%;
+  }
+
+  .comparison__mobile-label {
+    display: none;
+  }
+
+  .comparison__col {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: left;
+    color: var(--color-text-muted);
+  }
+
+  .comparison__col--after {
+    color: var(--color-accent);
+  }
+
+  .comparison__after {
+    background: var(--color-bg);
+  }
+
+  .section--surface .comparison__after {
+    background: rgba(255, 255, 255, 0.55);
+  }
+}

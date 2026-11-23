@@ -1,0 +1,66 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": false
+      }
+    },
+    "legal": {
+      "type": "legal-content",
+      "settings": {
+        "heading": "Mentions légales",
+        "updated": "Dernière mise à jour : [DATE]",
+        "warning": "[À FAIRE VALIDER PAR UN JURISTE] Ce texte est un modèle. Il doit être relu et adapté par un professionnel du droit avant la mise en ligne."
+      },
+      "blocks": {
+        "article_1": {
+          "type": "article",
+          "settings": {
+            "heading": "Éditeur du site",
+            "text": "<ul><li>Nom commercial : [NOM DE MARQUE]</li><li>Dénomination et forme juridique : [À COMPLÉTER]</li><li>Capital social : [À COMPLÉTER]</li><li>Siège social : [À COMPLÉTER : adresse]</li><li>SIRET : [À COMPLÉTER] – RCS : [À COMPLÉTER]</li><li>TVA intracommunautaire : [À COMPLÉTER]</li><li>Email : [À COMPLÉTER] – Téléphone : [À COMPLÉTER]</li><li>Directeur de la publication : [À COMPLÉTER : prénom et nom]</li></ul>"
+          }
+        },
+        "article_2": {
+          "type": "article",
+          "settings": {
+            "heading": "Hébergement",
+            "text": "<p>Le site est hébergé par Shopify : [À VÉRIFIER : Shopify International Limited, Victoria Buildings, 2e étage, 1-2 Haddington Road, Dublin 4, D04 XN32, Irlande]. Vérifie l'adresse à jour dans les conditions d'utilisation de Shopify.</p>"
+          }
+        },
+        "article_3": {
+          "type": "article",
+          "settings": {
+            "heading": "Propriété intellectuelle",
+            "text": "<p>Le nom [NOM DE MARQUE], le logo, les textes, photos et vidéos du site sont protégés. Toute reproduction sans autorisation écrite est interdite.</p>"
+          }
+        },
+        "article_4": {
+          "type": "article",
+          "settings": {
+            "heading": "Données personnelles et cookies",
+            "text": "<p>Le traitement des données personnelles et l'utilisation des cookies sont décrits dans notre politique de confidentialité. Vous pouvez gérer vos choix de cookies à tout moment via le bandeau de consentement.</p>"
+          }
+        },
+        "article_5": {
+          "type": "article",
+          "settings": {
+            "heading": "Responsabilité",
+            "text": "<p>L'éditeur s'efforce de fournir des informations exactes et à jour mais ne peut garantir l'absence d'erreurs. Signalez-nous toute erreur par email.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "article_1",
+        "article_2",
+        "article_3",
+        "article_4",
+        "article_5"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "legal"
+  ]
+}

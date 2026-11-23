@@ -1,0 +1,234 @@
+.announcement-bar {
+  background: var(--color-dark);
+  color: var(--color-dark-text);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.announcement-bar__inner {
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  text-align: center;
+}
+
+.announcement-bar__text {
+  margin: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* En-tête minimal */
+.header {
+  position: relative;
+  z-index: 60;
+  background: var(--color-bg);
+  transition: transform 0.45s var(--ease-out);
+}
+
+.header--sticky {
+  position: sticky;
+  top: 0;
+}
+
+.header.is-hidden {
+  transform: translateY(-100%);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4.25rem;
+}
+
+.header__logo {
+  min-width: 0;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.header__logo-image {
+  width: var(--logo-width);
+  max-width: 40vw;
+  height: auto;
+}
+
+.header__logo-text {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-variation-settings: var(--font-heading-variation);
+  font-size: 1.6rem;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.header__phone,
+.header__cart {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  justify-content: center;
+  padding: 0 0.4rem;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.header__phone-number {
+  display: none;
+}
+
+@media (min-width: 750px) {
+  .header__phone-number {
+    display: inline;
+  }
+}
+
+.header__cart-count {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.1rem;
+  min-width: 1.1rem;
+  height: 1.1rem;
+  padding: 0 0.25rem;
+  border-radius: 999px;
+  background: var(--color-buy);
+  color: var(--color-buy-text);
+  font-size: 0.65rem;
+  line-height: 1.1rem;
+  text-align: center;
+}
+
+/* Bouton MENU */
+.menu-toggle {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  margin-left: 0.5rem;
+  padding: 0 1.1rem;
+  border: 1px solid var(--color-text);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: var(--font-body-weight-bold);
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  list-style: none;
+  background: var(--color-bg);
+}
+
+.menu-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.menu-toggle__close,
+.menu-overlay[open] .menu-toggle__open {
+  display: none;
+}
+
+.menu-overlay[open] .menu-toggle__close {
+  display: inline;
+}
+
+/* Menu plein écran : liens géants, entrée en cascade */
+.menu-overlay__panel {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  padding: 6rem 0 2rem;
+  background: var(--color-surface);
+  overflow-y: auto;
+}
+
+.menu-overlay[open] .menu-overlay__panel {
+  animation: menu-in 0.5s var(--ease-out) both;
+}
+
+.menu-overlay__inner {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.menu-overlay__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-overlay__list li {
+  overflow: hidden;
+}
+
+.menu-overlay__link {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-variation-settings: var(--font-heading-variation);
+  font-size: clamp(2.1rem, 6vw, 4.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  padding: 0.08em 0;
+  transition: transform 0.35s var(--ease-out), opacity 0.25s ease;
+}
+
+.menu-overlay[open] .menu-overlay__link {
+  animation: menu-link-in 0.7s var(--ease-out) both;
+  animation-delay: calc(0.08s + var(--i, 0) * 0.06s);
+}
+
+@media (hover: hover) {
+  .menu-overlay__list:hover .menu-overlay__link {
+    opacity: 0.35;
+  }
+
+  .menu-overlay__list .menu-overlay__link:hover {
+    opacity: 1;
+    transform: translateX(0.12em);
+  }
+}
+
+.menu-overlay__link.is-active {
+  font-style: italic;
+}
+
+.menu-overlay__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.menu-overlay__footer a {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+@keyframes menu-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes menu-link-in {
+  from { transform: translateY(105%); }
+  to { transform: none; }
+}

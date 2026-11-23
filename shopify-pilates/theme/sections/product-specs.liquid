@@ -1,0 +1,70 @@
+{%- comment -%}
+  Caractéristiques techniques, alimentées par les metafields produit (namespace custom).
+  Chaque ligne vide est masquée. Si toutes sont vides, la section entière est masquée.
+{%- endcomment -%}
+{%- liquid
+  assign mf = product.metafields.custom
+  assign keys = 'dimensions,poids,charge_max,materiaux,ressorts,usage,garantie' | split: ','
+  assign has_specs = false
+  for key in keys
+    if mf[key].value != blank
+      assign has_specs = true
+      break
+    endif
+  endfor
+-%}
+{%- if has_specs -%}
+  {{ 'section-product-specs.css' | asset_url | stylesheet_tag }}
+  <section class="section product-specs{% if section.settings.background == 'surface' %} section--surface{% endif %}" aria-labelledby="Specs-{{ section.id }}">
+    <div class="page-width page-width--narrow">
+      <h2 id="Specs-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
+      <table class="specs">
+        <tbody>
+          {%- for key in keys -%}
+            {%- assign field = mf[key] -%}
+            {%- if field.value != blank -%}
+              {%- assign label_id = 'label_' | append: key -%}
+              <tr>
+                <th scope="row">{{ section.settings[label_id] | escape }}</th>
+                <td>{% render 'metafield-text', field: field %}</td>
+              </tr>
+            {%- endif -%}
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Caractéristiques",
+  "class": "section-product-specs",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Les valeurs viennent des metafields produit custom.dimensions, poids, charge_max, materiaux, ressorts, usage et garantie. Une ligne vide est masquée."
+    },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Caractéristiques techniques" },
+    { "type": "text", "id": "label_dimensions", "label": "Libellé : dimensions", "default": "Dimensions" },
+    { "type": "text", "id": "label_poids", "label": "Libellé : poids", "default": "Poids" },
+    { "type": "text", "id": "label_charge_max", "label": "Libellé : charge maximale", "default": "Charge maximale" },
+    { "type": "text", "id": "label_materiaux", "label": "Libellé : matériaux", "default": "Matériaux" },
+    { "type": "text", "id": "label_ressorts", "label": "Libellé : ressorts", "default": "Ressorts" },
+    { "type": "text", "id": "label_usage", "label": "Libellé : usage", "default": "Usage" },
+    { "type": "text", "id": "label_garantie", "label": "Libellé : garantie", "default": "Garantie" },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Fond",
+      "options": [
+        { "value": "default", "label": "Blanc cassé" },
+        { "value": "surface", "label": "Beige" }
+      ],
+      "default": "surface"
+    }
+  ],
+  "presets": [{ "name": "Caractéristiques" }],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}

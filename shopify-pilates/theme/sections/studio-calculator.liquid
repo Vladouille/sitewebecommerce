@@ -1,0 +1,237 @@
+{%- comment -%}
+  Calculateur de studio : le visiteur choisit une machine et un nombre de postes.
+  Lit les produits d'une collection choisie dans l'éditeur, leur prix Shopify,
+  leurs paliers de remise (metafield custom.paliers_quantite) et leur délai (custom.delai_livraison).
+  Le bouton ajoute réellement la machine et la quantité au panier. Le montant exact est calculé au panier.
+{%- endcomment -%}
+{{ 'section-studio-calculator.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign source = section.settings.collection
+  if source == blank and section.settings.collection_handle != blank
+    assign source = collections[section.settings.collection_handle]
+  endif
+  assign vat_rate = settings.vat_rate
+-%}
+
+{%- if source != blank and source.products_count > 0 -%}
+  {%- assign first = nil -%}
+  <section class="section calculator{% if section.settings.background == 'surface' %} section--surface{% endif %}" aria-labelledby="Calc-{{ section.id }}" data-calculator data-vat="{{ vat_rate }}" data-currency="{{ cart.currency.iso_code }}">
+    <div class="page-width">
+      <div class="section-header section-header--center">
+        <div>
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="eyebrow">{% render 'tokens', text: section.settings.eyebrow, escape: true %}</p>
+          {%- endif -%}
+          <h2 id="Calc-{{ section.id }}" class="section-heading" data-split>{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
+          {%- if section.settings.text != blank -%}
+            <div class="section-text">{% render 'tokens', text: section.settings.text %}</div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- form 'product', source.products.first, class: 'calculator__form' -%}
+        <div class="calculator__inputs">
+          <div class="calculator__field">
+            <label for="CalcProduct-{{ section.id }}">{{ 'sections.calculator.machine' | t }}</label>
+            <div class="select">
+              <select id="CalcProduct-{{ section.id }}" name="id" class="select__input" data-calc-product>
+                {%- for item in source.products limit: 50 -%}
+                  {%- if item.available -%}
+                    {%- liquid
+                      assign v = item.selected_or_first_available_variant
+                      if first == nil
+                        assign first = item
+                      endif
+                      if item.handle == section.settings.default_product_handle
+                        assign first = item
+                      endif
+                    -%}
+                    <option
+                      value="{{ v.id }}"
+                      {% if item.handle == section.settings.default_product_handle %}selected{% endif %}
+                      data-price="{{ v.price }}"
+                      data-title="{{ item.title | escape }}"
+                      data-url="{{ item.url }}"
+                      data-delay="{{ item.metafields.custom.delai_livraison.value | default: settings.default_delivery | escape }}"
+                      data-tiers="{{ item.metafields.custom.paliers_quantite.value | json | escape }}"
+                    >
+                      {{- item.title | escape }} — {{ v.price | money }} {{ settings.label_ttc -}}
+                    </option>
+                  {%- endif -%}
+                {%- endfor -%}
+              </select>
+              {% render 'icon', name: 'chevron', class: 'select__icon' %}
+            </div>
+          </div>
+
+          <div class="calculator__field">
+            <label for="CalcQty-{{ section.id }}">
+              {{ 'sections.calculator.quantity' | t }} <output class="calculator__qty" data-calc-qty-out for="CalcQty-{{ section.id }}">{{ section.settings.default_qty }}</output>
+            </label>
+            <input id="CalcQty-{{ section.id }}" class="calculator__range" type="range" name="quantity" min="1" max="{{ section.settings.max_qty }}" value="{{ section.settings.default_qty }}" data-calc-qty>
+          </div>
+
+          <ul class="calculator__tiers" role="list" data-calc-tiers></ul>
+        </div>
+
+        <div class="calculator__result" aria-live="polite">
+          <p class="calculator__label">{{ 'sections.calculator.total' | t }}</p>
+          <p class="calculator__total" data-calc-total><span data-calc-total-value>—</span> <span class="calculator__total-label">{{ settings.label_ttc }}</span></p>
+          <p class="calculator__ht" data-calc-ht></p>
+          <p class="calculator__save" data-calc-save></p>
+          <p class="badge-delivery calculator__delay" data-calc-delay hidden>
+            {% render 'icon', name: 'truck' %}<span></span>
+          </p>
+          <button type="submit" class="button button--buy button--full button--large">{{ 'sections.calculator.add' | t }}</button>
+          <a class="calculator__link" href="{{ first.url | default: source.url }}" data-calc-link>{{ 'sections.calculator.see_product' | t }}</a>
+          {%- if section.settings.note != blank -%}
+            <p class="calculator__note">{% render 'tokens', text: section.settings.note, escape: true %}</p>
+          {%- endif -%}
+        </div>
+      {%- endform -%}
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var root = document.currentScript.previousElementSibling;
+      if (!root || !root.hasAttribute('data-calculator')) return;
+      var vat = parseFloat(root.dataset.vat) || 0;
+      var money = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: root.dataset.currency || 'EUR' });
+      var select = root.querySelector('[data-calc-product]');
+      var qty = root.querySelector('[data-calc-qty]');
+      var t = {
+        base: {{ 'sections.calculator.base_price' | t | json }},
+        range: {{ 'sections.calculator.tier_range' | t: min: '{min}', max: '{max}' | json }},
+        more: {{ 'sections.calculator.tier_more' | t: min: '{min}' | json }},
+        perUnit: {{ 'sections.calculator.per_unit' | t: price: '{price}' | json }},
+        save: {{ 'sections.calculator.save' | t: amount: '{amount}' | json }},
+        from: {{ 'sections.calculator.discount_from' | t: min: '{min}' | json }},
+        none: {{ 'sections.calculator.no_discount' | t | json }},
+        ttc: {{ settings.label_ttc | json }},
+        ht: {{ settings.label_ht | json }}
+      };
+      var fill = function (s, o) { return s.replace(/\{(\w+)\}/g, function (m, k) { return k in o ? o[k] : m; }); };
+
+      // Le total défile jusqu'à la nouvelle valeur (instantané si « moins de mouvement »)
+      var totalEl = root.querySelector('[data-calc-total-value]');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var shown = null, raf = null;
+      function tween(target) {
+        if (raf) cancelAnimationFrame(raf);
+        if (reduce || shown === null) { shown = target; totalEl.textContent = money.format(target); return; }
+        var from = shown, start = performance.now(), dur = 650;
+        (function frame(now) {
+          var p = Math.min(1, (now - start) / dur), e = 1 - Math.pow(1 - p, 3);
+          shown = from + (target - from) * e;
+          totalEl.textContent = money.format(shown);
+          if (p < 1) raf = requestAnimationFrame(frame);
+          else { shown = target; totalEl.textContent = money.format(target); }
+        })(start);
+        totalEl.parentNode.classList.remove('is-bump');
+        void totalEl.parentNode.offsetWidth;
+        totalEl.parentNode.classList.add('is-bump');
+      }
+
+      function update() {
+        var opt = select.options[select.selectedIndex];
+        if (!opt) return;
+        var price = parseInt(opt.dataset.price, 10) / 100;
+        var q = parseInt(qty.value, 10) || 1;
+        var tiers = [];
+        try { tiers = JSON.parse(opt.dataset.tiers) || []; } catch (e) { tiers = []; }
+        if (!Array.isArray(tiers)) tiers = [];
+        var tier = { min: 1, remise: 0 }, idx = -1;
+        tiers.forEach(function (tr, i) { if (q >= Number(tr.min)) { tier = tr; idx = i; } });
+        var remise = Number(tier.remise) || 0;
+        var full = price * q, total = full * (1 - remise / 100), totalHt = total / (1 + vat / 100);
+
+        root.querySelector('[data-calc-qty-out]').textContent = q;
+        tween(total);
+        root.querySelector('[data-calc-ht]').textContent = money.format(totalHt) + ' ' + t.ht + ' · ' + fill(t.perUnit, { price: money.format(totalHt / q) + ' ' + t.ht });
+        var save = root.querySelector('[data-calc-save]');
+        if (remise > 0) save.textContent = fill(t.save, { amount: money.format(full - total) + ' ' + t.ttc });
+        else if (tiers.length > 1) save.textContent = fill(t.from, { min: tiers[1].min });
+        else save.textContent = t.none;
+
+        var list = root.querySelector('[data-calc-tiers]');
+        list.innerHTML = '';
+        tiers.forEach(function (tr, i) {
+          var next = tiers[i + 1];
+          var li = document.createElement('li');
+          li.className = 'calculator__tier' + (i === idx ? ' is-active' : '');
+          var b = document.createElement('strong');
+          b.textContent = Number(tr.remise) ? '−' + tr.remise + ' %' : t.base;
+          li.appendChild(b);
+          li.appendChild(document.createTextNode(next ? fill(t.range, { min: tr.min, max: next.min - 1 }) : fill(t.more, { min: tr.min })));
+          list.appendChild(li);
+        });
+
+        var delay = root.querySelector('[data-calc-delay]');
+        delay.hidden = !opt.dataset.delay;
+        delay.querySelector('span').textContent = opt.dataset.delay || '';
+        root.querySelector('[data-calc-link]').href = opt.dataset.url;
+      }
+      select.addEventListener('change', update);
+      qty.addEventListener('input', update);
+      update();
+    })();
+  </script>
+{%- elsif request.design_mode -%}
+  <div class="page-width section"><p class="editor-notice">{{ 'sections.featured_collection.empty_editor' | t }}</p></div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Calculateur de studio",
+  "class": "section-studio-calculator",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Les prix viennent des produits Shopify, les paliers du metafield custom.paliers_quantite et le délai du metafield custom.delai_livraison de chaque produit. Le bouton ajoute la machine au panier."
+    },
+    { "type": "text", "id": "eyebrow", "label": "Petit libellé", "default": "Calculateur" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Combien coûte votre studio ?" },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texte",
+      "default": "<p>Choisissez la machine et le nombre de postes. La remise par quantité s'applique automatiquement au panier.</p>"
+    },
+    { "type": "collection", "id": "collection", "label": "Collection des machines" },
+    {
+      "type": "text",
+      "id": "collection_handle",
+      "label": "Ou identifiant de la collection",
+      "default": "machines"
+    },
+    {
+      "type": "text",
+      "id": "default_product_handle",
+      "label": "Machine sélectionnée au départ (identifiant)",
+      "default": "reformer-studio-erable",
+      "info": "Identifiant (handle) du produit, visible dans son adresse : /products/reformer-studio-erable."
+    },
+    { "type": "range", "id": "default_qty", "label": "Quantité affichée au départ", "min": 1, "max": 12, "step": 1, "default": 4 },
+    { "type": "range", "id": "max_qty", "label": "Quantité maximale", "min": 4, "max": 30, "step": 1, "default": 12 },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Mention sous le bouton",
+      "default": "Estimation. Le montant exact est calculé au panier. Livraison et montage inclus en France métropolitaine."
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Fond",
+      "options": [
+        { "value": "default", "label": "Blanc cassé" },
+        { "value": "surface", "label": "Beige" }
+      ],
+      "default": "surface"
+    }
+  ],
+  "presets": [{ "name": "Calculateur de studio" }]
+}
+{% endschema %}

@@ -1,0 +1,306 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "mobile_use_image": true,
+        "image_alt": "Reformer Pilates dans un studio baigné de lumière naturelle",
+        "ambiance": "#E6D8C3",
+        "show_3d": false,
+        "eyebrow": "Reformers, Cadillac et chaises",
+        "heading": "Équipement Pilates de qualité studio",
+        "heading_end": "prix affichés",
+        "text": "<p>Importés directement de l'usine, sans distributeur intermédiaire. Garantie [GARANTIE]. Livraison et montage inclus.</p>",
+        "button_1_label": "Équiper mon studio",
+        "button_1_link": "/collections/packs-studio",
+        "button_2_label": "Voir la gamme",
+        "button_2_link": "/collections/machines"
+      },
+      "blocks": {
+        "floating_1": {
+          "type": "floating",
+          "settings": {
+            "label": "Reformer Studio Érable",
+            "x": 66,
+            "y": 44,
+            "width": 46,
+            "width_mobile": 92,
+            "depth": 4,
+            "rotation": -4,
+            "layer": "back"
+          }
+        },
+        "floating_2": {
+          "type": "floating",
+          "settings": {
+            "label": "Chaise Pilates",
+            "x": 90,
+            "y": 16,
+            "width": 14,
+            "width_mobile": 32,
+            "depth": 8,
+            "rotation": 8,
+            "layer": "back"
+          }
+        },
+        "floating_3": {
+          "type": "floating",
+          "settings": {
+            "label": "Box et planche de saut",
+            "x": 40,
+            "y": 14,
+            "width": 12,
+            "width_mobile": 28,
+            "depth": 7,
+            "rotation": -10,
+            "layer": "back"
+          }
+        }
+      },
+      "block_order": [
+        "floating_1",
+        "floating_2",
+        "floating_3"
+      ]
+    },
+    "range": {
+      "type": "range-story",
+      "settings": {
+        "eyebrow": "La gamme",
+        "heading": "Une machine, une ambiance.",
+        "hint": "Scroller pour découvrir",
+        "collection_handle": "machines",
+        "limit": 3,
+        "button_label": "Voir la machine",
+        "label_dimensions": "Dimensions",
+        "label_weight": "Poids",
+        "label_load": "Charge maximale"
+      }
+    },
+    "strike": {
+      "type": "strike-list",
+      "settings": {
+        "eyebrow": "Avant / avec [NOM DE MARQUE]",
+        "heading": "On a rayé ce qui compliquait tout.",
+        "background": "surface"
+      },
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Commande",
+            "before": "Devis et allers-retours",
+            "after": "Prix affichés"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Service",
+            "before": "Interlocuteurs multiples",
+            "after": "Un contact direct"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Achat",
+            "before": "Un ou plusieurs intermédiaires",
+            "after": "Importé directement de l'usine"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Installation",
+            "before": "Montage à organiser soi-même",
+            "after": "Livraison et montage inclus"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Délai",
+            "before": "Délai découvert après la commande",
+            "after": "Délai annoncé sur chaque fiche"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5"
+      ]
+    },
+    "packs": {
+      "type": "featured-collection",
+      "settings": {
+        "style": "large",
+        "eyebrow": "Packs studio",
+        "heading": "Un studio entier, en une commande.",
+        "text": "<p>Les machines et les accessoires, livrés et montés en une seule fois.</p>",
+        "collection_handle": "packs-studio",
+        "limit": 3,
+        "columns": "3",
+        "show_view_all": true,
+        "view_all_label": "Tous les packs",
+        "background": "default"
+      }
+    },
+    "calculator": {
+      "type": "studio-calculator",
+      "settings": {
+        "eyebrow": "Calculateur",
+        "heading": "Combien coûte votre studio ?",
+        "text": "<p>Choisissez la machine et le nombre de postes. La remise par quantité s'applique automatiquement au panier.</p>",
+        "collection_handle": "machines",
+        "default_product_handle": "reformer-studio-erable",
+        "default_qty": 4,
+        "max_qty": 12,
+        "note": "Estimation. Le montant exact est calculé au panier. Livraison et montage inclus en France métropolitaine.",
+        "background": "surface"
+      }
+    },
+    "guarantee": {
+      "type": "guarantee",
+      "settings": {
+        "eyebrow": "Garantie et service après-vente",
+        "heading": "Garantie [GARANTIE] et service après-vente",
+        "text": "<p>Un studio ne peut pas se permettre une machine à l'arrêt. Un interlocuteur vous répond directement et suit votre demande jusqu'à la remise en service. Ce qui est couvert est détaillé dans les conditions de garantie.</p>",
+        "button_label": "Lire les conditions de garantie",
+        "button_link": "/pages/garantie-et-pieces-de-rechange",
+        "background": "default"
+      },
+      "blocks": {
+        "point_1": {
+          "type": "point",
+          "settings": {
+            "text": "Machines garanties [GARANTIE], selon les conditions de garantie"
+          }
+        },
+        "point_2": {
+          "type": "point",
+          "settings": {
+            "text": "[PIECES]"
+          }
+        },
+        "point_3": {
+          "type": "point",
+          "settings": {
+            "text": "Un interlocuteur unique pour le SAV"
+          }
+        },
+        "point_4": {
+          "type": "point",
+          "settings": {
+            "text": "Livraison et montage inclus en France métropolitaine"
+          }
+        }
+      },
+      "block_order": [
+        "point_1",
+        "point_2",
+        "point_3",
+        "point_4"
+      ]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "heading": "Ils ont équipé leur studio"
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "eyebrow": "Questions fréquentes",
+        "heading": "Vos questions, nos réponses.",
+        "heading_level": "h2",
+        "background": "surface"
+      },
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question": "Quel est le délai de livraison ?",
+            "answer": "<p>Le délai est indiqué sur chaque fiche produit. Les pièces et accessoires en stock partent rapidement. Les machines fabriquées à la commande sont livrées dans le délai annoncé sur la fiche.</p>"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "La livraison et le montage sont-ils vraiment inclus ?",
+            "answer": "<p>Oui, en France métropolitaine. Nous livrons et montons vos machines dans votre studio. Hors France métropolitaine, contactez-nous avant de commander.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "Comment fonctionne la garantie ?",
+            "answer": "<p>Les machines sont garanties [GARANTIE], selon les conditions détaillées sur la page <a href=\"/pages/garantie-et-pieces-de-rechange\">Garantie et pièces de rechange</a>. En cas de problème, contactez-nous : nous identifions la pièce en cause et organisons son remplacement.</p>"
+          }
+        },
+        "question_4": {
+          "type": "question",
+          "settings": {
+            "question": "Les prix sont-ils HT ou TTC ?",
+            "answer": "<p>Les deux sont affichés. Vous payez le prix TTC. Si vous êtes assujetti à la TVA, vous la récupérez comme d'habitude grâce à la facture.</p>"
+          }
+        },
+        "question_5": {
+          "type": "question",
+          "settings": {
+            "question": "Y a-t-il des remises si j'achète plusieurs machines ?",
+            "answer": "<p>Oui. Les remises par quantité sont indiquées sur chaque fiche produit et s'appliquent automatiquement dans le panier.</p>"
+          }
+        },
+        "question_6": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je payer en plusieurs fois ?",
+            "answer": "<p>Oui, pour les professionnels. Contactez-nous pour connaître les modalités adaptées à votre projet.</p>"
+          }
+        },
+        "question_7": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je retourner un produit ?",
+            "answer": "<p>Particuliers : vous disposez d'un droit de rétractation de 14 jours après la livraison, frais de retour à votre charge. Achats professionnels : ils ne bénéficient pas du droit de rétractation. [À FAIRE VALIDER PAR UN JURISTE]</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3",
+        "question_4",
+        "question_5",
+        "question_6",
+        "question_7"
+      ]
+    },
+    "contact": {
+      "type": "contact-cta",
+      "settings": {
+        "eyebrow": "Une question ?",
+        "heading": "Parlons de votre studio.",
+        "text": "<p>Nombre de reformers pour votre surface, choix du bois, délais : nous vous répondons directement.</p>"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "range",
+    "strike",
+    "packs",
+    "calculator",
+    "guarantee",
+    "testimonials",
+    "faq",
+    "contact"
+  ]
+}

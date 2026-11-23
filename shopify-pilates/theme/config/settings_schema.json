@@ -1,0 +1,513 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Studio Pilates",
+    "theme_version": "1.0.0",
+    "theme_author": "Ressaline",
+    "theme_documentation_url": "https://help.shopify.com/fr/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com/fr"
+  },
+  {
+    "name": "Marque et contact",
+    "settings": [
+      {
+        "type": "text",
+        "id": "brand_name",
+        "label": "Nom de la marque",
+        "default": "Ressaline",
+        "info": "Utilisé dans les textes du site quand aucun logo n'est choisi."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Largeur du logo",
+        "min": 60,
+        "max": 260,
+        "step": 10,
+        "unit": "px",
+        "default": 140
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Image carrée de 32 × 32 px minimum."
+      },
+      {
+        "type": "text",
+        "id": "phone",
+        "label": "Téléphone affiché",
+        "info": "À compléter : sans numéro, le téléphone est masqué partout sur le site."
+      },
+      {
+        "type": "text",
+        "id": "phone_hours",
+        "label": "Horaires du téléphone",
+        "default": "Du lundi au vendredi, 9 h – 18 h"
+      },
+      {
+        "type": "text",
+        "id": "email",
+        "label": "Email affiché",
+        "info": "À compléter : sans email, l'adresse est masquée partout sur le site."
+      }
+    ]
+  },
+  {
+    "name": "Couleurs",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Fond principal (blanc cassé)",
+        "default": "#F6F1E9"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Sable (fonds secondaires)",
+        "default": "#ECE3D4"
+      },
+      {
+        "type": "color",
+        "id": "color_wood",
+        "label": "Sable foncé (filets, détails)",
+        "default": "#D9CBB4"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Texte",
+        "default": "#171512"
+      },
+      {
+        "type": "color",
+        "id": "color_text_muted",
+        "label": "Texte secondaire",
+        "default": "#5B554C"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Couleur d'accent (boutons, liens)",
+        "default": "#4F5B46",
+        "info": "Choisis une couleur assez foncée pour que le texte des boutons reste lisible."
+      },
+      {
+        "type": "color",
+        "id": "color_buy",
+        "label": "Boutons d'achat (Ajouter au panier, Passer commande)",
+        "default": "#9A4A2C",
+        "info": "Couleur réservée à l'achat : ne l'utilise nulle part ailleurs pour qu'elle reste repérable."
+      },
+      {
+        "type": "color",
+        "id": "color_buy_text",
+        "label": "Texte des boutons d'achat",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_text",
+        "label": "Texte sur la couleur d'accent",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_dark",
+        "label": "Fond foncé (barre du haut, pied de page)",
+        "default": "#171512"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_text",
+        "label": "Texte sur fond foncé",
+        "default": "#F6F1E9"
+      },
+      {
+        "type": "color",
+        "id": "color_ambiance_default",
+        "label": "Couleur d'ambiance par défaut",
+        "default": "#E6D8C3",
+        "info": "Utilisée pour une machine sans metafield custom.couleur_ambiance, et comme fond quand aucun média n'est choisi."
+      }
+    ]
+  },
+  {
+    "name": "Typographie",
+    "settings": [
+      {
+        "type": "select",
+        "id": "font_source",
+        "label": "Polices",
+        "options": [
+          {
+            "value": "theme",
+            "label": "Fraunces et Manrope (incluses dans le thème)"
+          },
+          {
+            "value": "shopify",
+            "label": "Bibliothèque de polices Shopify (choix ci-dessous)"
+          }
+        ],
+        "default": "theme",
+        "info": "Fraunces (titres) et Manrope (texte) sont sous licence libre (SIL Open Font License) et hébergées dans le thème : aucune donnée n'est envoyée à Google."
+      },
+      {
+        "type": "select",
+        "id": "heading_weight",
+        "label": "Graisse des titres (Fraunces)",
+        "options": [
+          {
+            "value": "300",
+            "label": "Légère"
+          },
+          {
+            "value": "400",
+            "label": "Normale"
+          },
+          {
+            "value": "500",
+            "label": "Moyenne"
+          }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "range",
+        "id": "heading_softness",
+        "label": "Douceur des titres (Fraunces)",
+        "min": 0,
+        "max": 100,
+        "step": 10,
+        "default": 100,
+        "info": "Arrondit les terminaisons des lettres : 0 = classique, 100 = très doux."
+      },
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Police des titres",
+        "default": "cormorant_n5"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Police du texte",
+        "default": "dm_sans_n4"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "label": "Taille des titres",
+        "min": 80,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "label": "Taille du texte",
+        "min": 90,
+        "max": 120,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Promesses",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Ces réglages pilotent les promesses affichées partout sur le site. Dans les textes des sections, écris [GARANTIE], [PIECES] ou [ECONOMIE] : ils sont remplacés automatiquement par les valeurs ci-dessous."
+      },
+      {
+        "type": "header",
+        "content": "Garantie"
+      },
+      {
+        "type": "text",
+        "id": "warranty_duration",
+        "label": "Durée de garantie affichée",
+        "default": "2 ans",
+        "info": "Utilisée partout (barre d'annonce, arguments, comparatif, garantie, FAQ, données Google). Laisse vide tant que la durée n'est pas fixée avec le fournisseur : seules les mentions « Garantie et service après-vente » restent."
+      },
+      {
+        "type": "header",
+        "content": "Pièces de rechange"
+      },
+      {
+        "type": "checkbox",
+        "id": "parts_stock_france",
+        "label": "Stock de pièces en France",
+        "default": false,
+        "info": "Coche seulement quand le stock existe réellement en France."
+      },
+      {
+        "type": "text",
+        "id": "parts_text_yes",
+        "label": "Texte si le stock est en France",
+        "default": "Pièces de rechange en stock en France"
+      },
+      {
+        "type": "text",
+        "id": "parts_text_no",
+        "label": "Texte sinon",
+        "default": "Pièces de rechange disponibles et garanties"
+      },
+      {
+        "type": "header",
+        "content": "Comparaison de prix"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_price_claim",
+        "label": "Afficher l'argument de prix (jusqu'à X % moins cher)",
+        "default": false,
+        "info": "Désactivé : le titre d'accueil devient « Équipement Pilates de qualité studio, prix affichés. »"
+      },
+      {
+        "type": "text",
+        "id": "claim_savings",
+        "label": "Promesse d'économie",
+        "default": "jusqu'à 30 % moins cher",
+        "info": "Affiché seulement si l'argument de prix est activé. Garde une preuve datée de la comparaison."
+      },
+      {
+        "type": "text",
+        "id": "claim_savings_note",
+        "label": "Mention sous la promesse",
+        "default": "Par rapport aux prix publics constatés des marques de studio",
+        "info": "La date ci-dessous est ajoutée à la fin. Sans date, la mention ne s'affiche pas."
+      },
+      {
+        "type": "text",
+        "id": "claim_savings_date",
+        "label": "Date du relevé de prix",
+        "info": "Exemple : mars 2026. Obligatoire pour afficher la mention."
+      },
+      {
+        "type": "header",
+        "content": "Livraison"
+      },
+      {
+        "type": "text",
+        "id": "default_delivery",
+        "label": "Délai de livraison par défaut",
+        "default": "Expédié sous 10 à 12 semaines",
+        "info": "Affiché quand le produit n'a pas de délai dans son metafield custom.delai_livraison."
+      },
+      {
+        "type": "header",
+        "content": "Sécurité produit (RSGP)"
+      },
+      {
+        "type": "textarea",
+        "id": "eu_responsible",
+        "label": "Personne responsable dans l'UE (par défaut)",
+        "info": "Nom et adresse de l'importateur (Ressaline). Utilisé sur chaque fiche produit si le metafield custom.personne_responsable_ue est vide. Laisse vide tant que l'adresse n'est pas connue."
+      }
+    ]
+  },
+  {
+    "name": "Mouvement",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Toutes les animations sont coupées automatiquement si le visiteur a demandé moins de mouvement sur son appareil, et dans l'éditeur de thème."
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_loader",
+        "label": "Écran de chargement (logo et compteur)",
+        "default": true,
+        "info": "Une seule fois par visite, 1,2 seconde maximum."
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_smooth_scroll",
+        "label": "Défilement fluide (page d'accueil)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_motion",
+        "label": "Animations au défilement (page d'accueil)",
+        "default": true,
+        "info": "Titres ligne par ligne, révélation des images, narration épinglée de LA GAMME, ratures, mot géant du pied de page."
+      },
+      {
+        "type": "checkbox",
+        "id": "custom_cursor",
+        "label": "Curseur personnalisé",
+        "default": false,
+        "info": "Sur ordinateur uniquement, jamais sur écran tactile."
+      },
+      {
+        "type": "header",
+        "content": "Ambiance sonore"
+      },
+      {
+        "type": "checkbox",
+        "id": "sound_enabled",
+        "label": "Proposer une ambiance sonore",
+        "default": false,
+        "info": "Aucun son ne démarre seul : le visiteur l'active avec un bouton, et peut le couper à tout moment."
+      },
+      {
+        "type": "url",
+        "id": "sound_url",
+        "label": "Adresse du fichier MP3",
+        "info": "Téléverse le fichier dans Contenu > Fichiers, puis colle son adresse ici. 1 Mo maximum."
+      }
+    ]
+  },
+  {
+    "name": "Prix et TVA",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Les prix sont saisis TTC dans Shopify. Le prix HT affiché est calculé : prix TTC ÷ (1 + taux de TVA). Ce calcul ne change pas le prix facturé."
+      },
+      {
+        "type": "range",
+        "id": "vat_rate",
+        "label": "Taux de TVA",
+        "min": 0,
+        "max": 30,
+        "step": 0.5,
+        "unit": "%",
+        "default": 20
+      },
+      {
+        "type": "select",
+        "id": "price_primary",
+        "label": "Prix mis en avant",
+        "options": [
+          {
+            "value": "ttc",
+            "label": "TTC (recommandé si tu vends aussi aux particuliers)"
+          },
+          {
+            "value": "ht",
+            "label": "HT (si tu vends surtout aux professionnels)"
+          }
+        ],
+        "default": "ttc"
+      },
+      {
+        "type": "text",
+        "id": "label_ttc",
+        "label": "Libellé TTC",
+        "default": "TTC"
+      },
+      {
+        "type": "text",
+        "id": "label_ht",
+        "label": "Libellé HT",
+        "default": "HT"
+      }
+    ]
+  },
+  {
+    "name": "Cartes produit",
+    "settings": [
+      {
+        "type": "select",
+        "id": "card_image_ratio",
+        "label": "Format des images",
+        "options": [
+          {
+            "value": "square",
+            "label": "Carré"
+          },
+          {
+            "value": "portrait",
+            "label": "Portrait"
+          },
+          {
+            "value": "landscape",
+            "label": "Paysage"
+          }
+        ],
+        "default": "landscape"
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_delivery",
+        "label": "Afficher le badge de délai de livraison",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_secondary_image",
+        "label": "Afficher la deuxième image au survol",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_add_to_cart",
+        "label": "Afficher « Ajouter au panier » sur les cartes",
+        "default": true,
+        "info": "Pour les produits sans variantes. Les autres affichent « Choisir »."
+      }
+    ]
+  },
+  {
+    "name": "Mise en page",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Largeur maximale de la page",
+        "min": 1000,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "default": 1320
+      },
+      {
+        "type": "range",
+        "id": "radius",
+        "label": "Arrondi des angles",
+        "min": 0,
+        "max": 16,
+        "step": 2,
+        "unit": "px",
+        "default": 2
+      }
+    ]
+  },
+  {
+    "name": "Réseaux sociaux",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Laisse vide pour masquer un réseau."
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram (adresse complète)"
+      },
+      {
+        "type": "text",
+        "id": "social_linkedin",
+        "label": "LinkedIn (adresse complète)"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook (adresse complète)"
+      }
+    ]
+  }
+]

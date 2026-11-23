@@ -1,0 +1,144 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": false
+      }
+    },
+    "intro": {
+      "type": "rich-text",
+      "settings": {
+        "heading": "Équiper mon studio",
+        "heading_level": "h1",
+        "text": "<p>Vous ouvrez un studio, vous agrandissez votre salle ou vous équipez un cabinet de kinésithérapie ? Nous vendons un équipement de qualité studio importé directement de l'usine, sans distributeur intermédiaire, avec des prix affichés et une facture en bonne et due forme.</p>",
+        "button_label": "Voir les packs studio",
+        "button_link": "/collections/packs-studio",
+        "button_style": "primary",
+        "alignment": "left",
+        "background": "default"
+      }
+    },
+    "offer": {
+      "type": "multicolumn",
+      "settings": {
+        "heading": "Ce que nous faisons pour les professionnels",
+        "heading_level": "h2",
+        "columns": "3",
+        "center": false,
+        "background": "surface"
+      },
+      "blocks": {
+        "column_1": {
+          "type": "column",
+          "settings": {
+            "icon": "studio",
+            "title": "Packs studio clé en main",
+            "text": "<p>Reformers, Cadillac et accessoires réunis dans un pack à prix unique. Une commande, une livraison, un montage.</p>",
+            "link_label": "Voir les packs",
+            "link": "/collections/packs-studio"
+          }
+        },
+        "column_2": {
+          "type": "column",
+          "settings": {
+            "icon": "tag",
+            "title": "Remises par quantité",
+            "text": "<p>Plus vous équipez de postes, plus le prix unitaire baisse. Les paliers sont affichés sur chaque fiche produit et la remise s'applique automatiquement dans le panier.</p>"
+          }
+        },
+        "column_3": {
+          "type": "column",
+          "settings": {
+            "icon": "euro",
+            "title": "Paiement en plusieurs fois",
+            "text": "<p>Pour les entreprises, le paiement peut être étalé. Appelez-nous pour définir les modalités adaptées à votre projet.</p>"
+          }
+        },
+        "column_4": {
+          "type": "column",
+          "settings": {
+            "icon": "invoice",
+            "title": "Facture avec TVA",
+            "text": "<p>Chaque commande donne lieu à une facture au nom de votre entreprise, TVA détaillée. Indiquez votre raison sociale lors de la commande.</p>"
+          }
+        },
+        "column_5": {
+          "type": "column",
+          "settings": {
+            "icon": "phone",
+            "title": "Accompagnement à l'ouverture",
+            "text": "<p>Nombre de machines selon votre surface, choix entre bois et aluminium, organisation des livraisons : nous vous conseillons avant la commande.</p>"
+          }
+        },
+        "column_6": {
+          "type": "column",
+          "settings": {
+            "icon": "wrench",
+            "title": "SAV et pièces de rechange",
+            "text": "<p>Garantie [GARANTIE]. [PIECES]. Un interlocuteur direct pour ne pas laisser une machine à l'arrêt.</p>",
+            "link_label": "Conditions de garantie",
+            "link": "/pages/garantie-et-pieces-de-rechange"
+          }
+        }
+      },
+      "block_order": [
+        "column_1",
+        "column_2",
+        "column_3",
+        "column_4",
+        "column_5",
+        "column_6"
+      ]
+    },
+    "steps": {
+      "type": "steps",
+      "settings": {
+        "heading": "Comment ça marche",
+        "background": "default"
+      },
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Vous commandez en ligne",
+            "text": "<p>Ou appelez-nous si vous voulez valider votre projet avant.</p>"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Fabrication et contrôle",
+            "text": "<p>Votre commande est fabriquée par notre usine partenaire, contrôlée, puis expédiée. Le délai est annoncé sur chaque fiche produit.</p>"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Livraison et montage dans votre studio",
+            "text": "<p>Inclus en France métropolitaine.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ]
+    },
+    "contact": {
+      "type": "contact-cta",
+      "settings": {
+        "heading": "Une question avant de commander ? Appelez-nous.",
+        "text": "<p>Choix des machines, nombre de reformers pour votre surface, délais : nous vous répondons directement.</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "intro",
+    "offer",
+    "steps",
+    "contact"
+  ]
+}

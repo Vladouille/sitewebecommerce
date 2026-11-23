@@ -1,0 +1,145 @@
+.footer {
+  background: var(--color-dark);
+  color: var(--color-dark-text);
+  padding: 3.5rem 0 2rem;
+  margin-top: auto;
+}
+
+.footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+  color: inherit;
+}
+
+.footer :focus-visible {
+  outline-color: var(--color-dark-text);
+}
+
+.footer__grid {
+  display: grid;
+  gap: 2.25rem;
+}
+
+@media (min-width: 750px) {
+  .footer__grid {
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 3rem;
+  }
+}
+
+.footer__brand {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.footer__text {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  max-width: 34ch;
+}
+
+.footer__heading {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: var(--font-body-weight-bold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  opacity: 0.75;
+}
+
+.footer__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.footer__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+}
+
+.footer__hours {
+  font-size: 0.85rem;
+  opacity: 0.75;
+  padding-top: 0.25rem;
+}
+
+.footer__bottom {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  font-size: 0.85rem;
+}
+
+.footer__payment-list,
+.footer__social {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.footer__payment-icon {
+  width: 2.4rem;
+  height: auto;
+}
+
+.footer__copyright {
+  margin: 0;
+  opacity: 0.75;
+}
+
+/* Nom de la marque en lettres géantes, sur toute la largeur */
+.footer {
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+.footer__giant {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding: 0 max(0.5rem, env(safe-area-inset-left, 0px)) 0 max(0.5rem, env(safe-area-inset-right, 0px));
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-stretch: var(--font-heading-stretch);
+  font-size: calc((100vw - 1rem) / (var(--chars, 9) * 0.56));
+  line-height: 0.78;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--color-dark-text);
+  user-select: none;
+  overflow: hidden;
+}
+
+.footer__giant span {
+  display: inline-block;
+  padding-top: 0.04em;
+}
+
+.motion-ok .footer__giant span {
+  transform: translateY(105%);
+  transition: transform 0.9s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 0.05s);
+}
+
+.motion-ok .footer__giant.is-in span {
+  transform: none;
+}

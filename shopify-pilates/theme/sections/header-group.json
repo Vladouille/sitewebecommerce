@@ -1,0 +1,21 @@
+{
+  "type": "header",
+  "name": "En-tête",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "Livraison et montage inclus · Garantie [GARANTIE] · [PIECES]"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "main-menu",
+        "show_phone": true,
+        "sticky": true
+      }
+    }
+  },
+  "order": ["announcement-bar", "header"]
+}

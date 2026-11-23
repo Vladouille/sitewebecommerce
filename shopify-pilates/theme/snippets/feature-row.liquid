@@ -1,0 +1,58 @@
+{%- comment -%}
+  Produit présenté en grand : image plein cadre, nom, prix TTC et HT, prix par poste
+  (metafield custom.nombre_postes), délai et bouton d'achat.
+  Paramètres : product (obligatoire), flip (index : les lignes impaires sont inversées)
+{%- endcomment -%}
+{%- liquid
+  assign vat_factor = settings.vat_rate | divided_by: 100.0 | plus: 1
+  assign postes = product.metafields.custom.nombre_postes.value | plus: 0
+  assign is_flipped = flip | modulo: 2
+  assign ambiance = product.metafields.custom.couleur_ambiance.value | default: settings.color_ambiance_default
+-%}
+<article class="feature-row{% if is_flipped == 1 %} feature-row--flip{% endif %}">
+  <a class="feature-row__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true" style="--ambiance: {{ ambiance }};" data-reveal-media>
+    <span class="feature-row__media-inner" data-reveal-inner>
+      {%- assign cutout = product.metafields.custom.image_detouree.value -%}
+      {%- if cutout != blank -%}
+        <span class="feature-row__object">
+          {% render 'floating-object', image: cutout, label: product.title, alt: product.title, depth: 4, rotation: -3, delay: flip, sizes: '(min-width: 990px) 45vw, 80vw' %}
+        </span>
+      {%- elsif product.featured_media -%}
+        {{
+          product.featured_media
+          | image_url: width: 1800
+          | image_tag:
+            loading: 'lazy',
+            widths: '600, 900, 1200, 1500, 1800',
+            sizes: '(min-width: 990px) 60vw, 100vw',
+            alt: '',
+            class: 'feature-row__image'
+        }}
+      {%- else -%}
+        {% render 'media-fallback', product: product %}
+      {%- endif -%}
+    </span>
+  </a>
+  <div class="feature-row__body">
+    <h3 class="feature-row__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+    {% render 'price', price: product.price, size: 'large' %}
+    {%- if postes > 1 -%}
+      {%- assign per_post = product.price | divided_by: vat_factor | divided_by: postes | round | money_without_trailing_zeros -%}
+      <p class="feature-row__per">{{ 'products.price.per_post' | t: price: per_post }}</p>
+    {%- endif -%}
+    {% render 'delivery-badge', product: product %}
+    <div class="feature-row__actions">
+      {%- if product.has_only_default_variant and product.available -%}
+        {%- form 'product', product -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button type="submit" class="button button--buy" data-magnetic>
+            {{- 'products.add_to_cart' | t -}}
+            <span class="visually-hidden"> : {{ product.title | escape }}</span>
+          </button>
+        {%- endform -%}
+      {%- endif -%}
+      <a class="link-arrow" href="{{ product.url }}">{{ 'products.see_details' | t }}<span class="visually-hidden"> : {{ product.title | escape }}</span></a>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,36 @@
+{%- comment -%}
+  Écran de chargement : logo + compteur de 0 à 100 %.
+  Affiché seulement si le script du <head> a ajouté la classe « has-loader » :
+  une fois par visite, jamais dans l'éditeur, jamais si le visiteur demande moins de mouvement.
+  Durée maximale : 1,2 seconde.
+{%- endcomment -%}
+<div class="loader" data-loader aria-hidden="true">
+  <div class="loader__inner">
+    <span class="loader__logo">{{ settings.brand_name | escape }}</span>
+    <span class="loader__count"><span data-loader-count>0</span>&nbsp;%</span>
+  </div>
+  <span class="loader__bar"><span data-loader-bar></span></span>
+</div>
+<script>
+  (function () {
+    var d = document.documentElement;
+    if (!d.classList.contains('has-loader')) return;
+    var count = document.querySelector('[data-loader-count]');
+    var bar = document.querySelector('[data-loader-bar]');
+    var start = performance.now(), duration = 950;
+    function step(now) {
+      var p = Math.min(1, (now - start) / duration);
+      var eased = 1 - Math.pow(1 - p, 3);
+      count.textContent = Math.round(eased * 100);
+      bar.style.transform = 'scaleX(' + eased + ')';
+      if (p < 1) requestAnimationFrame(step);
+      else finish();
+    }
+    function finish() {
+      d.classList.add('loader-done');
+      setTimeout(function () { d.classList.remove('has-loader', 'loader-done'); }, 250);
+    }
+    requestAnimationFrame(step);
+    setTimeout(finish, 1200);
+  })();
+</script>

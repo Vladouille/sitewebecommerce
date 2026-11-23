@@ -1,0 +1,80 @@
+{%- comment -%}
+  Avis clients. Volontairement vide à l'installation : aucun avis n'est inventé.
+  Sur la boutique en ligne, la section ne s'affiche que si de vrais avis ont été ajoutés.
+  Dans l'éditeur de thème, un message d'emplacement rappelle d'en ajouter.
+{%- endcomment -%}
+{%- if section.blocks.size > 0 -%}
+  {{ 'section-testimonials.css' | asset_url | stylesheet_tag }}
+  <section class="section testimonials" aria-labelledby="Testimonials-{{ section.id }}">
+    <div class="page-width">
+      <div class="section-header">
+        <div>
+          <h2 id="Testimonials-{{ section.id }}" class="section-heading">{% render 'tokens', text: section.settings.heading, escape: true %}</h2>
+        </div>
+      </div>
+      <ul class="testimonials__list" role="list">
+        {%- for block in section.blocks -%}
+          <li class="testimonials__item" {{ block.shopify_attributes }}>
+            <figure>
+              <blockquote class="testimonials__quote">{% render 'tokens', text: block.settings.quote %}</blockquote>
+              <figcaption class="testimonials__author">
+                <strong>{% render 'tokens', text: block.settings.author, escape: true %}</strong>
+                {%- if block.settings.role != blank -%}<span>{% render 'tokens', text: block.settings.role, escape: true %}</span>{%- endif -%}
+              </figcaption>
+            </figure>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </section>
+{%- elsif request.design_mode -%}
+  <section class="section">
+    <div class="page-width">
+      <p class="editor-notice">{{ 'sections.testimonials.empty_editor' | t }}</p>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Avis clients",
+  "class": "section-testimonials",
+  "max_blocks": 9,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "N'ajoute que de vrais avis, avec l'accord écrit du client. Les faux avis sont interdits (pratique commerciale trompeuse). Tant qu'aucun avis n'est ajouté, la section reste invisible sur le site."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Ils ont équipé leur studio"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Avis",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Avis (texte exact du client)"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Nom (avec son accord)"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Studio, ville"
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Avis clients" }]
+}
+{% endschema %}
