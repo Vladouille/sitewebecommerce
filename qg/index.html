@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#3B5BDB">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -17,111 +18,74 @@ body { margin: 0; }
 [hidden] { display: none !important; }
 </style>
 <script>
-/* ===== Les 2 seules lignes à remplir (Supabase > Project Settings > API) ===== */
-window.QG_CONFIG = {
-  SUPABASE_URL: 'https://VOTRE-PROJET.supabase.co',
-  SUPABASE_KEY: 'VOTRE-CLE-PUBLIQUE',
-};
-</script>
-<script>
-/* QG des associés : version autonome (une page HTML + une base Supabase gratuite).
-   Remplace window.claude.use(...) par une couche qui parle directement à Supabase.
-   Chaque appel envoie le code commun ; la base le vérifie avant toute lecture ou écriture. */
+/* QG des associés : version Hostinger (page + api.php, aucun compte, aucun service externe).
+   Le lien d'invitation contient la clé (?k=...) : elle est gardée sur le téléphone puis retirée de l'adresse.
+   ?moi=0|1|2 dans le lien indique à qui appartient le téléphone. */
 (() => {
   'use strict';
-  const CFG = window.QG_CONFIG || {};
-  const BASE = String(CFG.SUPABASE_URL || '').replace(/\/+$/, '');
-  const KEY = String(CFG.SUPABASE_KEY || '');
-  const CODE_KEY = 'qg.code.v1';
-  const POLL_MS = 8000;
+  const API = 'api.php';
+  const KEY_LS = 'qg.key.v1';
+  const POLL_MS = 6000;
   const lsGet = (k) => { try { return localStorage.getItem(k); } catch { return null; } };
   const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
   const lsDel = (k) => { try { localStorage.removeItem(k); } catch {} };
-  const escH = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  const configured = /^https:\/\/[^/]+$/.test(BASE) && !BASE.includes('VOTRE-PROJET') && KEY.length > 20 && !KEY.includes('VOTRE-CLE');
 
-  async function rpc(fn, args, codeOverride) {
-    const headers = { 'content-type': 'application/json', apikey: KEY };
-    if (KEY.startsWith('eyJ')) headers.authorization = 'Bearer ' + KEY;
+  // Lecture du lien d'invitation
+  try {
+    const u = new URL(location.href);
+    const k = u.searchParams.get('k');
+    const moi = u.searchParams.get('moi');
+    if (k) lsSet(KEY_LS, k);
+    if (moi === '0' || moi === '1' || moi === '2') lsSet('qg.me', JSON.stringify(moi));
+    if (k || moi) { u.searchParams.delete('k'); u.searchParams.delete('moi'); history.replaceState(null, '', u.pathname + u.search + u.hash); }
+  } catch {}
+
+  async function call(op, payload = {}) {
+    const body = JSON.stringify(Object.assign({ op }, payload));
     let res;
     try {
-      res = await fetch(BASE + '/rest/v1/rpc/' + fn, {
-        method: 'POST', headers,
-        body: JSON.stringify(Object.assign({ p_code: codeOverride ?? lsGet(CODE_KEY) ?? '' }, args)),
+      res = await fetch(API, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-qg-key': lsGet(KEY_LS) || '' },
+        body,
+        keepalive: body.length < 60000, // la requête part même si l'app est fermée juste après
+        cache: 'no-store',
       });
     } catch {
-      throw { code: 'unavailable', message: 'Réseau indisponible' };
+      throw { code: 'unavailable' };
     }
     let j = null;
     try { j = await res.json(); } catch {}
     if (!res.ok) {
-      const msg = (j && (j.message || j.msg)) || '';
-      let code = 'unavailable';
-      if (/bad_code/.test(msg)) code = 'bad_code';
-      else if (/invalid_argument/.test(msg)) code = 'invalid_argument';
-      else if (res.status === 404 || (j && j.code === 'PGRST202')) code = 'not_configured';
-      else if (res.status === 401) code = 'bad_key';
-      if (code === 'bad_code' && codeOverride === undefined) { lsDel(CODE_KEY); location.reload(); }
-      throw { code, message: msg };
+      const code = (j && j.code) || 'unavailable';
+      if (code === 'bad_key') { lsDel(KEY_LS); location.reload(); }
+      throw { code };
     }
     return j;
   }
 
-  /* ---------- Écran du code commun ---------- */
-  let unlocked = null;
-  function needUnlock() {
-    if (unlocked) return unlocked;
-    unlocked = new Promise((resolve) => {
-      if (!configured) {
-        return showMsg('App pas encore branchée', 'Renseigne SUPABASE_URL et SUPABASE_KEY en haut du fichier HTML (voir le guide d’installation), puis rouvre la page.');
-      }
-      if (lsGet(CODE_KEY)) return resolve();
-      const render = (err) => {
-        const g = document.getElementById('gate');
-        g.hidden = false; document.getElementById('app').hidden = true;
-        g.innerHTML = `<form class="box" id="codeForm" autocomplete="off">
-          <div class="logo">QG DES ASSOCIÉS</div>
-          <h1>Code d’accès</h1>
-          <p class="muted">Entre le code commun. Ce téléphone s’en souviendra : tu ne le taperas qu’une fois.</p>
-          <div class="field"><label for="codeInput">Code</label><input class="input" id="codeInput" type="password" required autocomplete="current-password"></div>
-          ${err ? `<p class="msg err">${escH(err)}</p>` : ''}
-          <button class="btn primary block" type="submit">Entrer</button></form>`;
-        const input = document.getElementById('codeInput');
-        setTimeout(() => input.focus(), 50);
-        document.getElementById('codeForm').addEventListener('submit', async (ev) => {
-          ev.preventDefault();
-          const btn = ev.target.querySelector('button'); btn.disabled = true; btn.textContent = 'Vérification…';
-          const code = input.value.trim();
-          try { await rpc('qg_ping', {}, code); lsSet(CODE_KEY, code); resolve(); }
-          catch (e) {
-            render({
-              bad_code: 'Code incorrect.',
-              not_configured: 'La base n’est pas prête : le script schema.sql n’a pas été exécuté dans Supabase.',
-              bad_key: 'Clé Supabase refusée : vérifie SUPABASE_KEY en haut du fichier.',
-            }[e.code] || 'Serveur injoignable. Vérifie ta connexion puis réessaie.');
-          }
-        });
-      };
-      render();
-    });
-    return unlocked;
-  }
   function showMsg(title, text) {
     const g = document.getElementById('gate');
     g.hidden = false; document.getElementById('app').hidden = true;
-    g.innerHTML = `<div class="box"><div class="logo">QG DES ASSOCIÉS</div><h1>${escH(title)}</h1><p class="muted">${escH(text)}</p></div>`;
+    const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    g.innerHTML = `<div class="box"><div class="logo">QG DES ASSOCIÉS</div><h1>${esc(title)}</h1><p class="muted">${esc(text)}</p></div>`;
+  }
+  let ready = null;
+  function needKey() {
+    if (ready) return ready;
+    ready = new Promise((resolve) => {
+      if (!lsGet(KEY_LS)) return showMsg('Ouvre ton lien d’invitation', 'Cette app s’ouvre avec le lien envoyé par Vladimir. Touche ce lien une fois : ce téléphone s’en souviendra.');
+      resolve();
+    });
+    return ready;
   }
 
-  /* ---------- Base de données (même interface que dans la version d'origine) ---------- */
-  const server = new Map(); // "col/id" -> data
-  const overlay = new Map(); // écritures pas encore confirmées : "col/id" -> data | null (supprimé)
+  /* ---------- Base de données ---------- */
+  const server = new Map();
+  const overlay = new Map();
   let loaded = false;
   const listeners = new Set();
-  const view = () => {
-    const m = new Map(server);
-    for (const [k, v] of overlay) { if (v === null) m.delete(k); else m.set(k, v); }
-    return m;
-  };
+  const view = () => { const m = new Map(server); for (const [k, v] of overlay) { if (v === null) m.delete(k); else m.set(k, v); } return m; };
   const snapDoc = (id, d) => ({ id, exists: d !== undefined, data: () => d, metadata: { fromCache: false, hasPendingWrites: false } });
   function notify() {
     if (!loaded) return;
@@ -139,26 +103,23 @@ window.QG_CONFIG = {
   let refreshing = null;
   function refresh() {
     if (refreshing) return refreshing;
-    refreshing = rpc('qg_list', {}).then((rows) => {
+    refreshing = call('list').then((rows) => {
       server.clear();
       for (const it of rows || []) server.set(it.col + '/' + it.id, it.data);
       loaded = true; notify();
     }).catch(() => {}).finally(() => { refreshing = null; });
     return refreshing;
   }
-  let pollTimer = null;
+  let polling = false;
   function startPolling() {
-    if (pollTimer) return;
+    if (polling) return; polling = true;
     refresh();
-    pollTimer = setInterval(() => { if (document.visibilityState === 'visible') refresh(); }, POLL_MS);
+    setInterval(() => { if (document.visibilityState === 'visible') refresh(); }, POLL_MS);
     document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') refresh(); });
     window.addEventListener('focus', refresh);
     window.addEventListener('online', refresh);
   }
-  const rid = () => {
-    const a = new Uint8Array(12); crypto.getRandomValues(a);
-    return Array.from(a, (b) => 'abcdefghijklmnopqrstuvwxyz0123456789'[b % 36]).join('');
-  };
+  const rid = () => { const a = new Uint8Array(12); crypto.getRandomValues(a); return Array.from(a, (b) => 'abcdefghijklmnopqrstuvwxyz0123456789'[b % 36]).join(''); };
   const clone = (o) => JSON.parse(JSON.stringify(o));
   function docRef(path) {
     const [col, id] = path.split('/');
@@ -167,26 +128,21 @@ window.QG_CONFIG = {
       async get() { await refresh(); return snapDoc(id, view().get(path)); },
       async set(data) {
         overlay.set(path, clone(data)); notify();
-        await rpc('qg_set', { p_col: col, p_id: id, p_data: data });
+        await call('set', { col, id, data });
         server.set(path, clone(data)); overlay.delete(path); notify();
       },
       async update(data) {
-        const base = view().get(path) || {};
-        overlay.set(path, Object.assign({}, base, clone(data))); notify();
-        const found = await rpc('qg_merge', { p_col: col, p_id: id, p_patch: data });
-        if (found === false) { overlay.delete(path); server.delete(path); notify(); throw { code: 'invalid_argument' }; }
+        overlay.set(path, Object.assign({}, view().get(path) || {}, clone(data))); notify();
+        const r = await call('update', { col, id, data });
+        if (r && r.found === false) { overlay.delete(path); server.delete(path); notify(); throw { code: 'invalid_argument' }; }
         server.set(path, overlay.get(path)); overlay.delete(path); notify();
       },
       async delete() {
         overlay.set(path, null); notify();
-        await rpc('qg_delete', { p_col: col, p_id: id });
+        await call('delete', { col, id });
         server.delete(path); overlay.delete(path); notify();
       },
-      onSnapshot(next) {
-        const l = { kind: 'doc', path, next }; listeners.add(l); startPolling();
-        if (loaded) notify();
-        return () => listeners.delete(l);
-      },
+      onSnapshot(next) { const l = { kind: 'doc', path, next }; listeners.add(l); startPolling(); if (loaded) notify(); return () => listeners.delete(l); },
     };
   }
   const db = Object.freeze({
@@ -194,29 +150,21 @@ window.QG_CONFIG = {
     collection: (col) => ({
       path: col,
       doc: (id) => docRef(col + '/' + (id || rid())),
-      onSnapshot(next) {
-        const l = { kind: 'col', path: col, next }; listeners.add(l); startPolling();
-        if (loaded) notify();
-        return () => listeners.delete(l);
-      },
+      onSnapshot(next) { const l = { kind: 'col', path: col, next }; listeners.add(l); startPolling(); if (loaded) notify(); return () => listeners.delete(l); },
     }),
   });
-
-  /* ---------- Sauvegarde : téléchargement direct du fichier ---------- */
   const downloads = Object.freeze({
     async save({ filename, data }) {
-      const blob = new Blob([data], { type: 'application/json' });
       const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob); a.download = filename;
+      a.href = URL.createObjectURL(new Blob([data], { type: 'application/json' })); a.download = filename;
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(a.href), 4000);
       return { status: 'saved' };
     },
   });
   const user = Object.freeze({ can: async () => true });
-
   const caps = { db, downloads, user };
-  window.claude = Object.freeze({ use: async (name) => { await needUnlock(); return caps[name] || null; } });
+  window.QG_RT = Object.freeze({ use: async (name) => { await needKey(); return caps[name] || null; } });
 })();
 
 </script>
@@ -446,6 +394,7 @@ body::before { background: var(--tab-soft); }
 .check { width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--c-goals); background: var(--surface); color: var(--on-tab); display: grid; place-items: center; font-weight: 700; padding: 0; }
 .check.on { background: var(--c-goals); }
 .goals-add { border: 1px dashed var(--c-goals); background: transparent; color: var(--c-goals); border-radius: 12px; padding: 10px; font-weight: 600; min-height: 44px; }
+.save[data-state="ok"], .save[data-state="saving"] { display: none; }
 pre.json { white-space: pre-wrap; word-break: break-all; max-height: 240px; overflow: auto; font-size: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
 </style>
 
@@ -524,7 +473,7 @@ function toast(text, ms = 4500) {
 
 /* ---------- Données de référence ---------- */
 const PEOPLE = ['0', '1', '2'];
-const DEFAULT_NAMES = ['Moi', 'Associé 1', 'Associé 2'];
+const DEFAULT_NAMES = ['Vladimir', 'Alexandre', 'Associé 3'];
 const PRIO = { haute: 'Haute', moyenne: 'Moyenne', basse: 'Basse' };
 const PRIO_RANK = { haute: 0, moyenne: 1, basse: 2 };
 const STATUS = { afaire: 'À faire', encours: 'En cours', fait: 'Fait' };
@@ -663,8 +612,8 @@ function showGate(html) {
 showGate('<div class="box"><div class="logo">QG DES ASSOCIÉS</div><div class="thinking"><span class="spin"></span><span>Connexion à vos données…</span></div></div>');
 
 async function boot() {
-  if (!window.claude || typeof window.claude.use !== 'function') return noRuntime();
-  const [db, user, sample, downloads] = await Promise.all(['db', 'user', 'sample', 'downloads'].map((n) => window.claude.use(n).catch(() => null)));
+  if (!window.QG_RT || typeof window.QG_RT.use !== 'function') return noRuntime();
+  const [db, user, sample, downloads] = await Promise.all(['db', 'user', 'sample', 'downloads'].map((n) => window.QG_RT.use(n).catch(() => null)));
   S.db = db; S.user = user; S.sample = sample; S.downloads = downloads;
   if (!db) return noRuntime();
   try { const c = user && user.can ? await user.can('data.write') : null; S.canWrite = c === null || c === undefined ? null : !!c; } catch { S.canWrite = null; }
@@ -693,8 +642,7 @@ function route() {
     return;
   }
   const hasNames = S.cfg && Array.isArray(S.cfg.names) && S.cfg.names.length === 3;
-  if (!hasNames) return S.canWrite === false ? noAccess() : setupScreen();
-  if (!PEOPLE.includes(S.me)) return whoScreen();
+  if (!PEOPLE.includes(S.me)) { S.me = '0'; }
   enterApp();
 }
 function noAccess() {
@@ -936,7 +884,6 @@ $('#main').addEventListener('click', (ev) => {
     const next = g.status === 'atteint' ? 'encours' : 'atteint';
     queueWrite('goals', id, { status: next }, { now: true });
     S.data.goals.set(id, Object.assign({}, g, { status: next, updatedAt: Date.now() })); render();
-    if (next === 'atteint') toast('Objectif atteint. Bravo à vous trois.');
     return;
   }
   const row = t.closest('[data-open]');
@@ -1042,7 +989,7 @@ function openSheet(col, id) {
     try {
       await removeDoc(c, i);
       if (c === 'ideas') for (const [cid, cm] of S.data.comments) if (cm.ideaId === i) removeDoc('comments', cid).catch(() => {});
-      toast('Supprimé.');
+      
     } catch (err) { toast('Suppression impossible (' + (err && err.code || 'erreur') + '). Vérifie ta connexion et réessaie.'); }
   });
   if (col === 'calls') renderPhoneActions(item.phone);
@@ -1094,7 +1041,7 @@ function renderPhoneActions(phone) {
   if (!p) { z.innerHTML = ''; return; }
   z.innerHTML = `<a class="btn primary" href="${esc(telHref(p))}">Appeler</a><button type="button" class="btn" id="copyPhone">Copier le numéro</button>`;
   $('#copyPhone').addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(p); toast('Numéro copié.'); }
+    try { await navigator.clipboard.writeText(p);  }
     catch { const i = $('#f-phone'); i.focus(); i.select(); toast('Numéro sélectionné : copie-le avec ton téléphone.'); }
   });
 }
@@ -1156,7 +1103,7 @@ function openSettings() {
     S.cfg = Object.assign({}, S.cfg, { names });
     queueWrite('config', 'app', { names });
   }));
-  $('#meSel').addEventListener('change', (e) => { S.me = e.target.value; LS.set('qg.me', S.me); toast('Ce téléphone est maintenant celui de ' + name(S.me) + '.'); });
+  $('#meSel').addEventListener('change', (e) => { S.me = e.target.value; LS.set('qg.me', S.me);  });
   $('#exportBtn').addEventListener('click', exportJson);
   $('#importBtn').addEventListener('click', () => { const f = $('#importFile'); f.value = ''; f.click(); });
 }
@@ -1170,13 +1117,13 @@ async function exportJson() {
   const filename = 'sauvegarde-qg-associes-' + today() + '.json';
   const z = $('#ioZone');
   if (S.downloads) {
-    try { await S.downloads.save({ filename, data: json }); toast('Sauvegarde enregistrée.'); return; }
+    try { await S.downloads.save({ filename, data: json }); return; }
     catch (e) { if (e && e.code === 'declined') { toast('Téléchargement annulé.'); return; } }
   }
   z.innerHTML = `<p class="msg info">Le téléchargement n’est pas possible ici. Copie le texte ci-dessous et colle-le dans une note ou un email.</p><button type="button" class="btn" id="copyJson">Copier la sauvegarde</button><pre class="json" id="jsonOut"></pre>`;
   $('#jsonOut').textContent = json;
   $('#copyJson').addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(json); toast('Sauvegarde copiée.'); }
+    try { await navigator.clipboard.writeText(json);  }
     catch { const r = document.createRange(); r.selectNodeContents($('#jsonOut')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast('Texte sélectionné : copie-le.'); }
   });
 }

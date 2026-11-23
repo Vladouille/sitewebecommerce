@@ -1,4 +1,4 @@
-"""Construit qg/index.html : version autonome (sans IA, sans Claude), en un seul fichier HTML.
+"""Construit qg-supabase/index.html : version autonome (sans IA, sans Claude), en un seul fichier HTML.
 
 Usage : python3 outils-internes/build_qg.py
 Relancer après chaque modification de qg-associes.html ou qg-adapter.js.
@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / 'outils-internes' / 'qg-associes.html'
 ADAPTER = ROOT / 'outils-internes' / 'qg-adapter.js'
 ICON_PNG = ROOT / 'outils-internes' / 'icon-180.png'
-OUT = ROOT / 'qg' / 'index.html'
+OUT = ROOT / 'qg-supabase' / 'index.html'
 
 app = SRC.read_text(encoding='utf-8')
 adapter = ADAPTER.read_text(encoding='utf-8')

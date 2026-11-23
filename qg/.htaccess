@@ -1,5 +1,9 @@
-# QG des associés : ne pas indexer dans les moteurs de recherche
+# QG des associés
+Options -Indexes
 <IfModule mod_headers.c>
   Header set X-Robots-Tag "noindex, nofollow"
   Header set Cache-Control "no-cache"
 </IfModule>
+<FilesMatch "^(config\.php|.*\.json|.*\.lock|.*\.tmp)$">
+  Require all denied
+</FilesMatch>
