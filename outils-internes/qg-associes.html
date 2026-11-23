@@ -11,16 +11,25 @@
   --f-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
   --f-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --tabbar-h: 64px;
+  --c-tasks: #3B5BDB; --c-tasks-soft: #EDF2FF; --c-calls: #0B7F8C; --c-calls-soft: #E3F8F9;
+  --c-ideas: #C2410C; --c-ideas-soft: #FFF1E6; --c-goals: #6741D9; --c-goals-soft: #F3F0FF; --on-tab: #FFFFFF;
+  --p0: #E8364F; --p1: #1C7ED6; --p2: #2B8A3E;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0E1014; --surface: #171A20; --ink: #ECEEF2; --muted: #99A1AE; --line: #2A2F38;
   --accent: #8197FF; --accent-ink: #0E1014; --accent-soft: #1E2645;
   --danger: #FF7468; --danger-soft: #3A1C1B; --warn: #F2B45C; --warn-soft: #352713; --ok: #62D49A; --ok-soft: #15301F;
+  --c-tasks: #91A7FF; --c-tasks-soft: #1A2350; --c-calls: #4FD1DD; --c-calls-soft: #0D2C30;
+  --c-ideas: #FFA94D; --c-ideas-soft: #3A2412; --c-goals: #B197FC; --c-goals-soft: #251C47; --on-tab: #0E1014;
+  --p0: #FF8A9A; --p1: #63B3F7; --p2: #69DB7C;
   color-scheme: dark; } }
 :root[data-theme="dark"] {
   --bg: #0E1014; --surface: #171A20; --ink: #ECEEF2; --muted: #99A1AE; --line: #2A2F38;
   --accent: #8197FF; --accent-ink: #0E1014; --accent-soft: #1E2645;
   --danger: #FF7468; --danger-soft: #3A1C1B; --warn: #F2B45C; --warn-soft: #352713; --ok: #62D49A; --ok-soft: #15301F;
+  --c-tasks: #91A7FF; --c-tasks-soft: #1A2350; --c-calls: #4FD1DD; --c-calls-soft: #0D2C30;
+  --c-ideas: #FFA94D; --c-ideas-soft: #3A2412; --c-goals: #B197FC; --c-goals-soft: #251C47; --on-tab: #0E1014;
+  --p0: #FF8A9A; --p1: #63B3F7; --p2: #69DB7C;
   color-scheme: dark; }
 
 html, body { height: 100%; }
@@ -181,6 +190,40 @@ hr.sep { border: 0; border-top: 1px solid var(--line); margin: 4px 0; }
 .logo { font: 700 13px/1 var(--f-body); letter-spacing: 0.08em; color: var(--muted); }
 
 .toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(var(--tabbar-h) + 84px + env(safe-area-inset-bottom, 0px)); z-index: 60; width: min(92vw, 480px); background: var(--ink); color: var(--bg); padding: 12px 14px; border-radius: 12px; font-size: 14px; box-shadow: 0 8px 24px rgb(0 0 0 / 0.25); }
+
+/* Couleurs par onglet et par associé */
+body { --tab: var(--c-tasks); --tab-soft: var(--c-tasks-soft); }
+body[data-view="calls"] { --tab: var(--c-calls); --tab-soft: var(--c-calls-soft); }
+body[data-view="ideas"] { --tab: var(--c-ideas); --tab-soft: var(--c-ideas-soft); }
+body::before { background: var(--tab-soft); }
+.top { background: var(--tab-soft); border-bottom-color: transparent; box-shadow: inset 0 -3px 0 var(--tab); }
+.top h1 { color: var(--tab); }
+.fab { background: var(--tab); color: var(--on-tab); }
+.tab[data-tab="tasks"] { --t: var(--c-tasks); } .tab[data-tab="calls"] { --t: var(--c-calls); } .tab[data-tab="ideas"] { --t: var(--c-ideas); }
+.tab[aria-selected="true"] { color: var(--t); }
+.tab[aria-selected="true"]::before { content: ""; position: absolute; top: 0; left: 30%; right: 30%; height: 3px; border-radius: 0 0 3px 3px; background: var(--t); }
+.p0 { --pc: var(--p0); } .p1 { --pc: var(--p1); } .p2 { --pc: var(--p2); }
+.who { display: inline-flex; align-items: center; gap: 5px; }
+.who i { width: 9px; height: 9px; border-radius: 50%; background: var(--pc, var(--muted)); flex: none; }
+.chip.p0, .chip.p1, .chip.p2 { border-color: var(--pc); }
+.chip[aria-pressed="true"].p0, .chip[aria-pressed="true"].p1, .chip[aria-pressed="true"].p2 { background: var(--pc); border-color: var(--pc); color: var(--on-tab); }
+.score.hi { color: var(--ok); } .score.mid { color: var(--warn); } .score.lo { color: var(--danger); }
+
+/* Case objectifs */
+.goals { background: var(--c-goals-soft); border: 1px solid var(--c-goals); border-radius: 16px; padding: 14px; margin-bottom: 18px; display: grid; gap: 10px; }
+.goals-head { display: flex; align-items: baseline; gap: 10px; }
+.goals-head h2 { flex: 1; font-size: 18px; color: var(--c-goals); }
+.goals-head .num { font-size: 13px; font-weight: 600; color: var(--c-goals); }
+.gbar { height: 6px; border-radius: 3px; background: var(--surface); overflow: hidden; }
+.gbar i { display: block; height: 100%; background: var(--c-goals); border-radius: 3px; }
+.goal-list { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: center; background: var(--surface); border-radius: 12px; padding: 10px 12px; cursor: pointer; }
+.goal .gt { font-weight: 600; overflow-wrap: anywhere; }
+.goal.done .gt { text-decoration: line-through; color: var(--muted); }
+.goal .meta { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 2px; }
+.check { width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--c-goals); background: var(--surface); color: var(--on-tab); display: grid; place-items: center; font-weight: 700; padding: 0; }
+.check.on { background: var(--c-goals); }
+.goals-add { border: 1px dashed var(--c-goals); background: transparent; color: var(--c-goals); border-radius: 12px; padding: 10px; font-weight: 600; min-height: 44px; }
 pre.json { white-space: pre-wrap; word-break: break-all; max-height: 240px; overflow: auto; font-size: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
 </style>
 
@@ -273,7 +316,8 @@ const CRITERIA = [
   ['concurrence', 'Concurrence'],
 ];
 const VERDICTS = ['Foncer', 'Tester petit', 'Abandonner'];
-const COLS = ['tasks', 'calls', 'ideas', 'comments'];
+const COLS = ['tasks', 'calls', 'ideas', 'comments', 'goals'];
+const GOAL_STATUS = { encours: 'En cours', atteint: 'Atteint' };
 const TAB_META = {
   tasks: { title: 'Tâches', add: 'Tâche' },
   calls: { title: 'À appeler', add: 'Contact' },
@@ -285,8 +329,8 @@ const S = {
   db: null, user: null, sample: null, downloads: null,
   cfg: null, cfgLoaded: false, cfgError: null, netSlow: false,
   canWrite: null, subscribed: false,
-  data: { tasks: new Map(), calls: new Map(), ideas: new Map(), comments: new Map() },
-  loaded: { tasks: false, calls: false, ideas: false, comments: false },
+  data: { tasks: new Map(), calls: new Map(), ideas: new Map(), comments: new Map(), goals: new Map() },
+  loaded: { tasks: false, calls: false, ideas: false, comments: false, goals: false },
   tab: ['tasks', 'calls', 'ideas'].includes(LS.get('qg.tab')) ? LS.get('qg.tab') : 'tasks',
   filter: LS.get('qg.filter', 'all'),
   ideaSort: LS.get('qg.ideaSort', 'score'),
@@ -500,15 +544,16 @@ function render() {
   $('#fabLabel').textContent = TAB_META[S.tab].add;
   $('#fab').setAttribute('aria-label', 'Ajouter : ' + TAB_META[S.tab].add);
   $('#fab').hidden = readOnly();
+  document.body.dataset.view = S.tab;
   $$('.tab').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.tab === S.tab)));
   updateBadges();
   updateSaveStatus();
   const main = $('#main');
   let html = readOnly() ? '<p class="banner">Lecture seule : ton compte ne peut pas modifier. Demande au propriétaire de t’inviter comme Éditeur.</p>' : '';
-  if (!S.loaded[S.tab] || (S.tab === 'ideas' && !S.loaded.comments)) {
+  if (!S.loaded[S.tab] || (S.tab === 'ideas' && !S.loaded.comments) || (S.tab === 'tasks' && !S.loaded.goals)) {
     html += '<div class="thinking muted"><span class="spin"></span><span>Chargement…</span></div>';
   } else {
-    html += S.tab === 'tasks' ? renderTasks() : S.tab === 'calls' ? renderCalls() : renderIdeas();
+    html += S.tab === 'tasks' ? renderGoals() + renderTasks() : S.tab === 'calls' ? renderCalls() : renderIdeas();
   }
   main.innerHTML = html;
 }
@@ -525,7 +570,7 @@ function updateBadges() {
 function renderTasks() {
   const t = today();
   const f = ['all', ...PEOPLE].includes(S.filter) ? S.filter : 'all';
-  const chips = `<div class="chips" role="group" aria-label="Filtrer par personne">${[['all', 'Tous'], ...PEOPLE.map((i) => [i, name(i)])].map(([k, l]) => `<button type="button" class="chip" data-filter="${k}" aria-pressed="${f === k}">${esc(l)}</button>`).join('')}</div>`;
+  const chips = `<div class="chips" role="group" aria-label="Filtrer par personne">${[['all', 'Tous'], ...PEOPLE.map((i) => [i, name(i)])].map(([k, l]) => `<button type="button" class="chip ${k === 'all' ? '' : 'p' + k}" data-filter="${k}" aria-pressed="${f === k}">${esc(l)}</button>`).join('')}</div>`;
   const all = [...S.data.tasks.entries()].filter(([, x]) => f === 'all' || x.owner === f);
   const open = all.filter(([, x]) => x.status !== 'fait').sort(([, a], [, b]) => {
     const la = a.due && a.due < t ? 0 : 1, lb = b.due && b.due < t ? 0 : 1;
@@ -548,7 +593,7 @@ function taskRow([id, x]) {
   return `<div class="row ${st === 'fait' ? 'done' : ''} ${late ? 'is-late' : ''}" data-open="tasks:${esc(id)}" role="button" tabindex="0">
     <span class="bar p-${esc(x.priority || 'moyenne')}" aria-hidden="true"></span>
     <div class="main"><div class="title">${esc(x.title || 'Sans titre')}</div>
-      <div class="meta"><span>${esc(name(x.owner))}</span>${x.due ? `<span class="${late ? 'late' : ''}">${late ? 'En retard · ' : 'Échéance '}${esc(fmtDate(x.due))}</span>` : ''}<span>Priorité ${esc((PRIO[x.priority] || 'Moyenne').toLowerCase())}</span></div></div>
+      <div class="meta">${who(x.owner)}${x.due ? `<span class="${late ? 'late' : ''}">${late ? 'En retard · ' : 'Échéance '}${esc(fmtDate(x.due))}</span>` : ''}<span>Priorité ${esc((PRIO[x.priority] || 'Moyenne').toLowerCase())}</span></div></div>
     <button type="button" class="pill s-${st}" data-cycle="${esc(id)}" ${readOnly() ? 'disabled' : ''} aria-label="Statut : ${STATUS[st]}. Toucher pour passer à ${STATUS[STATUS_NEXT[st]]}">${STATUS[st]}</button>
   </div>`;
 }
@@ -585,7 +630,7 @@ function callRow([id, x]) {
     <span class="bar" aria-hidden="true"></span>
     <div class="main"><div class="title">${esc(x.name || 'Sans nom')}${x.company ? ` <span class="muted" style="font-weight:400">· ${esc(x.company)}</span>` : ''}</div>
       ${x.reason ? `<div class="clamp">${esc(x.reason)}</div>` : ''}
-      <div class="meta">${x.phone ? `<a class="tel num" href="${esc(telHref(x.phone))}" data-stop>${esc(x.phone)}</a>` : ''}<span>${esc(name(x.caller))} appelle</span>${x.followup ? `<span class="${late ? 'late' : ''}">Relance ${esc(fmtDate(x.followup))}</span>` : ''}</div></div>
+      <div class="meta">${x.phone ? `<a class="tel num" href="${esc(telHref(x.phone))}" data-stop>${esc(x.phone)}</a>` : ''}<span class="who p${esc(x.caller)}"><i></i>${esc(name(x.caller))} appelle</span>${x.followup ? `<span class="${late ? 'late' : ''}">Relance ${esc(fmtDate(x.followup))}</span>` : ''}</div></div>
     ${r ? `<span class="pill r-${r}">${RESULTS[r]}</span>` : '<span></span>'}
   </div>`;
 }
@@ -611,10 +656,33 @@ function renderIdeas() {
         <span class="bar" aria-hidden="true"></span>
         <div class="main"><div class="title">${esc(x.name || 'Sans nom')}</div>
           ${x.description ? `<div class="clamp">${esc(x.description)}</div>` : ''}
-          <div class="meta"><span>Proposée par ${esc(name(x.proposer))}</span>${v ? `<span class="pill v-${esc(v.split(' ')[0])}">${esc(v)}</span>` : ''}${counts[id] ? `<span>${counts[id]} commentaire${counts[id] > 1 ? 's' : ''}</span>` : ''}</div></div>
-        ${typeof x.score === 'number' ? `<div class="score">${fmtScore(x.score)}<small>/10</small></div>` : '<div class="score na">Non analysée</div>'}
+          <div class="meta"><span class="who p${esc(x.proposer)}"><i></i>Proposée par ${esc(name(x.proposer))}</span>${v ? `<span class="pill v-${esc(v.split(' ')[0])}">${esc(v)}</span>` : ''}${counts[id] ? `<span>${counts[id]} commentaire${counts[id] > 1 ? 's' : ''}</span>` : ''}</div></div>
+        ${typeof x.score === 'number' ? `<div class="score ${x.score >= 7 ? 'hi' : x.score >= 5 ? 'mid' : 'lo'}">${fmtScore(x.score)}<small>/10</small></div>` : '<div class="score na">Non analysée</div>'}
       </div>`;
     }).join('')}</div>`;
+}
+
+const who = (i) => `<span class="who p${esc(i)}"><i></i>${esc(name(i))}</span>`;
+function renderGoals() {
+  const t = today();
+  const arr = [...S.data.goals.entries()];
+  const open = arr.filter(([, g]) => g.status !== 'atteint').sort(([, a], [, b]) => (a.deadline || '9') < (b.deadline || '9') ? -1 : (a.deadline || '9') > (b.deadline || '9') ? 1 : (a.createdAt || 0) - (b.createdAt || 0));
+  const done = arr.filter(([, g]) => g.status === 'atteint').sort(([, a], [, b]) => (b.updatedAt || 0) - (a.updatedAt || 0));
+  const row = ([id, g]) => {
+    const isDone = g.status === 'atteint';
+    const late = !isDone && g.deadline && g.deadline < t;
+    return `<div class="goal ${isDone ? 'done' : ''}" data-open="goals:${esc(id)}" role="button" tabindex="0">
+      <button type="button" class="check ${isDone ? 'on' : ''}" data-goal-toggle="${esc(id)}" ${readOnly() ? 'disabled' : ''} aria-label="${isDone ? 'Marquer comme non atteint' : 'Marquer comme atteint'}">${isDone ? '✓' : ''}</button>
+      <div style="min-width:0"><div class="gt">${esc(g.text || 'Objectif sans titre')}</div>
+        <div class="meta">${PEOPLE.includes(g.who) ? who(g.who) : '<span>Nous trois</span>'}${g.deadline ? `<span class="${late ? 'late' : ''}">${late ? 'En retard · ' : 'Pour '}${esc(fmtDate(g.deadline))}</span>` : ''}</div></div></div>`;
+  };
+  const total = arr.length, pct = total ? Math.round((done.length / total) * 100) : 0;
+  return `<section class="goals" aria-label="Nos objectifs">
+    <div class="goals-head"><h2>Nos objectifs</h2>${total ? `<span class="num">${done.length}/${total} atteints</span>` : ''}</div>
+    ${total ? `<div class="gbar" aria-hidden="true"><i style="width:${pct}%"></i></div>` : '<p class="hint" style="margin:0">Fixez-vous des objectifs précis et datés, par exemple « 20 appels passés d’ici vendredi ».</p>'}
+    ${total ? `<div class="goal-list">${open.map(row).join('')}${done.map(row).join('')}</div>` : ''}
+    ${readOnly() ? '' : '<button type="button" class="goals-add" data-add-goal>+ Fixer un objectif</button>'}
+  </section>`;
 }
 const empty = (t, s) => `<div class="empty"><strong>${esc(t)}</strong>${esc(s)}</div>`;
 
@@ -636,6 +704,18 @@ $('#main').addEventListener('click', (ev) => {
     S.data.tasks.set(id, Object.assign({}, x, { status: next, updatedAt: Date.now() })); render();
     return;
   }
+  if (t.closest('[data-add-goal]')) { openSheet('goals', null); return; }
+  const gt = t.closest('[data-goal-toggle]');
+  if (gt) {
+    ev.stopPropagation();
+    if (readOnly()) return;
+    const id = gt.dataset.goalToggle; const g = S.data.goals.get(id); if (!g) return;
+    const next = g.status === 'atteint' ? 'encours' : 'atteint';
+    queueWrite('goals', id, { status: next }, { now: true });
+    S.data.goals.set(id, Object.assign({}, g, { status: next, updatedAt: Date.now() })); render();
+    if (next === 'atteint') toast('Objectif atteint. Bravo à vous trois.');
+    return;
+  }
   const row = t.closest('[data-open]');
   if (row) { const [col, id] = row.dataset.open.split(':'); openSheet(col, id); }
 });
@@ -651,6 +731,7 @@ function defaults(col) {
   const me = PEOPLE.includes(S.me) ? S.me : '0';
   if (col === 'tasks') return { title: '', owner: me, due: '', priority: 'moyenne', status: 'afaire' };
   if (col === 'calls') return { name: '', phone: '', company: '', reason: '', caller: me, followup: '', result: '', notes: '' };
+  if (col === 'goals') return { text: '', who: 'all', deadline: '', status: 'encours' };
   return { name: '', description: '', proposer: me };
 }
 const personOptions = (sel) => PEOPLE.map((i) => `<option value="${i}" ${sel === i ? 'selected' : ''}>${esc(name(i))}</option>`).join('');
@@ -687,6 +768,15 @@ function openSheet(col, id) {
       </div>
       <div class="field"><label for="f-result">Résultat</label><select class="input" id="f-result" data-f="result" ${ro}>${Object.entries(RESULTS).map(([k, l]) => `<option value="${k}" ${item.result === k ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select></div>
       <div class="field"><label for="f-notes">Notes</label><textarea class="input" id="f-notes" data-f="notes" rows="4" maxlength="4000" ${ro}>${esc(item.notes)}</textarea></div>`;
+  } else if (col === 'goals') {
+    title = isNew ? 'Nouvel objectif' : 'Objectif';
+    form = `
+      <div class="field"><label for="f-text">Objectif</label><textarea class="input" id="f-text" data-f="text" rows="2" maxlength="300" ${ro} placeholder="Ex. Signer 3 clients avant le 15 décembre">${esc(item.text)}</textarea><span class="hint">Un bon objectif est chiffré et daté.</span></div>
+      <div class="two">
+        <div class="field"><label for="f-who">Pour qui</label><select class="input" id="f-who" data-f="who" ${ro}><option value="all" ${PEOPLE.includes(item.who) ? '' : 'selected'}>Nous trois</option>${personOptions(item.who)}</select></div>
+        <div class="field"><label for="f-deadline">Pour le</label><input class="input" type="date" id="f-deadline" data-f="deadline" value="${esc(item.deadline)}" ${ro}></div>
+      </div>
+      <div class="field"><span class="lbl">Statut</span>${seg('status', GOAL_STATUS, item.status)}</div>`;
   } else {
     title = isNew ? 'Nouvelle idée' : 'Idée';
     form = `
@@ -1005,7 +1095,7 @@ function openSettings() {
     <section class="field"><label for="meSel">Ce téléphone est celui de</label><select class="input" id="meSel">${personOptions(S.me)}</select></section>
     <hr class="sep">
     <section class="field"><h3 style="font-size:16px">Sauvegarde de secours</h3>
-      <p class="hint" style="margin:0">${S.data.tasks.size} tâches, ${S.data.calls.size} contacts, ${S.data.ideas.size} idées, ${S.data.comments.size} commentaires.</p>
+      <p class="hint" style="margin:0">${S.data.tasks.size} tâches, ${S.data.calls.size} contacts, ${S.data.ideas.size} idées, ${S.data.goals.size} objectifs, ${S.data.comments.size} commentaires.</p>
       <button type="button" class="btn block" id="exportBtn">Exporter une sauvegarde (JSON)</button>
       <button type="button" class="btn block" id="importBtn" ${ro}>Importer une sauvegarde</button>
       <div id="ioZone"></div></section>
@@ -1024,7 +1114,7 @@ function openSettings() {
 
 function buildBackup() {
   const dump = (col) => [...S.data[col].entries()].map(([id, d]) => Object.assign({ id }, d));
-  return { app: 'qg-associes', version: 1, exportedAt: new Date().toISOString(), names: PEOPLE.map(name), tasks: dump('tasks'), calls: dump('calls'), ideas: dump('ideas'), comments: dump('comments') };
+  return { app: 'qg-associes', version: 1, exportedAt: new Date().toISOString(), names: PEOPLE.map(name), tasks: dump('tasks'), calls: dump('calls'), ideas: dump('ideas'), comments: dump('comments'), goals: dump('goals') };
 }
 async function exportJson() {
   const json = JSON.stringify(buildBackup(), null, 2);
@@ -1058,7 +1148,7 @@ $('#importFile').addEventListener('change', (ev) => {
       }
     }
     const count = (c) => items.filter((x) => x.col === c).length;
-    z.innerHTML = `<div class="msg info">Sauvegarde du ${esc(fmtWhen(Date.parse(data.exportedAt)))} : ${count('tasks')} tâches, ${count('calls')} contacts, ${count('ideas')} idées, ${count('comments')} commentaires. Les éléments présents dans le fichier remplacent leur version actuelle ; rien n’est supprimé.</div><button type="button" class="btn primary block" id="doImport">Importer ${items.length} éléments</button>`;
+    z.innerHTML = `<div class="msg info">Sauvegarde du ${esc(fmtWhen(Date.parse(data.exportedAt)))} : ${count('tasks')} tâches, ${count('calls')} contacts, ${count('ideas')} idées, ${count('goals')} objectifs, ${count('comments')} commentaires. Les éléments présents dans le fichier remplacent leur version actuelle ; rien n’est supprimé.</div><button type="button" class="btn primary block" id="doImport">Importer ${items.length} éléments</button>`;
     $('#doImport').addEventListener('click', async (e) => {
       const btn = e.currentTarget; btn.disabled = true;
       let ok = 0, ko = 0;
