@@ -1,0 +1,247 @@
+/*
+ * NODAL — accueil. Ordre validé : hero, réassurance, avant/après, étapes, modules,
+ * « ça tient », atelier, mini configurateur, FAQ, newsletter.
+ * Dans l'éditeur : choisir le produit rail (hero + mini configurateur) et la collection Modules.
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "nodal-hero",
+      "settings": {
+        "heading": "Ton sport,\nau mur.",
+        "text": "Un rail en chêne massif. Des modules imprimés en 3D à la main en France. Ton casque, tes chaussures, tes clés : chacun sa place.",
+        "button_label": "Composer mon rail",
+        "link_label": "Voir les modules",
+        "sticky_bar": true
+      }
+    },
+    "trust": {
+      "type": "nodal-trust",
+      "settings": {},
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Livraison offerte",
+            "sub": "Expédié sous 5 j ouvrés"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "icon": "return",
+            "title": "Retours 30 jours",
+            "sub": "Même monté au mur"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "icon": "made",
+            "title": "Fait main en France",
+            "sub": "Atelier à [ville]"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "Garantie 3 ans",
+            "sub": "Rail et modules"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4"
+      ]
+    },
+    "before-after": {
+      "type": "nodal-before-after",
+      "settings": {
+        "heading": "Même entrée.\n10 minutes plus tard.",
+        "text": "Glisse pour voir la différence."
+      }
+    },
+    "steps": {
+      "type": "nodal-steps",
+      "settings": {
+        "heading": "Comment ça marche",
+        "text": "Pas de perceuse à percussion, pas de chantier."
+      },
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Fixe le rail",
+            "text": "Deux vis, chevilles fournies pour béton, brique ou placo. Gabarit de perçage dans la boîte.",
+            "spec": "≈ 10 min · 2 trous Ø 6 mm"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Accroche les modules",
+            "text": "Ils se glissent sur le rail et se bloquent. Sans outil, déplaçables à tout moment.",
+            "spec": "0 outil · repositionnable"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Ajoute-en quand tu veux",
+            "text": "Nouveau vélo, nouveau sport : tu complètes ton rail, sans rien démonter.",
+            "spec": "100 % compatible"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ]
+    },
+    "modules": {
+      "type": "nodal-modules",
+      "settings": {
+        "heading": "Les modules",
+        "text": "Chaque module affiche sa charge maximale. Testée à 3 fois cette valeur.",
+        "limit": 4,
+        "show_all": true
+      }
+    },
+    "proof": {
+      "type": "nodal-proof",
+      "settings": {
+        "heading": "Oui, ça tient.",
+        "text": "On charge chaque modèle à 3 fois sa charge maximale avant de le vendre. Regarde."
+      },
+      "blocks": {
+        "spec_1": {
+          "type": "spec",
+          "settings": {
+            "value": "×3",
+            "label": "marge de test"
+          }
+        },
+        "spec_2": {
+          "type": "spec",
+          "settings": {
+            "value": "[matière]",
+            "label": "matière modules"
+          }
+        },
+        "spec_3": {
+          "type": "spec",
+          "settings": {
+            "value": "Chêne",
+            "label": "massif, France"
+          }
+        }
+      },
+      "block_order": [
+        "spec_1",
+        "spec_2",
+        "spec_3"
+      ]
+    },
+    "atelier": {
+      "type": "nodal-atelier",
+      "settings": {
+        "heading": "Fabriqué ici.",
+        "text": "Le chêne est coupé, poncé et huilé dans notre atelier. Les modules sortent de nos imprimantes, un par un."
+      }
+    },
+    "config-teaser": {
+      "type": "nodal-config-teaser",
+      "settings": {
+        "heading": "Compose ton rail",
+        "text": "Choisis la longueur. Tu ajoutes les modules à l'étape suivante.",
+        "default_index": 2,
+        "price_label": "Rail chêne naturel",
+        "button_label": "Ajouter mes modules"
+      }
+    },
+    "faq": {
+      "type": "nodal-faq",
+      "settings": {
+        "heading": "Questions"
+      },
+      "blocks": {
+        "qa_1": {
+          "type": "qa",
+          "settings": {
+            "question": "Ça tient vraiment un casque de moto ?",
+            "answer": "<p>Chaque module affiche sa charge maximale et il est testé à 3 fois cette valeur. Un casque de moto pèse 1,3 à 1,8 kg.</p>"
+          }
+        },
+        "qa_2": {
+          "type": "qa",
+          "settings": {
+            "question": "J'ai des murs en placo, c'est possible ?",
+            "answer": "<p>Oui. La boîte contient des chevilles pour placo, en plus des chevilles béton et brique. Le guide de pose précise la charge totale par type de mur.</p>"
+          }
+        },
+        "qa_3": {
+          "type": "qa",
+          "settings": {
+            "question": "Ça va abîmer mon mur ?",
+            "answer": "<p>Deux trous de 6 mm, rebouchables en 2 minutes si tu déménages. Rien d'autre ne touche le mur.</p>"
+          }
+        },
+        "qa_4": {
+          "type": "qa",
+          "settings": {
+            "question": "Je le reçois quand ?",
+            "answer": "<p>Chaque rail est fabriqué à la commande. La date de livraison estimée est affichée sur chaque fiche produit et dans ton panier.</p>"
+          }
+        },
+        "qa_5": {
+          "type": "qa",
+          "settings": {
+            "question": "Et si ça ne me plaît pas une fois posé ?",
+            "answer": "<p>Tu as 30 jours pour le renvoyer, même monté. [À COMPLÉTER : frais de retour à la charge du client ou offerts.]</p>"
+          }
+        },
+        "qa_6": {
+          "type": "qa",
+          "settings": {
+            "question": "Comment j'entretiens le chêne ?",
+            "answer": "<p>Un chiffon sec. Une fois par an, un peu d'huile si tu veux raviver la teinte.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "qa_1",
+        "qa_2",
+        "qa_3",
+        "qa_4",
+        "qa_5",
+        "qa_6"
+      ]
+    },
+    "newsletter": {
+      "type": "nodal-newsletter",
+      "settings": {
+        "heading": "Nouveaux modules,\nune fois par mois.",
+        "text": "Pas de promo tous les trois jours. Juste ce qui sort de l'atelier.",
+        "button_label": "M'inscrire"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "trust",
+    "before-after",
+    "steps",
+    "modules",
+    "proof",
+    "atelier",
+    "config-teaser",
+    "faq",
+    "newsletter"
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title"
+        },
+        "price": {
+          "type": "price"
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector"
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": false
+          }
+        },
+        "description": {
+          "type": "description"
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        },
+        "nodal_charge": {
+          "type": "nodal_charge",
+          "settings": {}
+        },
+        "nodal_buybox": {
+          "type": "nodal_buybox",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "nodal_charge",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "nodal_buybox",
+        "description",
+        "share"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_position": "left",
+        "gallery_layout": "stacked",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "cover",
+        "image_zoom": "lightbox",
+        "mobile_thumbnails": "show",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "disclosures": {
+      "type": "disclosures",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "nodal_proof": {
+      "type": "nodal-proof",
+      "blocks": {
+        "s1": {
+          "type": "spec",
+          "settings": {
+            "value": "×3",
+            "label": "marge de test"
+          }
+        },
+        "s2": {
+          "type": "spec",
+          "settings": {
+            "value": "[matière]",
+            "label": "matière"
+          }
+        },
+        "s3": {
+          "type": "spec",
+          "settings": {
+            "value": "10 min",
+            "label": "pose"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "heading": "Oui, ça tient.",
+        "text": "Ce module est chargé à 3 fois sa charge maximale avant d'être mis en vente. Plan fixe, sans coupe."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "nodal_proof",
+    "disclosures",
+    "related-products"
+  ]
+}

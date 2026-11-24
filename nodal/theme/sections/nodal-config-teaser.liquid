@@ -1,0 +1,82 @@
+{%- comment -%}
+  NODAL — mini configurateur de l'accueil : une seule décision (la longueur),
+  puis envoi vers le configurateur avec ?longueur=… pré-rempli.
+  Les longueurs et les prix viennent des variantes du produit rail (option « Longueur »).
+{%- endcomment -%}
+{%- liquid
+  assign rail = section.settings.rail_product
+  assign len_index = -1
+  if rail != blank
+    for opt in rail.options_with_values
+      assign oname = opt.name | downcase
+      if oname contains 'longueur' or oname contains 'length' or oname contains 'taille'
+        assign len_index = forloop.index0
+        assign len_option = opt
+      endif
+    endfor
+  endif
+  assign cfg_url = section.settings.configurator_url | default: settings.nd_configurator_url | default: '/pages/configurateur'
+-%}
+<section class="nd nd-section nd-teaser" id="configurateur" data-nd-hide-sticky aria-labelledby="nd-teaser-{{ section.id }}">
+  <div class="nd-wrap nd-teaser__inner" data-nd-teaser data-pitch="{{ settings.nd_slot_pitch_mm }}">
+    <h2 class="nd-h2" id="nd-teaser-{{ section.id }}">{{ section.settings.heading }}</h2>
+    <p class="nd-lead">{{ section.settings.text }}</p>
+    {%- if len_index >= 0 -%}
+      <div class="nd-seg" role="group" aria-label="Longueur du rail" style="--n:{{ len_option.values.size }}">
+        {%- for val in len_option.values -%}
+          {%- liquid
+            assign vprice = ''
+            for v in rail.variants
+              if v.options[len_index] == val.name and v.available
+                assign vprice = v.price
+                break
+              endif
+            endfor
+            if vprice == ''
+              for v in rail.variants
+                if v.options[len_index] == val.name
+                  assign vprice = v.price
+                  break
+                endif
+              endfor
+            endif
+            assign pressed = false
+            if forloop.index == section.settings.default_index
+              assign pressed = true
+            endif
+          -%}
+          <button type="button" data-len="{{ val.name | default: val | escape }}" data-price="{{ vprice }}" aria-pressed="{{ pressed }}">{{ val.name | default: val }}</button>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p class="nd-mono" style="margin:22px 0">Choisis le produit rail dans l'éditeur. Il doit avoir une option « Longueur » (60 cm, 80 cm, 120 cm).</p>
+    {%- endif -%}
+    <div class="nd-rail">
+      <svg viewBox="0 0 335 60" aria-hidden="true" focusable="false">
+        <g stroke="#9A968C" stroke-width=".8" fill="none"><path d="M0 10v-8"/><path data-dim-r d="M335 10v-8"/><path data-dim-h d="M0 6h335"/></g>
+        <rect data-rail x="0" y="16" width="335" height="14" fill="#C9A877"/>
+        <g data-slots fill="none" stroke="#C6FF00" stroke-dasharray="2 3"></g>
+      </svg>
+      <p class="nd-mono nd-rail__meta"><span data-len-txt></span><span data-slot-txt></span></p>
+    </div>
+    <div class="nd-total"><span>{{ section.settings.price_label }}</span><span class="nd-price" data-price-txt>{% if rail != blank %}{{ rail.price_min | money_without_trailing_zeros }}{% endif %}</span></div>
+    <a class="nd-btn" data-cta data-base="{{ cfg_url }}" href="{{ cfg_url }}">{{ section.settings.button_label }}</a>
+    <p class="nd-mono nd-assure">{{ settings.nd_shipping_title }} · retours {{ settings.nd_returns_days }} jours · garantie {{ settings.nd_warranty_years }} ans</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "NODAL · Mini config",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Compose ton rail" },
+    { "type": "text", "id": "text", "label": "Texte", "default": "Choisis la longueur. Tu ajoutes les modules à l'étape suivante." },
+    { "type": "product", "id": "rail_product", "label": "Produit rail" },
+    { "type": "range", "id": "default_index", "label": "Longueur sélectionnée par défaut (position)", "min": 1, "max": 4, "step": 1, "default": 2 },
+    { "type": "text", "id": "price_label", "label": "Libellé du prix", "default": "Rail chêne naturel" },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Ajouter mes modules" },
+    { "type": "url", "id": "configurator_url", "label": "Lien du configurateur", "info": "Vide = lien des paramètres du thème, sinon /pages/configurateur." }
+  ],
+  "presets": [{ "name": "NODAL · Mini config" }]
+}
+{% endschema %}

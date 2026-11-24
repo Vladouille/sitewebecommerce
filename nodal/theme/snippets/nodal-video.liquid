@@ -1,0 +1,16 @@
+{%- comment -%}
+  Vidéo muette, lancée au tap (pas d'autoplay sauf boucle d'ambiance demandée),
+  avec poster et chargement différé.
+  Paramètres : video (objet video), label (texte de l'emplacement vide), loop (booléen), class
+{%- endcomment -%}
+<div class="nd-media {{ class }}{% if video == blank %} nd-ph{% endif %}">
+  {%- if video != blank -%}
+    {%- if loop -%}
+      {{ video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'none', image_size: '1200x' }}
+    {%- else -%}
+      {{ video | video_tag: controls: true, muted: true, playsinline: true, preload: 'none', image_size: '1200x' }}
+    {%- endif -%}
+  {%- else -%}
+    <span>{{ label }}</span>
+  {%- endif -%}
+</div>

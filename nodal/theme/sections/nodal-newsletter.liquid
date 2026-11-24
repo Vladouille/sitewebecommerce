@@ -1,0 +1,36 @@
+{%- comment -%}
+  NODAL — inscription newsletter (formulaire client Shopify, tag « newsletter »).
+  Pas de remise à l'inscription par défaut. Le consentement marketing est enregistré par Shopify.
+{%- endcomment -%}
+<section class="nd nd-section nd-rule nd-nl" data-nd-hide-sticky aria-labelledby="nd-nl-{{ section.id }}">
+  <div class="nd-wrap">
+    <h2 class="nd-h2" id="nd-nl-{{ section.id }}">{{ section.settings.heading | newline_to_br }}</h2>
+    <p class="nd-lead">{{ section.settings.text }}</p>
+    {%- assign nd_form_id = 'nd-nl-form-' | append: section.id -%}
+    {%- form 'customer', id: nd_form_id -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <label for="nd-nl-mail-{{ section.id }}" class="nd-mono">Ton email</label>
+      <input id="nd-nl-mail-{{ section.id }}" type="email" name="contact[email]" placeholder="toi@exemple.fr" autocomplete="email" autocorrect="off" autocapitalize="off" required{% if form.errors %} aria-invalid="true" aria-describedby="nd-nl-err-{{ section.id }}"{% endif %}>
+      <button class="nd-btn nd-btn--ghost" type="submit">{{ section.settings.button_label }}</button>
+      {%- if form.posted_successfully? -%}
+        <p class="nd-nl__ok" role="status">C'est noté. Premier email au prochain module.</p>
+      {%- elsif form.errors -%}
+        <p class="nd-nl__err" id="nd-nl-err-{{ section.id }}" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+      {%- endif -%}
+      <p class="nd-nl__legal">Désinscription en un clic dans chaque email.{% if section.settings.privacy_url != blank %} Voir notre <a class="nd-link" href="{{ section.settings.privacy_url }}">politique de confidentialité</a>.{% endif %}</p>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "NODAL · Newsletter",
+  "settings": [
+    { "type": "textarea", "id": "heading", "label": "Titre", "default": "Nouveaux modules,\nune fois par mois." },
+    { "type": "text", "id": "text", "label": "Texte", "default": "Pas de promo tous les trois jours. Juste ce qui sort de l'atelier." },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "M'inscrire" },
+    { "type": "url", "id": "privacy_url", "label": "Lien politique de confidentialité", "info": "Ex. : /policies/privacy-policy" }
+  ],
+  "presets": [{ "name": "NODAL · Newsletter" }]
+}
+{% endschema %}

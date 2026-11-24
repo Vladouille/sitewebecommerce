@@ -1,0 +1,18 @@
+/*
+ * NODAL — configurateur. Créer une page « Configurateur » (adresse /pages/configurateur)
+ * et lui attribuer le modèle « configurateur ».
+ */
+{
+  "sections": {
+    "main": {
+      "type": "nodal-configurator",
+      "settings": {
+        "heading": "Compose ton rail",
+        "text": "Choisis ta longueur et ta finition, puis place tes modules. Le prix se met à jour en direct."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

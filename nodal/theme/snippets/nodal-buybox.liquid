@@ -1,0 +1,30 @@
+{%- comment -%}
+  Réassurance d'achat, affichée à côté du bouton d'achat (fiche produit),
+  dans le configurateur et dans le panier.
+  Toutes les valeurs viennent de Paramètres du thème > NODAL — engagements.
+  La date de livraison est calculée dans le navigateur (assets/nodal.js),
+  pour rester juste même quand la page est en cache.
+{%- endcomment -%}
+<div class="nd-buybox" role="list">
+  <div class="nd-buybox__row" role="listitem">
+    {% render 'nodal-icon', icon: 'clock' %}
+    <span>
+      <b>Livré <span data-nd-eta data-fab="{{ settings.nd_fab_days }}" data-min="{{ settings.nd_ship_min }}" data-max="{{ settings.nd_ship_max }}">sous {{ settings.nd_fab_days | plus: settings.nd_ship_max }} jours ouvrés</span></b>
+      <small>Fabriqué à la commande en {{ settings.nd_fab_days }} jours ouvrés, puis {{ settings.nd_ship_min }} à {{ settings.nd_ship_max }} jours de transport. {{ settings.nd_shipping_title }}.</small>
+    </span>
+  </div>
+  <div class="nd-buybox__row" role="listitem">
+    {% render 'nodal-icon', icon: 'return' %}
+    <span>
+      <b>Retours {{ settings.nd_returns_days }} jours</b>
+      <small>{{ settings.nd_returns_sub }}.{% if settings.nd_returns_url != blank %} <a class="nd-link" href="{{ settings.nd_returns_url }}">Comment ça marche</a>{% endif %}</small>
+    </span>
+  </div>
+  <div class="nd-buybox__row" role="listitem">
+    {% render 'nodal-icon', icon: 'shield' %}
+    <span>
+      <b>Garantie {{ settings.nd_warranty_years }} ans</b>
+      <small>Rail et modules, en plus de la garantie légale de conformité.{% if settings.nd_warranty_url != blank %} <a class="nd-link" href="{{ settings.nd_warranty_url }}">Détails</a>{% endif %}</small>
+    </span>
+  </div>
+</div>

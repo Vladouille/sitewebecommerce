@@ -1,0 +1,45 @@
+{%- comment -%} NODAL — « Fabriqué ici. » Atelier, fabrication, fondateur. Aucun texte inventé : les champs vides restent signalés. {%- endcomment -%}
+<section class="nd nd-section nd-rule" aria-labelledby="nd-made-{{ section.id }}">
+  <div class="nd-wrap nd-atelier__grid">
+    <div>
+      <h2 class="nd-h2" id="nd-made-{{ section.id }}">{{ section.settings.heading }}</h2>
+      <p class="nd-lead">{{ section.settings.text }}</p>
+      {%- if section.settings.quote != blank -%}
+        <div class="nd-founder">
+          <div class="nd-media">
+            {%- if section.settings.founder != blank -%}{{ section.settings.founder | image_url: width: 160 | image_tag: loading: 'lazy', alt: section.settings.founder_name }}{%- endif -%}
+          </div>
+          <p>« {{ section.settings.quote }} »<br><small>{{ section.settings.founder_name }}, fondateur</small></p>
+        </div>
+      {%- endif -%}
+    </div>
+    <div>
+      {% render 'nodal-video', video: section.settings.video, label: "Vidéo atelier : imprimante en cours et ponçage du chêne, 15 s en boucle", loop: true, class: 'nd-atelier__main' %}
+      <div class="nd-atelier__pair">
+        <div class="nd-media{% if section.settings.image_1 == blank %} nd-ph{% endif %}">
+          {%- if section.settings.image_1 != blank -%}{{ section.settings.image_1 | image_url: width: 600 | image_tag: widths: '300, 600', sizes: '(min-width: 990px) 25vw, 50vw', loading: 'lazy' }}{%- else -%}<span>Chant du chêne, macro</span>{%- endif -%}
+        </div>
+        <div class="nd-media{% if section.settings.image_2 == blank %} nd-ph{% endif %}">
+          {%- if section.settings.image_2 != blank -%}{{ section.settings.image_2 | image_url: width: 600 | image_tag: widths: '300, 600', sizes: '(min-width: 990px) 25vw, 50vw', loading: 'lazy' }}{%- else -%}<span>Module à la sortie de l'imprimante</span>{%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "NODAL · Fabriqué ici",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Fabriqué ici." },
+    { "type": "textarea", "id": "text", "label": "Texte", "default": "Le chêne est coupé, poncé et huilé dans notre atelier. Les modules sortent de nos imprimantes, un par un." },
+    { "type": "video", "id": "video", "label": "Vidéo atelier (boucle muette)" },
+    { "type": "image_picker", "id": "image_1", "label": "Photo 1" },
+    { "type": "image_picker", "id": "image_2", "label": "Photo 2" },
+    { "type": "image_picker", "id": "founder", "label": "Portrait du fondateur" },
+    { "type": "text", "id": "founder_name", "label": "Prénom du fondateur" },
+    { "type": "textarea", "id": "quote", "label": "Phrase du fondateur", "info": "Une phrase vraie : pourquoi tu as créé NODAL. Vide = bloc masqué." }
+  ],
+  "presets": [{ "name": "NODAL · Fabriqué ici" }]
+}
+{% endschema %}

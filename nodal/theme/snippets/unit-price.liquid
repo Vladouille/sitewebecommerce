@@ -1,0 +1,19 @@
+{%- doc -%}
+  Renders a unit price with its measurement.
+
+  @param {number} price - The unit price in the currency's minor units.
+  @param {unit_price_measurement} measurement - The measurement associated with the unit price.
+  @param {boolean} [hide_accessibility_label] - Whether to omit the visually hidden unit price label. Defaults to false.
+
+  @example
+  {% render 'unit-price', price: variant.unit_price, measurement: variant.unit_price_measurement %}
+
+{%- enddoc -%}
+<small class="unit-price caption">
+  {%- unless hide_accessibility_label -%}
+    <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
+  {%- endunless -%}
+  <span class="price-item price-item--last">
+    {{ price | unit_price_with_measurement: measurement }}
+  </span>
+</small>

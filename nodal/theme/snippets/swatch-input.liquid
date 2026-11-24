@@ -1,0 +1,53 @@
+{% doc %}
+  Renders a radio or checkbox input with a swatch label.
+
+  @param {string} id - A unique ID for the input.
+  @param {string} name - The input name.
+  @param {string} value - The input value and label title.
+  @param {swatch} swatch - The swatch displayed in the label.
+  @param {string} product_form_id - The ID of the form associated with the input.
+  @param {string} [type] - The input type. Accepts `radio` or `checkbox`; defaults to `radio`.
+  @param {boolean} [checked] - Whether the input is checked. Defaults to false.
+  @param {boolean} [disabled] - Whether the input is disabled. Defaults to false.
+  @param {boolean} [visually_disabled] - Whether to style the swatch as disabled without disabling the input. Defaults to false.
+  @param {string} [shape] - The swatch shape. Accepts `circle` or `square`; defaults to `circle`.
+  @param {string} [help_text] - Additional content rendered inside the label. Defaults to blank.
+  @param {string} [additional_props] - Trusted, generated HTML attributes rendered on the input. Never pass merchant-authored or buyer-authored content. Defaults to blank.
+
+  @example
+  {% render 'swatch-input',
+    id: input_id,
+    name: input_name,
+    value: escaped_value,
+    swatch: value.swatch,
+    product_form_id: product_form_id,
+    checked: value.selected,
+    shape: block.settings.swatch_shape
+  %}
+{% enddoc %}
+
+<input
+  type="{{ type | default: 'radio' }}"
+  id="{{ id }}"
+  name="{{ name | escape }}"
+  value="{{ value }}"
+  form="{{ product_form_id }}"
+  class="swatch-input__input{% if visually_disabled %} visually-disabled{% endif %}"
+  {% if checked %}
+    checked
+  {% endif %}
+  {% if disabled %}
+    disabled
+  {% endif %}
+  {% if additional_props %}
+    {{ additional_props }}
+  {% endif %}
+>
+<label
+  for="{{ id }}"
+  title="{{ value }}"
+  class="swatch-input__label{% if shape == 'square' %} swatch-input__label--square{% endif %}"
+>
+  {% render 'swatch', swatch: swatch, shape: shape %}
+  {{ help_text }}
+</label>

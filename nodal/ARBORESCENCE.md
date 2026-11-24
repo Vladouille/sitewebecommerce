@@ -72,7 +72,7 @@ Pour une marque qui se lance avec un seul fondateur, Shopify plutôt que Next.js
 
 ## 5. Décisions que je te recommande (à valider)
 
-1. **Configurateur : toucher pour placer, pas glisser-déposer sur mobile.** Le glisser-déposer au doigt sur un rail de 335 px est imprécis et entre en conflit avec le défilement de la page. Sur mobile : tu touches un module, puis un emplacement. Le glisser-déposer reste disponible sur ordinateur.
+1. **Configurateur : toucher pour placer, pas glisser-déposer sur mobile.** ✅ Implémenté : un tap sur un module le place dans le premier emplacement libre (ou dans l'emplacement ciblé par un tap) ; glisser-déposer en plus sur ordinateur.
 2. **Rail = 1 produit avec variantes** (longueur × finition), **modules = produits séparés**. Le configurateur ajoute tout d'un coup (`/cart/add.js`, plusieurs articles) avec un identifiant de composition commun. Pas d'application de « bundle » payante.
 3. **Garantie 3 ans = garantie commerciale.** Elle s'ajoute à la garantie légale de conformité de 2 ans, qui doit apparaître dans les CGV et sur la page garantie (art. L217-21 du Code de la consommation).
 4. **Médiateur de la consommation** : obligatoire avant la première vente (CM2C, Medicys…, environ 50 à 150 € par an). À souscrire **avant** la mise en ligne.

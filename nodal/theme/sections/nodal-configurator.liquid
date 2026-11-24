@@ -1,0 +1,144 @@
+{%- comment -%}
+  NODAL — configurateur (page clé).
+  Données :
+  - Produit rail : variantes « Longueur » × « Finition » (noms d'options détectés automatiquement).
+    Couleur de la pastille de finition : nuance de l'option (Shopify > Options > Nuancier) ou chêne par défaut.
+  - Modules : collection choisie. Métachamps lus : nodal.charge_kg, nodal.slots (emplacements occupés, 1 par défaut).
+  - Nombre d'emplacements : longueur ÷ Paramètres du thème > NODAL > largeur d'un emplacement.
+  Mobile : un tap sur un module le place dans le premier emplacement libre ; tap sur un emplacement vide = le cibler ;
+  tap sur un emplacement occupé = le vider. Ordinateur : glisser-déposer en plus.
+  Ajout au panier : rail + modules en un seul appel /cart/add.js, reliés par la propriété cachée _Composition.
+{%- endcomment -%}
+{%- liquid
+  assign rail = section.settings.rail_product
+  assign col = section.settings.collection
+  assign len_index = -1
+  assign fin_index = -1
+  if rail != blank
+    for opt in rail.options_with_values
+      assign oname = opt.name | downcase
+      if oname contains 'longueur' or oname contains 'length' or oname contains 'taille'
+        assign len_index = forloop.index0
+      elsif oname contains 'finition' or oname contains 'finish' or oname contains 'bois' or oname contains 'teinte'
+        assign fin_index = forloop.index0
+      endif
+    endfor
+  endif
+-%}
+
+<div class="nd nd-cfg" data-nd-configurator>
+  <div class="nd-wrap">
+    <h1 class="nd-h2" style="margin-bottom:6px">{{ section.settings.heading }}</h1>
+    <p class="nd-lead">{{ section.settings.text }}</p>
+
+    {%- if rail == blank or len_index < 0 -%}
+      <p class="nd-cfg__err" style="margin-top:24px">Configurateur incomplet : choisis le produit rail dans l'éditeur. Il doit avoir une option « Longueur » (et, si besoin, « Finition »).</p>
+    {%- else -%}
+      <noscript><p class="nd-cfg__err">Le configurateur a besoin de JavaScript. Tu peux aussi acheter le <a class="nd-link" href="{{ rail.url }}">rail</a> et les <a class="nd-link" href="{{ col.url | default: '/collections/all' }}">modules</a> séparément.</p></noscript>
+
+      <div class="nd-cfg__steps" style="margin-top:28px">
+        <div class="nd-cfg__board-col">
+          <div>
+            <div class="nd-cfg__label"><h2>1 · Longueur</h2><span class="nd-mono" data-len-out></span></div>
+            <div class="nd-seg" role="group" aria-label="Longueur du rail" data-len-group></div>
+          </div>
+          <div data-fin-wrap hidden>
+            <div class="nd-cfg__label"><h2>2 · Finition</h2><span class="nd-mono" data-fin-out></span></div>
+            <div class="nd-finish" role="group" aria-label="Finition du bois" data-fin-group></div>
+          </div>
+          <div class="nd-board">
+            <div class="nd-board__dim nd-mono"><span>0</span><span data-dim-out></span></div>
+            <div class="nd-board__scroll" data-board-scroll>
+              <div class="nd-board__inner" data-board-inner>
+                <div class="nd-board__rail" data-rail-bar></div>
+                <div class="nd-slots" data-slots role="group" aria-label="Emplacements du rail"></div>
+              </div>
+            </div>
+            <p class="nd-mono" data-scroll-hint hidden style="margin-top:8px">Fais glisser le rail pour voir la suite</p>
+            <p class="nd-hint" data-hint aria-live="polite"></p>
+          </div>
+        </div>
+
+        <div>
+          <div class="nd-cfg__label"><h2><span data-mod-step>3</span> · Modules</h2><span class="nd-mono" data-count-out></span></div>
+          <div class="nd-picker" data-picker></div>
+          <div class="nd-suggest">
+            <button type="button" data-suggest>Kit suggéré</button>
+            <button type="button" data-clear>Vider le rail</button>
+          </div>
+
+          <div class="nd-recap" style="margin-top:28px">
+            <div class="nd-cfg__label" style="margin-top:18px"><h2>Récapitulatif</h2></div>
+            <ul data-recap></ul>
+          </div>
+          {% render 'nodal-buybox' %}
+        </div>
+      </div>
+
+      <div class="nd-cfg__bar">
+        <div class="nd-cfg__bar-in">
+          <div><small>Total</small><span class="nd-price" data-total>—</span></div>
+          <div>
+            <button class="nd-btn" type="button" data-add>Ajouter au panier</button>
+            <p class="nd-cfg__err" data-err role="alert" hidden></p>
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%} Données pour assets/nodal-configurator.js {%- endcomment -%}
+      <script type="application/json" data-cfg-data>
+        {
+          "pitch": {{ settings.nd_slot_pitch_mm | default: 130 | json }},
+          "lenIndex": {{ len_index }},
+          "finIndex": {{ fin_index }},
+          "cartAddUrl": {{ routes.cart_add_url | append: '.js' | json }},
+          "cartUrl": {{ routes.cart_url | json }},
+          "railTitle": {{ rail.title | json }},
+          "finishes": [
+            {%- if fin_index >= 0 -%}
+              {%- for v in rail.options_with_values[fin_index].values -%}
+                { "name": {{ v.name | default: v | json }}, "color": {% if v.swatch.color %}{{ v.swatch.color | color_to_hex | json }}{% else %}""{% endif %}, "image": {% if v.swatch.image %}{{ v.swatch.image | image_url: width: 120 | json }}{% else %}null{% endif %} }{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+            {%- endif -%}
+          ],
+          "lengths": [{%- for v in rail.options_with_values[len_index].values -%}{{ v.name | default: v | json }}{% unless forloop.last %},{% endunless %}{%- endfor -%}],
+          "railVariants": [
+            {%- for v in rail.variants -%}
+              { "id": {{ v.id }}, "price": {{ v.price }}, "available": {{ v.available }}, "options": {{ v.options | json }} }{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+          ],
+          "modules": [
+            {%- if col != blank -%}
+              {%- for p in col.products limit: 24 -%}
+                {%- assign v = p.selected_or_first_available_variant -%}
+                { "id": {{ v.id }}, "title": {{ p.title | json }}, "url": {{ p.url | json }}, "price": {{ v.price }}, "available": {{ v.available }},
+                  "image": {% if p.featured_media %}{{ p.featured_media | image_url: width: 160 | json }}{% else %}null{% endif %},
+                  "kg": {{ p.metafields.nodal.charge_kg.value | default: '' | json }},
+                  "slots": {{ p.metafields.nodal.slots.value | default: 1 | json }} }{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+            {%- endif -%}
+          ],
+          "suggested": [
+            {%- for p in section.settings.suggested -%}{{ p.selected_or_first_available_variant.id }}{% unless forloop.last %},{% endunless %}{%- endfor -%}
+          ]
+        }
+      </script>
+    {%- endif -%}
+  </div>
+</div>
+
+<script src="{{ 'nodal-configurator.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "NODAL · Configurateur",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre (H1 de la page)", "default": "Compose ton rail" },
+    { "type": "textarea", "id": "text", "label": "Texte", "default": "Choisis ta longueur et ta finition, puis place tes modules. Le prix se met à jour en direct." },
+    { "type": "product", "id": "rail_product", "label": "Produit rail", "info": "Options attendues : « Longueur » (ex. 60 cm, 80 cm, 120 cm) et « Finition »." },
+    { "type": "collection", "id": "collection", "label": "Collection des modules" },
+    { "type": "product_list", "id": "suggested", "label": "Kit suggéré (ajouté en un clic)", "limit": 8, "info": "Un même module peut être ajouté plusieurs fois par le client, mais une seule fois ici." }
+  ],
+  "presets": [{ "name": "NODAL · Configurateur" }]
+}
+{% endschema %}
