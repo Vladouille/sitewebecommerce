@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Les Bâtisseurs de Clairval</title>
+  <meta name="description" content="Récolte, construis et améliore chaque bâtiment en vue isométrique. Fais grandir Clairval du village à la mégacité, puis jusqu'à la Lune, Mars et la galaxie, en veillant à ce que chaque habitant mange, boive et reste au chaud.">
+  <meta name="theme-color" content="#1c2a1f">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231c2a1f%22/%3E%3Cpath d=%22M6 26V15l10-8 10 8v11z%22 fill=%22%23e0a35a%22/%3E%3Crect x=%2213%22 y=%2218%22 width=%226%22 height=%228%22 fill=%22%231c2a1f%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,600;1,500&family=Nunito+Sans:wght@400;700;800&display=swap">
+  <link rel="stylesheet" href="village.css">
+</head>
+<body>
+  <main class="stage">
+    <canvas id="scene" aria-label="Clairval vu d'en haut : ses rues, ses bâtiments et ses habitants. Touche un bâtiment pour l'améliorer."></canvas>
+
+    <!-- Ressources et temps -->
+    <header class="hud">
+      <div class="res-wrap">
+        <span id="cap-chip" class="cap"></span>
+        <div class="res-row" id="res-row"></div>
+      </div>
+      <div class="meta-row">
+        <span id="pop-chip" class="meta"></span>
+        <span id="happy-chip" class="meta"></span>
+        <span id="time-chip" class="meta"></span>
+        <button type="button" class="save-dot" id="save-dot" data-state="local" aria-label="Sauvegardé sur cet appareil" title="Sauvegardé sur cet appareil"></button>
+        <div class="speed" role="group" aria-label="Vitesse du temps">
+          <button type="button" data-speed="0" aria-label="Pause">II</button>
+          <button type="button" data-speed="1" aria-label="Vitesse normale">x1</button>
+          <button type="button" data-speed="3" aria-label="Vitesse rapide">x3</button>
+          <button type="button" data-speed="10" aria-label="Vitesse très rapide">x10</button>
+        </div>
+      </div>
+    </header>
+
+    <p class="gather-hint" id="gather-hint">Touche les arbres, les rochers, les buissons et la rivière pour récolter. Fais glisser pour te déplacer, pince pour zoomer.</p>
+
+    <!-- Panneau du bas -->
+    <section class="sheet" id="sheet">
+      <button type="button" class="handle" id="sheet-toggle" aria-expanded="true" aria-controls="sheet">Réduire le panneau</button>
+      <nav class="tabs" role="tablist" aria-label="Gestion de Clairval">
+        <button type="button" role="tab" id="tb-build" data-tab="build" aria-selected="true">Bâtir</button>
+        <button type="button" role="tab" id="tb-people" data-tab="people" aria-selected="false">Habitants <span class="badge" id="idle-badge" hidden></span></button>
+        <button type="button" role="tab" id="tb-progress" data-tab="progress" aria-selected="false">Progrès <span class="badge" id="goal-badge" hidden></span></button>
+        <button type="button" role="tab" id="tb-tools" data-tab="tools" aria-selected="false">Outils <span class="badge" id="tool-badge" hidden></span></button>
+        <button type="button" role="tab" id="tb-log" data-tab="log" aria-selected="false">Journal</button>
+      </nav>
+      <div class="tab" id="tab-build" role="tabpanel" aria-labelledby="tb-build"></div>
+      <div class="tab" id="tab-people" role="tabpanel" aria-labelledby="tb-people" hidden></div>
+      <div class="tab" id="tab-progress" role="tabpanel" aria-labelledby="tb-progress" hidden></div>
+      <div class="tab" id="tab-tools" role="tabpanel" aria-labelledby="tb-tools" hidden></div>
+      <div class="tab" id="tab-log" role="tabpanel" aria-labelledby="tb-log" hidden>
+        <p class="save-status" id="save-status" data-state="local">Sauvegardé sur cet appareil</p>
+        <p class="help" id="last-save"></p>
+        <details class="save-box" open>
+          <summary>Sauvegardes automatiques</summary>
+          <p class="help">Une copie de Clairval est gardée toutes les 5 minutes de jeu, au début de chaque ère et avant tout chargement. Touche « Restaurer » pour revenir à ce moment-là.</p>
+          <ul class="backups" id="backups"></ul>
+        </details>
+        <ul class="log" id="log"></ul>
+        <details class="save-box">
+          <summary>Sauvegarde manuelle et code</summary>
+          <p class="help">Clairval se sauvegarde tout seul : sur ton compte quand c'est possible, sinon sur cet appareil. Pour continuer ailleurs, copie ton code et colle-le sur l'autre appareil.</p>
+          <div class="row">
+            <button class="chip" id="btn-save" type="button">Sauvegarder maintenant</button>
+            <button class="chip" id="btn-export" type="button">Copier mon code</button>
+          </div>
+          <label class="help" for="save-code">Code de sauvegarde</label>
+          <textarea id="save-code" rows="3" spellcheck="false" placeholder="Colle ici un code de sauvegarde"></textarea>
+          <div class="row">
+            <button class="chip" id="btn-import" type="button">Charger ce code</button>
+            <button class="chip danger" id="btn-reset" type="button">Recommencer un village</button>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Commandes de la vue (placées après le panneau pour suivre sa hauteur) -->
+    <div class="view-ctrl" role="group" aria-label="Vue">
+      <button type="button" id="zoom-in" aria-label="Zoomer">+</button>
+      <button type="button" id="zoom-out" aria-label="Dézoomer">−</button>
+      <button type="button" id="rotate" aria-label="Tourner la vue">⟳</button>
+    </div>
+    <nav class="sites" id="sites" aria-label="Sites de Clairval" hidden></nav>
+
+    <!-- Placement d'un bâtiment -->
+    <div class="place-bar" id="place-bar" hidden>
+      <p id="place-text"></p>
+      <div class="cost" id="place-cost"></div>
+      <div class="acts">
+        <button type="button" id="place-ok">Valider</button>
+        <button type="button" class="ghost" id="place-cancel">Annuler</button>
+      </div>
+    </div>
+
+    <!-- Fiche d'un bâtiment -->
+    <section class="info" id="info" hidden aria-label="Fiche du bâtiment">
+      <button type="button" class="x" id="info-close" aria-label="Fermer la fiche">×</button>
+      <div id="info-body"></div>
+    </section>
+
+    <p class="toast" id="toast" hidden role="status"></p>
+
+    <!-- Cartes : histoire, événements, absence -->
+    <div class="overlay" id="card" hidden role="dialog" aria-modal="true" aria-labelledby="card-title">
+      <div class="card">
+        <p class="kicker" id="card-kicker"></p>
+        <h2 id="card-title"></h2>
+        <p class="card-text" id="card-text"></p>
+        <div class="card-actions" id="card-actions"></div>
+      </div>
+    </div>
+  </main>
+  <script src="village.js"></script>
+</body>
+</html>

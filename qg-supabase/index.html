@@ -1,0 +1,1220 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#3B5BDB">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="QG">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233B5BDB'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='28' font-weight='700' fill='white' text-anchor='middle'%3EQG%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<title>QG des associés</title>
+<style>
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+[hidden] { display: none !important; }
+</style>
+<script>
+/* ===== Les 2 seules lignes à remplir (Supabase > Project Settings > API) ===== */
+window.QG_CONFIG = {
+  SUPABASE_URL: 'https://VOTRE-PROJET.supabase.co',
+  SUPABASE_KEY: 'VOTRE-CLE-PUBLIQUE',
+};
+</script>
+<script>
+/* QG des associés : version autonome (une page HTML + une base Supabase gratuite).
+   Remplace window.claude.use(...) par une couche qui parle directement à Supabase.
+   Chaque appel envoie le code commun ; la base le vérifie avant toute lecture ou écriture. */
+(() => {
+  'use strict';
+  const CFG = window.QG_CONFIG || {};
+  const BASE = String(CFG.SUPABASE_URL || '').replace(/\/+$/, '');
+  const KEY = String(CFG.SUPABASE_KEY || '');
+  const CODE_KEY = 'qg.code.v1';
+  const POLL_MS = 8000;
+  const lsGet = (k) => { try { return localStorage.getItem(k); } catch { return null; } };
+  const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
+  const lsDel = (k) => { try { localStorage.removeItem(k); } catch {} };
+  const escH = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const configured = /^https:\/\/[^/]+$/.test(BASE) && !BASE.includes('VOTRE-PROJET') && KEY.length > 20 && !KEY.includes('VOTRE-CLE');
+
+  async function rpc(fn, args, codeOverride) {
+    const headers = { 'content-type': 'application/json', apikey: KEY };
+    if (KEY.startsWith('eyJ')) headers.authorization = 'Bearer ' + KEY;
+    let res;
+    try {
+      res = await fetch(BASE + '/rest/v1/rpc/' + fn, {
+        method: 'POST', headers,
+        body: JSON.stringify(Object.assign({ p_code: codeOverride ?? lsGet(CODE_KEY) ?? '' }, args)),
+      });
+    } catch {
+      throw { code: 'unavailable', message: 'Réseau indisponible' };
+    }
+    let j = null;
+    try { j = await res.json(); } catch {}
+    if (!res.ok) {
+      const msg = (j && (j.message || j.msg)) || '';
+      let code = 'unavailable';
+      if (/bad_code/.test(msg)) code = 'bad_code';
+      else if (/invalid_argument/.test(msg)) code = 'invalid_argument';
+      else if (res.status === 404 || (j && j.code === 'PGRST202')) code = 'not_configured';
+      else if (res.status === 401) code = 'bad_key';
+      if (code === 'bad_code' && codeOverride === undefined) { lsDel(CODE_KEY); location.reload(); }
+      throw { code, message: msg };
+    }
+    return j;
+  }
+
+  /* ---------- Écran du code commun ---------- */
+  let unlocked = null;
+  function needUnlock() {
+    if (unlocked) return unlocked;
+    unlocked = new Promise((resolve) => {
+      if (!configured) {
+        return showMsg('App pas encore branchée', 'Renseigne SUPABASE_URL et SUPABASE_KEY en haut du fichier HTML (voir le guide d’installation), puis rouvre la page.');
+      }
+      if (lsGet(CODE_KEY)) return resolve();
+      const render = (err) => {
+        const g = document.getElementById('gate');
+        g.hidden = false; document.getElementById('app').hidden = true;
+        g.innerHTML = `<form class="box" id="codeForm" autocomplete="off">
+          <div class="logo">QG DES ASSOCIÉS</div>
+          <h1>Code d’accès</h1>
+          <p class="muted">Entre le code commun. Ce téléphone s’en souviendra : tu ne le taperas qu’une fois.</p>
+          <div class="field"><label for="codeInput">Code</label><input class="input" id="codeInput" type="password" required autocomplete="current-password"></div>
+          ${err ? `<p class="msg err">${escH(err)}</p>` : ''}
+          <button class="btn primary block" type="submit">Entrer</button></form>`;
+        const input = document.getElementById('codeInput');
+        setTimeout(() => input.focus(), 50);
+        document.getElementById('codeForm').addEventListener('submit', async (ev) => {
+          ev.preventDefault();
+          const btn = ev.target.querySelector('button'); btn.disabled = true; btn.textContent = 'Vérification…';
+          const code = input.value.trim();
+          try { await rpc('qg_ping', {}, code); lsSet(CODE_KEY, code); resolve(); }
+          catch (e) {
+            render({
+              bad_code: 'Code incorrect.',
+              not_configured: 'La base n’est pas prête : le script schema.sql n’a pas été exécuté dans Supabase.',
+              bad_key: 'Clé Supabase refusée : vérifie SUPABASE_KEY en haut du fichier.',
+            }[e.code] || 'Serveur injoignable. Vérifie ta connexion puis réessaie.');
+          }
+        });
+      };
+      render();
+    });
+    return unlocked;
+  }
+  function showMsg(title, text) {
+    const g = document.getElementById('gate');
+    g.hidden = false; document.getElementById('app').hidden = true;
+    g.innerHTML = `<div class="box"><div class="logo">QG DES ASSOCIÉS</div><h1>${escH(title)}</h1><p class="muted">${escH(text)}</p></div>`;
+  }
+
+  /* ---------- Base de données (même interface que dans la version d'origine) ---------- */
+  const server = new Map(); // "col/id" -> data
+  const overlay = new Map(); // écritures pas encore confirmées : "col/id" -> data | null (supprimé)
+  let loaded = false;
+  const listeners = new Set();
+  const view = () => {
+    const m = new Map(server);
+    for (const [k, v] of overlay) { if (v === null) m.delete(k); else m.set(k, v); }
+    return m;
+  };
+  const snapDoc = (id, d) => ({ id, exists: d !== undefined, data: () => d, metadata: { fromCache: false, hasPendingWrites: false } });
+  function notify() {
+    if (!loaded) return;
+    const all = view();
+    for (const l of listeners) {
+      if (l.kind === 'doc') l.next(snapDoc(l.path.split('/')[1], all.get(l.path)));
+      else {
+        const docs = [];
+        for (const [k, d] of all) { const [c, id] = k.split('/'); if (c === l.path) docs.push(snapDoc(id, d)); }
+        docs.sort((a, b) => (a.id < b.id ? -1 : 1));
+        l.next({ docs, size: docs.length, empty: !docs.length, docChanges: () => [], metadata: { fromCache: false, hasPendingWrites: false } });
+      }
+    }
+  }
+  let refreshing = null;
+  function refresh() {
+    if (refreshing) return refreshing;
+    refreshing = rpc('qg_list', {}).then((rows) => {
+      server.clear();
+      for (const it of rows || []) server.set(it.col + '/' + it.id, it.data);
+      loaded = true; notify();
+    }).catch(() => {}).finally(() => { refreshing = null; });
+    return refreshing;
+  }
+  let pollTimer = null;
+  function startPolling() {
+    if (pollTimer) return;
+    refresh();
+    pollTimer = setInterval(() => { if (document.visibilityState === 'visible') refresh(); }, POLL_MS);
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') refresh(); });
+    window.addEventListener('focus', refresh);
+    window.addEventListener('online', refresh);
+  }
+  const rid = () => {
+    const a = new Uint8Array(12); crypto.getRandomValues(a);
+    return Array.from(a, (b) => 'abcdefghijklmnopqrstuvwxyz0123456789'[b % 36]).join('');
+  };
+  const clone = (o) => JSON.parse(JSON.stringify(o));
+  function docRef(path) {
+    const [col, id] = path.split('/');
+    return {
+      id, path,
+      async get() { await refresh(); return snapDoc(id, view().get(path)); },
+      async set(data) {
+        overlay.set(path, clone(data)); notify();
+        await rpc('qg_set', { p_col: col, p_id: id, p_data: data });
+        server.set(path, clone(data)); overlay.delete(path); notify();
+      },
+      async update(data) {
+        const base = view().get(path) || {};
+        overlay.set(path, Object.assign({}, base, clone(data))); notify();
+        const found = await rpc('qg_merge', { p_col: col, p_id: id, p_patch: data });
+        if (found === false) { overlay.delete(path); server.delete(path); notify(); throw { code: 'invalid_argument' }; }
+        server.set(path, overlay.get(path)); overlay.delete(path); notify();
+      },
+      async delete() {
+        overlay.set(path, null); notify();
+        await rpc('qg_delete', { p_col: col, p_id: id });
+        server.delete(path); overlay.delete(path); notify();
+      },
+      onSnapshot(next) {
+        const l = { kind: 'doc', path, next }; listeners.add(l); startPolling();
+        if (loaded) notify();
+        return () => listeners.delete(l);
+      },
+    };
+  }
+  const db = Object.freeze({
+    doc: (path) => docRef(path),
+    collection: (col) => ({
+      path: col,
+      doc: (id) => docRef(col + '/' + (id || rid())),
+      onSnapshot(next) {
+        const l = { kind: 'col', path: col, next }; listeners.add(l); startPolling();
+        if (loaded) notify();
+        return () => listeners.delete(l);
+      },
+    }),
+  });
+
+  /* ---------- Sauvegarde : téléchargement direct du fichier ---------- */
+  const downloads = Object.freeze({
+    async save({ filename, data }) {
+      const blob = new Blob([data], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob); a.download = filename;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+      return { status: 'saved' };
+    },
+  });
+  const user = Object.freeze({ can: async () => true });
+
+  const caps = { db, downloads, user };
+  window.claude = Object.freeze({ use: async (name) => { await needUnlock(); return caps[name] || null; } });
+})();
+
+</script>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout : app mobile à une colonne, en-tête collant, liste, bouton + flottant, 3 onglets fixés en bas. Feuille plein écran pour éditer. */
+:root {
+  --bg: #F4F5F7; --surface: #FFFFFF; --ink: #14171C; --muted: #5A6270; --line: #DFE2E8;
+  --accent: #2343CF; --accent-ink: #FFFFFF; --accent-soft: #E7ECFD;
+  --danger: #C2261F; --danger-soft: #FCEBEA; --warn: #9A5800; --warn-soft: #FFF2DC; --ok: #1B7346; --ok-soft: #E3F4EA;
+  --f-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+  --f-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --tabbar-h: 64px;
+  --c-tasks: #3B5BDB; --c-tasks-soft: #EDF2FF; --c-calls: #0B7F8C; --c-calls-soft: #E3F8F9;
+  --c-ideas: #C2410C; --c-ideas-soft: #FFF1E6; --c-goals: #6741D9; --c-goals-soft: #F3F0FF; --on-tab: #FFFFFF;
+  --p0: #E8364F; --p1: #1C7ED6; --p2: #2B8A3E;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0E1014; --surface: #171A20; --ink: #ECEEF2; --muted: #99A1AE; --line: #2A2F38;
+  --accent: #8197FF; --accent-ink: #0E1014; --accent-soft: #1E2645;
+  --danger: #FF7468; --danger-soft: #3A1C1B; --warn: #F2B45C; --warn-soft: #352713; --ok: #62D49A; --ok-soft: #15301F;
+  --c-tasks: #91A7FF; --c-tasks-soft: #1A2350; --c-calls: #4FD1DD; --c-calls-soft: #0D2C30;
+  --c-ideas: #FFA94D; --c-ideas-soft: #3A2412; --c-goals: #B197FC; --c-goals-soft: #251C47; --on-tab: #0E1014;
+  --p0: #FF8A9A; --p1: #63B3F7; --p2: #69DB7C;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0E1014; --surface: #171A20; --ink: #ECEEF2; --muted: #99A1AE; --line: #2A2F38;
+  --accent: #8197FF; --accent-ink: #0E1014; --accent-soft: #1E2645;
+  --danger: #FF7468; --danger-soft: #3A1C1B; --warn: #F2B45C; --warn-soft: #352713; --ok: #62D49A; --ok-soft: #15301F;
+  --c-tasks: #91A7FF; --c-tasks-soft: #1A2350; --c-calls: #4FD1DD; --c-calls-soft: #0D2C30;
+  --c-ideas: #FFA94D; --c-ideas-soft: #3A2412; --c-goals: #B197FC; --c-goals-soft: #251C47; --on-tab: #0E1014;
+  --p0: #FF8A9A; --p1: #63B3F7; --p2: #69DB7C;
+  color-scheme: dark; }
+
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.45 var(--f-body); -webkit-tap-highlight-color: transparent; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+.wrap { max-width: 640px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.muted { color: var(--muted); }
+.num { font-variant-numeric: tabular-nums; }
+
+/* En-tête */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 12px; padding-block: 12px; }
+.top h1 { font-size: 22px; flex: 1; min-width: 0; }
+.save { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); white-space: nowrap; }
+.save::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+.save[data-state="saving"]::before { background: var(--warn); }
+.save[data-state="error"] { color: var(--danger); }
+.save[data-state="error"]::before { background: var(--danger); }
+.iconbtn { width: 40px; height: 40px; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; display: grid; place-items: center; }
+.iconbtn svg { width: 20px; height: 20px; }
+
+main { padding-block: 12px calc(var(--tabbar-h) + 96px + env(safe-area-inset-bottom, 0px)); }
+.banner { border: 1px solid var(--line); background: var(--warn-soft); color: var(--warn); padding: 10px 12px; border-radius: 10px; font-size: 14px; margin-bottom: 12px; }
+.banner.err { background: var(--danger-soft); color: var(--danger); }
+
+/* Filtres */
+.chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 12px; scrollbar-width: none; }
+.chip { flex: none; border: 1px solid var(--line); background: var(--surface); padding: 7px 14px; border-radius: 999px; font-size: 14px; font-weight: 500; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+/* Listes */
+.group { margin-bottom: 18px; }
+.group > h2 { font: 600 13px/1.2 var(--f-body); color: var(--muted); letter-spacing: 0.02em; margin: 0 0 8px 2px; display: flex; gap: 8px; }
+.group > h2 .count { font-variant-numeric: tabular-nums; }
+.list { display: grid; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.row { display: grid; grid-template-columns: 4px 1fr auto; gap: 12px; align-items: center; padding: 12px 12px 12px 0; border: 0; border-top: 1px solid var(--line); background: none; text-align: left; width: 100%; }
+.row:first-child { border-top: 0; }
+.row .bar { align-self: stretch; border-radius: 0 3px 3px 0; background: transparent; }
+.row .bar.p-haute { background: var(--danger); } .row .bar.p-moyenne { background: var(--warn); } .row .bar.p-basse { background: var(--line); }
+.row .main { min-width: 0; }
+.row .title { font-weight: 600; overflow-wrap: anywhere; }
+.row.done .title { text-decoration: line-through; color: var(--muted); }
+.row .meta { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 2px; }
+.late { color: var(--danger) !important; font-weight: 600; }
+.row.is-late { background: var(--danger-soft); }
+.row.is-late .title { color: var(--danger); }
+.pill { display: inline-flex; align-items: center; border-radius: 999px; padding: 4px 10px; font-size: 12px; font-weight: 600; border: 1px solid var(--line); background: var(--bg); white-space: nowrap; }
+.pill.s-encours { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+.pill.s-fait { background: var(--ok-soft); color: var(--ok); border-color: transparent; }
+.pill.r-interesse { background: var(--ok-soft); color: var(--ok); border-color: transparent; }
+.pill.r-pasinteresse { color: var(--muted); }
+.pill.r-arappeler { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+.pill.r-pasrepondu { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+.pill.v-Foncer { background: var(--ok-soft); color: var(--ok); border-color: transparent; }
+.pill.v-Tester { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+.pill.v-Abandonner { background: var(--danger-soft); color: var(--danger); border-color: transparent; }
+.tel { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--accent); text-decoration: none; padding: 6px 0; }
+details.done-group > summary { cursor: pointer; font: 600 13px/1.2 var(--f-body); color: var(--muted); margin: 0 0 8px 2px; }
+.empty { text-align: center; padding: 40px 16px; color: var(--muted); border: 1px dashed var(--line); border-radius: 14px; }
+.empty strong { display: block; color: var(--ink); font-family: var(--f-display); font-size: 18px; margin-bottom: 4px; }
+
+/* Idées */
+.score { font: 700 22px/1 var(--f-display); font-variant-numeric: tabular-nums; text-align: right; }
+.score small { font: 500 12px var(--f-body); color: var(--muted); }
+.score.na { font: 500 12px var(--f-body); color: var(--muted); }
+.clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 14px; color: var(--muted); margin-top: 2px; }
+.sortbar { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 14px; color: var(--muted); }
+
+/* Bouton + */
+.fab { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(var(--tabbar-h) + 16px + env(safe-area-inset-bottom, 0px)); z-index: 15; height: 56px; padding: 0 22px 0 18px; border-radius: 16px; border: 0; background: var(--accent); color: var(--accent-ink); font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 6px 20px rgb(0 0 0 / 0.18); }
+.fab svg { width: 22px; height: 22px; }
+
+/* Onglets */
+.tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--surface); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); }
+.tabbar .in { max-width: 640px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); height: var(--tabbar-h); }
+.tab { border: 0; background: none; display: grid; justify-items: center; align-content: center; gap: 3px; font-size: 12px; font-weight: 500; color: var(--muted); position: relative; }
+.tab svg { width: 24px; height: 24px; }
+.tab[aria-selected="true"] { color: var(--accent); }
+.tab .badge { position: absolute; top: 8px; left: calc(50% + 8px); min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--danger); color: #fff; font-size: 11px; font-weight: 700; line-height: 18px; text-align: center; }
+
+/* Feuille d'édition */
+.sheet { position: fixed; inset: 0; z-index: 40; background: var(--bg); overflow-y: auto; -webkit-overflow-scrolling: touch; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.sheet-head { position: sticky; top: 0; z-index: 2; background: var(--bg); border-bottom: 1px solid var(--line); }
+.sheet-head .wrap { display: flex; align-items: center; gap: 8px; padding-block: 10px; }
+.sheet-head h2 { flex: 1; font-size: 18px; min-width: 0; }
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 10px 14px; font-weight: 600; min-height: 44px; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.danger { color: var(--danger); }
+.btn.danger.armed { background: var(--danger); color: #fff; border-color: var(--danger); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.block { width: 100%; }
+.form { display: grid; gap: 16px; padding-block: 16px 40px; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field > label, .field > .lbl { font-size: 13px; font-weight: 600; color: var(--muted); }
+.input { width: 100%; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 11px 12px; font-size: 16px; min-height: 46px; }
+textarea.input { min-height: 96px; resize: vertical; line-height: 1.45; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label { text-align: center; padding: 10px 4px; font-size: 14px; font-weight: 500; border-left: 1px solid var(--line); cursor: pointer; }
+.seg label:first-of-type { border-left: 0; }
+.seg input:checked + label { background: var(--ink); color: var(--bg); }
+.seg input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: -2px; }
+.phone-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.hint { font-size: 13px; color: var(--muted); }
+.msg { padding: 10px 12px; border-radius: 10px; font-size: 14px; }
+.msg.err { background: var(--danger-soft); color: var(--danger); }
+.msg.info { background: var(--accent-soft); color: var(--accent); }
+hr.sep { border: 0; border-top: 1px solid var(--line); margin: 4px 0; }
+
+/* Analyse IA */
+.ana { display: grid; gap: 16px; }
+.ana-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.big { font: 700 44px/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.big small { font-size: 18px; color: var(--muted); font-weight: 600; }
+.verdict { font-size: 15px; font-weight: 500; flex-basis: 100%; }
+.crit { display: grid; gap: 10px; }
+.crit .c { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; font-size: 14px; }
+.crit .c b { font-variant-numeric: tabular-nums; }
+.crit .track { grid-column: 1 / -1; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.crit .track i { display: block; height: 100%; background: var(--ink); border-radius: 3px; }
+.crit .why { grid-column: 1 / -1; color: var(--muted); font-size: 13px; }
+.ana h3 { font-size: 16px; margin-bottom: 6px; }
+.ana ul, .ana ol { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.kv { display: grid; gap: 10px; }
+.kv div { display: grid; gap: 2px; }
+.kv dt { font-size: 13px; font-weight: 600; color: var(--muted); }
+.kv dd { margin: 0; overflow-wrap: anywhere; }
+.figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.figure { border: 1px solid var(--line); background: var(--surface); border-radius: 12px; padding: 10px 12px; }
+.figure .v { font: 700 20px/1.2 var(--f-display); font-variant-numeric: tabular-nums; }
+.figure .l { font-size: 12px; color: var(--muted); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+.thinking { display: flex; align-items: center; gap: 10px; }
+.spin { width: 18px; height: 18px; border: 2px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; flex: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spin { animation-duration: 3s; } }
+
+/* Commentaires */
+.comments { display: grid; gap: 10px; }
+.comment { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+.comment .who { font-size: 13px; font-weight: 600; display: flex; gap: 8px; align-items: baseline; }
+.comment .who .muted { font-weight: 400; }
+.comment p { margin: 4px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.comment .del { margin-left: auto; border: 0; background: none; color: var(--muted); font-size: 13px; padding: 4px; }
+.comment .del.armed { color: var(--danger); font-weight: 600; }
+
+/* Écrans d'accès */
+.gate { min-height: 100%; display: grid; place-items: center; padding-block: 32px; }
+.gate .box { width: 100%; max-width: 420px; display: grid; gap: 16px; }
+.gate h1 { font-size: 28px; }
+.logo { font: 700 13px/1 var(--f-body); letter-spacing: 0.08em; color: var(--muted); }
+
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(var(--tabbar-h) + 84px + env(safe-area-inset-bottom, 0px)); z-index: 60; width: min(92vw, 480px); background: var(--ink); color: var(--bg); padding: 12px 14px; border-radius: 12px; font-size: 14px; box-shadow: 0 8px 24px rgb(0 0 0 / 0.25); }
+
+/* Couleurs par onglet et par associé */
+body { --tab: var(--c-tasks); --tab-soft: var(--c-tasks-soft); }
+body[data-view="calls"] { --tab: var(--c-calls); --tab-soft: var(--c-calls-soft); }
+body[data-view="ideas"] { --tab: var(--c-ideas); --tab-soft: var(--c-ideas-soft); }
+body::before { background: var(--tab-soft); }
+.top { background: var(--tab-soft); border-bottom-color: transparent; box-shadow: inset 0 -3px 0 var(--tab); }
+.top h1 { color: var(--tab); }
+.fab { background: var(--tab); color: var(--on-tab); }
+.tab[data-tab="tasks"] { --t: var(--c-tasks); } .tab[data-tab="calls"] { --t: var(--c-calls); } .tab[data-tab="ideas"] { --t: var(--c-ideas); }
+.tab[aria-selected="true"] { color: var(--t); }
+.tab[aria-selected="true"]::before { content: ""; position: absolute; top: 0; left: 30%; right: 30%; height: 3px; border-radius: 0 0 3px 3px; background: var(--t); }
+.p0 { --pc: var(--p0); } .p1 { --pc: var(--p1); } .p2 { --pc: var(--p2); }
+.who { display: inline-flex; align-items: center; gap: 5px; }
+.who i { width: 9px; height: 9px; border-radius: 50%; background: var(--pc, var(--muted)); flex: none; }
+.chip.p0, .chip.p1, .chip.p2 { border-color: var(--pc); }
+.chip[aria-pressed="true"].p0, .chip[aria-pressed="true"].p1, .chip[aria-pressed="true"].p2 { background: var(--pc); border-color: var(--pc); color: var(--on-tab); }
+.score.hi { color: var(--ok); } .score.mid { color: var(--warn); } .score.lo { color: var(--danger); }
+
+/* Case objectifs */
+.goals { background: var(--c-goals-soft); border: 1px solid var(--c-goals); border-radius: 16px; padding: 14px; margin-bottom: 18px; display: grid; gap: 10px; }
+.goals-head { display: flex; align-items: baseline; gap: 10px; }
+.goals-head h2 { flex: 1; font-size: 18px; color: var(--c-goals); }
+.goals-head .num { font-size: 13px; font-weight: 600; color: var(--c-goals); }
+.gbar { height: 6px; border-radius: 3px; background: var(--surface); overflow: hidden; }
+.gbar i { display: block; height: 100%; background: var(--c-goals); border-radius: 3px; }
+.goal-list { display: grid; gap: 6px; }
+.goal { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: center; background: var(--surface); border-radius: 12px; padding: 10px 12px; cursor: pointer; }
+.goal .gt { font-weight: 600; overflow-wrap: anywhere; }
+.goal.done .gt { text-decoration: line-through; color: var(--muted); }
+.goal .meta { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 2px; }
+.check { width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--c-goals); background: var(--surface); color: var(--on-tab); display: grid; place-items: center; font-weight: 700; padding: 0; }
+.check.on { background: var(--c-goals); }
+.goals-add { border: 1px dashed var(--c-goals); background: transparent; color: var(--c-goals); border-radius: 12px; padding: 10px; font-weight: 600; min-height: 44px; }
+pre.json { white-space: pre-wrap; word-break: break-all; max-height: 240px; overflow: auto; font-size: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+</style>
+
+<div id="gate" class="gate wrap" hidden></div>
+
+<div id="app" hidden>
+  <header class="top"><div class="wrap">
+    <h1 id="tabTitle">Tâches</h1>
+    <span id="save" class="save" data-state="ok" role="status" aria-live="polite">Enregistré</span>
+    <button id="openSettings" class="iconbtn" type="button" aria-label="Réglages et sauvegardes">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
+  </div></header>
+  <main class="wrap" id="main"></main>
+  <button id="fab" class="fab" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+    <span id="fabLabel">Tâche</span>
+  </button>
+  <nav class="tabbar" aria-label="Onglets"><div class="in" role="tablist">
+    <button class="tab" role="tab" data-tab="tasks" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3 6 1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"/></svg>
+      Tâches<span class="badge" id="badgeTasks" hidden></span>
+    </button>
+    <button class="tab" role="tab" data-tab="calls" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+      À appeler<span class="badge" id="badgeCalls" hidden></span>
+    </button>
+    <button class="tab" role="tab" data-tab="ideas" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2V17h6v-.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z"/></svg>
+      Idées
+    </button>
+  </div></nav>
+</div>
+
+<div id="sheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden></div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<input type="file" id="importFile" accept="application/json,.json" hidden>
+
+<script>
+(() => {
+'use strict';
+
+/* ---------- Utilitaires ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+  del(k) { try { localStorage.removeItem(k); } catch {} },
+};
+const pad = (n) => String(n).padStart(2, '0');
+const isoDay = (d) => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+const today = () => isoDay(new Date());
+const addDays = (n) => { const d = new Date(); d.setDate(d.getDate() + n); return isoDay(d); };
+function fmtDate(s) {
+  if (!s) return '';
+  if (s === today()) return "aujourd'hui";
+  if (s === addDays(1)) return 'demain';
+  if (s === addDays(-1)) return 'hier';
+  const [y, m, d] = s.split('-').map(Number);
+  const dt = new Date(y, m - 1, d);
+  if (isNaN(dt)) return s;
+  const o = { weekday: 'short', day: 'numeric', month: 'short' };
+  if (y !== new Date().getFullYear()) o.year = 'numeric';
+  return dt.toLocaleDateString('fr-FR', o);
+}
+const fmtWhen = (ts) => ts ? new Date(ts).toLocaleString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
+const fmtScore = (n) => (Math.round(n * 10) / 10).toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const eur = (n) => (typeof n === 'number' && isFinite(n)) ? n.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }) : '—';
+let toastTimer = null;
+function toast(text, ms = 4500) {
+  const t = $('#toast'); t.textContent = text; t.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, ms);
+}
+
+/* ---------- Données de référence ---------- */
+const PEOPLE = ['0', '1', '2'];
+const DEFAULT_NAMES = ['Moi', 'Associé 1', 'Associé 2'];
+const PRIO = { haute: 'Haute', moyenne: 'Moyenne', basse: 'Basse' };
+const PRIO_RANK = { haute: 0, moyenne: 1, basse: 2 };
+const STATUS = { afaire: 'À faire', encours: 'En cours', fait: 'Fait' };
+const STATUS_NEXT = { afaire: 'encours', encours: 'fait', fait: 'afaire' };
+const RESULTS = { '': 'Pas encore appelé', pasrepondu: 'Pas répondu', arappeler: 'À rappeler', interesse: 'Intéressé', pasinteresse: 'Pas intéressé' };
+const CRITERIA = [
+  ['marche', 'Taille du marché'],
+  ['execution', 'Facilité d’exécution à 3 étudiants'],
+  ['premierEuro', 'Rapidité pour toucher le 1er euro'],
+  ['marge', 'Marge'],
+  ['concurrence', 'Concurrence'],
+];
+const VERDICTS = ['Foncer', 'Tester petit', 'Abandonner'];
+const COLS = ['tasks', 'calls', 'ideas', 'comments', 'goals'];
+const GOAL_STATUS = { encours: 'En cours', atteint: 'Atteint' };
+const TAB_META = {
+  tasks: { title: 'Tâches', add: 'Tâche' },
+  calls: { title: 'À appeler', add: 'Contact' },
+  ideas: { title: 'Idées de business', add: 'Idée' },
+};
+
+/* ---------- État ---------- */
+const S = {
+  db: null, user: null, sample: null, downloads: null,
+  cfg: null, cfgLoaded: false, cfgError: null, netSlow: false,
+  canWrite: null, subscribed: false,
+  data: { tasks: new Map(), calls: new Map(), ideas: new Map(), comments: new Map(), goals: new Map() },
+  loaded: { tasks: false, calls: false, ideas: false, comments: false, goals: false },
+  tab: ['tasks', 'calls', 'ideas'].includes(LS.get('qg.tab')) ? LS.get('qg.tab') : 'tasks',
+  filter: LS.get('qg.filter', 'all'),
+  ideaSort: LS.get('qg.ideaSort', 'score'),
+  me: LS.get('qg.me', null),
+  sheet: null, analysing: null, saveError: null,
+};
+const name = (i) => (S.cfg && Array.isArray(S.cfg.names) && S.cfg.names[i]) || DEFAULT_NAMES[i] || '—';
+
+/* ---------- Sauvegarde : file d'écriture persistée ----------
+   Chaque modification est d'abord copiée dans le stockage du téléphone
+   (survit à une fermeture brutale), puis écrite dans la base partagée
+   600 ms après la dernière frappe. Elle n'est retirée du téléphone
+   qu'une fois confirmée par la base. Au prochain lancement, tout ce qui
+   n'a pas été confirmé est renvoyé. */
+const PKEY = 'qg.pending.v1';
+let pending = LS.get(PKEY, {}) || {};
+const timers = {}, chains = {};
+let retryN = 0, retryTimer = null;
+
+function persistPending() { LS.set(PKEY, pending); updateSaveStatus(); }
+function updateSaveStatus() {
+  const el = $('#save'); if (!el) return;
+  const n = Object.keys(pending).length;
+  if (S.saveError && n) { el.dataset.state = 'error'; el.textContent = navigator.onLine === false ? 'Hors ligne · gardé sur le téléphone' : 'Non envoyé · nouvel essai…'; }
+  else if (n) { el.dataset.state = 'saving'; el.textContent = 'Enregistrement…'; }
+  else { el.dataset.state = 'ok'; el.textContent = 'Enregistré'; }
+}
+function queueWrite(col, id, patch, { create = false, now = false } = {}) {
+  const p = col + '/' + id;
+  const e = pending[p] || { col, id, patch: {}, create: false };
+  e.patch = Object.assign({}, e.patch, patch);
+  e.create = e.create || create;
+  e.ts = Date.now() + Math.random();
+  pending[p] = e;
+  persistPending();
+  clearTimeout(timers[p]);
+  if (now) return flush(p);
+  timers[p] = setTimeout(() => flush(p), 600);
+  return Promise.resolve();
+}
+function flush(p) {
+  clearTimeout(timers[p]); delete timers[p];
+  const next = (chains[p] || Promise.resolve()).then(() => doFlush(p)).catch(() => {});
+  chains[p] = next;
+  next.then(() => { if (chains[p] === next) delete chains[p]; });
+  return next;
+}
+const flushAll = () => Promise.all(Object.keys(pending).map(flush));
+async function doFlush(p) {
+  const e = pending[p];
+  if (!e || !S.db) return;
+  const snap = { col: e.col, id: e.id, create: e.create, ts: e.ts, patch: Object.assign({}, e.patch) };
+  const ref = S.db.collection(snap.col).doc(snap.id);
+  const body = Object.assign({}, snap.patch, { updatedAt: Date.now() });
+  try {
+    if (snap.create) await ref.set(body); else await ref.update(body);
+    const cur = pending[p];
+    if (cur) { if (cur.ts === snap.ts) delete pending[p]; else cur.create = false; }
+    S.saveError = null; retryN = 0;
+    persistPending();
+  } catch (err) {
+    await onWriteError(p, snap, err);
+  }
+}
+async function onWriteError(p, snap, err) {
+  const code = (err && err.code) || 'unavailable';
+  if (code === 'invalid_argument' || code === 'transform_error') {
+    let exists = true;
+    try { exists = (await S.db.collection(snap.col).doc(snap.id).get()).exists; } catch {}
+    delete pending[p]; persistPending();
+    if (!exists && !snap.create) toast('Cet élément a été supprimé par un associé : ta dernière modification n’a pas été gardée.');
+    else { S.canWrite = false; render(); toast('Modification refusée : ton accès est en lecture seule. Demande au propriétaire de t’inviter comme Éditeur.', 7000); }
+    return;
+  }
+  if (code === 'quota_exceeded') {
+    delete pending[p]; persistPending();
+    toast('Stockage plein : supprime d’anciens éléments, puis recommence.', 7000);
+    return;
+  }
+  if (code === 'revoked' || code === 'not_granted' || code === 'capability_disabled' || code === 'capability_removed') {
+    S.saveError = code; persistPending();
+    toast('Accès à la base perdu. Tes modifications restent sur ce téléphone : recharge la page.', 7000);
+    return;
+  }
+  S.saveError = code; persistPending();
+  if (!retryTimer) {
+    const delay = [2, 5, 10, 30, 60][Math.min(retryN, 4)] * 1000;
+    retryN++;
+    retryTimer = setTimeout(() => { retryTimer = null; flushAll(); }, delay);
+  }
+}
+async function removeDoc(col, id) {
+  const p = col + '/' + id;
+  clearTimeout(timers[p]); delete timers[p];
+  delete pending[p]; persistPending();
+  await (chains[p] || Promise.resolve());
+  await S.db.collection(col).doc(id).delete();
+}
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') flushAll(); });
+window.addEventListener('pagehide', () => { flushAll(); });
+window.addEventListener('online', () => { retryN = 0; flushAll(); });
+
+/* ---------- Démarrage ---------- */
+function showGate(html) {
+  const g = $('#gate'); g.innerHTML = html; g.hidden = false;
+  $('#app').hidden = true; $('#sheet').hidden = true;
+}
+showGate('<div class="box"><div class="logo">QG DES ASSOCIÉS</div><div class="thinking"><span class="spin"></span><span>Connexion à vos données…</span></div></div>');
+
+async function boot() {
+  if (!window.claude || typeof window.claude.use !== 'function') return noRuntime();
+  const [db, user, sample, downloads] = await Promise.all(['db', 'user', 'sample', 'downloads'].map((n) => window.claude.use(n).catch(() => null)));
+  S.db = db; S.user = user; S.sample = sample; S.downloads = downloads;
+  if (!db) return noRuntime();
+  try { const c = user && user.can ? await user.can('data.write') : null; S.canWrite = c === null || c === undefined ? null : !!c; } catch { S.canWrite = null; }
+
+  const slow = setTimeout(() => { if (!S.cfgLoaded) { S.netSlow = true; route(); } }, 10000);
+  db.doc('config/app').onSnapshot((snap) => {
+    if (!snap.exists && snap.metadata.fromCache) return; // attendre la vraie réponse
+    clearTimeout(slow); S.netSlow = false;
+    S.cfg = snap.exists ? snap.data() : null;
+    S.cfgLoaded = true;
+    route();
+  }, (err) => { clearTimeout(slow); S.cfgError = err; route(); });
+  flushAll();
+}
+function noRuntime() {
+  showGate('<div class="box"><div class="logo">QG DES ASSOCIÉS</div><h1>Ouvre l’app depuis Claude</h1><p class="muted">Cette app garde vos données dans Claude. Ouvre le lien de l’artifact dans Claude (navigateur ou application), connecté avec le compte qui a été invité.</p></div>');
+}
+
+/* ---------- Aiguillage des écrans ---------- */
+function route() {
+  if (S.cfgError) {
+    return showGate('<div class="box"><div class="logo">QG DES ASSOCIÉS</div><h1>Accès impossible</h1><p class="muted">La base partagée ne répond pas pour ce compte. Vérifie que tu es connecté à Claude avec le compte invité, puis recharge la page.</p></div>');
+  }
+  if (!S.cfgLoaded) {
+    if (S.netSlow) showGate('<div class="box"><div class="logo">QG DES ASSOCIÉS</div><h1>Connexion lente</h1><p class="muted">Les données ne répondent pas encore. Vérifie ta connexion : la page continue d’essayer toute seule.</p><div class="thinking"><span class="spin"></span><span>Nouvel essai en cours…</span></div></div>');
+    return;
+  }
+  const hasNames = S.cfg && Array.isArray(S.cfg.names) && S.cfg.names.length === 3;
+  if (!hasNames) return S.canWrite === false ? noAccess() : setupScreen();
+  if (!PEOPLE.includes(S.me)) return whoScreen();
+  enterApp();
+}
+function noAccess() {
+  showGate('<div class="box"><div class="logo">QG DES ASSOCIÉS</div><h1>Accès en lecture seule</h1><p class="muted">Ton compte ne peut pas écrire dans cette app. Demande au propriétaire de t’inviter par email avec le niveau « Éditeur ».</p></div>');
+}
+
+function setupScreen() {
+  showGate(`<form class="box" id="setupForm" autocomplete="off">
+    <div class="logo">QG DES ASSOCIÉS · PREMIÈRE CONFIGURATION</div>
+    <h1>Vos trois prénoms</h1>
+    <p class="muted">À faire une seule fois, pour vous trois. Modifiables ensuite dans les réglages.</p>
+    ${PEOPLE.map((i) => `<div class="field"><label for="setupName${i}">Prénom ${Number(i) + 1}${i === '0' ? ' (toi)' : ''}</label><input class="input" id="setupName${i}" required maxlength="24" value="${i === '0' ? '' : ''}" placeholder="${esc(DEFAULT_NAMES[i])}"></div>`).join('')}
+    <div id="setupMsg"></div>
+    <button class="btn primary block" type="submit">Continuer</button>
+  </form>`);
+  $('#setupForm').addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    const btn = ev.submitter || $('#setupForm button'); btn.disabled = true;
+    const names = PEOPLE.map((i) => $('#setupName' + i).value.trim() || DEFAULT_NAMES[i]);
+    try {
+      const ref = S.db.doc('config/app');
+      const existing = await ref.get();
+      if (existing.exists && Array.isArray(existing.data().names)) { S.cfg = existing.data(); route(); return; }
+      S.me = '0'; LS.set('qg.me', '0');
+      await ref.set({ names, createdAt: Date.now() });
+      S.cfg = { names }; route();
+    } catch (err) {
+      btn.disabled = false;
+      $('#setupMsg').innerHTML = '<p class="msg err">Enregistrement impossible (' + esc(err && err.code || 'erreur') + '). Vérifie ta connexion puis réessaie.</p>';
+    }
+  });
+}
+
+function whoScreen() {
+  showGate(`<div class="box">
+    <div class="logo">QG DES ASSOCIÉS</div>
+    <h1>Qui utilise ce téléphone ?</h1>
+    <p class="muted">Sert à pré-remplir « responsable », « qui appelle » et à signer tes commentaires.</p>
+    <div style="display:grid;gap:10px">${PEOPLE.map((i) => `<button class="btn block" type="button" data-me="${i}">${esc(name(i))}</button>`).join('')}</div>
+  </div>`);
+  $$('[data-me]').forEach((b) => b.addEventListener('click', () => { S.me = b.dataset.me; LS.set('qg.me', S.me); route(); }));
+}
+
+function enterApp() {
+  $('#gate').hidden = true; $('#app').hidden = false;
+  if (!S.subscribed) {
+    S.subscribed = true;
+    for (const col of COLS) {
+      S.db.collection(col).onSnapshot((snap) => {
+        const m = new Map();
+        for (const d of snap.docs) m.set(d.id, d.data());
+        S.data[col] = m; S.loaded[col] = true;
+        scheduleRender();
+        if (S.sheet && S.sheet.col === 'ideas' && (col === 'ideas' || col === 'comments')) refreshIdeaLive();
+      }, (err) => { S.cfgError = err; toast('Connexion à la base interrompue : recharge la page. Tes modifications non envoyées restent sur ce téléphone.', 8000); });
+    }
+  }
+  render();
+}
+
+/* ---------- Rendu des listes ---------- */
+let rafId = 0;
+function scheduleRender() { cancelAnimationFrame(rafId); rafId = requestAnimationFrame(render); }
+const readOnly = () => S.canWrite === false;
+
+function render() {
+  if ($('#app').hidden) return;
+  $('#tabTitle').textContent = TAB_META[S.tab].title;
+  $('#fabLabel').textContent = TAB_META[S.tab].add;
+  $('#fab').setAttribute('aria-label', 'Ajouter : ' + TAB_META[S.tab].add);
+  $('#fab').hidden = readOnly();
+  document.body.dataset.view = S.tab;
+  $$('.tab').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.tab === S.tab)));
+  updateBadges();
+  updateSaveStatus();
+  const main = $('#main');
+  let html = readOnly() ? '<p class="banner">Lecture seule : ton compte ne peut pas modifier. Demande au propriétaire de t’inviter comme Éditeur.</p>' : '';
+  if (!S.loaded[S.tab] || (S.tab === 'ideas' && !S.loaded.comments) || (S.tab === 'tasks' && !S.loaded.goals)) {
+    html += '<div class="thinking muted"><span class="spin"></span><span>Chargement…</span></div>';
+  } else {
+    html += S.tab === 'tasks' ? renderGoals() + renderTasks() : S.tab === 'calls' ? renderCalls() : renderIdeas();
+  }
+  main.innerHTML = html;
+}
+
+function updateBadges() {
+  const t = today();
+  const late = [...S.data.tasks.values()].filter((x) => x.status !== 'fait' && x.due && x.due < t).length;
+  const calls = [...S.data.calls.values()].filter((x) => x.followup && x.followup <= t && x.result !== 'pasinteresse').length;
+  const bt = $('#badgeTasks'), bc = $('#badgeCalls');
+  bt.hidden = !late; bt.textContent = late; bt.setAttribute('aria-label', late + ' en retard');
+  bc.hidden = !calls; bc.textContent = calls; bc.setAttribute('aria-label', calls + ' à rappeler');
+}
+
+function renderTasks() {
+  const t = today();
+  const f = ['all', ...PEOPLE].includes(S.filter) ? S.filter : 'all';
+  const chips = `<div class="chips" role="group" aria-label="Filtrer par personne">${[['all', 'Tous'], ...PEOPLE.map((i) => [i, name(i)])].map(([k, l]) => `<button type="button" class="chip ${k === 'all' ? '' : 'p' + k}" data-filter="${k}" aria-pressed="${f === k}">${esc(l)}</button>`).join('')}</div>`;
+  const all = [...S.data.tasks.entries()].filter(([, x]) => f === 'all' || x.owner === f);
+  const open = all.filter(([, x]) => x.status !== 'fait').sort(([, a], [, b]) => {
+    const la = a.due && a.due < t ? 0 : 1, lb = b.due && b.due < t ? 0 : 1;
+    if (la !== lb) return la - lb;
+    if ((a.due || '9') !== (b.due || '9')) return (a.due || '9') < (b.due || '9') ? -1 : 1;
+    return (PRIO_RANK[a.priority] ?? 1) - (PRIO_RANK[b.priority] ?? 1);
+  });
+  const done = all.filter(([, x]) => x.status === 'fait').sort(([, a], [, b]) => (b.updatedAt || 0) - (a.updatedAt || 0));
+  if (!S.data.tasks.size) return chips + empty('Aucune tâche pour l’instant', 'Touche « + Tâche » pour ajouter la première : titre, responsable, échéance.');
+  let html = chips;
+  if (!open.length) html += '<p class="muted" style="margin:0 0 16px 2px">Rien à faire ici. Bien joué.</p>';
+  else html += `<section class="group"><h2>À traiter <span class="count">${open.length}</span></h2><div class="list">${open.map(taskRow).join('')}</div></section>`;
+  if (done.length) html += `<details class="done-group"><summary>Faites (${done.length})</summary><div class="list">${done.map(taskRow).join('')}</div></details>`;
+  return html;
+}
+function taskRow([id, x]) {
+  const t = today();
+  const late = x.status !== 'fait' && x.due && x.due < t;
+  const st = STATUS[x.status] ? x.status : 'afaire';
+  return `<div class="row ${st === 'fait' ? 'done' : ''} ${late ? 'is-late' : ''}" data-open="tasks:${esc(id)}" role="button" tabindex="0">
+    <span class="bar p-${esc(x.priority || 'moyenne')}" aria-hidden="true"></span>
+    <div class="main"><div class="title">${esc(x.title || 'Sans titre')}</div>
+      <div class="meta">${who(x.owner)}${x.due ? `<span class="${late ? 'late' : ''}">${late ? 'En retard · ' : 'Échéance '}${esc(fmtDate(x.due))}</span>` : ''}<span>Priorité ${esc((PRIO[x.priority] || 'Moyenne').toLowerCase())}</span></div></div>
+    <button type="button" class="pill s-${st}" data-cycle="${esc(id)}" ${readOnly() ? 'disabled' : ''} aria-label="Statut : ${STATUS[st]}. Toucher pour passer à ${STATUS[STATUS_NEXT[st]]}">${STATUS[st]}</button>
+  </div>`;
+}
+
+function renderCalls() {
+  if (!S.data.calls.size) return empty('Personne à appeler', 'Touche « + Contact » pour ajouter un nom, un numéro et une date de relance.');
+  const t = today();
+  const g = { today: [], late: [], next: [], none: [], closed: [] };
+  for (const e of S.data.calls.entries()) {
+    const x = e[1];
+    if (x.result === 'pasinteresse') g.closed.push(e);
+    else if (!x.followup) g.none.push(e);
+    else if (x.followup === t) g.today.push(e);
+    else if (x.followup < t) g.late.push(e);
+    else g.next.push(e);
+  }
+  const byDate = ([, a], [, b]) => (a.followup || '') < (b.followup || '') ? -1 : (a.followup || '') > (b.followup || '') ? 1 : 0;
+  g.late.sort(byDate); g.next.sort(byDate);
+  g.none.sort(([, a], [, b]) => (b.updatedAt || 0) - (a.updatedAt || 0));
+  g.closed.sort(([, a], [, b]) => (b.updatedAt || 0) - (a.updatedAt || 0));
+  const sec = (title, arr) => arr.length ? `<section class="group"><h2>${title} <span class="count">${arr.length}</span></h2><div class="list">${arr.map(callRow).join('')}</div></section>` : '';
+  let html = '';
+  html += g.today.length ? sec('Relances du jour', g.today) : '<p class="muted" style="margin:0 0 16px 2px">Aucune relance prévue aujourd’hui.</p>';
+  html += sec('En retard', g.late) + sec('À venir', g.next) + sec('Sans date de relance', g.none);
+  if (g.closed.length) html += `<details class="done-group"><summary>Pas intéressés (${g.closed.length})</summary><div class="list">${g.closed.map(callRow).join('')}</div></details>`;
+  return html;
+}
+function telHref(p) { return 'tel:' + String(p || '').replace(/[^\d+]/g, ''); }
+function callRow([id, x]) {
+  const t = today();
+  const late = x.followup && x.followup < t && x.result !== 'pasinteresse';
+  const r = RESULTS[x.result] !== undefined ? x.result : '';
+  return `<div class="row ${late ? 'is-late' : ''}" data-open="calls:${esc(id)}" role="button" tabindex="0">
+    <span class="bar" aria-hidden="true"></span>
+    <div class="main"><div class="title">${esc(x.name || 'Sans nom')}${x.company ? ` <span class="muted" style="font-weight:400">· ${esc(x.company)}</span>` : ''}</div>
+      ${x.reason ? `<div class="clamp">${esc(x.reason)}</div>` : ''}
+      <div class="meta">${x.phone ? `<a class="tel num" href="${esc(telHref(x.phone))}" data-stop>${esc(x.phone)}</a>` : ''}<span class="who p${esc(x.caller)}"><i></i>${esc(name(x.caller))} appelle</span>${x.followup ? `<span class="${late ? 'late' : ''}">Relance ${esc(fmtDate(x.followup))}</span>` : ''}</div></div>
+    ${r ? `<span class="pill r-${r}">${RESULTS[r]}</span>` : '<span></span>'}
+  </div>`;
+}
+
+function renderIdeas() {
+  if (!S.data.ideas.size) return empty('Aucune idée pour l’instant', 'Touche « + Idée », décris-la en 3-4 lignes, puis notez-la ensemble.');
+  const sortBy = S.ideaSort === 'recent' ? 'recent' : 'score';
+  const arr = [...S.data.ideas.entries()].sort(([, a], [, b]) => {
+    if (sortBy === 'score') {
+      const sa = scoreOf(a.score) ?? -1, sb = scoreOf(b.score) ?? -1;
+      if (sa !== sb) return sb - sa;
+    }
+    return (b.createdAt || 0) - (a.createdAt || 0);
+  });
+  const counts = {};
+  for (const c of S.data.comments.values()) counts[c.ideaId] = (counts[c.ideaId] || 0) + 1;
+  return `<div class="sortbar"><span>Trier par</span><div class="chips" style="margin:0;padding:0" role="group" aria-label="Tri">
+      <button type="button" class="chip" data-sort="score" aria-pressed="${sortBy === 'score'}">Note</button>
+      <button type="button" class="chip" data-sort="recent" aria-pressed="${sortBy === 'recent'}">Plus récentes</button></div></div>
+    <div class="list">${arr.map(([id, x]) => {
+      const v = x.analysis && x.analysis.verdict;
+      return `<div class="row" data-open="ideas:${esc(id)}" role="button" tabindex="0">
+        <span class="bar" aria-hidden="true"></span>
+        <div class="main"><div class="title">${esc(x.name || 'Sans nom')}</div>
+          ${x.description ? `<div class="clamp">${esc(x.description)}</div>` : ''}
+          <div class="meta"><span class="who p${esc(x.proposer)}"><i></i>Proposée par ${esc(name(x.proposer))}</span>${v ? `<span class="pill v-${esc(v.split(' ')[0])}">${esc(v)}</span>` : ''}${counts[id] ? `<span>${counts[id]} commentaire${counts[id] > 1 ? 's' : ''}</span>` : ''}</div></div>
+        ${scoreOf(x.score) !== null ? `<div class="score ${scoreOf(x.score) >= 7 ? 'hi' : scoreOf(x.score) >= 5 ? 'mid' : 'lo'}">${scoreOf(x.score)}<small>/10</small></div>` : '<div class="score na">Pas notée</div>'}
+      </div>`;
+    }).join('')}</div>`;
+}
+
+const scoreOf = (v) => (v === '' || v == null || isNaN(Number(v))) ? null : Number(v);
+const who = (i) => `<span class="who p${esc(i)}"><i></i>${esc(name(i))}</span>`;
+function renderGoals() {
+  const t = today();
+  const arr = [...S.data.goals.entries()];
+  const open = arr.filter(([, g]) => g.status !== 'atteint').sort(([, a], [, b]) => (a.deadline || '9') < (b.deadline || '9') ? -1 : (a.deadline || '9') > (b.deadline || '9') ? 1 : (a.createdAt || 0) - (b.createdAt || 0));
+  const done = arr.filter(([, g]) => g.status === 'atteint').sort(([, a], [, b]) => (b.updatedAt || 0) - (a.updatedAt || 0));
+  const row = ([id, g]) => {
+    const isDone = g.status === 'atteint';
+    const late = !isDone && g.deadline && g.deadline < t;
+    return `<div class="goal ${isDone ? 'done' : ''}" data-open="goals:${esc(id)}" role="button" tabindex="0">
+      <button type="button" class="check ${isDone ? 'on' : ''}" data-goal-toggle="${esc(id)}" ${readOnly() ? 'disabled' : ''} aria-label="${isDone ? 'Marquer comme non atteint' : 'Marquer comme atteint'}">${isDone ? '✓' : ''}</button>
+      <div style="min-width:0"><div class="gt">${esc(g.text || 'Objectif sans titre')}</div>
+        <div class="meta">${PEOPLE.includes(g.who) ? who(g.who) : '<span>Nous trois</span>'}${g.deadline ? `<span class="${late ? 'late' : ''}">${late ? 'En retard · ' : 'Pour '}${esc(fmtDate(g.deadline))}</span>` : ''}</div></div></div>`;
+  };
+  const total = arr.length, pct = total ? Math.round((done.length / total) * 100) : 0;
+  return `<section class="goals" aria-label="Nos objectifs">
+    <div class="goals-head"><h2>Nos objectifs</h2>${total ? `<span class="num">${done.length}/${total} atteints</span>` : ''}</div>
+    ${total ? `<div class="gbar" aria-hidden="true"><i style="width:${pct}%"></i></div>` : '<p class="hint" style="margin:0">Fixez-vous des objectifs précis et datés, par exemple « 20 appels passés d’ici vendredi ».</p>'}
+    ${total ? `<div class="goal-list">${open.map(row).join('')}${done.map(row).join('')}</div>` : ''}
+    ${readOnly() ? '' : '<button type="button" class="goals-add" data-add-goal>+ Fixer un objectif</button>'}
+  </section>`;
+}
+const empty = (t, s) => `<div class="empty"><strong>${esc(t)}</strong>${esc(s)}</div>`;
+
+/* ---------- Interactions sur les listes ---------- */
+$('#main').addEventListener('click', (ev) => {
+  const t = ev.target;
+  if (t.closest('[data-stop]')) { ev.stopPropagation(); return; }
+  const chip = t.closest('[data-filter]');
+  if (chip) { S.filter = chip.dataset.filter; LS.set('qg.filter', S.filter); render(); return; }
+  const sortB = t.closest('[data-sort]');
+  if (sortB) { S.ideaSort = sortB.dataset.sort; LS.set('qg.ideaSort', S.ideaSort); render(); return; }
+  const cyc = t.closest('[data-cycle]');
+  if (cyc) {
+    ev.stopPropagation();
+    if (readOnly()) return;
+    const id = cyc.dataset.cycle; const x = S.data.tasks.get(id); if (!x) return;
+    const next = STATUS_NEXT[x.status] || 'encours';
+    queueWrite('tasks', id, { status: next }, { now: true });
+    S.data.tasks.set(id, Object.assign({}, x, { status: next, updatedAt: Date.now() })); render();
+    return;
+  }
+  if (t.closest('[data-add-goal]')) { openSheet('goals', null); return; }
+  const gt = t.closest('[data-goal-toggle]');
+  if (gt) {
+    ev.stopPropagation();
+    if (readOnly()) return;
+    const id = gt.dataset.goalToggle; const g = S.data.goals.get(id); if (!g) return;
+    const next = g.status === 'atteint' ? 'encours' : 'atteint';
+    queueWrite('goals', id, { status: next }, { now: true });
+    S.data.goals.set(id, Object.assign({}, g, { status: next, updatedAt: Date.now() })); render();
+    if (next === 'atteint') toast('Objectif atteint. Bravo à vous trois.');
+    return;
+  }
+  const row = t.closest('[data-open]');
+  if (row) { const [col, id] = row.dataset.open.split(':'); openSheet(col, id); }
+});
+$('#main').addEventListener('keydown', (ev) => {
+  if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.matches('[data-open]')) { ev.preventDefault(); ev.target.click(); }
+});
+$$('.tab').forEach((b) => b.addEventListener('click', () => { S.tab = b.dataset.tab; LS.set('qg.tab', S.tab); render(); window.scrollTo(0, 0); }));
+$('#fab').addEventListener('click', () => openSheet(S.tab, null));
+$('#openSettings').addEventListener('click', openSettings);
+
+/* ---------- Feuille d'édition (sauvegarde à chaque modification) ---------- */
+function defaults(col) {
+  const me = PEOPLE.includes(S.me) ? S.me : '0';
+  if (col === 'tasks') return { title: '', owner: me, due: '', priority: 'moyenne', status: 'afaire' };
+  if (col === 'calls') return { name: '', phone: '', company: '', reason: '', caller: me, followup: '', result: '', notes: '' };
+  if (col === 'goals') return { text: '', who: 'all', deadline: '', status: 'encours' };
+  return { name: '', description: '', proposer: me };
+}
+const personOptions = (sel) => PEOPLE.map((i) => `<option value="${i}" ${sel === i ? 'selected' : ''}>${esc(name(i))}</option>`).join('');
+const seg = (field, map, sel) => `<div class="seg" role="radiogroup">${Object.entries(map).map(([k, l]) => `<input type="radio" name="${field}" id="${field}-${k}" value="${k}" data-f="${field}" ${sel === k ? 'checked' : ''}><label for="${field}-${k}">${esc(l)}</label>`).join('')}</div>`;
+
+function openSheet(col, id) {
+  const isNew = !id;
+  if (isNew) { if (readOnly()) return; id = S.db.collection(col).doc().id; }
+  const item = Object.assign(defaults(col), S.data[col].get(id) || {});
+  S.sheet = { col, id, created: !isNew, isNew };
+  const ro = readOnly() ? 'disabled' : '';
+  let title, form;
+  if (col === 'tasks') {
+    title = isNew ? 'Nouvelle tâche' : 'Tâche';
+    form = `
+      <div class="field"><label for="f-title">Titre</label><input class="input" id="f-title" data-f="title" value="${esc(item.title)}" maxlength="200" ${ro} placeholder="Ex. Envoyer le devis à la boulangerie"></div>
+      <div class="two">
+        <div class="field"><label for="f-owner">Responsable</label><select class="input" id="f-owner" data-f="owner" ${ro}>${personOptions(item.owner)}</select></div>
+        <div class="field"><label for="f-due">Échéance</label><input class="input" type="date" id="f-due" data-f="due" value="${esc(item.due)}" ${ro}></div>
+      </div>
+      <div class="field"><span class="lbl">Priorité</span>${seg('priority', PRIO, item.priority)}</div>
+      <div class="field"><span class="lbl">Statut</span>${seg('status', STATUS, item.status)}</div>`;
+  } else if (col === 'calls') {
+    title = isNew ? 'Nouveau contact' : 'Contact';
+    form = `
+      <div class="field"><label for="f-name">Nom</label><input class="input" id="f-name" data-f="name" value="${esc(item.name)}" maxlength="120" ${ro} autocomplete="off"></div>
+      <div class="field"><label for="f-phone">Téléphone</label><input class="input num" type="tel" id="f-phone" data-f="phone" value="${esc(item.phone)}" maxlength="40" ${ro} autocomplete="off" inputmode="tel">
+        <div class="phone-actions" id="phoneActions"></div></div>
+      <div class="field"><label for="f-company">Entreprise</label><input class="input" id="f-company" data-f="company" value="${esc(item.company)}" maxlength="120" ${ro}></div>
+      <div class="field"><label for="f-reason">Motif de l’appel</label><textarea class="input" id="f-reason" data-f="reason" rows="2" maxlength="600" ${ro}>${esc(item.reason)}</textarea></div>
+      <div class="two">
+        <div class="field"><label for="f-caller">Qui appelle</label><select class="input" id="f-caller" data-f="caller" ${ro}>${personOptions(item.caller)}</select></div>
+        <div class="field"><label for="f-followup">Date de relance</label><input class="input" type="date" id="f-followup" data-f="followup" value="${esc(item.followup)}" ${ro}></div>
+      </div>
+      <div class="field"><label for="f-result">Résultat</label><select class="input" id="f-result" data-f="result" ${ro}>${Object.entries(RESULTS).map(([k, l]) => `<option value="${k}" ${item.result === k ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select></div>
+      <div class="field"><label for="f-notes">Notes</label><textarea class="input" id="f-notes" data-f="notes" rows="4" maxlength="4000" ${ro}>${esc(item.notes)}</textarea></div>`;
+  } else if (col === 'goals') {
+    title = isNew ? 'Nouvel objectif' : 'Objectif';
+    form = `
+      <div class="field"><label for="f-text">Objectif</label><textarea class="input" id="f-text" data-f="text" rows="2" maxlength="300" ${ro} placeholder="Ex. Signer 3 clients avant le 15 décembre">${esc(item.text)}</textarea><span class="hint">Un bon objectif est chiffré et daté.</span></div>
+      <div class="two">
+        <div class="field"><label for="f-who">Pour qui</label><select class="input" id="f-who" data-f="who" ${ro}><option value="all" ${PEOPLE.includes(item.who) ? '' : 'selected'}>Nous trois</option>${personOptions(item.who)}</select></div>
+        <div class="field"><label for="f-deadline">Pour le</label><input class="input" type="date" id="f-deadline" data-f="deadline" value="${esc(item.deadline)}" ${ro}></div>
+      </div>
+      <div class="field"><span class="lbl">Statut</span>${seg('status', GOAL_STATUS, item.status)}</div>`;
+  } else {
+    title = isNew ? 'Nouvelle idée' : 'Idée';
+    form = `
+      <div class="field"><label for="f-name">Nom de l’idée</label><input class="input" id="f-name" data-f="name" value="${esc(item.name)}" maxlength="120" ${ro}></div>
+      <div class="field"><label for="f-description">Description (3-4 lignes)</label><textarea class="input" id="f-description" data-f="description" rows="4" maxlength="1500" ${ro} placeholder="Quoi, pour qui, comment on gagne de l’argent.">${esc(item.description)}</textarea></div>
+      <div class="field"><label for="f-proposer">Proposée par</label><select class="input" id="f-proposer" data-f="proposer" ${ro}>${personOptions(item.proposer)}</select></div>
+      <div class="field"><label for="f-score">Notre note sur 10</label><select class="input" id="f-score" data-f="score" ${ro}><option value="">Pas encore notée</option>${[10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0].map((n) => `<option value="${n}" ${String(item.score) === String(n) ? 'selected' : ''}>${n} / 10</option>`).join('')}</select><span class="hint">Une idée moyenne mérite 5. Ne vous faites pas plaisir.</span></div>
+      <hr class="sep">
+      <section class="field"><h3 style="font-size:16px">Commentaires</h3><div id="commentsZone" class="comments"></div></section>`;
+  }
+  const sh = $('#sheet');
+  sh.innerHTML = `<div class="sheet-head"><div class="wrap">
+      <button type="button" class="btn" id="sheetClose">Fermer</button>
+      <h2 id="sheetTitle">${title}</h2>
+      ${readOnly() ? '' : `<button type="button" class="btn danger" id="sheetDelete">Supprimer</button>`}
+    </div></div>
+    <div class="wrap"><form class="form" id="sheetForm" autocomplete="off" novalidate>${form}
+      <p class="hint" id="sheetHint">${isNew ? 'Enregistré automatiquement dès que tu écris.' : 'Chaque modification est enregistrée automatiquement.'}</p></form></div>`;
+  sh.hidden = false;
+  document.body.style.overflow = 'hidden';
+  sh.scrollTop = 0;
+
+  const form$ = $('#sheetForm');
+  form$.addEventListener('submit', (e) => e.preventDefault());
+  const onEdit = (ev) => {
+    const el = ev.target; const f = el.dataset && el.dataset.f; if (!f || readOnly()) return;
+    if (el.type === 'radio' && !el.checked) return;
+    setField(f, el.value);
+    if (f === 'phone') renderPhoneActions(el.value);
+    if (col === 'ideas' && (f === 'name' || f === 'description')) renderAnalysisZone();
+  };
+  form$.addEventListener('input', onEdit);
+  form$.addEventListener('change', onEdit);
+  $('#sheetClose').addEventListener('click', closeSheet);
+  const del = $('#sheetDelete');
+  if (del) armable(del, 'Confirmer la suppression', async () => {
+    const { col: c, id: i, created } = S.sheet;
+    closeSheet();
+    if (!created) return;
+    try {
+      await removeDoc(c, i);
+      if (c === 'ideas') for (const [cid, cm] of S.data.comments) if (cm.ideaId === i) removeDoc('comments', cid).catch(() => {});
+      toast('Supprimé.');
+    } catch (err) { toast('Suppression impossible (' + (err && err.code || 'erreur') + '). Vérifie ta connexion et réessaie.'); }
+  });
+  if (col === 'calls') renderPhoneActions(item.phone);
+  if (col === 'ideas') refreshIdeaLive();
+  const first = $('#sheetForm .input');
+  if (isNew && first) setTimeout(() => first.focus(), 60);
+}
+function setField(f, v) {
+  const sh = S.sheet; if (!sh) return;
+  if (!sh.created) {
+    sh.created = true;
+    const base = Object.assign(defaults(sh.col), readSheetValues(), { [f]: v, createdAt: Date.now(), createdBy: S.me });
+    queueWrite(sh.col, sh.id, base, { create: true });
+  } else {
+    queueWrite(sh.col, sh.id, { [f]: v });
+  }
+}
+function readSheetValues() {
+  const out = {};
+  for (const el of $$('#sheetForm [data-f]')) {
+    if (el.type === 'radio') { if (el.checked) out[el.dataset.f] = el.value; }
+    else out[el.dataset.f] = el.value;
+  }
+  return out;
+}
+function closeSheet() {
+  if (S.sheet) flush(S.sheet.col + '/' + S.sheet.id);
+  if (S.analysing && S.analysing.ctl) { /* l'analyse continue en arrière-plan et s'enregistre à la fin */ }
+  S.sheet = null;
+  $('#sheet').hidden = true; $('#sheet').innerHTML = '';
+  document.body.style.overflow = '';
+  render();
+}
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && S.sheet) closeSheet(); });
+
+/* bouton à double action (remplace confirm(), bloqué dans l'artifact) */
+function armable(btn, armedLabel, action) {
+  const label = btn.textContent; let timer = null;
+  btn.addEventListener('click', () => {
+    if (btn.classList.contains('armed')) { clearTimeout(timer); action(); return; }
+    btn.classList.add('armed'); btn.textContent = armedLabel;
+    timer = setTimeout(() => { btn.classList.remove('armed'); btn.textContent = label; }, 4000);
+  });
+}
+
+function renderPhoneActions(phone) {
+  const z = $('#phoneActions'); if (!z) return;
+  const p = String(phone || '').trim();
+  if (!p) { z.innerHTML = ''; return; }
+  z.innerHTML = `<a class="btn primary" href="${esc(telHref(p))}">Appeler</a><button type="button" class="btn" id="copyPhone">Copier le numéro</button>`;
+  $('#copyPhone').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(p); toast('Numéro copié.'); }
+    catch { const i = $('#f-phone'); i.focus(); i.select(); toast('Numéro sélectionné : copie-le avec ton téléphone.'); }
+  });
+}
+
+/* ---------- Idées : commentaires ---------- */
+function refreshIdeaLive() { renderComments(); }
+function renderAnalysisZone() {}
+
+function renderComments() {
+  const z = $('#commentsZone'); if (!z || !S.sheet) return;
+  const id = S.sheet.id;
+  const list = [...S.data.comments.entries()].filter(([, c]) => c.ideaId === id).sort(([, a], [, b]) => (a.createdAt || 0) - (b.createdAt || 0));
+  const sig = JSON.stringify([S.sheet.created, readOnly(), S.me, PEOPLE.map(name), list.map(([cid, c]) => [cid, c.text, c.author])]);
+  if (z.dataset.sig === sig) return;
+  z.dataset.sig = sig;
+  const draftKey = 'qg.draft.comment.' + id;
+  const keep = $('#newComment') ? $('#newComment').value : LS.get(draftKey, '');
+  const hadFocus = document.activeElement && document.activeElement.id === 'newComment';
+  let html = list.length ? list.map(([cid, c]) => `<div class="comment"><div class="who">${esc(name(c.author))} <span class="muted">${esc(fmtWhen(c.createdAt))}</span>${!readOnly() && c.author === S.me ? `<button type="button" class="del" data-delc="${esc(cid)}">Supprimer</button>` : ''}</div><p>${esc(c.text)}</p></div>`).join('') : '<p class="hint" style="margin:0">Pas encore de commentaire.</p>';
+  if (!readOnly()) html += `<div class="field"><label for="newComment">Ton commentaire (${esc(name(S.me))})</label><textarea class="input" id="newComment" rows="3" maxlength="2000" placeholder="${S.sheet.created ? 'Ton avis sur l’idée' : 'Donne d’abord un nom à l’idée'}" ${S.sheet.created ? '' : 'disabled'}></textarea><button type="button" class="btn primary" id="addComment" ${S.sheet.created ? '' : 'disabled'}>Publier le commentaire</button></div>`;
+  z.innerHTML = html;
+  const ta = $('#newComment');
+  if (ta) {
+    ta.value = keep || '';
+    if (hadFocus) ta.focus();
+    ta.addEventListener('input', () => LS.set(draftKey, ta.value));
+    $('#addComment').addEventListener('click', () => {
+      const text = ta.value.trim(); if (!text) return;
+      const cid = S.db.collection('comments').doc().id;
+      queueWrite('comments', cid, { ideaId: id, author: S.me, text, createdAt: Date.now() }, { create: true, now: true });
+      ta.value = ''; LS.del(draftKey);
+    });
+  }
+  $$('[data-delc]', z).forEach((b) => armable(b, 'Confirmer', () => removeDoc('comments', b.dataset.delc).catch(() => toast('Suppression impossible, réessaie.'))));
+}
+
+/* ---------- Réglages, export, import ---------- */
+function openSettings() {
+  S.sheet = null;
+  const sh = $('#sheet');
+  const ro = readOnly() ? 'disabled' : '';
+  sh.innerHTML = `<div class="sheet-head"><div class="wrap"><button type="button" class="btn" id="sheetClose">Fermer</button><h2 id="sheetTitle">Réglages</h2></div></div>
+  <div class="wrap"><div class="form">
+    <section class="field"><h3 style="font-size:16px">Prénoms</h3>
+      ${PEOPLE.map((i) => `<div class="field"><label for="nm${i}">Personne ${Number(i) + 1}</label><input class="input" id="nm${i}" data-name="${i}" value="${esc(name(i))}" maxlength="24" ${ro}></div>`).join('')}
+      <span class="hint">Modifiés pour les trois téléphones, enregistrés automatiquement.</span></section>
+    <section class="field"><label for="meSel">Ce téléphone est celui de</label><select class="input" id="meSel">${personOptions(S.me)}</select></section>
+    <hr class="sep">
+    <section class="field"><h3 style="font-size:16px">Sauvegarde de secours</h3>
+      <p class="hint" style="margin:0">${S.data.tasks.size} tâches, ${S.data.calls.size} contacts, ${S.data.ideas.size} idées, ${S.data.goals.size} objectifs, ${S.data.comments.size} commentaires.</p>
+      <button type="button" class="btn block" id="exportBtn">Exporter une sauvegarde (JSON)</button>
+      <button type="button" class="btn block" id="importBtn" ${ro}>Importer une sauvegarde</button>
+      <div id="ioZone"></div></section>
+  </div></div>`;
+  sh.hidden = false; document.body.style.overflow = 'hidden'; sh.scrollTop = 0;
+  $('#sheetClose').addEventListener('click', closeSheet);
+  $$('[data-name]').forEach((inp) => inp.addEventListener('input', () => {
+    const names = PEOPLE.map((i) => ($('#nm' + i).value.trim() || DEFAULT_NAMES[i]).slice(0, 24));
+    S.cfg = Object.assign({}, S.cfg, { names });
+    queueWrite('config', 'app', { names });
+  }));
+  $('#meSel').addEventListener('change', (e) => { S.me = e.target.value; LS.set('qg.me', S.me); toast('Ce téléphone est maintenant celui de ' + name(S.me) + '.'); });
+  $('#exportBtn').addEventListener('click', exportJson);
+  $('#importBtn').addEventListener('click', () => { const f = $('#importFile'); f.value = ''; f.click(); });
+}
+
+function buildBackup() {
+  const dump = (col) => [...S.data[col].entries()].map(([id, d]) => Object.assign({ id }, d));
+  return { app: 'qg-associes', version: 1, exportedAt: new Date().toISOString(), names: PEOPLE.map(name), tasks: dump('tasks'), calls: dump('calls'), ideas: dump('ideas'), comments: dump('comments'), goals: dump('goals') };
+}
+async function exportJson() {
+  const json = JSON.stringify(buildBackup(), null, 2);
+  const filename = 'sauvegarde-qg-associes-' + today() + '.json';
+  const z = $('#ioZone');
+  if (S.downloads) {
+    try { await S.downloads.save({ filename, data: json }); toast('Sauvegarde enregistrée.'); return; }
+    catch (e) { if (e && e.code === 'declined') { toast('Téléchargement annulé.'); return; } }
+  }
+  z.innerHTML = `<p class="msg info">Le téléchargement n’est pas possible ici. Copie le texte ci-dessous et colle-le dans une note ou un email.</p><button type="button" class="btn" id="copyJson">Copier la sauvegarde</button><pre class="json" id="jsonOut"></pre>`;
+  $('#jsonOut').textContent = json;
+  $('#copyJson').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(json); toast('Sauvegarde copiée.'); }
+    catch { const r = document.createRange(); r.selectNodeContents($('#jsonOut')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast('Texte sélectionné : copie-le.'); }
+  });
+}
+
+const ID_RE = /^[A-Za-z0-9_\-.~:@+]{1,200}$/;
+$('#importFile').addEventListener('change', (ev) => {
+  const file = ev.target.files && ev.target.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const z = $('#ioZone'); if (!z) return;
+    let data;
+    try { data = JSON.parse(String(reader.result)); } catch { z.innerHTML = '<p class="msg err">Ce fichier n’est pas un JSON lisible.</p>'; return; }
+    if (!data || data.app !== 'qg-associes') { z.innerHTML = '<p class="msg err">Ce fichier n’est pas une sauvegarde du QG des associés.</p>'; return; }
+    const items = [];
+    for (const col of COLS) for (const it of (Array.isArray(data[col]) ? data[col] : [])) {
+      if (it && typeof it === 'object' && typeof it.id === 'string' && ID_RE.test(it.id) && it.id !== '.' && it.id !== '..') {
+        const body = Object.assign({}, it); delete body.id; items.push({ col, id: it.id, body });
+      }
+    }
+    const count = (c) => items.filter((x) => x.col === c).length;
+    z.innerHTML = `<div class="msg info">Sauvegarde du ${esc(fmtWhen(Date.parse(data.exportedAt)))} : ${count('tasks')} tâches, ${count('calls')} contacts, ${count('ideas')} idées, ${count('goals')} objectifs, ${count('comments')} commentaires. Les éléments présents dans le fichier remplacent leur version actuelle ; rien n’est supprimé.</div><button type="button" class="btn primary block" id="doImport">Importer ${items.length} éléments</button>`;
+    $('#doImport').addEventListener('click', async (e) => {
+      const btn = e.currentTarget; btn.disabled = true;
+      let ok = 0, ko = 0;
+      for (const it of items) {
+        try { await S.db.collection(it.col).doc(it.id).set(it.body); ok++; } catch { ko++; }
+        btn.textContent = 'Import… ' + (ok + ko) + ' / ' + items.length;
+      }
+      if (Array.isArray(data.names) && data.names.length === 3) await queueWrite('config', 'app', { names: data.names.map((n, i) => String(n || DEFAULT_NAMES[i]).slice(0, 24)) }, { now: true });
+      z.innerHTML = ko ? `<p class="msg err">${ok} éléments importés, ${ko} en échec. Vérifie ta connexion et relance l’import (sans risque de doublon).</p>` : `<p class="msg info">${ok} éléments importés.</p>`;
+    });
+  };
+  reader.readAsText(file);
+});
+
+boot();
+})();
+</script>
+
+</body>
+</html>
