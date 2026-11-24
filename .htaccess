@@ -25,6 +25,11 @@ ErrorDocument 404 /404.html
   RewriteRule ^(.+?)/?$ $1.html [L]
 </IfModule>
 
+# Maquettes NODAL (autre projet) : jamais publiées sur le domaine Autoflow
+<IfModule mod_alias.c>
+  RedirectMatch 404 ^/nodal(/|$)
+</IfModule>
+
 # Ne pas servir les fichiers internes du projet
 <FilesMatch "^(CLAUDE|README)\.md$">
   Require all denied
