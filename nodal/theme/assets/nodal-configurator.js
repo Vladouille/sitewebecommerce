@@ -270,6 +270,13 @@
       counts.forEach((q, id) => items.push({ id, quantity: q, properties: props }));
       el.add.disabled = true; el.add.textContent = 'Ajout…'; el.err.hidden = true;
       try {
+        // Hors Shopify (version HTML), un panier local peut prendre le relais.
+        if (window.NODAL && typeof window.NODAL.cartAdd === 'function') {
+          await window.NODAL.cartAdd(items);
+          try { sessionStorage.removeItem(STORE_KEY); } catch (e) { /* ignorer */ }
+          location.href = D.cartUrl;
+          return;
+        }
         const r = await fetch(D.cartAddUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },

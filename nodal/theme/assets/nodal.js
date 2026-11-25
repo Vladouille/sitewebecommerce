@@ -110,9 +110,9 @@
         slotTxt.textContent = `jusqu'à ${slots} modules`;
         if (b.dataset.price) priceTxt.textContent = money(+b.dataset.price);
         if (cta) {
-          const u = new URL(cta.dataset.base, location.origin);
-          u.searchParams.set('longueur', len);
-          cta.href = u.pathname + u.search;
+          // Relatif ou absolu, fonctionne aussi hors Shopify (fichiers HTML ouverts en local).
+          const base = cta.dataset.base.split('?')[0];
+          cta.href = `${base}?longueur=${len}`;
         }
       };
       btns.forEach((b) => b.addEventListener('click', () => set(b)));

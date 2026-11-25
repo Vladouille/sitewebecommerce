@@ -1,0 +1,83 @@
+/* NODAL — compléments propres à la version HTML (en-tête, menu, fiche, panier, pages). */
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--nd-ink);color:var(--nd-cream);font:400 16px/1.55 var(--nd-text);-webkit-font-smoothing:antialiased}
+*,*::before,*::after{box-sizing:border-box}
+img,svg{max-width:100%}
+a{color:inherit}
+.nd-skip{position:absolute;left:-999px;top:0;background:var(--nd-acid);color:var(--nd-ink);padding:10px 14px;z-index:99}
+.nd-skip:focus{left:8px;top:8px}
+.nd-preview{background:var(--nd-acid);color:var(--nd-ink);font:600 12px/1.35 var(--nd-text);padding:8px var(--nd-gutter);text-align:center}
+.nd-hdr{position:sticky;top:0;z-index:40;background:rgba(11,13,16,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--nd-line)}
+.nd-hdr__in{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 var(--nd-gutter);max-width:1200px;margin:0 auto}
+.nd-logo{font:700 18px/1 var(--nd-display);letter-spacing:.32em;text-decoration:none;display:flex;align-items:center;gap:8px;color:var(--nd-cream)}
+.nd-logo i{width:7px;height:7px;background:var(--nd-acid);border-radius:50%;display:block}
+.nd-icon{width:44px;height:44px;display:grid;place-items:center;background:none;border:0;color:var(--nd-cream);position:relative;cursor:pointer;text-decoration:none}
+.nd-icon .nd-count{position:absolute;top:6px;right:3px;background:var(--nd-acid);color:var(--nd-ink);font:700 10px/16px var(--nd-display);min-width:16px;height:16px;border-radius:8px;text-align:center;padding:0 3px}
+.nd-nav{display:none}
+.nd-menu summary{list-style:none}
+.nd-menu summary::-webkit-details-marker{display:none}
+.nd-menu[open] .nd-menu__panel{display:block}
+.nd-menu__panel{display:none;position:fixed;inset:57px 0 0 0;background:var(--nd-ink);padding:12px var(--nd-gutter) 40px;overflow:auto;z-index:50}
+.nd-menu__panel a{display:block;padding:16px 0;border-bottom:1px solid var(--nd-line);font:700 20px/1.2 var(--nd-display);text-transform:uppercase;letter-spacing:.06em;text-decoration:none}
+.nd-menu__panel .nd-btn{margin-top:24px;border:0}
+@media (min-width:990px){
+  .nd-menu{display:none}
+  .nd-nav{display:flex;gap:28px;font:500 13px/1 var(--nd-display);letter-spacing:.1em;text-transform:uppercase}
+  .nd-nav a{text-decoration:none;opacity:.85}.nd-nav a:hover,.nd-nav a[aria-current]{opacity:1;color:var(--nd-acid)}
+}
+.nd-ftr{padding:48px 0 120px;border-top:1px solid var(--nd-line);font-size:14px}
+.nd-ftr__cols{display:grid;grid-template-columns:1fr 1fr;gap:28px 16px;margin:28px 0}
+.nd-ftr h2{font:600 11px/1 var(--nd-display);letter-spacing:.12em;text-transform:uppercase;color:var(--nd-mute);margin:0 0 12px}
+.nd-ftr ul{list-style:none;display:grid;gap:10px;margin:0;padding:0}
+.nd-ftr a{text-decoration:none}
+.nd-ftr__legal{color:var(--nd-mute);font-size:12px;line-height:1.7}
+@media (min-width:750px){.nd-ftr__cols{grid-template-columns:repeat(4,1fr)}}
+
+/* Fiche produit */
+.nd-pdp{padding:24px 0 64px}
+.nd-pdp__grid{display:grid;gap:24px}
+.nd-pdp__gallery{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.nd-pdp__gallery .nd-media{aspect-ratio:1}
+.nd-pdp__gallery .nd-media:first-child{grid-column:1/-1;aspect-ratio:4/5}
+.nd-pdp h1{font:700 clamp(28px,8vw,44px)/1.05 var(--nd-display);text-transform:uppercase;letter-spacing:.06em;margin:0 0 4px}
+.nd-pdp__price{font-size:26px;margin:14px 0 18px;display:block}
+.nd-opt{margin:0 0 16px;border:0;padding:0}
+.nd-opt legend{margin-bottom:8px}
+.nd-opt__row{display:flex;flex-wrap:wrap;gap:8px}
+.nd-opt__row button{min-height:44px;padding:0 16px;background:none;border:1px solid var(--nd-line);color:var(--nd-cream);font:600 14px/1 var(--nd-display);cursor:pointer}
+.nd-opt__row button[aria-pressed="true"]{border-color:var(--nd-cream);background:var(--nd-cream);color:var(--nd-ink)}
+.nd-qty{display:inline-flex;align-items:center;border:1px solid var(--nd-line);margin:8px 0 0}
+.nd-qty button{width:40px;height:40px;background:none;border:0;color:var(--nd-cream);font-size:18px;cursor:pointer}
+.nd-qty span{min-width:32px;text-align:center;font-weight:600}
+.nd-pdp__buy{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:end;margin-top:6px}
+.nd-pdp__buy .nd-qty{margin:0;height:54px}.nd-pdp__buy .nd-qty button{height:52px}
+.nd-msg{margin:10px 0 0;font-size:14px;color:var(--nd-acid)}
+.nd-desc{color:var(--nd-cream);opacity:.9;margin-top:24px}
+.nd-desc ul{padding-left:18px}
+@media (min-width:990px){.nd-pdp__grid{grid-template-columns:1.2fr 1fr;gap:48px;align-items:start}.nd-pdp__info{position:sticky;top:90px}}
+
+/* Panier */
+.nd-cart{padding:32px 0 80px;max-width:760px}
+.nd-cart h1{font:700 clamp(28px,8vw,44px)/1.05 var(--nd-display);text-transform:uppercase;letter-spacing:.06em;margin:0 0 20px}
+.nd-cart ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--nd-line)}
+.nd-cart__group{display:flex;justify-content:space-between;align-items:center;padding:14px 0 6px}
+.nd-cart__line{display:grid;grid-template-columns:64px 1fr auto;gap:12px;padding:14px 0;border-bottom:1px solid var(--nd-line)}
+.nd-cart__ph{width:64px;height:64px;background:var(--nd-ink-2);border:1px solid var(--nd-line)}
+.nd-cart__line small{display:block;color:var(--nd-mute);font-size:12px}
+.nd-cart__right{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between}
+.nd-cart__rm{background:none;border:0;color:var(--nd-mute);text-decoration:underline;font-size:12px;cursor:pointer;padding:4px 0}
+.nd-cart__sum{display:flex;justify-content:space-between;align-items:baseline;padding:18px 0;font-size:16px}
+.nd-cart__sum .nd-price{font-size:26px}
+
+/* Pages éditoriales */
+.nd-doc{padding:32px 0 80px;max-width:760px}
+.nd-doc h1{font:700 clamp(28px,8vw,44px)/1.05 var(--nd-display);text-transform:uppercase;letter-spacing:.06em;margin:0 0 8px}
+.nd-doc h2{font:700 18px/1.25 var(--nd-display);text-transform:uppercase;letter-spacing:.06em;margin:2em 0 .6em}
+.nd-doc p,.nd-doc li{opacity:.92}
+.nd-doc em{color:var(--nd-mute);font-style:normal;font-size:13px}
+.nd-doc table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto}
+.nd-doc th,.nd-doc td{border:1px solid var(--nd-line);padding:8px 10px;text-align:left;vertical-align:top}
+.nd-doc blockquote{margin:0;padding:10px 16px;border-left:2px solid var(--nd-acid);background:var(--nd-ink-2)}
+.nd-doc mark{background:none;color:var(--nd-acid);font-weight:600}
+.nd-list{padding:32px 0 64px}
+.nd-list h1{font:700 clamp(28px,8vw,44px)/1.05 var(--nd-display);text-transform:uppercase;letter-spacing:.06em;margin:0 0 8px}
