@@ -1,0 +1,327 @@
+{%- comment -%}
+  PRINVLA — page de vente (section de thème Shopify, Online Store 2.0).
+  Fichier généré par prinvla/tools/build-shopify.mjs : ne pas modifier à la main la version
+  dans shopify/sections/, modifier ce gabarit (shopify/src/) puis relancer `npm run shopify`.
+  Prix, stock et boutons d'achat viennent des produits choisis dans l'éditeur de thème.
+{%- endcomment -%}
+{%- liquid
+  assign pince = section.settings.pince_product
+  assign duo = section.settings.duo_product
+  assign clan = section.settings.clan_product
+  assign total = section.settings.stock_total | default: 25
+  assign drop_name = section.settings.drop_name | default: 'Drop #1'
+  assign drop2 = section.settings.drop2_url | default: '#'
+
+  assign stock = total
+  if pince != blank
+    assign tracked = false
+    assign counted = 0
+    for v in pince.variants
+      if v.inventory_management == 'shopify'
+        assign tracked = true
+        if v.inventory_quantity > 0
+          assign counted = counted | plus: v.inventory_quantity
+        endif
+      endif
+    endfor
+    if tracked
+      assign stock = counted
+    endif
+  endif
+  if stock > total
+    assign stock = total
+  endif
+
+  assign sold_out = false
+  if pince != blank and pince.available == false
+    assign sold_out = true
+  endif
+
+  if duo != blank
+    assign duo_price = duo.price | money
+  else
+    assign duo_price = '19,90 €'
+  endif
+-%}
+
+<div class="pv" id="pv-{{ section.id }}" data-model-url="{{ section.settings.model_url | escape }}" data-enable-3d="{{ section.settings.enable_3d }}">
+  <div class="pv-snowclip" aria-hidden="true"><canvas class="pv-snow"></canvas></div>
+
+  {%- comment -%} ───────── HERO ───────── {%- endcomment -%}
+  <section class="pv-hero" aria-labelledby="pv-title-{{ section.id }}">
+    <div class="pv-hero__text">
+      <p class="pv-eyebrow">PRINVLA — LA PINCE À BOULES DE NEIGE</p>
+      <h1 id="pv-title-{{ section.id }}" class="pv-hero__title">Des boules parfaites en 2&nbsp;secondes. <span class="pv-ice">Zéro main gelée.</span></h1>
+      <p class="pv-hero__sub">Imprimée en France, en PETG qui ne casse pas au froid. Tu plonges, tu serres, tu lances.</p>
+      <div class="pv-hero__actions">
+        {%- if sold_out -%}
+          <a class="pv-btn pv-btn--primary pv-magnetic" href="{{ drop2 }}"><span>Rejoindre la liste du Drop #2</span></a>
+        {%- else -%}
+          <a class="pv-btn pv-btn--primary pv-magnetic" href="#pv-prix-{{ section.id }}" data-pv-highlight="duo"><span>Je prends le Duo — {{ duo_price }}</span></a>
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="pv-stage" data-pv-stage>
+      <div class="pv-stage__glow" aria-hidden="true"></div>
+      {%- if section.settings.poster != blank -%}
+        {{ section.settings.poster | image_url: width: 900 | image_tag: class: 'pv-stage__poster', alt: 'La pince PRINVLA ouverte : une moitié kaki, une moitié bordeaux.', loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 900px) 560px, 100vw' }}
+      {%- endif -%}
+      <div class="pv-stage__canvas" data-pv-canvas aria-hidden="true"></div>
+      <p class="pv-stage__hint" aria-hidden="true">Fais défiler pour serrer</p>
+    </div>
+  </section>
+
+  {%- comment -%} ───────── ZÉRO BULLSHIT ───────── {%- endcomment -%}
+  <section class="pv-section" aria-labelledby="pv-zb-{{ section.id }}">
+    <h2 id="pv-zb-{{ section.id }}" class="pv-h2" data-pv-reveal>Zéro bullshit.</h2>
+    <ul class="pv-zb">
+      <li class="pv-zb__row" data-pv-reveal><span class="pv-zb__neg"><span class="pv-sr">Fini : </span>Mains gelées<i aria-hidden="true"></i></span><span class="pv-zb__pos"><span class="pv-sr">À la place : </span>Gants au sec</span></li>
+      <li class="pv-zb__row" data-pv-reveal><span class="pv-zb__neg"><span class="pv-sr">Fini : </span>Boules qui s'effritent<i aria-hidden="true"></i></span><span class="pv-zb__pos"><span class="pv-sr">À la place : </span>Sphères compactes de 6&nbsp;cm</span></li>
+      <li class="pv-zb__row" data-pv-reveal><span class="pv-zb__neg"><span class="pv-sr">Fini : </span>Plastique qui casse au premier gel<i aria-hidden="true"></i></span><span class="pv-zb__pos"><span class="pv-sr">À la place : </span>PETG résistant au froid</span></li>
+      <li class="pv-zb__row" data-pv-reveal><span class="pv-zb__neg"><span class="pv-sr">Fini : </span>Fabriquée à l'autre bout du monde<i aria-hidden="true"></i></span><span class="pv-zb__pos"><span class="pv-sr">À la place : </span>Imprimée en France, pièce par pièce</span></li>
+      <li class="pv-zb__row" data-pv-reveal><span class="pv-zb__neg"><span class="pv-sr">Fini : </span>Livrée quand la neige a fondu<i aria-hidden="true"></i></span><span class="pv-zb__pos"><span class="pv-sr">À la place : </span>Expédiée sous 48&nbsp;h</span></li>
+      <li class="pv-zb__row" data-pv-reveal><span class="pv-zb__neg"><span class="pv-sr">Fini : </span>Pince qui reste coincée<i aria-hidden="true"></i></span><span class="pv-zb__pos"><span class="pv-sr">À la place : </span>Se rouvre toute seule</span></li>
+    </ul>
+  </section>
+
+  {%- comment -%} ───────── COMMENT ÇA MARCHE ───────── {%- endcomment -%}
+  <section class="pv-section" aria-labelledby="pv-how-{{ section.id }}">
+    <h2 id="pv-how-{{ section.id }}" class="pv-h2" data-pv-reveal>Comment ça marche</h2>
+    <ol class="pv-how">
+      <li class="pv-how__step" data-pv-reveal>
+        <svg class="pv-how__icon pv-icon-dip" viewBox="0 0 120 120" aria-hidden="true"><path class="snowbed" d="M8 92c18-10 32-10 52-4s34 6 52-4v28H8Z"/><g class="clamp"><path d="M60 18 44 66a16 16 0 0 0 32 0L60 18Z"/><circle cx="60" cy="66" r="9" class="cup"/></g></svg>
+        <h3 class="pv-how__title"><span class="pv-how__num">1</span>Plonge.</h3>
+        <p>Ouvre la pince dans la neige.</p>
+      </li>
+      <li class="pv-how__step" data-pv-reveal>
+        <svg class="pv-how__icon pv-icon-squeeze" viewBox="0 0 120 120" aria-hidden="true"><g class="jaw jaw--top"><path d="M14 56h46a26 26 0 0 1 52 0Z"/></g><g class="jaw jaw--bot"><path d="M14 64h46a26 26 0 0 0 52 0Z"/></g><circle class="ball" cx="86" cy="60" r="18"/></svg>
+        <h3 class="pv-how__title"><span class="pv-how__num">2</span>Serre.</h3>
+        <p>Une pression : la boule est compactée.</p>
+      </li>
+      <li class="pv-how__step" data-pv-reveal>
+        <svg class="pv-how__icon pv-icon-throw" viewBox="0 0 120 120" aria-hidden="true"><path class="trail" d="M18 96C40 30 80 20 104 34" pathLength="1"/><circle class="ball" cx="18" cy="96" r="11"/></svg>
+        <h3 class="pv-how__title"><span class="pv-how__num">3</span>Lance.</h3>
+        <p>Elle sort toute seule. Recommence.</p>
+      </li>
+    </ol>
+  </section>
+
+  {%- comment -%} ───────── DEUX CAMPS ───────── {%- endcomment -%}
+  <section class="pv-section pv-camps" aria-labelledby="pv-camps-{{ section.id }}">
+    <h2 id="pv-camps-{{ section.id }}" class="pv-h2" data-pv-reveal>Kaki contre Bordeaux. <span class="pv-nowrap">Choisis ton camp.</span></h2>
+    <p class="pv-lead">Le Duo, c'est une pince par équipe. La bataille commence à armes égales.</p>
+    <div class="pv-camps__grid" data-pv-reveal>
+      <figure class="pv-camp pv-camp--kaki">
+        {%- if section.settings.camp_kaki != blank -%}{{ section.settings.camp_kaki | image_url: width: 600 | image_tag: loading: 'lazy', alt: 'Moitié de pince PRINVLA couleur kaki.' }}{%- else -%}<span class="pv-camp__swatch" aria-hidden="true"></span>{%- endif -%}
+        <figcaption>Kaki</figcaption>
+      </figure>
+      <span class="pv-camps__vs" aria-hidden="true">VS</span>
+      <figure class="pv-camp pv-camp--bordeaux">
+        {%- if section.settings.camp_bordeaux != blank -%}{{ section.settings.camp_bordeaux | image_url: width: 600 | image_tag: loading: 'lazy', alt: 'Moitié de pince PRINVLA couleur bordeaux.' }}{%- else -%}<span class="pv-camp__swatch" aria-hidden="true"></span>{%- endif -%}
+        <figcaption>Bordeaux</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  {%- comment -%} ───────── AVIS : uniquement de vraies vidéos, masqué par défaut ───────── {%- endcomment -%}
+  {%- if section.settings.show_reviews and section.blocks.size > 0 -%}
+    <section class="pv-section" aria-labelledby="pv-avis-{{ section.id }}">
+      <h2 id="pv-avis-{{ section.id }}" class="pv-h2">Ils l'ont testée</h2>
+      <div class="pv-reviews">
+        {%- for block in section.blocks -%}
+          <figure class="pv-review" {{ block.shopify_attributes }}>
+            {%- if block.settings.video != blank -%}{{ block.settings.video | video_tag: controls: true, preload: 'none', playsinline: true }}{%- endif -%}
+            <figcaption><strong>{{ block.settings.name | escape }}</strong>{% if block.settings.caption != blank %} — {{ block.settings.caption | escape }}{% endif %}</figcaption>
+          </figure>
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ───────── PRIX ───────── {%- endcomment -%}
+  <section class="pv-section pv-pricing" id="pv-prix-{{ section.id }}" aria-labelledby="pv-prix-title-{{ section.id }}">
+    <h2 id="pv-prix-title-{{ section.id }}" class="pv-h2" data-pv-reveal>Choisis ton pack</h2>
+    {%- if sold_out -%}
+      <p class="pv-stock">{{ drop_name }} épuisé : les {{ total }} pinces sont parties.</p>
+    {%- else -%}
+      <p class="pv-stock">Il reste <strong><span data-pv-stock="{{ stock }}">{{ stock }}</span> pinces</strong> sur {{ total }} dans le {{ drop_name }}</p>
+      <div class="pv-stock__bar" aria-hidden="true"><span data-pv-stock-bar style="transform: scaleX({{ stock | times: 1.0 | divided_by: total }})"></span></div>
+    {%- endif -%}
+
+    <div class="pv-cards" data-pv-reveal>
+      {%- comment -%} SOLO : choix de la couleur {%- endcomment -%}
+      <article class="pv-card" data-pack="solo">
+        <h3 class="pv-card__name">SOLO</h3>
+        <p class="pv-card__desc">1 pince</p>
+        <p class="pv-card__price">{% if pince != blank %}{{ pince.price | money }}{% else %}12,90 €{% endif %}</p>
+        {%- if pince == blank -%}
+          <p class="pv-card__unit">&nbsp;</p>
+          <span class="pv-btn pv-btn--ghost is-disabled">Choisis le produit « Pince » dans l'éditeur</span>
+        {%- elsif pince.available == false -%}
+          <p class="pv-card__unit">&nbsp;</p>
+          <a class="pv-btn pv-btn--ghost" href="{{ drop2 }}">Rejoindre la liste du Drop #2</a>
+        {%- else -%}
+          {%- form 'product', pince, class: 'pv-form' -%}
+            {%- if pince.has_only_default_variant -%}
+              <p class="pv-card__unit">&nbsp;</p>
+              <input type="hidden" name="id" value="{{ pince.selected_or_first_available_variant.id }}">
+            {%- else -%}
+              <fieldset class="pv-colors">
+                <legend class="pv-sr">Couleur</legend>
+                {%- for v in pince.variants -%}
+                  <label class="pv-chip"><input type="radio" name="id" value="{{ v.id }}"{% if v.id == pince.selected_or_first_available_variant.id %} checked{% endif %}{% unless v.available %} disabled{% endunless %}><span>{{ v.title | escape }}{% unless v.available %} · épuisé{% endunless %}</span></label>
+                {%- endfor -%}
+              </fieldset>
+            {%- endif -%}
+            <input type="hidden" name="return_to" value="/checkout">
+            <button type="submit" class="pv-btn pv-btn--ghost">Je prends le Solo</button>
+          {%- endform -%}
+        {%- endif -%}
+      </article>
+
+      {%- comment -%} DUO : mis en avant {%- endcomment -%}
+      <article class="pv-card pv-card--featured" data-pack="duo">
+        {%- if section.settings.duo_badge != blank -%}<p class="pv-card__badge">{{ section.settings.duo_badge | escape }}</p>{%- endif -%}
+        <h3 class="pv-card__name">DUO « BATAILLE »</h3>
+        <p class="pv-card__desc">2 pinces, kaki + bordeaux</p>
+        <p class="pv-card__price">{{ duo_price }}</p>
+        <p class="pv-card__unit">{% if duo != blank %}soit {{ duo.price | times: 1.0 | divided_by: 2 | round | money }} la pince{% else %}soit 9,95 € la pince{% endif %}</p>
+        {%- if duo == blank -%}
+          <span class="pv-btn pv-btn--primary is-disabled">Choisis le produit « Duo » dans l'éditeur</span>
+        {%- elsif duo.available == false -%}
+          <a class="pv-btn pv-btn--primary" href="{{ drop2 }}">Rejoindre la liste du Drop #2</a>
+        {%- else -%}
+          {%- form 'product', duo, class: 'pv-form' -%}
+            <input type="hidden" name="id" value="{{ duo.selected_or_first_available_variant.id }}">
+            <input type="hidden" name="return_to" value="/checkout">
+            <button type="submit" class="pv-btn pv-btn--primary pv-magnetic"><span>Je prends le Duo</span></button>
+          {%- endform -%}
+        {%- endif -%}
+      </article>
+
+      {%- comment -%} CLAN {%- endcomment -%}
+      <article class="pv-card" data-pack="clan">
+        <p class="pv-card__badge pv-card__badge--soft">Livraison offerte</p>
+        <h3 class="pv-card__name">CLAN</h3>
+        <p class="pv-card__desc">4 pinces (2 de chaque couleur)</p>
+        <p class="pv-card__price">{% if clan != blank %}{{ clan.price | money }}{% else %}34,90 €{% endif %}</p>
+        <p class="pv-card__unit">{% if clan != blank %}soit {{ clan.price | times: 1.0 | divided_by: 4 | round | money }} la pince{% else %}soit 8,73 € la pince{% endif %}</p>
+        {%- if clan == blank -%}
+          <span class="pv-btn pv-btn--ghost is-disabled">Choisis le produit « Clan » dans l'éditeur</span>
+        {%- elsif clan.available == false -%}
+          <a class="pv-btn pv-btn--ghost" href="{{ drop2 }}">Rejoindre la liste du Drop #2</a>
+        {%- else -%}
+          {%- form 'product', clan, class: 'pv-form' -%}
+            <input type="hidden" name="id" value="{{ clan.selected_or_first_available_variant.id }}">
+            <input type="hidden" name="return_to" value="/checkout">
+            <button type="submit" class="pv-btn pv-btn--ghost">Je prends le Clan</button>
+          {%- endform -%}
+        {%- endif -%}
+      </article>
+    </div>
+    <p class="pv-reassure">Livraison en point relais : 3,90&nbsp;€ · Retour sous 14 jours · Paiement sécurisé</p>
+  </section>
+
+  {%- comment -%} ───────── CADEAU ───────── {%- endcomment -%}
+  <section class="pv-section pv-section--tight">
+    <div class="pv-gift" data-pv-reveal>
+      <svg class="pv-gift__icon" aria-hidden="true" viewBox="0 0 64 64"><rect x="8" y="26" width="48" height="32" rx="2"/><rect x="5" y="17" width="54" height="10" rx="2"/><path d="M32 17v41M32 17c-4-10-16-12-16-4 0 4 8 4 16 4Zm0 0c4-10 16-12 16-4 0 4-8 4-16 4Z"/></svg>
+      <p><strong>Le cadeau à moins de 20&nbsp;€ qu'on utilise vraiment.</strong> À glisser sous le sapin ou dans la valise du ski.</p>
+    </div>
+  </section>
+
+  {%- comment -%} ───────── FAQ ───────── {%- endcomment -%}
+  <section class="pv-section" aria-labelledby="pv-faq-{{ section.id }}">
+    <h2 id="pv-faq-{{ section.id }}" class="pv-h2" data-pv-reveal>Questions</h2>
+    <div class="pv-faq">
+      <details class="pv-faq__item"><summary>Quelle taille font les boules ?</summary><div class="pv-faq__a"><p>6 cm de diamètre.</p></div></details>
+      <details class="pv-faq__item"><summary>Ça marche avec toute la neige ?</summary><div class="pv-faq__a"><p>Avec la neige humide et collante, parfaitement. La poudreuse très sèche ne tient pas, même à la main.</p></div></details>
+      <details class="pv-faq__item"><summary>À partir de quel âge ?</summary><div class="pv-faq__a"><p>Conçue pour les 14 ans et plus.</p></div></details>
+      <details class="pv-faq__item"><summary>Quand est-ce que je la reçois ?</summary><div class="pv-faq__a"><p>Expédiée sous 48 h en point relais, généralement reçue en 2 à 4 jours.</p></div></details>
+      <details class="pv-faq__item"><summary>Pourquoi l'impression 3D ?</summary><div class="pv-faq__a"><p>Chaque pince est fabriquée en France, à la demande, dans un plastique choisi pour le froid. Pas de stock qui dort, pas de bateau.</p></div></details>
+    </div>
+  </section>
+
+  {%- comment -%} ───────── CTA FINAL ───────── {%- endcomment -%}
+  <section class="pv-section pv-final" aria-labelledby="pv-final-{{ section.id }}">
+    <h2 id="pv-final-{{ section.id }}" class="pv-final__title" data-pv-reveal>La prochaine neige n'attend pas.</h2>
+    {%- if sold_out -%}
+      <a class="pv-btn pv-btn--primary pv-btn--xl" href="{{ drop2 }}"><span>Rejoindre la liste du Drop #2</span></a>
+    {%- else -%}
+      <a class="pv-btn pv-btn--primary pv-btn--xl pv-magnetic" href="#pv-prix-{{ section.id }}" data-pv-highlight="duo"><span>Je prends le Duo — {{ duo_price }}</span></a>
+    {%- endif -%}
+    <p class="pv-safety">Usage à partir de 14 ans. Ne vise pas le visage. Ne compacte ni glace ni cailloux. Fabricant : {{ section.settings.maker | escape }}.</p>
+  </section>
+
+  {%- unless sold_out -%}
+    <div class="pv-buybar" data-pv-buybar aria-hidden="true">
+      <span class="pv-buybar__txt">Duo kaki + bordeaux</span>
+      <a class="pv-btn pv-btn--primary pv-btn--sm" href="#pv-prix-{{ section.id }}" data-pv-highlight="duo" tabindex="-1">Je prends le Duo — {{ duo_price }}</a>
+    </div>
+  {%- endunless -%}
+
+  {%- if pince != blank and duo != blank and clan != blank -%}
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"Product","name":"Pince à boules de neige PRINVLA","brand":{"@type":"Brand","name":"PRINVLA"},"material":"PETG","countryOfOrigin":"FR","description":"Pince à boules de neige imprimée en 3D en France, en PETG résistant au froid. Boules de 6 cm de diamètre.",{% if pince.featured_image %}"image":{{ pince.featured_image | image_url: width: 1200 | prepend: 'https:' | json }},{% endif %}"offers":[
+        {%- for i in (1..3) -%}
+          {%- if i == 1 -%}{%- assign pr = pince -%}{%- elsif i == 2 -%}{%- assign pr = duo -%}{%- else -%}{%- assign pr = clan -%}{%- endif -%}
+          {"@type":"Offer","name":{{ pr.title | json }},"price":{{ pr.price | divided_by: 100.0 | json }},"priceCurrency":{{ cart.currency.iso_code | json }},"availability":"https://schema.org/{% if pr.available %}InStock{% else %}SoldOut{% endif %}","itemCondition":"https://schema.org/NewCondition","url":{{ request.origin | append: pr.url | json }}}{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]}
+    </script>
+  {%- endif -%}
+</div>
+
+<style>
+__CSS__
+</style>
+
+{% raw %}
+<script type="text/plain" data-pv-scene-src>__SCENE_JS__</script>
+<script>
+__MAIN_JS__
+</script>
+{% endraw %}
+
+{% schema %}
+{
+  "name": "PRINVLA — Page de vente",
+  "tag": "div",
+  "class": "pv-shopify-section",
+  "settings": [
+    { "type": "header", "content": "Produits" },
+    { "type": "product", "id": "pince_product", "label": "Pince (variantes Kaki / Bordeaux)", "info": "Utilisé pour la carte Solo et pour le compteur de stock." },
+    { "type": "product", "id": "duo_product", "label": "Pack Duo « Bataille »" },
+    { "type": "product", "id": "clan_product", "label": "Pack Clan" },
+    { "type": "header", "content": "Drop" },
+    { "type": "text", "id": "drop_name", "label": "Nom du drop", "default": "Drop #1" },
+    { "type": "number", "id": "stock_total", "label": "Nombre total de pinces dans le drop", "default": 25 },
+    { "type": "url", "id": "drop2_url", "label": "Lien de la liste d'attente du prochain drop", "info": "Remplace les boutons d'achat quand un produit est épuisé." },
+    { "type": "text", "id": "duo_badge", "label": "Badge de la carte Duo", "default": "Recommandé", "info": "N'écris « Le plus choisi » que quand c'est vrai (vérifiable dans tes ventes)." },
+    { "type": "header", "content": "Visuel 3D" },
+    { "type": "checkbox", "id": "enable_3d", "label": "Activer la pince 3D animée", "default": true },
+    { "type": "text", "id": "model_url", "label": "URL du modèle 3D (.glb, compressé Draco)", "info": "Vide = pince provisoire dessinée en code. Pour ton vrai modèle : Contenu → Fichiers → importer le .glb → copier son lien ici." },
+    { "type": "image_picker", "id": "poster", "label": "Image fixe avant chargement de la 3D", "info": "Image de la pince sur fond transparent (pince-hero.webp)." },
+    { "type": "header", "content": "Deux camps" },
+    { "type": "image_picker", "id": "camp_kaki", "label": "Image du camp Kaki", "info": "camp-kaki.webp. Vide = pastille kaki." },
+    { "type": "image_picker", "id": "camp_bordeaux", "label": "Image du camp Bordeaux", "info": "camp-bordeaux.webp. Vide = pastille bordeaux." },
+    { "type": "header", "content": "Avis clients" },
+    { "type": "checkbox", "id": "show_reviews", "label": "Afficher « Ils l'ont testée »", "default": false, "info": "Uniquement de vraies vidéos de vrais clients, avec leur accord écrit." },
+    { "type": "header", "content": "Sécurité produit (obligatoire)" },
+    { "type": "text", "id": "maker", "label": "Fabricant : nom et adresse", "default": "[NOM], [ADRESSE]" }
+  ],
+  "blocks": [
+    {
+      "type": "avis",
+      "name": "Vidéo client",
+      "limit": 6,
+      "settings": [
+        { "type": "video", "id": "video", "label": "Vidéo" },
+        { "type": "text", "id": "name", "label": "Prénom" },
+        { "type": "text", "id": "caption", "label": "Légende" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "PRINVLA — Page de vente" }]
+}
+{% endschema %}

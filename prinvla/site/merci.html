@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Merci ! — PRINVLA</title>
+  <meta name="description" content="Ta commande PRINVLA est confirmée.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#05070B">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Aller au contenu</a>
+  <header class="top">
+    <a class="logo" href="index.html" aria-label="PRINVLA, retour à l'accueil">PRINVLA<span aria-hidden="true">✱</span></a>
+    <a class="top__cta" href="index.html#prix">Commander</a>
+  </header>
+  <main id="main" class="legal">
+    <h1>Commande reçue. <span class="ice">Prépare tes gants.</span></h1>
+    <p class="updated">Un email de confirmation de Stripe arrive dans ta boîte (pense aux spams).</p>
+    <h2>Et maintenant ?</h2>
+    <ul>
+      <li>Ta pince est imprimée et expédiée sous 48 h en point relais.</li>
+      <li>Tu reçois le numéro de suivi par email dès l'expédition.</li>
+      <li>Réception en général sous 2 à 4 jours.</li>
+    </ul>
+    <h2>Une question ?</h2>
+    <p>Écris-nous en indiquant ton numéro de commande : <a data-contact data-contact-text href="mailto:contact@TON-DOMAINE.fr">contact@TON-DOMAINE.fr</a>.</p>
+    <p style="margin-top:32px"><a class="btn btn--primary" href="index.html" style="color:var(--bg)"><span>Retour au site</span></a></p>
+  </main>
+  <footer class="footer">
+    <p class="footer__brand">PRINVLA — imprimé en France.</p>
+    <nav aria-label="Liens légaux">
+      <ul class="footer__links">
+        <li><a href="mentions-legales.html">Mentions légales</a></li>
+        <li><a href="cgv.html">CGV</a></li>
+        <li><a href="confidentialite.html">Confidentialité</a></li>
+        <li><a data-contact href="mailto:contact@TON-DOMAINE.fr">Contact</a></li>
+      </ul>
+    </nav>
+  </footer>
+<script type="module">import { CONTACT_EMAIL } from './js/config.js'; document.querySelectorAll('[data-contact]').forEach(a => { a.href = 'mailto:' + CONTACT_EMAIL; if (a.hasAttribute('data-contact-text')) a.textContent = CONTACT_EMAIL; });</script>
+</body>
+</html>
