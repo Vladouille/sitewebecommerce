@@ -65,8 +65,6 @@
       <div class="pv-stage__glow" aria-hidden="true"></div>
       {%- if section.settings.poster != blank -%}
         {{ section.settings.poster | image_url: width: 900 | image_tag: class: 'pv-stage__poster', alt: 'La pince PRINVLA ouverte : une moitié kaki, une moitié bordeaux.', loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 900px) 560px, 100vw' }}
-      {%- else -%}
-        <img class="pv-stage__poster" src="data:image/webp;base64,__POSTER_B64__" width="800" height="800" alt="La pince PRINVLA ouverte : une moitié kaki, une moitié bordeaux." fetchpriority="high">
       {%- endif -%}
       <div class="pv-stage__canvas" data-pv-canvas aria-hidden="true"></div>
       <p class="pv-stage__hint" aria-hidden="true">Fais défiler pour serrer</p>
@@ -114,12 +112,12 @@
     <p class="pv-lead">Le Duo, c'est une pince par équipe. La bataille commence à armes égales.</p>
     <div class="pv-camps__grid" data-pv-reveal>
       <figure class="pv-camp pv-camp--kaki">
-        <img src="data:image/webp;base64,__KAKI_B64__" width="600" height="600" loading="lazy" decoding="async" alt="Moitié de pince PRINVLA couleur kaki.">
+        {%- if section.settings.camp_kaki != blank -%}{{ section.settings.camp_kaki | image_url: width: 600 | image_tag: loading: 'lazy', alt: 'Moitié de pince PRINVLA couleur kaki.' }}{%- else -%}<span class="pv-camp__swatch" aria-hidden="true"></span>{%- endif -%}
         <figcaption>Kaki</figcaption>
       </figure>
       <span class="pv-camps__vs" aria-hidden="true">VS</span>
       <figure class="pv-camp pv-camp--bordeaux">
-        <img src="data:image/webp;base64,__BORDEAUX_B64__" width="600" height="600" loading="lazy" decoding="async" alt="Moitié de pince PRINVLA couleur bordeaux.">
+        {%- if section.settings.camp_bordeaux != blank -%}{{ section.settings.camp_bordeaux | image_url: width: 600 | image_tag: loading: 'lazy', alt: 'Moitié de pince PRINVLA couleur bordeaux.' }}{%- else -%}<span class="pv-camp__swatch" aria-hidden="true"></span>{%- endif -%}
         <figcaption>Bordeaux</figcaption>
       </figure>
     </div>
@@ -280,7 +278,6 @@ __CSS__
 
 {% raw %}
 <script type="text/plain" data-pv-scene-src>__SCENE_JS__</script>
-<script type="text/plain" data-pv-glb>__GLB_B64__</script>
 <script>
 __MAIN_JS__
 </script>
@@ -303,8 +300,11 @@ __MAIN_JS__
     { "type": "text", "id": "duo_badge", "label": "Badge de la carte Duo", "default": "Recommandé", "info": "N'écris « Le plus choisi » que quand c'est vrai (vérifiable dans tes ventes)." },
     { "type": "header", "content": "Visuel 3D" },
     { "type": "checkbox", "id": "enable_3d", "label": "Activer la pince 3D animée", "default": true },
-    { "type": "text", "id": "model_url", "label": "URL du modèle 3D (.glb, compressé Draco)", "info": "Vide = modèle provisoire intégré. Pour ton vrai modèle : Contenu → Fichiers → importer le .glb → copier son lien ici." },
-    { "type": "image_picker", "id": "poster", "label": "Image fixe avant chargement de la 3D", "info": "Vide = image intégrée. Mets une image de la pince sur fond transparent." },
+    { "type": "text", "id": "model_url", "label": "URL du modèle 3D (.glb, compressé Draco)", "info": "Vide = pince provisoire dessinée en code. Pour ton vrai modèle : Contenu → Fichiers → importer le .glb → copier son lien ici." },
+    { "type": "image_picker", "id": "poster", "label": "Image fixe avant chargement de la 3D", "info": "Image de la pince sur fond transparent (pince-hero.webp)." },
+    { "type": "header", "content": "Deux camps" },
+    { "type": "image_picker", "id": "camp_kaki", "label": "Image du camp Kaki", "info": "camp-kaki.webp. Vide = pastille kaki." },
+    { "type": "image_picker", "id": "camp_bordeaux", "label": "Image du camp Bordeaux", "info": "camp-bordeaux.webp. Vide = pastille bordeaux." },
     { "type": "header", "content": "Avis clients" },
     { "type": "checkbox", "id": "show_reviews", "label": "Afficher « Ils l'ont testée »", "default": false, "info": "Uniquement de vraies vidéos de vrais clients, avec leur accord écrit." },
     { "type": "header", "content": "Sécurité produit (obligatoire)" },

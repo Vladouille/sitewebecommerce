@@ -4,8 +4,8 @@
   --pv-text: #EEF2F5; --pv-muted: #A6B2BF; --pv-ice: #9FE8FF; --pv-ice-dim: rgba(159, 232, 255, .16);
   --pv-line: rgba(159, 232, 255, .14); --pv-kaki: #5B6B3F; --pv-kaki-l: #B9C893; --pv-bord: #7A1F2B; --pv-bord-l: #F2949F;
   --pv-radius: 18px; --pv-gutter: clamp(16px, 5vw, 48px); --pv-max: 1180px;
-  --pv-title: "PV Space Grotesk", "Space Grotesk", var(--font-heading-family, system-ui), system-ui, sans-serif;
-  --pv-body: "Inter", var(--font-body-family, system-ui), system-ui, sans-serif;
+  --pv-title: "Space Grotesk", var(--font-heading--family, var(--font-heading-family, system-ui)), system-ui, sans-serif;
+  --pv-body: "Inter", var(--font-body--family, var(--font-body-family, system-ui)), system-ui, sans-serif;
   position: relative; isolation: isolate; overflow-x: clip;
   background: var(--pv-bg); color: var(--pv-text);
   font: 400 16px/1.6 var(--pv-body); -webkit-font-smoothing: antialiased; letter-spacing: normal;
@@ -131,6 +131,11 @@
 .pv-camp { margin: 0; position: relative; border-radius: var(--pv-radius); padding: 10px 10px 16px; border: 1px solid; overflow: hidden; transition: transform .9s cubic-bezier(.2, .8, .2, 1), opacity .9s ease; }
 .pv-camp img { width: 100%; aspect-ratio: 1; object-fit: contain; transition: transform .5s cubic-bezier(.2, .8, .2, 1); }
 .pv-camp:hover img { transform: scale(1.05) rotate(-3deg); }
+.pv-camp__swatch { display: block; width: 72%; aspect-ratio: 1; margin: 14% auto 18%; border-radius: 50%; position: relative; box-shadow: inset 0 -14px 30px rgba(0, 0, 0, .35); transition: transform .5s cubic-bezier(.2, .8, .2, 1); }
+.pv-camp__swatch::after { content: ""; position: absolute; inset: 24%; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, #dfeaf0 60%, #b9c9d3); box-shadow: 0 0 0 2px rgba(159, 232, 255, .5); }
+.pv-camp--kaki .pv-camp__swatch { background: radial-gradient(circle at 30% 25%, #7d8f58, #5B6B3F 60%, #3f4a2b); }
+.pv-camp--bordeaux .pv-camp__swatch { background: radial-gradient(circle at 30% 25%, #a3323f, #7A1F2B 60%, #52131c); }
+.pv-camp:hover .pv-camp__swatch { transform: scale(1.05) rotate(-8deg); }
 .pv-camp figcaption { font: 700 clamp(.95rem, 4vw, 1.8rem)/1 var(--pv-title); text-align: center; text-transform: uppercase; letter-spacing: .03em; overflow-wrap: anywhere; }
 .pv-camp--kaki { border-color: rgba(91, 107, 63, .7); background: radial-gradient(120% 80% at 50% 0%, rgba(91, 107, 63, .45), rgba(91, 107, 63, .05)); }
 .pv-camp--kaki figcaption { color: var(--pv-kaki-l); }

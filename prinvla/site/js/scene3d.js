@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from '../assets/vendor/three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from '../assets/vendor/three/addons/loaders/DRACOLoader.js';
 import { RoomEnvironment } from '../assets/vendor/three/addons/environments/RoomEnvironment.js';
+import { mergeGeometries, toCreasedNormals } from '../assets/vendor/three/addons/utils/BufferGeometryUtils.js';
 
 const BASE = new URL('../', import.meta.url);
 const PIVOT_X = -120;
@@ -15,6 +16,36 @@ const GLACIER = '#9FE8FF';
 const MAX_TILT = THREE.MathUtils.degToRad(8);
 // Diamètre réel de la boule de neige (mm) : à ajuster sur ton vrai produit.
 const BALL_DIAMETER = 80;
+
+// Demi-pince provisoire construite en code : même géométrie que tools/make-placeholder-stl.mjs.
+// Sert quand aucun fichier .glb n'est disponible (version Shopify sans fichier importé).
+function placeholderGeometry() {
+  const RI = BALL_DIAMETER / 2 + 0.4, RO = RI + 2.6;
+  const parts = [];
+  const M = () => new THREE.Matrix4();
+  const add = (g, m) => { if (m) g.applyMatrix4(m); const n = g.index ? g.toNonIndexed() : g; const b = new THREE.BufferGeometry(); b.setAttribute('position', n.attributes.position); parts.push(b); };
+  add(new THREE.SphereGeometry(RO, 72, 36, 0, Math.PI * 2, 0, Math.PI / 2), M().makeRotationX(Math.PI / 2));
+  const inner = new THREE.SphereGeometry(RI, 72, 36, 0, Math.PI * 2, 0, Math.PI / 2);
+  inner.scale(-1, 1, 1);
+  add(inner, M().makeRotationX(Math.PI / 2));
+  add(new THREE.LatheGeometry([new THREE.Vector2(RI, 0), new THREE.Vector2(RO + 4, 0), new THREE.Vector2(RO + 4, 1.6), new THREE.Vector2(RO + 2.5, 2.6), new THREE.Vector2(RO - 0.4, 2.6)], 96), M().makeRotationX(Math.PI / 2));
+  const a0 = new THREE.Vector3(-108, 0, 8), a1 = new THREE.Vector3(-RO * 0.72, 0, RO * 0.72);
+  const len = a0.distanceTo(a1);
+  const arm = new THREE.BoxGeometry(len, 15, 7, 24, 1, 1);
+  const p = arm.attributes.position;
+  for (let i = 0; i < p.count; i++) { const t = (p.getX(i) + len / 2) / len; p.setY(i, p.getY(i) * (0.8 + 0.35 * t)); }
+  const ang = Math.atan2(a1.z - a0.z, a1.x - a0.x);
+  const mid = a0.clone().add(a1).multiplyScalar(0.5);
+  add(arm, M().makeTranslation(mid.x, mid.y, mid.z).multiply(M().makeRotationY(-ang)));
+  for (let k = 0; k < 7; k++) {
+    const t = 0.18 + k * 0.07, c = a0.clone().lerp(a1, t);
+    add(new THREE.BoxGeometry(2.2, 13 * (0.8 + 0.35 * t), 1.6), M().makeTranslation(c.x, 0, c.z).multiply(M().makeRotationY(-ang)).multiply(M().makeTranslation(0, 0, 4)));
+  }
+  add(new THREE.CylinderGeometry(9, 9, 11, 48), M().makeTranslation(-120, 6.5, 0));
+  add(new THREE.BoxGeometry(16, 11, 9), M().makeTranslation(-110, 6.5, 6));
+  add(new THREE.CylinderGeometry(3, 3, 13, 24), M().makeTranslation(-120, 6.5, 0));
+  return toCreasedNormals(mergeGeometries(parts), THREE.MathUtils.degToRad(35));
+}
 
 // Matériau satiné + fines couches d'impression + liseré glacier (fresnel)
 function printMaterial(hex) {
@@ -116,13 +147,17 @@ export async function createScene(container, opts = {}) {
   } else {
     draco.setDecoderPath(EMBED?.dracoPath || new URL('assets/vendor/draco/', BASE).href);
   }
-  const loader = new GLTFLoader().setDRACOLoader(draco);
-  const gltf = EMBED?.glbUrl ? await loader.loadAsync(EMBED.glbUrl)
-    : EMBED?.glb ? await loader.parseAsync(b64(EMBED.glb), '')
-    : await loader.loadAsync(new URL('assets/model/neve.glb', BASE).href);
-  draco.dispose();
   let geometry;
-  gltf.scene.traverse((n) => { if (n.isMesh && !geometry) geometry = n.geometry; });
+  if (EMBED?.procedural && !EMBED?.glbUrl) {
+    geometry = placeholderGeometry();
+  } else {
+    const loader = new GLTFLoader().setDRACOLoader(draco);
+    const gltf = EMBED?.glbUrl ? await loader.loadAsync(EMBED.glbUrl)
+      : EMBED?.glb ? await loader.parseAsync(b64(EMBED.glb), '')
+      : await loader.loadAsync(new URL('assets/model/neve.glb', BASE).href);
+    gltf.scene.traverse((n) => { if (n.isMesh && !geometry) geometry = n.geometry; });
+  }
+  draco.dispose();
 
   // Hiérarchie : rig (parallaxe) → model (repère STL, z vers le haut) → pivots
   const rig = new THREE.Group();

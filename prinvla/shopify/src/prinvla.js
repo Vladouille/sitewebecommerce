@@ -131,10 +131,9 @@
   async function start3D() {
     if (!hasWebGL()) { stage.classList.add('no-webgl'); return; }
     const src = host.querySelector('[data-pv-scene-src]').textContent;
-    const glb = host.querySelector('[data-pv-glb]').textContent.trim();
     window.__NEVE_EMBED__ = {
       glbUrl: root.dataset.modelUrl || undefined,
-      glb: root.dataset.modelUrl ? undefined : glb,
+      procedural: !root.dataset.modelUrl,
       dracoPath: 'https://www.gstatic.com/draco/versioned/decoders/1.5.6/',
     };
     let api;
@@ -182,7 +181,8 @@
     const evs = ['pointermove', 'pointerdown', 'touchstart', 'wheel', 'scroll', 'keydown'];
     const go = () => { if (done) return; done = true; evs.forEach((ev) => removeEventListener(ev, go)); start3D(); };
     evs.forEach((ev) => addEventListener(ev, go, { passive: true, once: true }));
-    const later = () => setTimeout(go, 4500);
+    // Sans image fixe, la 3D démarre dès que le navigateur est libre
+    const later = () => setTimeout(go, stage.querySelector('.pv-stage__poster') ? 4500 : 300);
     if (document.readyState === 'complete') later(); else addEventListener('load', later, { once: true });
   }
 })();

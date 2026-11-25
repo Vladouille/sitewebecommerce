@@ -17,13 +17,13 @@ const rewrites = [
   ["'../assets/vendor/three/addons/loaders/GLTFLoader.js'", `'${CDN}/examples/jsm/loaders/GLTFLoader.js/+esm'`],
   ["'../assets/vendor/three/addons/loaders/DRACOLoader.js'", `'${CDN}/examples/jsm/loaders/DRACOLoader.js/+esm'`],
   ["'../assets/vendor/three/addons/environments/RoomEnvironment.js'", `'${CDN}/examples/jsm/environments/RoomEnvironment.js/+esm'`],
+  ["'../assets/vendor/three/addons/utils/BufferGeometryUtils.js'", `'${CDN}/examples/jsm/utils/BufferGeometryUtils.js/+esm'`],
   ["const BASE = new URL('../', import.meta.url);", "const BASE = new URL('/', location.href);"],
 ];
 for (const [a, b] of rewrites) { if (!scene.includes(a)) throw new Error(`scene3d.js : introuvable ${a}`); scene = scene.replace(a, b); }
 
-// Police des titres (Space Grotesk) intégrée : identité visuelle conservée, sans Google Fonts (RGPD)
-const fontFace = `@font-face { font-family: "PV Space Grotesk"; src: url(data:font/woff2;base64,${b64('site/assets/fonts/space-grotesk-latin-wght.woff2')}) format("woff2"); font-weight: 300 700; font-display: swap; }`;
-const css = fontFace + '\n' + txt('shopify/src/prinvla.css');
+// Aucune donnée binaire : police via les réglages du thème, images via les réglages de la section
+const css = txt('shopify/src/prinvla.css');
 const js = txt('shopify/src/prinvla.js');
 for (const [name, code] of [['CSS', css], ['JS', js], ['scene', scene]]) {
   // Le CSS est interprété par Liquid ; le JS et la scène sont dans un bloc {% raw %}
@@ -37,10 +37,6 @@ const fill = (key, val) => { if (!out.includes(key)) throw new Error(`Gabarit : 
 fill('__CSS__', css.trim());
 fill('__MAIN_JS__', js.trim());
 fill('__SCENE_JS__', scene.trim());
-fill('__GLB_B64__', b64('site/assets/model/neve.glb'));
-fill('__POSTER_B64__', b64('site/assets/img/pince-hero.webp'));
-fill('__KAKI_B64__', b64('site/assets/img/camp-kaki.webp'));
-fill('__BORDEAUX_B64__', b64('site/assets/img/camp-bordeaux.webp'));
 
 const OUT = P('shopify/sections/prinvla-landing.liquid');
 writeFileSync(OUT, out);
