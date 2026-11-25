@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://TON-DOMAINE.fr/sitemap.xml

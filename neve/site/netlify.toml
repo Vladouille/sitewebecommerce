@@ -1,0 +1,38 @@
+# Netlify : dossier publié = ce dossier (neve/site)
+[build]
+  publish = "."
+
+# Librairies et polices versionnées : cache long
+[[headers]]
+  for = "/assets/vendor/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/assets/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+# Images et modèle 3D : 7 jours (noms de fichiers non versionnés)
+[[headers]]
+  for = "/assets/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+[[headers]]
+  for = "/assets/model/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+    Content-Type = "model/gltf-binary"
+# JS/CSS : toujours revalidés, sinon un STOCK mis à jour resterait faux dans les navigateurs
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"

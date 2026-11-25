@@ -1,0 +1,24 @@
+{
+  "name": "neve-tools",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "vendor": "node vendor.mjs",
+    "placeholder": "node make-placeholder-stl.mjs",
+    "model": "node stl-to-glb.mjs ../source/neve_web_demi-pince.stl ../site/assets/model/neve.glb",
+    "render": "node render-images.cjs",
+    "serve": "node serve.mjs 8080"
+  },
+  "devDependencies": {
+    "@fontsource-variable/inter": "^5.1.0",
+    "@fontsource-variable/space-grotesk": "^5.1.0",
+    "@gltf-transform/core": "^4.1.1",
+    "@gltf-transform/extensions": "^4.1.1",
+    "@gltf-transform/functions": "^4.1.1",
+    "draco3dgltf": "^1.5.7",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.13",
+    "meshoptimizer": "^0.22.0",
+    "three": "^0.160.0"
+  }
+}
