@@ -1,0 +1,66 @@
+{%- comment -%}
+  NODAL — Hero de l'accueil. Un seul H1 sur la page : il est ici.
+  Sans photo, un schéma coté du rail s'affiche (solution de secours assumée).
+{%- endcomment -%}
+{%- liquid
+  assign rail = section.settings.rail_product
+-%}
+<section class="nd nd-hero" aria-labelledby="nd-hero-title-{{ section.id }}">
+  <div class="nd-hero__media nd-media{% if section.settings.image == blank %} nd-grid-bg{% endif %}">
+    {%- if section.settings.image != blank -%}
+      <picture>
+        {%- if section.settings.image_desktop != blank -%}
+          <source media="(min-width: 750px)" srcset="{{ section.settings.image_desktop | image_url: width: 1600 }} 1600w, {{ section.settings.image_desktop | image_url: width: 2400 }} 2400w" sizes="100vw">
+        {%- endif -%}
+        {{ section.settings.image | image_url: width: 1200 | image_tag: widths: '480, 750, 1000, 1200', sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: section.settings.image.alt | default: section.settings.heading }}
+      </picture>
+    {%- endif -%}
+  </div>
+  {%- if section.settings.image == blank -%}
+    <svg class="nd-hero__schema" viewBox="0 0 335 150" aria-hidden="true" focusable="false">
+      <g stroke="#9A968C" stroke-width=".8" fill="none"><path d="M12 18v-8M323 18v-8M12 14h311"/></g>
+      <text x="150" y="9" fill="#9A968C" font-family="NODAL Grotesk, sans-serif" font-size="8" letter-spacing="1">800 MM</text>
+      <rect x="12" y="22" width="311" height="16" fill="#C9A877"/><rect x="12" y="36" width="311" height="2" fill="#8E7350"/>
+      <g fill="#E8E4DA"><rect x="44" y="38" width="22" height="26"/><path d="M38 64h34v6H38z"/><rect x="124" y="38" width="10" height="34"/><rect x="152" y="38" width="10" height="34"/><rect x="208" y="38" width="44" height="22"/><rect x="282" y="38" width="8" height="18"/><circle cx="286" cy="62" r="5" fill="none" stroke="#E8E4DA" stroke-width="2"/></g>
+    </svg>
+  {%- endif -%}
+  <div class="nd-hero__shade"></div>
+  <div class="nd-wrap nd-hero__content">
+    <h1 class="nd-h1" id="nd-hero-title-{{ section.id }}">{{ section.settings.heading | newline_to_br }}</h1>
+    {%- if section.settings.text != blank -%}<p class="nd-lead">{{ section.settings.text }}</p>{%- endif -%}
+    <a class="nd-btn" href="{{ section.settings.button_link | default: settings.nd_configurator_url | default: '#' }}">{{ section.settings.button_label }}</a>
+    <div class="nd-hero__sub">
+      {%- if rail != blank -%}
+        <span>Dès <span class="nd-price">{{ rail.price_min | money_without_trailing_zeros }}</span> le rail</span>
+      {%- else -%}<span></span>{%- endif -%}
+      {%- if section.settings.link_label != blank -%}<a class="nd-link" href="{{ section.settings.link_url | default: '#modules' }}">{{ section.settings.link_label }}</a>{%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- if section.settings.sticky_bar -%}
+  <div class="nd nd-sticky" data-nd-sticky aria-hidden="true">
+    {%- if rail != blank -%}<small>Rail dès<b>{{ rail.price_min | money_without_trailing_zeros }}</b></small>{%- endif -%}
+    <a class="nd-btn" href="{{ section.settings.button_link | default: settings.nd_configurator_url | default: '#' }}" tabindex="-1">{{ section.settings.button_label }}</a>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "NODAL · Hero",
+  "class": "nd-section-hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Photo (mobile, format 4:5)", "info": "Rail en situation, lumière du jour. Sans photo, un schéma coté du rail s'affiche." },
+    { "type": "image_picker", "id": "image_desktop", "label": "Photo (ordinateur, format 16:9)", "info": "Facultatif." },
+    { "type": "textarea", "id": "heading", "label": "Titre (H1)", "default": "Ton sport,\nau mur." },
+    { "type": "textarea", "id": "text", "label": "Texte", "default": "Un rail en chêne massif. Des modules imprimés en 3D à la main en France. Ton casque, tes chaussures, tes clés : chacun sa place." },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Composer mon rail" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton", "info": "Vide = lien du configurateur des paramètres du thème." },
+    { "type": "product", "id": "rail_product", "label": "Produit rail (pour le prix « Dès … »)" },
+    { "type": "text", "id": "link_label", "label": "Lien secondaire", "default": "Voir les modules" },
+    { "type": "url", "id": "link_url", "label": "Lien secondaire : adresse" },
+    { "type": "checkbox", "id": "sticky_bar", "label": "Barre « Composer mon rail » collante sur mobile après le hero", "default": true }
+  ],
+  "presets": [{ "name": "NODAL · Hero" }]
+}
+{% endschema %}

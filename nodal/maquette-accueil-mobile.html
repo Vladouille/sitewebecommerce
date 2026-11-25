@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>NODAL — maquette accueil mobile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ------------------------------------------------------------------
+   NODAL — maquette de l'accueil, mobile d'abord (référence 375 px)
+   Chiffres, prix et charges = valeurs d'exemple à remplacer.
+   ------------------------------------------------------------------ */
+:root{
+  --ink:#0B0D10;      /* fond */
+  --ink-2:#14171C;    /* surfaces */
+  --line:#262A31;     /* filets, grilles */
+  --cream:#E8E4DA;    /* texte */
+  --mute:#9A968C;     /* texte secondaire (contraste 6.9:1 sur --ink) */
+  --acid:#C6FF00;     /* boutons, prix, détails uniquement */
+  --oak:#C9A877;      /* rappel chêne pour les schémas */
+  --gutter:20px;
+  --display:"Space Grotesk",system-ui,sans-serif;
+  --text:"Inter",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--cream);font:400 16px/1.55 var(--text);-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--acid);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+
+/* Bandeau maquette (à supprimer en prod) */
+.mock{background:var(--acid);color:var(--ink);font:600 11px/1.3 var(--text);padding:8px var(--gutter);display:flex;justify-content:space-between;gap:12px;align-items:center}
+.mock button{font:inherit;background:var(--ink);color:var(--acid);border:0;padding:6px 10px;cursor:pointer;white-space:nowrap}
+.note{display:none;margin:0 var(--gutter);border:1px dashed var(--acid);color:var(--acid);font:500 12px/1.45 var(--text);padding:10px 12px}
+.show-notes .note{display:block}
+.note b{font-weight:600}
+
+/* Typo */
+.h1,.h2,.eyebrow-free{font-family:var(--display);text-transform:uppercase;letter-spacing:.06em;line-height:1.02}
+.h1{font-size:clamp(40px,12vw,64px);font-weight:700}
+.h2{font-size:clamp(26px,7.4vw,40px);font-weight:700;margin-bottom:14px}
+.lead{color:var(--mute);max-width:34ch}
+.mono{font:500 11px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.price{color:var(--acid);font-family:var(--display);font-weight:700}
+
+/* Boutons */
+.btn{display:flex;align-items:center;justify-content:center;min-height:54px;padding:0 22px;background:var(--acid);color:var(--ink);font:700 15px/1 var(--display);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:0;cursor:pointer;width:100%}
+.btn--ghost{background:transparent;color:var(--cream);border:1px solid var(--line)}
+.link{font-weight:500;text-underline-offset:4px}
+
+/* Grille technique de fond */
+.grid-bg{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:24px 24px;background-position:-1px -1px}
+
+/* Emplacement photo / vidéo */
+.ph{position:relative;background:var(--ink-2);border:1px solid var(--line);overflow:hidden;display:flex;align-items:flex-end}
+.ph::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(232,228,218,.035) 14px 15px)}
+.ph span{position:relative;font:500 11px/1.4 var(--text);color:var(--mute);padding:10px 12px;letter-spacing:.02em}
+.ph span::before{content:"▢ ";color:var(--acid)}
+.ph--video span::before{content:"▶ "}
+
+section{padding:64px 0}
+.wrap{padding:0 var(--gutter);max-width:560px;margin:0 auto}
+.rule{border-top:1px solid var(--line)}
+
+/* En-tête */
+.hdr{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 var(--gutter);background:rgba(11,13,16,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.logo{font:700 18px/1 var(--display);letter-spacing:.32em;text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo i{width:7px;height:7px;background:var(--acid);border-radius:50%;display:block}
+.hdr nav{display:flex;gap:6px}
+.icon{width:44px;height:44px;display:grid;place-items:center;background:none;border:0;color:var(--cream);position:relative}
+.icon .count{position:absolute;top:7px;right:5px;background:var(--acid);color:var(--ink);font:700 10px/16px var(--display);min-width:16px;height:16px;border-radius:8px;text-align:center}
+
+/* Hero */
+.hero{position:relative;min-height:calc(100svh - 56px - 30px);display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 28px}
+.hero .ph{position:absolute;inset:0;border:0;align-items:flex-start}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,13,16,0) 30%,rgba(11,13,16,.92) 78%)}
+.hero .schema{position:absolute;left:var(--gutter);right:var(--gutter);top:24%}
+.hero .content{position:relative}
+.hero .h1{margin-bottom:14px}
+.hero .lead{color:var(--cream);opacity:.85;margin-bottom:24px}
+.hero .sub{margin-top:14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+
+/* Réassurance */
+.trust{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.trust li{list-style:none;padding:16px var(--gutter);border-top:1px solid var(--line);font-size:13px;line-height:1.35;display:flex;gap:10px;align-items:flex-start}
+.trust li:nth-child(odd){border-right:1px solid var(--line)}
+.trust b{display:block;font-weight:600;color:var(--cream)}
+.trust small{color:var(--mute);font-size:12px}
+.trust svg{flex:none;margin-top:2px;color:var(--acid)}
+
+/* Avant / après */
+.ba{position:relative;aspect-ratio:4/5;margin-top:24px;user-select:none;touch-action:pan-y}
+.ba .ph{position:absolute;inset:0}
+.ba .after{clip-path:inset(0 0 0 var(--pos,50%))}
+.ba .handle{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:var(--acid);transform:translateX(-1px);pointer-events:none}
+.ba .handle::after{content:"◀ ▶";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--acid);color:var(--ink);font:700 11px/1 var(--display);padding:10px 8px;white-space:nowrap}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize}
+.ba .tag{position:absolute;top:12px;font:600 11px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;background:var(--ink);padding:7px 9px;z-index:2;pointer-events:none}
+.ba .tag--l{left:12px}.ba .tag--r{right:12px;color:var(--acid)}
+
+/* Étapes */
+.steps{margin-top:28px;counter-reset:s}
+.step{display:grid;grid-template-columns:56px 1fr;gap:14px;padding:22px 0;border-top:1px solid var(--line)}
+.step:last-child{border-bottom:1px solid var(--line)}
+.step .n{font:700 34px/1 var(--display);color:var(--acid)}
+.step h3{font:700 17px/1.2 var(--display);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.step p{color:var(--mute);font-size:15px}
+.step .cote{margin-top:10px}
+
+/* Modules */
+.mods{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:24px}
+.mod{background:var(--ink);padding:0 0 14px;text-decoration:none;display:flex;flex-direction:column}
+.mod .ph{aspect-ratio:1;border:0;border-bottom:1px solid var(--line)}
+.mod .kg{font:700 40px/1 var(--display);padding:14px 12px 0;letter-spacing:-.01em}
+.mod .kg small{font-size:14px;letter-spacing:.08em;margin-left:3px;color:var(--mute)}
+.mod .kg-l{padding:4px 12px 10px}
+.mod h3{font:600 15px/1.25 var(--text);padding:0 12px}
+.mod .row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 12px 0;font-size:14px}
+.mod .row span{color:var(--mute);font-size:12px}
+
+/* Ça tient */
+.proof .ph{aspect-ratio:16/10;margin:22px 0 18px}
+.specs{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.specs div{padding:14px 0;text-align:center}
+.specs div+div{border-left:1px solid var(--line)}
+.specs b{display:block;font:700 22px/1.1 var(--display)}
+.specs span{font-size:12px;color:var(--mute)}
+
+/* Atelier */
+.atelier .ph{aspect-ratio:4/5;margin-top:22px}
+.atelier .pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.atelier .pair .ph{aspect-ratio:1;margin:0}
+.founder{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+.founder .ph{aspect-ratio:1;border-radius:50%;margin:0}
+.founder .ph span{display:none}
+.founder p{font-size:15px}
+.founder small{color:var(--mute);font-size:13px}
+
+/* Mini configurateur */
+.cfg{background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);margin:22px 0 18px}
+.seg button{background:none;border:0;color:var(--cream);min-height:48px;font:600 14px/1 var(--display);letter-spacing:.06em;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--cream);color:var(--ink)}
+.rail-box{padding:28px 0 8px}
+.rail-box svg{width:100%;height:auto;overflow:visible}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 16px;padding-top:16px;border-top:1px solid var(--line)}
+.total .price{font-size:28px}
+
+/* FAQ */
+.faq{margin-top:22px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:18px 36px 18px 0;font-weight:600;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:4px;top:14px;font:500 24px/1 var(--display);color:var(--acid)}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--mute);padding:0 0 18px;font-size:15px}
+
+/* Newsletter */
+.nl form{display:grid;gap:10px;margin-top:20px}
+.nl input[type=email]{min-height:54px;background:transparent;border:1px solid var(--line);color:var(--cream);padding:0 16px;font:400 16px var(--text)}
+.nl input::placeholder{color:var(--mute)}
+.nl .legal{font-size:12px;color:var(--mute)}
+
+/* Pied de page */
+.ftr{padding:48px var(--gutter) 120px;border-top:1px solid var(--line);font-size:14px}
+.ftr .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px 16px;margin:28px 0}
+.ftr h4{font:600 11px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:12px}
+.ftr ul{list-style:none;display:grid;gap:10px}
+.ftr a{text-decoration:none}
+.ftr .legal{color:var(--mute);font-size:12px;line-height:1.7}
+
+/* Barre d'achat collante (apparaît après le hero) */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px var(--gutter) calc(10px + env(safe-area-inset-bottom));background:rgba(11,13,16,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;gap:12px;align-items:center;transform:translateY(110%);transition:transform .25s ease}
+.sticky.on{transform:none}
+.sticky .btn{min-height:48px;flex:1}
+.sticky small{color:var(--mute);font-size:12px;line-height:1.3;flex:none}
+.sticky small b{display:block;color:var(--acid);font:700 15px var(--display)}
+
+/* Desktop : la maquette reste centrée en colonne mobile */
+@media (min-width:700px){
+  body{background:#050607}
+  .frame{max-width:420px;margin:0 auto;border-left:1px solid var(--line);border-right:1px solid var(--line);background:var(--ink)}
+  .sticky{max-width:420px;margin:0 auto}
+}
+</style>
+</head>
+<body>
+<div class="frame">
+
+<div class="mock" role="note">
+  <span>MAQUETTE · prix, charges et délais = exemples</span>
+  <button type="button" id="toggleNotes" aria-pressed="false">Notes DA</button>
+</div>
+
+<header class="hdr">
+  <button class="icon" aria-label="Menu">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h16M3 15h16"/></svg>
+  </button>
+  <a class="logo" href="#" aria-label="NODAL, accueil">NODAL<i aria-hidden="true"></i></a>
+  <nav>
+    <a class="icon" href="#" aria-label="Panier, 0 article">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h14l-1 12H5L4 7Z"/><path d="M8 7V5a3 3 0 0 1 6 0v2"/></svg>
+    </a>
+  </nav>
+</header>
+
+<main>
+
+<!-- 1. HERO -->
+<section class="hero" aria-labelledby="t-hero">
+  <div class="ph grid-bg"><span>PHOTO HERO — rail 80 cm chêne naturel, casque + chaussures + clés, entrée d'appartement, lumière du jour. Cadrage vertical 4:5 pour mobile, horizontal pour desktop. WebP &lt; 180 Ko.</span></div>
+  <svg class="schema" viewBox="0 0 335 150" aria-hidden="true">
+    <!-- schéma du rail en attendant la photo -->
+    <g stroke="#9A968C" stroke-width=".8" fill="none" font-family="Space Grotesk" font-size="8" letter-spacing="1">
+      <path d="M12 18v-8M323 18v-8M12 14h311"/>
+      <text x="150" y="9" fill="#9A968C" stroke="none">800 MM</text>
+    </g>
+    <rect x="12" y="22" width="311" height="16" fill="#C9A877"/>
+    <rect x="12" y="36" width="311" height="2" fill="#8E7350"/>
+    <g fill="#E8E4DA">
+      <rect x="44" y="38" width="22" height="26"/><path d="M38 64h34v6H38z"/>
+      <rect x="124" y="38" width="10" height="34"/><rect x="152" y="38" width="10" height="34"/>
+      <rect x="208" y="38" width="44" height="22"/>
+      <rect x="282" y="38" width="8" height="18"/><circle cx="286" cy="62" r="5" fill="none" stroke="#E8E4DA" stroke-width="2"/>
+    </g>
+    <g fill="#C6FF00" font-family="Space Grotesk" font-size="8" font-weight="700" letter-spacing=".5">
+      <text x="40" y="84">8 KG</text><text x="130" y="86">2×5 KG</text><text x="214" y="74">3 KG</text><text x="276" y="80">1 KG</text>
+    </g>
+  </svg>
+  <div class="shade"></div>
+  <div class="wrap content">
+    <h1 class="h1" id="t-hero">Ton sport,<br>au mur.</h1>
+    <p class="lead">Un rail en chêne massif. Des modules imprimés en 3D à la main en France. Ton casque, tes chaussures, tes clés&nbsp;: chacun sa place.</p>
+    <a class="btn" href="#configurateur">Composer mon rail</a>
+    <div class="sub">
+      <span>Dès <span class="price">89&nbsp;€</span> le rail</span>
+      <a class="link" href="#modules">Voir les modules</a>
+    </div>
+  </div>
+</section>
+<p class="note"><b>Hero.</b> Un seul H1. La photo réelle porte tout : si elle n'est pas prête au lancement, ce schéma coté sert de fallback assumé (pas de photo de banque d'images). Prix d'entrée visible dès le hero : sur un produit inconnu, ne pas l'afficher fait fuir.</p>
+
+<!-- 2. RÉASSURANCE -->
+<ul class="trust" aria-label="Nos engagements">
+  <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 5h10v8H1zM11 8h4l2 3v2h-6"/><circle cx="4.5" cy="14" r="1.5"/><circle cx="13.5" cy="14" r="1.5"/></svg><span><b>Livraison offerte</b><small>Expédié sous 5 j ouvrés</small></span></li>
+  <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9a6 6 0 1 0 2-4.5M3 2v3h3"/></svg><span><b>Retours 30 jours</b><small>Même monté au mur</small></span></li>
+  <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 1l2 5h5l-4 3 2 6-5-4-5 4 2-6-4-3h5z"/></svg><span><b>Fait main en France</b><small>Atelier à [ville]</small></span></li>
+  <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 1l7 3v5c0 4-3 7-7 8-4-1-7-4-7-8V4z"/></svg><span><b>Garantie 3 ans</b><small>Rail et modules</small></span></li>
+</ul>
+<p class="note" style="margin-top:12px"><b>Réassurance.</b> Grille 2×2 et pas un carrousel : les 4 promesses sont lues sans geste. Le délai d'expédition est là dès le début (frein « quand je le reçois »).</p>
+
+<!-- 3. AVANT / APRÈS -->
+<section aria-labelledby="t-ba">
+  <div class="wrap">
+    <h2 class="h2" id="t-ba">Même entrée.<br>10 minutes plus tard.</h2>
+    <p class="lead">Glisse pour voir la différence.</p>
+    <div class="ba" style="--pos:50%">
+      <div class="ph"><span>AVANT — entrée réelle encombrée (chaussures au sol, casque sur le meuble)</span></div>
+      <div class="ph after" style="background:#1A1D22"><span style="margin-left:auto">APRÈS — même cadrage, même lumière, rail posé</span></div>
+      <span class="tag tag--l">Avant</span><span class="tag tag--r">Après</span>
+      <div class="handle"></div>
+      <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après">
+    </div>
+  </div>
+</section>
+<p class="note"><b>Avant / après remonté en 3ᵉ position</b> (ton brief le mettait après l'atelier). C'est ta preuve visuelle la plus forte : elle doit être vue par les 60-70 % qui ne scrollent pas au-delà du 3ᵉ écran. Même cadrage et même lumière obligatoires, sinon ça ressemble à un trucage.</p>
+
+<!-- 4. COMMENT ÇA MARCHE -->
+<section class="rule" aria-labelledby="t-how">
+  <div class="wrap">
+    <h2 class="h2" id="t-how">Comment ça marche</h2>
+    <p class="lead">Pas de perceuse à percussion, pas de chantier.</p>
+    <ol class="steps">
+      <li class="step"><span class="n">01</span><div><h3>Fixe le rail</h3><p>Deux vis, chevilles fournies pour béton, brique ou placo. Gabarit de perçage dans la boîte.</p><p class="cote mono">≈ 10 min · 2 trous Ø 6 mm</p></div></li>
+      <li class="step"><span class="n">02</span><div><h3>Accroche les modules</h3><p>Ils se glissent sur le rail et se bloquent. Sans outil, déplaçables à tout moment.</p><p class="cote mono">0 outil · repositionnable</p></div></li>
+      <li class="step"><span class="n">03</span><div><h3>Ajoute-en quand tu veux</h3><p>Nouveau vélo, nouveau sport&nbsp;: tu complètes ton rail, sans rien démonter.</p><p class="cote mono">Pas de 40 mm · 100 % compatible</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 5. MODULES -->
+<section id="modules" class="rule" aria-labelledby="t-mods">
+  <div class="wrap">
+    <h2 class="h2" id="t-mods">Les modules</h2>
+    <p class="lead">Chaque module affiche sa charge maximale. Testée à 3 fois cette valeur.</p>
+    <div class="mods">
+      <a class="mod" href="#"><div class="ph"><span>Module casque, en main</span></div><p class="kg">8<small>KG</small></p><p class="mono kg-l">charge max</p><h3>Casque</h3><p class="row"><b class="price">24&nbsp;€</b><span>Vélo, moto, ski</span></p></a>
+      <a class="mod" href="#"><div class="ph"><span>Double crochet, avec sac</span></div><p class="kg">2×5<small>KG</small></p><p class="mono kg-l">charge max</p><h3>Double crochet</h3><p class="row"><b class="price">19&nbsp;€</b><span>Sac, veste, corde</span></p></a>
+      <a class="mod" href="#"><div class="ph"><span>Chaussures, paire posée</span></div><p class="kg">3<small>KG</small></p><p class="mono kg-l">charge max</p><h3>Chaussures</h3><p class="row"><b class="price">22&nbsp;€</b><span>Running, vélo</span></p></a>
+      <a class="mod" href="#"><div class="ph"><span>Vide-poche, clés + montre</span></div><p class="kg">1<small>KG</small></p><p class="mono kg-l">charge max</p><h3>Vide-poche</h3><p class="row"><b class="price">18&nbsp;€</b><span>Clés, cardio, gants</span></p></a>
+    </div>
+  </div>
+</section>
+<p class="note"><b>Modules.</b> La charge est l'info n°1 (taille 40 px), le prix n°2, le nom n°3 : c'est l'ordre des questions du client. Photos « en main » pour donner l'échelle. Le vert ne sert qu'aux prix ici.</p>
+
+<!-- 6. ÇA TIENT -->
+<section class="proof rule" aria-labelledby="t-proof">
+  <div class="wrap">
+    <h2 class="h2" id="t-proof">Oui, ça tient.</h2>
+    <p class="lead">On charge chaque modèle à 3 fois sa charge maximale avant de le vendre. Regarde.</p>
+    <div class="ph ph--video"><span>VIDÉO TEST DE CHARGE — 24 kg sur le module casque, plan fixe, poids visible, sans coupe. 20 s, muette, sous-titrée, lecture au tap (pas en autoplay).</span></div>
+    <div class="specs">
+      <div><b>×3</b><span>marge de test</span></div>
+      <div><b>[PETG]</b><span>matière modules</span></div>
+      <div><b>Chêne</b><span>massif, FR</span></div>
+    </div>
+  </div>
+</section>
+<p class="note"><b>Bloc ajouté.</b> « Est-ce que ça tient ? » est ton frein n°1 : il mérite son propre écran sur l'accueil, pas seulement les fiches. Plan-séquence sans coupe, sinon personne n'y croit. Matière à confirmer (le PLA flue sous charge : à éviter avec une garantie de 3 ans).</p>
+
+<!-- 7. FABRIQUÉ ICI -->
+<section class="atelier rule" aria-labelledby="t-made">
+  <div class="wrap">
+    <h2 class="h2" id="t-made">Fabriqué ici.</h2>
+    <p class="lead">Le chêne est coupé, poncé et huilé à [ville]. Les modules sortent de nos imprimantes, un par un.</p>
+    <div class="ph ph--video"><span>VIDÉO ATELIER — imprimante en cours + ponçage du chêne, 15 s en boucle muette, poster WebP, chargement différé</span></div>
+    <div class="pair">
+      <div class="ph"><span>Chant du chêne, macro</span></div>
+      <div class="ph"><span>Module à la sortie de l'imprimante</span></div>
+    </div>
+    <div class="founder">
+      <div class="ph" aria-hidden="true"><span></span></div>
+      <p>« [Phrase du fondateur : pourquoi tu as créé NODAL, en une phrase vraie.] »<br><small>[Prénom], fondateur</small></p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. MINI CONFIGURATEUR -->
+<section id="configurateur" class="cfg" aria-labelledby="t-cfg">
+  <div class="wrap">
+    <h2 class="h2" id="t-cfg">Compose ton rail</h2>
+    <p class="lead">Choisis la longueur. Tu ajoutes les modules à l'étape suivante.</p>
+    <div class="seg" role="group" aria-label="Longueur du rail">
+      <button type="button" data-l="60" data-p="79" data-s="4" aria-pressed="false">60 cm</button>
+      <button type="button" data-l="80" data-p="89" data-s="6" aria-pressed="true">80 cm</button>
+      <button type="button" data-l="120" data-p="119" data-s="9" aria-pressed="false">120 cm</button>
+    </div>
+    <div class="rail-box">
+      <svg viewBox="0 0 335 60" aria-hidden="true">
+        <g stroke="#9A968C" stroke-width=".8" fill="none"><path id="dimL" d="M0 10v-8"/><path id="dimR" d="M335 10v-8"/><path id="dimH" d="M0 6h335"/></g>
+        <rect id="rail" x="0" y="16" width="335" height="14" fill="#C9A877"/>
+        <g id="slots" fill="none" stroke="#C6FF00" stroke-dasharray="2 3"></g>
+      </svg>
+      <p class="mono" style="margin-top:10px;display:flex;justify-content:space-between"><span id="lenTxt">800 mm</span><span id="slotTxt">jusqu'à 6 modules</span></p>
+    </div>
+    <div class="total"><span>Rail chêne naturel</span><span class="price" id="priceTxt">89&nbsp;€</span></div>
+    <a class="btn" href="#">Ajouter mes modules</a>
+    <p class="mono" style="margin-top:12px;text-align:center">Livraison offerte · retours 30 jours · garantie 3 ans</p>
+  </div>
+</section>
+<p class="note"><b>Teaser du configurateur.</b> On fait choisir la longueur sur l'accueil (1 décision, 1 tap) puis on envoie au configurateur pré-rempli : le premier engagement est fait, le taux de passage au configurateur monte. Garanties répétées sous le bouton, comme demandé.</p>
+
+<!-- 9. FAQ -->
+<section class="rule" aria-labelledby="t-faq">
+  <div class="wrap">
+    <h2 class="h2" id="t-faq">Questions</h2>
+    <div class="faq">
+      <details><summary>Ça tient vraiment un casque de moto ?</summary><p>Le module casque est donné pour 8 kg et testé à 24 kg. Un casque de moto pèse 1,3 à 1,8 kg.</p></details>
+      <details><summary>J'ai des murs en placo, c'est possible ?</summary><p>Oui. La boîte contient des chevilles à expansion pour placo, en plus des chevilles béton et brique. Le guide de pose précise la charge totale par type de mur.</p></details>
+      <details><summary>Ça va abîmer mon mur ?</summary><p>Deux trous de 6 mm, rebouchables en 2 minutes si tu déménages. Rien d'autre ne touche le mur.</p></details>
+      <details><summary>Je le reçois quand ?</summary><p>Fabrication sous 5 jours ouvrés, puis 2 à 3 jours de livraison. La date estimée est affichée dans ton panier.</p></details>
+      <details><summary>Et si ça ne me plaît pas une fois posé ?</summary><p>Tu as 30 jours pour le renvoyer, même monté. On te rembourse le produit. [Préciser : frais de retour à ta charge ou offerts.]</p></details>
+      <details><summary>Comment j'entretiens le chêne ?</summary><p>Un chiffon sec. Une fois par an, une goutte d'huile si tu veux raviver la teinte.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 10. NEWSLETTER -->
+<section class="nl rule" aria-labelledby="t-nl">
+  <div class="wrap">
+    <h2 class="h2" id="t-nl">Nouveaux modules,<br>une fois par mois.</h2>
+    <p class="lead">Pas de promo tous les trois jours. Juste ce qui sort de l'atelier.</p>
+    <form onsubmit="return false">
+      <label for="nl-mail" class="mono">Ton email</label>
+      <input id="nl-mail" type="email" placeholder="toi@exemple.fr" autocomplete="email" required>
+      <button class="btn btn--ghost" type="submit">M'inscrire</button>
+      <p class="legal">Désinscription en un clic. Voir notre <a href="#">politique de confidentialité</a>.</p>
+    </form>
+  </div>
+</section>
+<p class="note"><b>Newsletter.</b> Pas de « -10 % à l'inscription » proposé par défaut : ça te coûte de la marge sur des gens qui auraient acheté de toute façon. À décider selon ta marge réelle.</p>
+
+</main>
+
+<footer class="ftr">
+  <a class="logo" href="#">NODAL<i aria-hidden="true"></i></a>
+  <div class="cols">
+    <div><h4>Boutique</h4><ul><li><a href="#">Configurateur</a></li><li><a href="#">Modules</a></li><li><a href="#">Rails</a></li></ul></div>
+    <div><h4>Aide</h4><ul><li><a href="#">Guide de pose</a></li><li><a href="#">Livraison</a></li><li><a href="#">Retours</a></li><li><a href="#">Garantie</a></li><li><a href="#">Contact</a></li></ul></div>
+    <div><h4>NODAL</h4><ul><li><a href="#">À propos</a></li></ul></div>
+    <div><h4>Légal</h4><ul><li><a href="#">Mentions légales</a></li><li><a href="#">CGV</a></li><li><a href="#">Confidentialité</a></li><li><a href="#">Cookies</a></li><li><a href="#">Médiateur</a></li></ul></div>
+  </div>
+  <p class="legal">© 2026 NODAL · [Raison sociale, SIRET] · Paiement sécurisé</p>
+</footer>
+
+<div class="sticky" id="sticky" aria-hidden="true">
+  <small>Rail dès<b>89&nbsp;€</b></small>
+  <a class="btn" href="#configurateur" tabindex="-1">Composer mon rail</a>
+</div>
+
+</div>
+
+<script>
+// Notes DA
+const tg=document.getElementById('toggleNotes');
+tg.addEventListener('click',()=>{const on=document.body.classList.toggle('show-notes');tg.setAttribute('aria-pressed',on)});
+
+// Avant / après
+document.querySelectorAll('.ba').forEach(b=>{const i=b.querySelector('input');i.addEventListener('input',()=>b.style.setProperty('--pos',i.value+'%'))});
+
+// Barre collante après le hero
+const st=document.getElementById('sticky'),hero=document.querySelector('.hero'),cfg=document.getElementById('configurateur');
+let pastHero=false,cfgVisible=false;
+const upd=()=>{const on=pastHero&&!cfgVisible;st.classList.toggle('on',on);st.setAttribute('aria-hidden',!on);st.querySelector('a').tabIndex=on?0:-1};
+new IntersectionObserver(([e])=>{pastHero=!e.isIntersecting;upd()}).observe(hero);
+new IntersectionObserver(([e])=>{cfgVisible=e.isIntersecting;upd()}).observe(cfg);
+
+// Mini configurateur (prix d'exemple)
+const W=335,btns=document.querySelectorAll('.seg button');
+function setLen(b){
+  btns.forEach(x=>x.setAttribute('aria-pressed',x===b));
+  const l=+b.dataset.l,w=Math.round(W*l/120),s=+b.dataset.s;
+  document.getElementById('rail').setAttribute('width',w);
+  document.getElementById('dimR').setAttribute('d',`M${w} 10v-8`);
+  document.getElementById('dimH').setAttribute('d',`M0 6h${w}`);
+  const g=document.getElementById('slots');g.innerHTML='';
+  const step=w/s;for(let k=0;k<s;k++){const r=document.createElementNS('http://www.w3.org/2000/svg','rect');r.setAttribute('x',k*step+3);r.setAttribute('y',34);r.setAttribute('width',step-6);r.setAttribute('height',22);g.appendChild(r)}
+  document.getElementById('lenTxt').textContent=l*10+' mm';
+  document.getElementById('slotTxt').textContent="jusqu'à "+s+' modules';
+  document.getElementById('priceTxt').textContent=b.dataset.p+' €';
+}
+btns.forEach(b=>b.addEventListener('click',()=>setLen(b)));
+setLen(document.querySelector('.seg [aria-pressed="true"]'));
+</script>
+</body>
+</html>

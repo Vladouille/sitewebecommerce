@@ -1,0 +1,45 @@
+{%- comment -%} NODAL — « Comment ça marche » en étapes numérotées, avec une cote technique par étape. {%- endcomment -%}
+<section class="nd nd-section nd-rule" aria-labelledby="nd-steps-{{ section.id }}">
+  <div class="nd-wrap">
+    <h2 class="nd-h2" id="nd-steps-{{ section.id }}">{{ section.settings.heading }}</h2>
+    {%- if section.settings.text != blank -%}<p class="nd-lead">{{ section.settings.text }}</p>{%- endif -%}
+    <ol class="nd-steps">
+      {%- for block in section.blocks -%}
+        <li class="nd-step" {{ block.shopify_attributes }}>
+          <span class="nd-step__n" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          <div>
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.text }}</p>
+            {%- if block.settings.spec != blank -%}<p class="nd-mono">{{ block.settings.spec }}</p>{%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "NODAL · Étapes",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Comment ça marche" },
+    { "type": "text", "id": "text", "label": "Texte", "default": "Pas de perceuse à percussion, pas de chantier." }
+  ],
+  "blocks": [
+    { "type": "step", "name": "Étape", "settings": [
+      { "type": "text", "id": "title", "label": "Titre", "default": "Fixe le rail" },
+      { "type": "textarea", "id": "text", "label": "Texte" },
+      { "type": "text", "id": "spec", "label": "Cote technique", "info": "Ex. : ≈ 10 min · 2 trous Ø 6 mm" }
+    ] }
+  ],
+  "presets": [{
+    "name": "NODAL · Étapes",
+    "blocks": [
+      { "type": "step", "settings": { "title": "Fixe le rail", "text": "Deux vis, chevilles fournies pour béton, brique ou placo. Gabarit de perçage dans la boîte.", "spec": "≈ 10 min · 2 trous Ø 6 mm" } },
+      { "type": "step", "settings": { "title": "Accroche les modules", "text": "Ils se glissent sur le rail et se bloquent. Sans outil, déplaçables à tout moment.", "spec": "0 outil · repositionnable" } },
+      { "type": "step", "settings": { "title": "Ajoute-en quand tu veux", "text": "Nouveau vélo, nouveau sport : tu complètes ton rail, sans rien démonter.", "spec": "100 % compatible" } }
+    ]
+  }]
+}
+{% endschema %}

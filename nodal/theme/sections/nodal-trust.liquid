@@ -1,0 +1,40 @@
+{%- comment -%} NODAL — bandeau de réassurance sous le hero (grille 2×2 sur mobile, 4 colonnes sur ordinateur). {%- endcomment -%}
+<div class="nd">
+  <ul class="nd-trust" aria-label="Nos engagements">
+    {%- for block in section.blocks -%}
+      <li {{ block.shopify_attributes }}>
+        {% render 'nodal-icon', icon: block.settings.icon %}
+        <span><b>{{ block.settings.title }}</b><small>{{ block.settings.sub }}</small></span>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "NODAL · Réassurance",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Engagement",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icône", "default": "truck", "options": [
+          { "value": "truck", "label": "Livraison" }, { "value": "return", "label": "Retour" },
+          { "value": "made", "label": "Atelier" }, { "value": "shield", "label": "Garantie" }, { "value": "clock", "label": "Délai" } ] },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Livraison offerte" },
+        { "type": "text", "id": "sub", "label": "Précision", "default": "Expédié sous 5 j ouvrés" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "NODAL · Réassurance",
+    "blocks": [
+      { "type": "item", "settings": { "icon": "truck", "title": "Livraison offerte", "sub": "Expédié sous 5 j ouvrés" } },
+      { "type": "item", "settings": { "icon": "return", "title": "Retours 30 jours", "sub": "Même monté au mur" } },
+      { "type": "item", "settings": { "icon": "made", "title": "Fait main en France", "sub": "Atelier à [ville]" } },
+      { "type": "item", "settings": { "icon": "shield", "title": "Garantie 3 ans", "sub": "Rail et modules" } }
+    ]
+  }]
+}
+{% endschema %}

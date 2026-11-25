@@ -1,0 +1,48 @@
+{%- comment -%}
+  NODAL — grille des modules. Ordre d'information voulu : charge, nom, prix.
+  Les données viennent de la collection choisie et des métachamps nodal.charge_kg et nodal.usage.
+{%- endcomment -%}
+{%- assign col = section.settings.collection -%}
+<section class="nd nd-section nd-rule" id="modules" aria-labelledby="nd-mods-{{ section.id }}">
+  <div class="nd-wrap">
+    <h2 class="nd-h2" id="nd-mods-{{ section.id }}">{{ section.settings.heading }}</h2>
+    {%- if section.settings.text != blank -%}<p class="nd-lead">{{ section.settings.text }}</p>{%- endif -%}
+    <div class="nd-mods">
+      {%- if col != blank and col.products_count > 0 -%}
+        {%- for p in col.products limit: section.settings.limit -%}
+          <a class="nd-mod" href="{{ p.url }}">
+            <div class="nd-media{% if p.featured_media == blank %} nd-ph{% endif %}">
+              {%- if p.featured_media != blank -%}
+                {{ p.featured_media | image_url: width: 600 | image_tag: widths: '300, 450, 600', sizes: '(min-width: 990px) 25vw, 50vw', loading: 'lazy', alt: p.featured_media.alt | default: p.title }}
+              {%- else -%}<span>Photo du module en main</span>{%- endif -%}
+            </div>
+            {% render 'nodal-charge', product: p, variant: 'card' %}
+            <h3>{{ p.title }}</h3>
+            <p class="nd-mod__row"><b class="nd-price">{{ p.price_min | money_without_trailing_zeros }}</b>{% if p.metafields.nodal.usage != blank %}<span>{{ p.metafields.nodal.usage.value }}</span>{% endif %}</p>
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..4) -%}
+          <div class="nd-mod"><div class="nd-media nd-ph"><span>Choisis la collection « Modules » dans l'éditeur</span></div><h3 style="padding-top:12px">Module {{ i }}</h3></div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+    {%- if col != blank and section.settings.show_all -%}
+      <p style="margin-top:20px"><a class="nd-link" href="{{ col.url }}">Voir tous les modules</a></p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "NODAL · Modules",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Les modules" },
+    { "type": "text", "id": "text", "label": "Texte", "default": "Chaque module affiche sa charge maximale. Testée à 3 fois cette valeur." },
+    { "type": "collection", "id": "collection", "label": "Collection des modules" },
+    { "type": "range", "id": "limit", "label": "Nombre de modules", "min": 2, "max": 12, "step": 2, "default": 4 },
+    { "type": "checkbox", "id": "show_all", "label": "Lien « Voir tous les modules »", "default": true }
+  ],
+  "presets": [{ "name": "NODAL · Modules" }]
+}
+{% endschema %}

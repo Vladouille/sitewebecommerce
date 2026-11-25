@@ -1,0 +1,35 @@
+{%- comment -%} NODAL — avant / après avec curseur. Exiger le même cadrage et la même lumière sur les deux photos. {%- endcomment -%}
+<section class="nd nd-section" aria-labelledby="nd-ba-{{ section.id }}">
+  <div class="nd-wrap">
+    <h2 class="nd-h2" id="nd-ba-{{ section.id }}">{{ section.settings.heading | newline_to_br }}</h2>
+    {%- if section.settings.text != blank -%}<p class="nd-lead">{{ section.settings.text }}</p>{%- endif -%}
+    <div class="nd-ba" style="--pos:50%">
+      <div class="nd-media{% if section.settings.before == blank %} nd-ph{% endif %}">
+        {%- if section.settings.before != blank -%}
+          {{ section.settings.before | image_url: width: 1200 | image_tag: widths: '480, 750, 1000, 1200', sizes: '(min-width: 750px) 720px, 100vw', loading: 'lazy', alt: section.settings.before.alt | default: 'Avant : entrée encombrée' }}
+        {%- else -%}<span>Photo AVANT : entrée encombrée</span>{%- endif -%}
+      </div>
+      <div class="nd-media nd-ba__after{% if section.settings.after == blank %} nd-ph{% endif %}" style="background:#1A1D22">
+        {%- if section.settings.after != blank -%}
+          {{ section.settings.after | image_url: width: 1200 | image_tag: widths: '480, 750, 1000, 1200', sizes: '(min-width: 750px) 720px, 100vw', loading: 'lazy', alt: section.settings.after.alt | default: 'Après : même entrée avec le rail NODAL' }}
+        {%- else -%}<span style="margin-left:auto">Photo APRÈS : même cadrage, rail posé</span>{%- endif -%}
+      </div>
+      <span class="nd-ba__tag nd-ba__tag--l">Avant</span><span class="nd-ba__tag nd-ba__tag--r">Après</span>
+      <input type="range" min="0" max="100" value="50" aria-label="Comparer avant et après">
+      <div class="nd-ba__handle"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "NODAL · Avant / après",
+  "settings": [
+    { "type": "textarea", "id": "heading", "label": "Titre", "default": "Même entrée.\n10 minutes plus tard." },
+    { "type": "text", "id": "text", "label": "Texte", "default": "Glisse pour voir la différence." },
+    { "type": "image_picker", "id": "before", "label": "Photo avant" },
+    { "type": "image_picker", "id": "after", "label": "Photo après", "info": "Même cadrage, même lumière que la photo avant." }
+  ],
+  "presets": [{ "name": "NODAL · Avant / après" }]
+}
+{% endschema %}

@@ -1,0 +1,18 @@
+{%- comment -%}
+  Charge maximale d'un module, lue dans le métachamp nodal.charge_kg
+  (type « texte sur une ligne » pour accepter « 2×5 », ou nombre décimal).
+  Usage : {% render 'nodal-charge', product: product, variant: 'card' %} ('card' ou 'big')
+  Sans métachamp : rien n'est affiché (on n'invente jamais une charge).
+{%- endcomment -%}
+{%- assign nd_kg = product.metafields.nodal.charge_kg.value -%}
+{%- if nd_kg != blank -%}
+  {%- if variant == 'big' -%}
+    <div class="nd-charge">
+      <span class="nd-charge__v">{{ nd_kg }}<small>KG</small></span>
+      <span class="nd-charge__l">charge maximale<br>testée à {{ product.metafields.nodal.test_factor.value | default: 3 }} fois cette valeur</span>
+    </div>
+  {%- else -%}
+    <p class="nd-mod__kg">{{ nd_kg }}<small>KG</small></p>
+    <p class="nd-mono">charge max</p>
+  {%- endif -%}
+{%- endif -%}
