@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PRINVLA — La pince à boules de neige imprimée en France</title>
+  <meta name="description" content="Des boules de neige parfaites en 2 secondes, sans mains gelées. Pince PRINVLA imprimée en France en PETG résistant au froid. Expédiée sous 48 h en point relais.">
+  <meta name="theme-color" content="#05070B">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+  <meta property="og:type" content="product">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="PRINVLA">
+  <meta property="og:title" content="PRINVLA — Des boules parfaites en 2 secondes. Zéro main gelée.">
+  <meta property="og:description" content="La pince à boules de neige imprimée en France. Kaki contre Bordeaux : choisis ton camp.">
+  <meta property="og:url" content="https://TON-DOMAINE.fr/">
+  <meta property="og:image" content="https://TON-DOMAINE.fr/assets/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pince à boules de neige PRINVLA, une moitié kaki et une moitié bordeaux, refermée sur une boule de neige.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://TON-DOMAINE.fr/">
+
+  <link rel="preload" href="assets/fonts/space-grotesk-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" type="image/webp" imagesrcset="assets/img/pince-hero-480.webp 480w, assets/img/pince-hero.webp 800w" imagesizes="(min-width: 900px) 560px, min(100vw, 520px)" fetchpriority="high">
+  <link rel="stylesheet" href="css/style.css">
+  <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('motion')</script>
+
+  <script type="importmap">
+    { "imports": { "three": "./assets/vendor/three/three.module.min.js" } }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Pince à boules de neige PRINVLA",
+    "description": "Pince à boules de neige imprimée en 3D en France, en PETG résistant au froid. Boules de 6 cm de diamètre.",
+    "brand": { "@type": "Brand", "name": "PRINVLA" },
+    "image": "https://TON-DOMAINE.fr/assets/img/og.jpg",
+    "material": "PETG",
+    "countryOfOrigin": "FR",
+    "offers": [
+      { "@type": "Offer", "name": "SOLO — 1 pince", "price": "12.90", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": "https://TON-DOMAINE.fr/#prix", "itemCondition": "https://schema.org/NewCondition" },
+      { "@type": "Offer", "name": "DUO « BATAILLE » — 2 pinces, kaki + bordeaux", "price": "19.90", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": "https://TON-DOMAINE.fr/#prix", "itemCondition": "https://schema.org/NewCondition" },
+      { "@type": "Offer", "name": "CLAN — 4 pinces (2 de chaque couleur)", "price": "34.90", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "url": "https://TON-DOMAINE.fr/#prix", "itemCondition": "https://schema.org/NewCondition" }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Aller au contenu</a>
+  <canvas class="snow" aria-hidden="true"></canvas>
+
+  <!-- Barre d'annonce -->
+  <div class="announce" role="region" aria-label="Annonce">
+    <p class="announce__static">DROP #1 — 25 pinces numérotées · Expédiées sous 48 h · Arrivées avant ton départ au ski</p>
+    <div class="announce__track" aria-hidden="true">
+      <span>DROP #1 — 25 pinces numérotées · Expédiées sous 48 h · Arrivées avant ton départ au ski</span><span>✱</span>
+      <span>DROP #1 — 25 pinces numérotées · Expédiées sous 48 h · Arrivées avant ton départ au ski</span><span>✱</span>
+    </div>
+  </div>
+
+  <header class="top">
+    <a class="logo" href="#main" aria-label="PRINVLA, retour en haut">PRINVLA<span aria-hidden="true">✱</span></a>
+    <a class="top__cta" href="#prix">Commander</a>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__text">
+        <p class="eyebrow">PRINVLA — LA PINCE À BOULES DE NEIGE</p>
+        <h1 id="hero-title" class="hero__title">Des boules parfaites en 2&nbsp;secondes. <span class="ice">Zéro main gelée.</span></h1>
+        <p class="hero__sub">Imprimée en France, en PETG qui ne casse pas au froid. Tu plonges, tu serres, tu lances.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary magnetic" href="#prix" data-buy-hero data-highlight="duo"><span>Je prends le Duo — 19,90&nbsp;€</span></a>
+        </div>
+      </div>
+      <div class="hero__stage" data-stage>
+        <div class="stage__glow" aria-hidden="true"></div>
+        <img class="stage__poster" src="assets/img/pince-hero.webp" srcset="assets/img/pince-hero-480.webp 480w, assets/img/pince-hero.webp 800w" sizes="(min-width: 900px) 560px, min(100vw, 520px)" width="800" height="800" alt="La pince PRINVLA ouverte : une moitié kaki, une moitié bordeaux, reliées par une charnière." fetchpriority="high" decoding="async">
+        <div class="stage__canvas" data-canvas aria-hidden="true"></div>
+        <p class="stage__hint" aria-hidden="true">Fais défiler pour serrer</p>
+      </div>
+    </section>
+
+    <!-- ZÉRO BULLSHIT -->
+    <section class="section zb" aria-labelledby="zb-title">
+      <h2 id="zb-title" class="h2">Zéro bullshit.</h2>
+      <ul class="zb__list">
+        <li class="zb__row"><span class="zb__neg"><span class="sr-only">Fini : </span>Mains gelées<i class="zb__strike" aria-hidden="true"></i></span><span class="zb__pos"><span class="sr-only">À la place : </span>Gants au sec</span></li>
+        <li class="zb__row"><span class="zb__neg"><span class="sr-only">Fini : </span>Boules qui s'effritent<i class="zb__strike" aria-hidden="true"></i></span><span class="zb__pos"><span class="sr-only">À la place : </span>Sphères compactes de 6&nbsp;cm</span></li>
+        <li class="zb__row"><span class="zb__neg"><span class="sr-only">Fini : </span>Plastique qui casse au premier gel<i class="zb__strike" aria-hidden="true"></i></span><span class="zb__pos"><span class="sr-only">À la place : </span>PETG résistant au froid</span></li>
+        <li class="zb__row"><span class="zb__neg"><span class="sr-only">Fini : </span>Fabriquée à l'autre bout du monde<i class="zb__strike" aria-hidden="true"></i></span><span class="zb__pos"><span class="sr-only">À la place : </span>Imprimée en France, pièce par pièce</span></li>
+        <li class="zb__row"><span class="zb__neg"><span class="sr-only">Fini : </span>Livrée quand la neige a fondu<i class="zb__strike" aria-hidden="true"></i></span><span class="zb__pos"><span class="sr-only">À la place : </span>Expédiée sous 48&nbsp;h</span></li>
+        <li class="zb__row"><span class="zb__neg"><span class="sr-only">Fini : </span>Pince qui reste coincée<i class="zb__strike" aria-hidden="true"></i></span><span class="zb__pos"><span class="sr-only">À la place : </span>Se rouvre toute seule</span></li>
+      </ul>
+    </section>
+
+    <!-- COMMENT ÇA MARCHE -->
+    <section class="section how" aria-labelledby="how-title">
+      <h2 id="how-title" class="h2">Comment ça marche</h2>
+      <ol class="how__list">
+        <li class="how__step">
+          <svg class="how__icon icon-dip" viewBox="0 0 120 120" aria-hidden="true">
+            <path class="snowbed" d="M8 92c18-10 32-10 52-4s34 6 52-4v28H8Z"/>
+            <g class="clamp"><path d="M60 18 44 66a16 16 0 0 0 32 0L60 18Z"/><circle cx="60" cy="66" r="9" class="cup"/></g>
+          </svg>
+          <h3 class="how__title"><span class="how__num">1</span>Plonge.</h3>
+          <p>Ouvre la pince dans la neige.</p>
+        </li>
+        <li class="how__step">
+          <svg class="how__icon icon-squeeze" viewBox="0 0 120 120" aria-hidden="true">
+            <g class="jaw jaw--top"><path d="M14 56h46a26 26 0 0 1 52 0Z"/></g>
+            <g class="jaw jaw--bot"><path d="M14 64h46a26 26 0 0 0 52 0Z"/></g>
+            <circle class="ball" cx="86" cy="60" r="18"/>
+          </svg>
+          <h3 class="how__title"><span class="how__num">2</span>Serre.</h3>
+          <p>Une pression : la boule est compactée.</p>
+        </li>
+        <li class="how__step">
+          <svg class="how__icon icon-throw" viewBox="0 0 120 120" aria-hidden="true">
+            <path class="trail" d="M18 96C40 30 80 20 104 34" pathLength="1"/>
+            <circle class="ball" cx="18" cy="96" r="11"/>
+          </svg>
+          <h3 class="how__title"><span class="how__num">3</span>Lance.</h3>
+          <p>Elle sort toute seule. Recommence.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- DEUX CAMPS -->
+    <section class="section camps" aria-labelledby="camps-title">
+      <h2 id="camps-title" class="h2">Kaki contre Bordeaux. <span class="nowrap">Choisis ton camp.</span></h2>
+      <p class="lead">Le Duo, c'est une pince par équipe. La bataille commence à armes égales.</p>
+      <div class="camps__grid">
+        <figure class="camp camp--kaki">
+          <img src="assets/img/camp-kaki.webp" width="600" height="600" loading="lazy" decoding="async" alt="Moitié de pince PRINVLA couleur kaki.">
+          <figcaption>Kaki</figcaption>
+        </figure>
+        <span class="camps__vs" aria-hidden="true">VS</span>
+        <figure class="camp camp--bordeaux">
+          <img src="assets/img/camp-bordeaux.webp" width="600" height="600" loading="lazy" decoding="async" alt="Moitié de pince PRINVLA couleur bordeaux.">
+          <figcaption>Bordeaux</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- AVIS : masquée tant que SHOW_REVIEWS = false (js/config.js) -->
+    <section class="section reviews" id="avis" aria-labelledby="reviews-title" hidden>
+      <h2 id="reviews-title" class="h2">Ils l'ont testée</h2>
+      <div class="reviews__grid" data-reviews></div>
+    </section>
+
+    <!-- PRIX -->
+    <section class="section pricing" id="prix" aria-labelledby="prix-title">
+      <h2 id="prix-title" class="h2">Choisis ton pack</h2>
+      <p class="stock" data-stock-line>Il reste <strong><span data-stock>25</span> pinces</strong> sur 25 dans le Drop #1</p>
+      <div class="stock__bar" aria-hidden="true"><span data-stock-bar></span></div>
+
+      <div class="cards">
+        <article class="card" data-pack="solo" aria-labelledby="p-solo">
+          <h3 class="card__name" id="p-solo">SOLO</h3>
+          <p class="card__desc">1 pince</p>
+          <p class="card__price">12,90&nbsp;€</p>
+          <p class="card__unit">&nbsp;</p>
+          <a class="btn btn--ghost" data-buy="solo" href="#prix">Je prends le Solo</a>
+        </article>
+
+        <article class="card card--featured" data-pack="duo" aria-labelledby="p-duo">
+          <p class="card__badge" data-duo-badge>Recommandé</p>
+          <h3 class="card__name" id="p-duo">DUO « BATAILLE »</h3>
+          <p class="card__desc">2 pinces, kaki + bordeaux</p>
+          <p class="card__price">19,90&nbsp;€</p>
+          <p class="card__unit">soit 9,95&nbsp;€ la pince</p>
+          <a class="btn btn--primary magnetic" data-buy="duo" href="#prix"><span>Je prends le Duo</span></a>
+        </article>
+
+        <article class="card" data-pack="clan" aria-labelledby="p-clan">
+          <p class="card__badge card__badge--soft">Livraison offerte</p>
+          <h3 class="card__name" id="p-clan">CLAN</h3>
+          <p class="card__desc">4 pinces (2 de chaque couleur)</p>
+          <p class="card__price">34,90&nbsp;€</p>
+          <p class="card__unit">soit 8,73&nbsp;€ la pince</p>
+          <a class="btn btn--ghost" data-buy="clan" href="#prix">Je prends le Clan</a>
+        </article>
+      </div>
+      <p class="pricing__reassure">Livraison en point relais : 3,90&nbsp;€ · Retour sous 14 jours · Paiement sécurisé Stripe</p>
+    </section>
+
+
+    <!-- CADEAU -->
+    <section class="section">
+      <div class="gift">
+        <svg class="gift__icon" aria-hidden="true" viewBox="0 0 64 64"><rect x="8" y="26" width="48" height="32" rx="2"/><rect x="5" y="17" width="54" height="10" rx="2"/><path d="M32 17v41M32 17c-4-10-16-12-16-4 0 4 8 4 16 4Zm0 0c4-10 16-12 16-4 0 4-8 4-16 4Z"/></svg>
+        <p><strong>Le cadeau à moins de 20&nbsp;€ qu'on utilise vraiment.</strong> À glisser sous le sapin ou dans la valise du ski.</p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section faq" aria-labelledby="faq-title">
+      <h2 id="faq-title" class="h2">Questions</h2>
+      <div class="faq__list">
+        <details class="faq__item"><summary>Quelle taille font les boules ?</summary><div class="faq__a"><p>6 cm de diamètre.</p></div></details>
+        <details class="faq__item"><summary>Ça marche avec toute la neige ?</summary><div class="faq__a"><p>Avec la neige humide et collante, parfaitement. La poudreuse très sèche ne tient pas, même à la main.</p></div></details>
+        <details class="faq__item"><summary>À partir de quel âge ?</summary><div class="faq__a"><p>Conçue pour les 14 ans et plus.</p></div></details>
+        <details class="faq__item"><summary>Quand est-ce que je la reçois ?</summary><div class="faq__a"><p>Expédiée sous 48 h en point relais, généralement reçue en 2 à 4 jours.</p></div></details>
+        <details class="faq__item"><summary>Pourquoi l'impression 3D ?</summary><div class="faq__a"><p>Chaque pince est fabriquée en France, à la demande, dans un plastique choisi pour le froid. Pas de stock qui dort, pas de bateau.</p></div></details>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="section final" aria-labelledby="final-title">
+      <h2 id="final-title" class="final__title">La prochaine neige n'attend pas.</h2>
+      <a class="btn btn--primary btn--xl magnetic" href="#prix" data-buy-hero data-highlight="duo"><span>Je prends le Duo — 19,90&nbsp;€</span></a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__brand">PRINVLA — imprimé en France.</p>
+    <nav aria-label="Liens légaux">
+      <ul class="footer__links">
+        <li><a href="mentions-legales.html">Mentions légales</a></li>
+        <li><a href="cgv.html">CGV</a></li>
+        <li><a href="confidentialite.html">Confidentialité</a></li>
+        <li><a data-contact href="mailto:contact@TON-DOMAINE.fr">Contact</a></li>
+      </ul>
+    </nav>
+    <p class="footer__safety">Usage à partir de 14 ans. Ne vise pas le visage. Ne compacte ni glace ni cailloux. Fabricant : [NOM], [ADRESSE].</p>
+  </footer>
+
+  <!-- Barre d'achat mobile -->
+  <div class="buybar" data-buybar aria-hidden="true">
+    <span class="buybar__txt">Duo kaki + bordeaux</span>
+    <a class="btn btn--primary btn--sm" href="#prix" data-buy-hero data-highlight="duo" tabindex="-1">Je prends le Duo — 19,90&nbsp;€</a>
+  </div>
+
+  <script defer src="assets/vendor/gsap.min.js"></script>
+  <script defer src="assets/vendor/ScrollTrigger.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
