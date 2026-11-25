@@ -7,7 +7,8 @@
     "placeholder": "node make-placeholder-stl.mjs",
     "model": "node stl-to-glb.mjs ../source/neve_web_demi-pince.stl ../site/assets/model/neve.glb",
     "render": "node render-images.cjs",
-    "serve": "node serve.mjs 8080"
+    "serve": "node serve.mjs 8080",
+    "single": "node build-single.mjs"
   },
   "devDependencies": {
     "@fontsource-variable/inter": "^5.1.0",
@@ -16,6 +17,7 @@
     "@gltf-transform/extensions": "^4.1.1",
     "@gltf-transform/functions": "^4.1.1",
     "draco3dgltf": "^1.5.7",
+    "esbuild": "^0.24.0",
     "gsap": "^3.12.5",
     "lenis": "^1.1.13",
     "meshoptimizer": "^0.22.0",

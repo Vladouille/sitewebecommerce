@@ -105,9 +105,19 @@ export async function createScene(container, opts = {}) {
   const rim2 = new THREE.DirectionalLight(GLACIER, 2.2); rim2.position.set(420, -60, -300); scene.add(rim2);
 
   // Chargement du GLB Draco
-  const draco = new DRACOLoader().setDecoderPath(new URL('assets/vendor/draco/', BASE).href).setDecoderConfig({ type: 'wasm' });
+  // Version « fichier unique » : modèle et décodeur Draco embarqués en base64 (window.__NEVE_EMBED__)
+  const EMBED = globalThis.__NEVE_EMBED__ || null;
+  const b64 = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0)).buffer;
+  const draco = new DRACOLoader().setDecoderConfig({ type: 'wasm' });
+  if (EMBED) {
+    draco._loadLibrary = (name) => Promise.resolve(name.endsWith('.wasm') ? b64(EMBED.dracoWasm) : EMBED.dracoWrapper);
+  } else {
+    draco.setDecoderPath(new URL('assets/vendor/draco/', BASE).href);
+  }
   const loader = new GLTFLoader().setDRACOLoader(draco);
-  const gltf = await loader.loadAsync(new URL('assets/model/neve.glb', BASE).href);
+  const gltf = EMBED
+    ? await loader.parseAsync(b64(EMBED.glb), '')
+    : await loader.loadAsync(new URL('assets/model/neve.glb', BASE).href);
   draco.dispose();
   let geometry;
   gltf.scene.traverse((n) => { if (n.isMesh && !geometry) geometry = n.geometry; });

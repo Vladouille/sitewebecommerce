@@ -34,6 +34,15 @@ neve/
 
 **Hostinger à la place** : Gestionnaire de fichiers → `public_html` → envoie le *contenu* de `neve/site` (le `.htaccess` est déjà prêt : HTTPS, compression, cache).
 
+
+## Version « un seul fichier HTML » (`neve/neve-site.html`)
+
+Tout le site dans un fichier de 1,5 Mo : CSS, polices, images, modèle 3D, Three.js, GSAP, Lenis, et les 3 pages légales en fenêtres. Il s'ouvre par **double-clic, sans serveur**. Pratique pour montrer le site, l'envoyer par mail ou le tester sur ton téléphone.
+
+- **Modifier les réglages** : ouvre le fichier dans un éditeur de texte et cherche (Ctrl+F) `var STOCK =`, `var STRIPE_LINKS =`, `var CONTACT_EMAIL =`. Ils sont listés en commentaire au début du dernier script.
+- **Le régénérer après une modification du site** : `cd neve/tools && npm install && npm run single`.
+- **Pour la mise en ligne, utilise plutôt le dossier `site/`.** Le fichier unique charge tout d'un coup (1,5 Mo, dont la 3D), alors que `site/` affiche la page avec 16 Ko d'image et ne charge la 3D qu'au premier geste. Sur du trafic TikTok en 4G, cette différence compte. Le fichier unique n'a pas non plus de page `merci.html` pour le retour de Stripe.
+
 ---
 
 ## Les réglages du quotidien (`site/js/config.js`)

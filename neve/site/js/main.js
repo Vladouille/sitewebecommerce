@@ -82,7 +82,7 @@ function highlight(pack) {
 }
 document.addEventListener('click', (e) => {
   const a = e.target.closest('a[href^="#"]');
-  if (!a || a.getAttribute('href') === '#') return;
+  if (!a || a.getAttribute('href') === '#' || a.hasAttribute('data-dialog')) return;
   const target = $(a.getAttribute('href'));
   if (!target) return;
   e.preventDefault();
