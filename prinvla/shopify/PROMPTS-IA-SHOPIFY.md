@@ -175,8 +175,8 @@ Ajoute, uniquement sur mobile, une barre d'achat flottante en bas de l'écran, e
 
 ## Réglages à faire à la main ensuite
 
-- **Thème → Couleurs** : en-tête, barre d'annonce et pied de page sur fond **#05070B**, texte **#EEF2F5**.
-- **Barre d'annonce** : « DROP #1 — 25 pinces numérotées · Expédiées sous 48 h · Arrivées avant ton départ au ski »
+- **Thème → Couleurs** : en-tête et pied de page sur fond **#05070B**, texte **#EEF2F5**.
+- **Barre d'annonce** : la désactiver.
 - **Logo** : texte « PRINVLA ».
 - Masque les autres sections de la page d'accueil.
 - Les étapes produits, packs, livraison et pages légales sont dans `INSTRUCTIONS-IA-SHOPIFY.md` (étapes 1, 2, 3 et 6).

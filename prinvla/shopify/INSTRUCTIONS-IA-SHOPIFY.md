@@ -60,8 +60,8 @@ Puis **Personnaliser** le thème, page **Accueil** :
 
 ## Étape 5 — L'habillage du thème
 
-- **Paramètres du thème → Couleurs** : fond **#05070B**, texte **#EEF2F5**, accent **#9FE8FF** pour l'en-tête, la barre d'annonce et le pied de page, afin qu'ils se fondent dans la section.
-- **Barre d'annonce** : `DROP #1 — 25 pinces numérotées · Expédiées sous 48 h · Arrivées avant ton départ au ski`
+- **Paramètres du thème → Couleurs** : fond **#05070B**, texte **#EEF2F5**, accent **#9FE8FF** pour l'en-tête et le pied de page, afin qu'ils se fondent dans la section.
+- **Barre d'annonce** : la désactiver.
 - **En-tête** : logo texte **PRINVLA**.
 - **Typographie** : si elles sont proposées, **Space Grotesk** pour les titres et **Inter** pour le texte. La section embarque déjà sa police de titres : ce réglage ne sert qu'à l'en-tête et au pied de page.
 

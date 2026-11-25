@@ -9,7 +9,7 @@ const root = document.documentElement;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const finePointer = matchMedia('(pointer: fine)').matches;
 const isDesktop = () => matchMedia('(min-width: 900px)').matches;
-const BAR_H = 36;
+const BAR_H = 0; // barre d'annonce retirée
 
 /* ───────── 1. Contenu piloté par config.js ───────── */
 const soldOut = STOCK <= 0;
