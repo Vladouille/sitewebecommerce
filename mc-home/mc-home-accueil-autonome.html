@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aide à domicile Cagnes-sur-Mer et Nice : ménage, garde d’enfants, seniors | MC Home</title>
+<meta name="description" content="Aide à domicile à Cagnes-sur-Mer et Nice : ménage, garde d'enfants, aide aux personnes âgées. Dès 13,50 €/h après crédit d'impôt. Une intervenante attitrée. Agréée qualité depuis 2014.">
+<link rel="canonical" href="https://www.mc-home.fr/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="MC Home">
+<meta property="og:title" content="Aide à domicile Cagnes-sur-Mer et Nice : ménage, garde d'enfants, seniors | MC Home">
+<meta property="og:description" content="Aide à domicile à Cagnes-sur-Mer et Nice : ménage, garde d'enfants, aide aux personnes âgées. Dès 13,50 €/h après crédit d'impôt. Une intervenante attitrée. Agréée qualité depuis 2014.">
+<meta property="og:url" content="https://www.mc-home.fr/">
+<meta name="theme-color" content="#1d3d34">
+<style>
+/* ==========================================================================
+   MC Home — feuille de styles unique
+   ========================================================================== */
+
+/* COULEURS DE MARQUE PROVISOIRES : la palette du site actuel n'a pas pu être
+   extraite (certificat HTTPS cassé). Remplacer ces 3 valeurs par les couleurs
+   relevées sur le logo / la capture du site actuel, puis revérifier les
+   contrastes (texte blanc sur --brand et --brand-dark : 4,5:1 minimum). */
+:root {
+  --brand: #2f5d50;        /* PROVISOIRE */
+  --brand-dark: #1d3d34;   /* PROVISOIRE */
+  --accent: #f2c14e;       /* PROVISOIRE — fonds et soulignés uniquement, jamais en texte sur blanc */
+
+  --ink: #1c2321;
+  --ink-soft: #46524e;
+  --paper: #ffffff;
+  --surface: #f3f5f4;
+  --line: #d5dcd9;
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --wrap: 72rem;
+  --text: 40rem;
+  --radius: 6px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.125rem;          /* 18 px minimum */
+  line-height: 1.6;
+  padding-bottom: 4.75rem;      /* place pour la barre d'appel mobile */
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 .6em;
+  color: var(--brand-dark);
+}
+h1 { font-size: clamp(2rem, 6vw, 3.1rem); letter-spacing: -.01em; }
+h2 { font-size: clamp(1.6rem, 4.2vw, 2.25rem); }
+h3 { font-size: 1.35rem; }
+
+p { margin: 0 0 1em; }
+p, li { max-width: var(--text); }
+
+a { color: var(--brand); text-underline-offset: .18em; }
+a:hover { color: var(--brand-dark); }
+
+:focus-visible {
+  outline: 3px solid var(--brand-dark);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px var(--accent);
+}
+
+.wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 1.25rem; }
+.section { padding: 3.5rem 0; }
+.section--tint { background: var(--surface); }
+.lead { font-size: 1.25rem; color: var(--ink-soft); }
+.small { font-size: 1rem; color: var(--ink-soft); }
+.nowrap { white-space: nowrap; }
+
+.skip {
+  position: absolute; left: -999px; top: 0;
+  background: var(--brand-dark); color: #fff; padding: .75rem 1rem; z-index: 100;
+}
+.skip:focus { left: 1rem; top: 1rem; }
+
+/* ---------- Boutons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .4em;
+  min-height: 48px; padding: .7rem 1.2rem;
+  border-radius: var(--radius); border: 2px solid var(--brand);
+  background: var(--brand); color: #fff;
+  font: 600 1.0625rem/1.2 var(--sans); text-decoration: none; cursor: pointer;
+}
+.btn:hover { background: var(--brand-dark); border-color: var(--brand-dark); color: #fff; }
+.btn--ghost { background: transparent; color: var(--brand-dark); }
+.btn--ghost:hover { background: var(--surface); color: var(--brand-dark); }
+.btn-row { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.5rem 0 .75rem; }
+.btn-row .btn { flex: 1 1 15rem; flex-direction: column; gap: .1rem; text-align: center; }
+a[href^="tel:"] { white-space: nowrap; }
+.btn-row a[href^="tel:"] { white-space: normal; }
+.more { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+
+/* ---------- En-tête ---------- */
+.site-header { background: var(--paper); border-bottom: 1px solid var(--line); }
+.header-top {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  min-height: 4.25rem;
+}
+.logo {
+  font-family: var(--serif); font-size: 1.6rem; font-weight: 700;
+  color: var(--brand-dark); text-decoration: none; line-height: 1.1;
+}
+.logo small { display: block; font-family: var(--sans); font-size: .95rem; font-weight: 400; color: var(--ink-soft); }
+.header-phones { display: none; }
+.menu-toggle {
+  min-height: 48px; min-width: 48px; padding: 0 1rem;
+  border: 2px solid var(--line); border-radius: var(--radius);
+  background: var(--paper); color: var(--ink); font: 600 1rem var(--sans); cursor: pointer;
+}
+.main-nav ul { list-style: none; margin: 0; padding: 0; }
+.main-nav a {
+  display: flex; align-items: center; min-height: 48px; padding: 0 .25rem;
+  color: var(--ink); text-decoration: none; font-weight: 500;
+}
+.main-nav a[aria-current="page"] { color: var(--brand-dark); box-shadow: inset 0 -3px 0 var(--accent); }
+.js .main-nav { display: none; }
+.js .main-nav.is-open { display: block; padding-bottom: 1rem; }
+.main-nav li + li { border-top: 1px solid var(--line); }
+
+/* ---------- Barre d'appel mobile ---------- */
+.call-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--brand-dark); border-top: 1px solid var(--brand-dark);
+}
+.call-bar a {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 4.25rem; background: var(--brand); color: #fff; text-decoration: none;
+  font-weight: 700; line-height: 1.25;
+}
+.call-bar a span { font-weight: 400; font-size: 1rem; }
+
+/* ---------- Hero ---------- */
+.hero { padding: 2.5rem 0 3rem; }
+.hero-grid { display: grid; gap: 2rem; }
+.hero .price-line {
+  display: inline-block; margin: .25rem 0 0; padding: .5rem .75rem;
+  background: var(--surface); border-left: 4px solid var(--accent);
+  font-size: 1.125rem;
+}
+.hero .price-line strong { font-size: 1.4rem; color: var(--brand-dark); }
+.trust { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: .35rem; }
+.trust li { padding-left: 1.4rem; position: relative; color: var(--ink-soft); }
+.trust li::before {
+  content: ""; position: absolute; left: 0; top: .6em; width: .6rem; height: .6rem;
+  background: var(--accent); border: 2px solid var(--brand-dark); border-radius: 50%;
+}
+
+/* Emplacement photo */
+.photo {
+  display: flex; align-items: flex-end; min-height: 16rem; padding: 1rem;
+  background: var(--surface);
+  background-image: repeating-linear-gradient(135deg, transparent 0 22px, rgba(47, 93, 80, .07) 22px 23px);
+  border: 1px dashed var(--brand); border-radius: var(--radius);
+  color: var(--ink-soft); font-size: 1rem;
+}
+.photo--tall { min-height: 12rem; }
+
+/* ---------- Bandeau prix ---------- */
+.price-band { background: var(--brand-dark); color: #fff; padding: 3rem 0; }
+.price-band h2 { color: #fff; }
+.price-band a { color: #fff; }
+.price-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+.price-table th, .price-table td { text-align: left; padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,.25); vertical-align: top; }
+.price-table th { font-weight: 500; padding-right: 1rem; }
+.price-table .net { font-family: var(--serif); font-size: 1.9rem; font-weight: 700; line-height: 1; white-space: nowrap; }
+.price-table .net small { font-family: var(--sans); font-size: 1rem; font-weight: 400; }
+.price-table .gross { display: block; margin-top: .35rem; font-size: 1rem; opacity: .85; }
+.price-band .small { color: #e3ebe8; }
+
+/* Variante claire du tableau (page tarifs) */
+.price-table--light th, .price-table--light td { border-bottom-color: var(--line); }
+.price-table--light .net { color: var(--brand-dark); }
+.price-table--light .gross { color: var(--ink-soft); opacity: 1; }
+
+/* ---------- Points forts (liste éditoriale) ---------- */
+.strengths { list-style: none; margin: 2rem 0 0; padding: 0; border-top: 2px solid var(--brand-dark); }
+.strengths li { max-width: none; display: grid; gap: .35rem; padding: 1.4rem 0; border-bottom: 1px solid var(--line); }
+.strengths strong { font-family: var(--serif); font-size: 1.3rem; color: var(--brand-dark); line-height: 1.3; }
+.strengths p { margin: 0; color: var(--ink-soft); }
+
+/* ---------- Services en alternance ---------- */
+.feature { display: grid; gap: 1.5rem; align-items: center; padding: 2rem 0; }
+.feature + .feature { border-top: 1px solid var(--line); }
+.feature ul { padding-left: 1.2rem; margin: 0 0 1rem; }
+.feature .price-inline { font-weight: 600; color: var(--brand-dark); }
+
+/* ---------- Étapes ---------- */
+.steps { list-style: none; counter-reset: step; margin: 2rem 0 0; padding: 0; display: grid; gap: 1.5rem; }
+.steps li { counter-increment: step; position: relative; padding-left: 4rem; max-width: none; }
+.steps li::before {
+  content: counter(step); position: absolute; left: 0; top: -.1rem;
+  width: 2.75rem; height: 2.75rem; display: grid; place-items: center;
+  font-family: var(--serif); font-size: 1.5rem; font-weight: 700;
+  color: var(--brand-dark); background: var(--accent); border-radius: 50%;
+}
+.steps h3 { margin-bottom: .3rem; }
+.steps p { margin: 0; color: var(--ink-soft); }
+
+/* ---------- Calculateur ---------- */
+.calc { background: var(--paper); border: 2px solid var(--brand); border-radius: var(--radius); padding: 1.5rem; margin-top: 1.5rem; max-width: 46rem; }
+.calc-fields { display: grid; gap: 1rem; }
+.calc label, .form label { display: block; font-weight: 600; margin-bottom: .35rem; }
+.calc select, .calc input, .form input, .form select, .form textarea {
+  width: 100%; min-height: 48px; padding: .6rem .75rem;
+  font: 1.125rem var(--sans); color: var(--ink);
+  border: 2px solid var(--ink-soft); border-radius: var(--radius); background: #fff;
+}
+.calc-result { margin: 1.5rem 0 0; display: grid; gap: .75rem; }
+.calc-result div { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding-bottom: .6rem; border-bottom: 1px solid var(--line); }
+.calc-result dt { color: var(--ink-soft); }
+.calc-result dd { margin: 0; font-weight: 700; white-space: nowrap; }
+.calc-result .calc-net dd { font-family: var(--serif); font-size: 1.8rem; color: var(--brand-dark); }
+.calc-note { margin: 1rem 0 0; font-size: 1rem; color: var(--ink-soft); }
+.calc-warn { margin: 1rem 0 0; padding: .75rem 1rem; background: #fff8e5; border-left: 4px solid var(--accent); font-size: 1rem; }
+.calc-warn[hidden] { display: none; }
+
+/* ---------- Bloc gérantes / accès ---------- */
+.split { display: grid; gap: 2.5rem; }
+.contact-list { list-style: none; padding: 0; margin: 1rem 0; display: grid; gap: .75rem; }
+.contact-list a { font-weight: 600; }
+.person { display: grid; gap: .1rem; }
+.person a { font-size: 1.3rem; }
+.address { font-style: normal; margin-bottom: 1rem; }
+.access { padding-left: 1.2rem; }
+
+/* ---------- FAQ ---------- */
+.faq { margin-top: 1.5rem; border-top: 2px solid var(--brand-dark); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary {
+  cursor: pointer; list-style: none; position: relative;
+  min-height: 48px; padding: 1rem 2.5rem 1rem 0;
+  font-weight: 600; font-size: 1.15rem;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+"; position: absolute; right: .25rem; top: .7rem;
+  font: 400 1.75rem/1 var(--sans); color: var(--brand);
+}
+.faq details[open] summary::after { content: "−"; }
+.faq details > div { padding: 0 0 1.25rem; }
+
+/* ---------- Appel final ---------- */
+.cta { background: var(--surface); border-top: 4px solid var(--accent); padding: 3rem 0; }
+
+/* ---------- Pages intérieures ---------- */
+.page-head { padding: 2.5rem 0 1.5rem; border-bottom: 1px solid var(--line); }
+.breadcrumb { font-size: 1rem; margin-bottom: 1rem; color: var(--ink-soft); }
+.breadcrumb a { color: var(--ink-soft); }
+.prose h2 { margin-top: 2.5rem; }
+.prose ul { padding-left: 1.2rem; }
+.prose li { margin-bottom: .35rem; }
+.box { padding: 1.25rem 1.5rem; background: var(--surface); border-left: 4px solid var(--brand); margin: 1.5rem 0; max-width: var(--text); }
+.box p:last-child { margin-bottom: 0; }
+.legal dt { font-weight: 600; margin-top: 1rem; }
+.legal dd { margin: 0; }
+.todo { background: #fff3cd; padding: 0 .3em; }
+
+/* ---------- Formulaire ---------- */
+.form { display: grid; gap: 1.1rem; max-width: 36rem; margin-top: 1.5rem; }
+.form textarea { min-height: 9rem; resize: vertical; }
+.form .check { display: flex; gap: .75rem; align-items: flex-start; font-weight: 400; }
+.form .check input { width: 1.5rem; min-height: 1.5rem; height: 1.5rem; margin-top: .2rem; flex: none; }
+.hp { position: absolute; left: -9999px; }
+
+/* ---------- Pied de page ---------- */
+.site-footer { background: var(--brand-dark); color: #e7eeeb; padding: 3rem 0 2rem; font-size: 1rem; }
+.site-footer a { color: #fff; }
+.footer-grid { display: grid; gap: 2rem; }
+.site-footer h2 { color: #fff; font-size: 1.25rem; }
+.site-footer ul { list-style: none; padding: 0; margin: 0; }
+.site-footer li a { display: inline-flex; align-items: center; min-height: 44px; }
+.footer-bottom { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,.2); }
+
+/* ==========================================================================
+   Tablette et ordinateur
+   ========================================================================== */
+@media (min-width: 48rem) {
+  .section { padding: 5rem 0; }
+  .hero { padding: 4rem 0; }
+  .photo--tall { min-height: 22rem; }
+  .hero-grid { grid-template-columns: 1.15fr .85fr; align-items: center; gap: 3rem; }
+  .strengths li { grid-template-columns: 18rem 1fr; gap: 2rem; }
+  .feature { grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .feature:nth-of-type(even) .photo { order: 2; }
+  .steps { grid-template-columns: repeat(2, 1fr); gap: 2rem 3rem; }
+  .calc-fields { grid-template-columns: 1.4fr 1fr; }
+  .split { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .footer-grid { grid-template-columns: 1.3fr 1fr 1fr; }
+  .price-table th { width: 50%; }
+}
+
+@media (min-width: 64rem) {
+  body { padding-bottom: 0; }
+  .call-bar { display: none; }
+  .site-header { position: sticky; top: 0; z-index: 40; }
+  .header-phones { display: flex; gap: 1.5rem; align-items: center; }
+  .header-phones a { display: flex; flex-direction: column; min-height: 48px; justify-content: center; text-decoration: none; color: var(--ink); line-height: 1.25; }
+  .header-phones a span { font-size: .95rem; color: var(--ink-soft); }
+  .header-phones a strong { color: var(--brand-dark); font-size: 1.15rem; }
+  .menu-toggle { display: none; }
+  .js .main-nav, .main-nav { display: block; border-top: 1px solid var(--line); }
+  .main-nav ul { display: flex; flex-wrap: wrap; gap: 0 1.75rem; }
+  .main-nav li + li { border-top: 0; }
+  .main-nav a { padding: 0; }
+  .js .main-nav.is-open { padding-bottom: 0; }
+  .steps { grid-template-columns: repeat(4, 1fr); }
+  .steps li { padding-left: 0; padding-top: 3.75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+}
+
+@media print {
+  .call-bar, .menu-toggle, .main-nav, .cta { display: none !important; }
+  body { padding-bottom: 0; }
+}
+
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://www.mc-home.fr/#entreprise",
+  "name": "MC Home",
+  "description": "Services à la personne à Cagnes-sur-Mer : ménage, repassage, garde d'enfants, aide aux personnes âgées et en situation de handicap.",
+  "url": "https://www.mc-home.fr/",
+  "email": "info@mc-home.fr",
+  "telephone": "+33618545231",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "9 rue du Chevalier Martin, résidence Le Sainte-Luce B",
+    "postalCode": "06800",
+    "addressLocality": "Cagnes-sur-Mer",
+    "addressRegion": "Alpes-Maritimes",
+    "addressCountry": "FR"
+  },
+  "areaServed": [
+    "Cagnes-sur-Mer",
+    "Nice",
+    "Alpes-Maritimes"
+  ],
+  "foundingDate": "2013",
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "name": "Marion Grand",
+      "telephone": "+33618545231",
+      "contactType": "customer service",
+      "availableLanguage": "fr"
+    },
+    {
+      "@type": "ContactPoint",
+      "name": "Caroline Broard",
+      "telephone": "+33612152634",
+      "contactType": "customer service",
+      "availableLanguage": "fr"
+    }
+  ],
+  "priceRange": "27 € – 31 € TTC/h avant crédit d'impôt"
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="header-top">
+      <!-- LOGO : remplacer ce texte par <img src="assets/logo-mc-home.png" alt="MC Home" width="…" height="…">
+           (fichier du site actuel : /medias/site/logos/logo-mc-home.png — ne pas le redessiner) -->
+      <a class="logo" href="index.html">MC Home<small>Aide à domicile à Cagnes-sur-Mer</small></a>
+      <div class="header-phones">
+        <a href="tel:+33618545231"><span>Marion</span><strong>06 18 54 52 31</strong></a>
+        <a href="tel:+33612152634"><span>Caroline</span><strong>06 12 15 26 34</strong></a>
+      </div>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+    <nav class="main-nav" id="menu" aria-label="Navigation principale">
+      <ul>
+        <li><a href="services/menage-repassage.html">Ménage</a></li><li><a href="services/garde-enfants.html">Garde d’enfants</a></li><li><a href="services/aide-personnes-agees-handicap.html">Personnes âgées</a></li><li><a href="tarifs-et-aides.html">Tarifs et aides</a></li><li><a href="qui-sommes-nous.html">Qui sommes-nous</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="contenu">
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>Aide à domicile à Cagnes-sur-Mer et Nice</h1>
+      <p class="lead">Ménage, garde d’enfants, aide aux personnes âgées. Une seule intervenante pour vous, présentée chez vous avant la première heure.</p>
+      <p class="price-line"><strong>15,50 €/h</strong> après crédit d’impôt · <strong>13,50 €/h</strong> pour l’aide aux personnes âgées</p>
+      <div class="btn-row">
+  <a class="btn" href="tel:+33618545231"><span class="nowrap">Appeler Marion</span> <span class="nowrap">06 18 54 52 31</span></a>
+  <a class="btn btn--ghost" href="tel:+33612152634"><span class="nowrap">Appeler Caroline</span> <span class="nowrap">06 12 15 26 34</span></a>
+</div>
+      <ul class="trust">
+        <li>Ce sont les gérantes qui répondent. Pas de standard.</li>
+        <li>Agréée qualité depuis 2014<!-- STATUT AUTORISATION À CONFIRMER --></li>
+        <li>Entreprise familiale à Cagnes-sur-Mer depuis 2013</li>
+      </ul>
+    </div>
+    <!-- PHOTO RÉELLE À FOURNIR : Marion et Caroline, ou une intervenante en situation (avec accord) -->
+    <div class="photo photo--tall" role="img" aria-label="Emplacement photo : l'équipe MC Home">Photo de l’équipe à venir</div>
+  </div>
+</section>
+
+<section class="price-band" aria-labelledby="prix">
+  <div class="wrap">
+    <h2 id="prix">Le prix que vous payez vraiment</h2>
+    <p>L’État rembourse la moitié de chaque heure. Voici ce qu’il vous reste à payer.</p>
+    <table class="price-table">
+      <caption class="small" style="caption-side:bottom;text-align:left;padding-top:.75rem">Prix par heure, après crédit d’impôt de 50 %. Toutes cotisations comprises.</caption>
+      <thead><tr><th scope="col">Service</th><th scope="col">Ce que vous payez</th></tr></thead>
+      <tbody>
+      <!-- À CONFIRMER CLIENT : la FAQ de l'ancien site annonçait 23 €/h, la page tarifs 31 €/h. On affiche 31 €. -->
+      <tr><th scope="row">Ménage, repassage</th><td><span class="net">15,50 €<small>/h</small></span><span class="gross">31 € TTC/h avant crédit d’impôt</span></td></tr>
+      <!-- À CONFIRMER CLIENT : 31 €/h vaut-il aussi pour la garde des moins de 3 ans ? -->
+      <tr><th scope="row">Garde d’enfants</th><td><span class="net">15,50 €<small>/h</small></span><span class="gross">31 € TTC/h avant crédit d’impôt</span></td></tr>
+      <!-- STATUT AUTORISATION À CONFIRMER -->
+      <tr><th scope="row">Aide aux personnes âgées ou en situation de handicap</th><td><span class="net">13,50 €<small>/h</small></span><span class="gross">27 € TTC/h avant crédit d’impôt</span></td></tr>
+      </tbody>
+    </table>
+    <p class="small">Toutes cotisations comprises : vous n’avez aucune charge à payer. Vous n’êtes pas imposable ? Vous êtes remboursé quand même.</p>
+    <p><a class="more" href="#calcul">Calculer votre coût par mois</a></p>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="difference">
+  <div class="wrap">
+    <h2 id="difference">Ce qui change quand vous passez par MC Home</h2>
+    <ul class="strengths">
+      <li><strong>Une seule intervenante pour vous</strong><p>Toujours la même personne chez vous. Si elle est absente, on la remplace seulement si vous le voulez.</p></li>
+      <li><strong>On vous la présente chez vous</strong><p>Avant la première prestation, Marion ou Caroline vient chez vous avec elle. Vous expliquez vos habitudes, en détail.</p></li>
+      <li><strong>Pas besoin d’être là</strong><p>Votre intervenante peut garder un double des clés, avec un formulaire signé par vous deux. Un cahier de liaison reste chez vous pour échanger.</p></li>
+      <li><strong>Préavis d’un mois, pas plus</strong><p>Vous n’êtes pas engagé sur un an. Vous arrêtez quand vous voulez, avec un mois de préavis au maximum.</p></li>
+      <li><strong>Les gérantes vous répondent elles-mêmes</strong><p>Téléphone, SMS ou mail : vous parlez à Marion ou à Caroline, jamais à un standard.</p></li>
+      <li><strong>On s’occupe des démarches</strong><p>APA, PCH, CAF, caisses de retraite : on vous aide à monter les dossiers pour réduire encore votre reste à charge.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tint" aria-labelledby="services">
+  <div class="wrap">
+    <h2 id="services">Trois services, une même façon de faire</h2>
+
+    <div class="feature">
+      <!-- PHOTO RÉELLE À FOURNIR : intérieur entretenu / intervenante au repassage -->
+      <div class="photo" role="img" aria-label="Emplacement photo : ménage et repassage">Photo à venir</div>
+      <div>
+        <h3>Ménage et repassage</h3>
+        <p>Vous récupérez vos soirées et vos week-ends. On s’adapte à vos horaires et à votre façon de faire.</p>
+        <p class="price-inline">15,50 €/h après crédit d’impôt <span class="small">(31 € TTC)</span></p>
+        <a class="more" href="services/menage-repassage.html">Le ménage et le repassage en détail</a>
+      </div>
+    </div>
+
+    <div class="feature">
+      <!-- PHOTO RÉELLE À FOURNIR : sortie d'école, aide aux devoirs (sans visage d'enfant identifiable) -->
+      <div class="photo" role="img" aria-label="Emplacement photo : garde d'enfants">Photo à venir</div>
+      <div>
+        <h3>Garde d’enfants</h3>
+        <ul>
+          <li>Moins de 3 ans : garde à votre domicile, couverte par notre agrément.</li>
+          <li>Plus de 3 ans : sortie d’école, activités, devoirs, repas.</li>
+          <li>Babysitting ponctuel le soir et le week-end.</li>
+        </ul>
+        <p class="price-inline">15,50 €/h après crédit d’impôt <span class="small">(31 € TTC)</span></p>
+        <a class="more" href="services/garde-enfants.html">La garde d’enfants en détail</a>
+      </div>
+    </div>
+
+    <div class="feature">
+      <!-- PHOTO RÉELLE À FOURNIR : intervenante avec une personne âgée (avec accord écrit) -->
+      <div class="photo" role="img" aria-label="Emplacement photo : aide aux personnes âgées">Photo à venir</div>
+      <div>
+        <h3>Aide aux personnes âgées ou en situation de handicap</h3>
+        <p>Courses, repas, entretien, démarches, aide à la toilette. Des intervenantes diplômées, avec au moins 3 ans d’expérience. On respecte le plan d’aide.</p>
+        <p class="price-inline">13,50 €/h après crédit d’impôt <span class="small">(27 € TTC)</span></p>
+        <a class="more" href="services/aide-personnes-agees-handicap.html">L’aide aux personnes âgées en détail</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="etapes">
+  <div class="wrap">
+    <h2 id="etapes">Comment ça se passe</h2>
+    <ol class="steps">
+  <li><h3>Vous appelez</h3><p>Marion ou Caroline décroche. Vous expliquez votre besoin, on vous donne le prix.</p></li>
+  <li><h3>On vient chez vous</h3><p>Une gérante vous rend visite avec votre future intervenante. Vous détaillez vos attentes.</p></li>
+  <li><h3>Première prestation</h3><p>Votre intervenante commence. C’est elle qui reviendra à chaque fois.</p></li>
+  <li><h3>Attestation fiscale</h3><p>Chaque début d’année, on vous envoie l’attestation pour récupérer 50 %.</p></li>
+</ol>
+  </div>
+</section>
+
+<section class="section section--tint" id="calcul" aria-labelledby="calcul-titre">
+  <div class="wrap">
+    <h2 id="calcul-titre">Combien ça vous coûte par mois</h2>
+    <p>Choisissez le service et le nombre d’heures par semaine.</p>
+    <form class="calc" data-calc onsubmit="return false" aria-label="Calculateur de coût mensuel">
+  <div class="calc-fields">
+    <div>
+      <label for="calc-service1">Service</label>
+      <select id="calc-service1" data-calc-service>
+        <option value="31">Ménage, repassage (31 € TTC/h)</option>
+        <option value="31">Garde d’enfants (31 € TTC/h)</option>
+        <option value="27">Aide aux personnes âgées ou handicapées (27 € TTC/h)</option>
+      </select>
+    </div>
+    <div>
+      <label for="calc-hours1">Heures par semaine</label>
+      <input id="calc-hours1" type="number" inputmode="decimal" min="1" max="60" step="0.5" value="4" data-calc-hours>
+    </div>
+  </div>
+  <dl class="calc-result" aria-live="polite">
+    <div><dt>Facturé chaque mois</dt><dd data-calc-brut>–</dd></div>
+    <div><dt>Crédit d’impôt (50 %)</dt><dd data-calc-credit>–</dd></div>
+    <div class="calc-net"><dt>Coût réel par mois</dt><dd data-calc-net>–</dd></div>
+  </dl>
+  <p class="calc-warn" data-calc-warn hidden>Au-delà de 12 000 € de dépenses par an, le crédit d’impôt est plafonné. Ce plafond monte de 1 500 € par enfant à charge ou par personne de plus de 65 ans dans le foyer (jusqu’à 15 000 €), et à 20 000 € en cas d’invalidité. Appelez-nous, on fait le calcul exact avec vous.</p>
+  <p class="calc-note">Estimation sur 52 semaines par an. Le crédit d’impôt est calculé sur ce qui reste à votre charge : si vous touchez l’APA, la PCH ou une aide de la CAF, votre coût baisse encore.</p>
+  <!-- QUESTION CLIENT : proposez-vous l'avance immédiate du crédit d'impôt (Urssaf) ? Si oui, on l'ajoute ici. Ne rien afficher sans confirmation. -->
+</form>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="joindre">
+  <div class="wrap split">
+    <div>
+      <h2 id="joindre">Vous parlez directement aux gérantes</h2>
+      <p>MC Home est une entreprise familiale. Marion Grand et Caroline Broard la dirigent ensemble et répondent elles-mêmes.</p>
+      <ul class="contact-list">
+        <li class="person">Marion Grand <a href="tel:+33618545231">06 18 54 52 31</a></li>
+        <li class="person">Caroline Broard <a href="tel:+33612152634">06 12 15 26 34</a></li>
+        <li>Par mail : <a href="mailto:info@mc-home.fr">info@mc-home.fr</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Nos bureaux</h2>
+      <address class="address">9 rue du Chevalier Martin<br>Résidence Le Sainte-Luce B<br>06800 Cagnes-sur-Mer</address>
+      <p>On vous reçoit sur rendez-vous.</p>
+      <ul class="access">
+        <li>Parking public Sainte-Luce juste en face, 30 minutes gratuites.</li>
+        <li>Gare routière à 50 mètres.</li>
+      </ul>
+      <p><a href="https://www.openstreetmap.org/search?query=9%20rue%20du%20Chevalier%20Martin%2006800%20Cagnes-sur-Mer" class="more" rel="noopener">Voir sur la carte</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint" aria-labelledby="questions">
+  <div class="wrap">
+    <h2 id="questions">Les questions qu’on nous pose le plus</h2>
+    <div class="faq">
+<details><summary>Est-ce toujours la même intervenante ?</summary><div><p>Oui. Chaque client a une seule intervenante attitrée. Si elle est absente, on la remplace uniquement si vous le souhaitez.</p></div></details>
+<details><summary>Dois-je être chez moi pendant l’intervention ?</summary><div><p>Non. Si vous le souhaitez, votre intervenante garde un double de vos clés : vous signez avec elle un formulaire de remise de clés. Un cahier de liaison reste chez vous pour vous laisser des messages.</p></div></details>
+<details><summary>Je ne suis pas imposable. Ai-je droit au crédit d’impôt ?</summary><div><p>Oui. Le crédit d’impôt est remboursé même si vous ne payez pas d’impôt, que vous soyez en activité ou à la retraite. Chaque début d’année, on vous envoie l’attestation fiscale à joindre à votre déclaration.</p></div></details>
+<details><summary>Suis-je engagé longtemps ?</summary><div><p>Non. Vous pouvez arrêter avec un préavis d’un mois maximum.</p></div></details>
+</div>
+    <p style="margin-top:1.5rem"><a class="more" href="faq.html">Toutes les questions</a></p>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Une question ? Appelez-nous.</h2>
+    <p class="lead">Ce sont les gérantes qui répondent, au téléphone, par SMS ou par mail. Pas de standard.</p>
+    <div class="btn-row">
+  <a class="btn" href="tel:+33618545231"><span class="nowrap">Appeler Marion</span> <span class="nowrap">06 18 54 52 31</span></a>
+  <a class="btn btn--ghost" href="tel:+33612152634"><span class="nowrap">Appeler Caroline</span> <span class="nowrap">06 12 15 26 34</span></a>
+</div>
+    <p class="small">Ou écrivez à <a href="mailto:info@mc-home.fr">info@mc-home.fr</a>.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h2>MC Home</h2>
+        <p>Entreprise familiale de services à la personne, à Cagnes-sur-Mer depuis 2013. Agréée qualité depuis le 15 septembre 2014.</p>
+        <address class="address">9 rue du Chevalier Martin<br>Résidence Le Sainte-Luce B<br>06800 Cagnes-sur-Mer<br>Sur rendez-vous</address>
+      </div>
+      <div>
+        <h2>Nous joindre</h2>
+        <ul>
+          <li>Marion : <a href="tel:+33618545231">06 18 54 52 31</a></li>
+          <li>Caroline : <a href="tel:+33612152634">06 12 15 26 34</a></li>
+          <li><a href="mailto:info@mc-home.fr">info@mc-home.fr</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Le site</h2>
+        <ul>
+          <li><a href="tarifs-et-aides.html">Tarifs et aides</a></li>
+          <li><a href="faq.html">Questions fréquentes</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-bottom">© MC Home SARL — Cagnes-sur-Mer, Nice et environs.</p>
+  </div>
+</footer>
+
+<nav class="call-bar" aria-label="Appeler MC Home">
+  <a href="tel:+33618545231">Appeler Marion<span>06 18 54 52 31</span></a>
+  <a href="tel:+33612152634">Appeler Caroline<span>06 12 15 26 34</span></a>
+</nav>
+<script>
+/* MC Home — menu mobile + calculateur de coût après crédit d'impôt */
+(function () {
+  "use strict";
+  document.documentElement.classList.add("js");
+
+  /* ---------- Menu mobile ---------- */
+  var toggle = document.querySelector(".menu-toggle");
+  var nav = document.getElementById("menu");
+  if (toggle && nav) {
+    toggle.addEventListener("click", function () {
+      var open = nav.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.textContent = open ? "Fermer" : "Menu";
+    });
+  }
+
+  /* ---------- Calculateur ----------
+     Règles (service-public.gouv.fr, fiche F12) :
+     - crédit d'impôt = 50 % des dépenses ;
+     - plafond de base : 12 000 € de dépenses par an et par foyer
+       (+1 500 € par enfant à charge ou membre du foyer de plus de 65 ans,
+       maximum 15 000 € ; 20 000 € en cas d'invalidité).
+     On applique le plafond de base pour ne jamais promettre trop. */
+  var PLAFOND = 12000;
+  var SEMAINES_PAR_MOIS = 52 / 12;
+  var euro = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+
+  function run(calc) {
+    var service = calc.querySelector("[data-calc-service]");
+    var hours = calc.querySelector("[data-calc-hours]");
+    var out = {
+      brut: calc.querySelector("[data-calc-brut]"),
+      credit: calc.querySelector("[data-calc-credit]"),
+      net: calc.querySelector("[data-calc-net]"),
+      warn: calc.querySelector("[data-calc-warn]")
+    };
+
+    function update() {
+      var rate = parseFloat(service.value) || 0;
+      var h = parseFloat(String(hours.value).replace(",", ".")) || 0;
+      if (h < 0) h = 0;
+      if (h > 60) h = 60;
+      var mensuel = h * SEMAINES_PAR_MOIS * rate;
+      var annuel = mensuel * 12;
+      var creditAnnuel = Math.min(annuel, PLAFOND) * 0.5;
+      var creditMensuel = creditAnnuel / 12;
+      out.brut.textContent = euro.format(mensuel);
+      out.credit.textContent = "− " + euro.format(creditMensuel);
+      out.net.textContent = euro.format(mensuel - creditMensuel);
+      out.warn.hidden = annuel <= PLAFOND;
+    }
+
+    service.addEventListener("change", update);
+    hours.addEventListener("input", update);
+    update();
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll("[data-calc]"), run);
+})();
+
+</script>
+</body>
+</html>
