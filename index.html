@@ -13,9 +13,15 @@
   <meta property="og:title" content="Autoflow — Tes prospects t'écrivent. On les transforme en appels de vente.">
   <meta property="og:description" content="Réponse en quelques secondes à chaque message privé et commentaire, 24h/24. Prospects qualifiés, appels réservés dans ton agenda. En place en 7 jours.">
   <meta property="og:image" content="assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Autoflow : tes prospects t'écrivent, Autoflow les transforme en appels de vente.">
+  <meta name="theme-color" content="#ffffff">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-48.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
   <link rel="stylesheet" href="styles.css">
 
@@ -23,6 +29,23 @@
        puis mettre à jour le paragraphe « Cookies » de confidentialite.html.
   <script defer data-domain="autoflow.fr" src="https://plausible.io/js/script.js"></script>
   -->
+  <!-- Données structurées pour Google (aucune information inventée : pas d'adresse ni de note) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Autoflow",
+    "description": "Autoflow remplit l'agenda des coachs en ligne d'appels de vente qualifiés : réponse en quelques secondes aux messages privés et commentaires Instagram, qualification des prospects et réservation des appels.",
+    "email": "contact.autoflow1@gmail.com",
+    "areaServed": "FR",
+    "knowsLanguage": "fr",
+    "makesOffer": [
+      { "@type": "Offer", "name": "Essentiel", "price": "280", "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Croissance", "price": "480", "priceCurrency": "EUR" },
+      { "@type": "Offer", "name": "Scale", "price": "1780", "priceCurrency": "EUR" }
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#contenu">Aller au contenu</a>
@@ -49,45 +72,39 @@
           <p class="hero__note">Gratuit et sans engagement. Réponse sous 48 h ouvrées.</p>
         </div>
 
-        <figure class="chat" aria-label="Exemple de conversation Instagram entre un prospect et l'assistant Autoflow d'un coach">
-          <div class="chat__head">
-            <span class="chat__shop">Messages Instagram</span>
-            <span class="chat__status">Assistant Autoflow de ton compte · assistant IA</span>
+        <figure class="phone" aria-label="Exemple de conversation Instagram entre un prospect et l'assistant Autoflow d'un coach">
+          <div class="phone__screen">
+            <div class="dm__head">
+              <svg class="dm__back" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="dm__avatar" aria-hidden="true"></span>
+              <span class="dm__who">
+                <span class="dm__name">Nouveau prospect</span>
+                <span class="dm__status">Message privé</span>
+              </span>
+            </div>
+            <p class="dm__time">Aujourd'hui 23:41</p>
+            <ol class="dm__thread" id="chat">
+              <li class="msg msg--in"><p>Salut ! C'est combien ton coaching ?</p></li>
+              <li class="msg msg--typing" aria-hidden="true"><span></span><span></span><span></span></li>
+              <li class="msg msg--out">
+                <span class="msg__meta">Ton assistant (IA)</span>
+                <p>Hello ! Avant de te parler du prix, dis-moi ton objectif : perdre du poids, prendre du muscle, ou les deux ?</p>
+              </li>
+              <li class="msg msg--in"><p>Perdre 10 kilos avant l'été, j'ai déjà tout essayé.</p></li>
+              <li class="msg msg--out"><p>Tu es exactement le type de profil que <span class="slot">ton prénom</span> accompagne. Le plus simple, c'est un appel de 20 minutes avec lui pour voir si c'est fait pour toi. Demain 18 h ou jeudi 12 h ?</p></li>
+              <li class="msg msg--in"><p>Demain 18 h 👍</p></li>
+              <li class="msg msg--event"><span class="tri" aria-hidden="true"></span> Appel réservé · demain 18:00</li>
+            </ol>
+            <div class="dm__input" aria-hidden="true">Écris un message…</div>
           </div>
-          <ol class="chat__thread" id="chat">
-            <li class="msg msg--visitor">
-              <span class="msg__meta">Prospect · 23 h 41</span>
-              <p>Salut ! C'est combien ton coaching ?</p>
-            </li>
-            <li class="msg msg--typing" aria-hidden="true"><span></span><span></span><span></span></li>
-            <li class="msg msg--agent">
-              <span class="msg__meta">Assistant · 23 h 41</span>
-              <p>Hello ! Avant de te parler du prix, dis-moi ton objectif : perdre du poids, prendre du muscle, ou les deux ?</p>
-            </li>
-            <li class="msg msg--visitor">
-              <span class="msg__meta">Prospect · 23 h 42</span>
-              <p>Perdre 10 kilos avant l'été, j'ai déjà tout essayé.</p>
-            </li>
-            <li class="msg msg--agent">
-              <span class="msg__meta">Assistant · 23 h 42</span>
-              <p>Tu es exactement le type de profil que <span class="slot">ton prénom</span> accompagne. Le plus simple, c'est un appel de 20 minutes avec lui pour voir si c'est fait pour toi. Demain 18 h ou jeudi 12 h ?</p>
-            </li>
-            <li class="msg msg--visitor">
-              <span class="msg__meta">Prospect · 23 h 43</span>
-              <p>Demain 18 h 👍</p>
-            </li>
-            <li class="msg msg--event">
-              <span class="tri"></span> Appel réservé
-            </li>
-          </ol>
-          <figcaption>Exemple de conversation.</figcaption>
+          <figcaption>Exemple de conversation. Le prospect et les horaires sont fictifs.</figcaption>
         </figure>
       </div>
     </section>
 
     <!-- Problème -->
     <section class="section problem">
-      <div class="wrap wrap--text">
+      <div class="wrap split">
         <h2>Ce n'est pas un problème d'audience. C'est un problème de réponse.</h2>
         <p class="lead">Tu passes des heures à créer du contenu. Les messages arrivent, mais tu réponds entre deux séances, parfois le lendemain. Pendant ce temps, le prospect refroidit, scrolle, et finit chez un autre coach.</p>
       </div>
@@ -157,7 +174,7 @@
 
     <!-- Ce que tu reçois -->
     <section class="section section--rule" aria-labelledby="get-title">
-      <div class="wrap get">
+      <div class="wrap split">
         <h2 id="get-title">Ce que tu reçois</h2>
         <ul class="list list--tri get__list">
           <li><strong>Un assistant qui répond à tes messages privés et à tes commentaires Instagram</strong>, en quelques secondes, à toute heure.</li>
@@ -200,16 +217,18 @@
 
     <!-- Audit gratuit : le lien du formulaire Google se règle dans config.js (AUDIT_FORM_URL) -->
     <section class="section audit" id="audit" aria-labelledby="audit-title">
-      <div class="wrap audit__inner">
+      <div class="wrap split">
         <h2 id="audit-title">Découvre combien d'appels ton compte laisse passer chaque mois.</h2>
-        <p class="lead lead--small">Remplis ce formulaire en 1 minute. On analyse ton compte gratuitement et on te montre combien de prospects tu perds, et pourquoi.</p>
-        <a class="btn btn--large js-form" href="#audit">Réserver mon audit gratuit</a>
+        <div class="audit__body">
+          <p class="lead lead--small">Remplis ce formulaire en 1 minute. On analyse ton compte gratuitement et on te montre combien de prospects tu perds, et pourquoi.</p>
+          <a class="btn btn--large js-form" href="#audit">Réserver mon audit gratuit</a>
+        </div>
       </div>
     </section>
 
     <!-- À propos -->
     <section class="section section--rule" aria-labelledby="about-title">
-      <div class="wrap wrap--text">
+      <div class="wrap split">
         <h2 id="about-title">Pourquoi Autoflow</h2>
         <p class="lead lead--small">Autoflow est une agence spécialisée dans les agents comportementaux. On fait pour les coachs ce qu'un excellent setter ferait : écouter, poser les bonnes questions, filtrer les curieux et proposer l'appel au bon moment. Mais en quelques secondes, et à toute heure.</p>
       </div>
@@ -225,7 +244,7 @@
 
     <!-- FAQ -->
     <section class="section section--rule" id="faq" aria-labelledby="faq-title">
-      <div class="wrap wrap--text">
+      <div class="wrap split">
         <h2 id="faq-title">Questions fréquentes</h2>
         <div class="faq">
           <details>

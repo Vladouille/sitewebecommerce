@@ -1,0 +1,3 @@
+# Sécurité : ce dossier contient le code source de l'application Next.js.
+# Il ne doit JAMAIS être servi par l'hébergement statique Hostinger de la landing Autoflow.
+Require all denied

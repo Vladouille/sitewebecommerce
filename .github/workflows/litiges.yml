@@ -1,0 +1,28 @@
+name: Litiges - vérifications
+
+on:
+  push:
+    paths: ["litiges/**", ".github/workflows/litiges.yml"]
+  pull_request:
+    paths: ["litiges/**", ".github/workflows/litiges.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: litiges
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: litiges/package-lock.json
+      - run: npm ci
+      - run: npm audit --audit-level=high
+      - run: npm run check
+      - run: npm run build

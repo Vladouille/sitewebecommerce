@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Remplacer le domaine par celui d'Autoflow une fois réservé
+Sitemap: https://autoflow.fr/sitemap.xml
