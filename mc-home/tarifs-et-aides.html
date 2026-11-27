@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tarifs aide à domicile Cagnes-sur-Mer et crédit d’impôt 50 % | MC Home</title>
+<meta name="description" content="Tarifs MC Home : ménage et garde d'enfants 31 € TTC/h, soit 15,50 € après crédit d'impôt ; aide aux personnes âgées 27 €, soit 13,50 €. APA, PCH, CAF : on vous aide.">
+<link rel="canonical" href="https://www.mc-home.fr/tarifs-et-aides.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="MC Home">
+<meta property="og:title" content="Tarifs aide à domicile Cagnes-sur-Mer et crédit d'impôt 50 % | MC Home">
+<meta property="og:description" content="Tarifs MC Home : ménage et garde d'enfants 31 € TTC/h, soit 15,50 € après crédit d'impôt ; aide aux personnes âgées 27 €, soit 13,50 €. APA, PCH, CAF : on vous aide.">
+<meta property="og:url" content="https://www.mc-home.fr/tarifs-et-aides.html">
+<meta name="theme-color" content="#1d3d34">
+<link rel="stylesheet" href="styles.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="header-top">
+      <!-- LOGO : remplacer ce texte par <img src="assets/logo-mc-home.png" alt="MC Home" width="…" height="…">
+           (fichier du site actuel : /medias/site/logos/logo-mc-home.png — ne pas le redessiner) -->
+      <a class="logo" href="index.html">MC Home<small>Aide à domicile à Cagnes-sur-Mer</small></a>
+      <div class="header-phones">
+        <a href="tel:+33618545231"><span>Marion</span><strong>06 18 54 52 31</strong></a>
+        <a href="tel:+33612152634"><span>Caroline</span><strong>06 12 15 26 34</strong></a>
+      </div>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+    <nav class="main-nav" id="menu" aria-label="Navigation principale">
+      <ul>
+        <li><a href="services/menage-repassage.html">Ménage</a></li><li><a href="services/garde-enfants.html">Garde d’enfants</a></li><li><a href="services/aide-personnes-agees-handicap.html">Personnes âgées</a></li><li><a href="tarifs-et-aides.html" aria-current="page">Tarifs et aides</a></li><li><a href="qui-sommes-nous.html">Qui sommes-nous</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="contenu">
+<section class="page-head">
+  <div class="wrap">
+    <p class="breadcrumb"><a href="index.html">Accueil</a> › Tarifs et aides</p>
+    <h1>Tarifs et aides financières</h1>
+    <p class="lead">Des prix à l’heure, toutes cotisations comprises. L’État vous en rembourse la moitié.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <h2>Nos tarifs</h2>
+    <table class="price-table price-table--light">
+      <caption class="small" style="caption-side:bottom;text-align:left;padding-top:.75rem">Prix par heure, après crédit d’impôt de 50 %. Toutes cotisations comprises.</caption>
+      <thead><tr><th scope="col">Service</th><th scope="col">Ce que vous payez</th></tr></thead>
+      <tbody>
+      <!-- À CONFIRMER CLIENT : la FAQ de l'ancien site annonçait 23 €/h, la page tarifs 31 €/h. On affiche 31 €. -->
+      <tr><th scope="row">Ménage, repassage</th><td><span class="net">15,50 €<small>/h</small></span><span class="gross">31 € TTC/h avant crédit d’impôt</span></td></tr>
+      <!-- À CONFIRMER CLIENT : 31 €/h vaut-il aussi pour la garde des moins de 3 ans ? -->
+      <tr><th scope="row">Garde d’enfants</th><td><span class="net">15,50 €<small>/h</small></span><span class="gross">31 € TTC/h avant crédit d’impôt</span></td></tr>
+      <!-- STATUT AUTORISATION À CONFIRMER -->
+      <tr><th scope="row">Aide aux personnes âgées ou en situation de handicap</th><td><span class="net">13,50 €<small>/h</small></span><span class="gross">27 € TTC/h avant crédit d’impôt</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section section--tint" aria-labelledby="calc-tarifs">
+  <div class="wrap">
+    <h2 id="calc-tarifs">Calculez votre coût par mois</h2>
+    <form class="calc" data-calc onsubmit="return false" aria-label="Calculateur de coût mensuel">
+  <div class="calc-fields">
+    <div>
+      <label for="calc-service1">Service</label>
+      <select id="calc-service1" data-calc-service>
+        <option value="31">Ménage, repassage (31 € TTC/h)</option>
+        <option value="31">Garde d’enfants (31 € TTC/h)</option>
+        <option value="27">Aide aux personnes âgées ou handicapées (27 € TTC/h)</option>
+      </select>
+    </div>
+    <div>
+      <label for="calc-hours1">Heures par semaine</label>
+      <input id="calc-hours1" type="number" inputmode="decimal" min="1" max="60" step="0.5" value="4" data-calc-hours>
+    </div>
+  </div>
+  <dl class="calc-result" aria-live="polite">
+    <div><dt>Facturé chaque mois</dt><dd data-calc-brut>–</dd></div>
+    <div><dt>Crédit d’impôt (50 %)</dt><dd data-calc-credit>–</dd></div>
+    <div class="calc-net"><dt>Coût réel par mois</dt><dd data-calc-net>–</dd></div>
+  </dl>
+  <p class="calc-warn" data-calc-warn hidden>Au-delà de 12 000 € de dépenses par an, le crédit d’impôt est plafonné. Ce plafond monte de 1 500 € par enfant à charge ou par personne de plus de 65 ans dans le foyer (jusqu’à 15 000 €), et à 20 000 € en cas d’invalidité. Appelez-nous, on fait le calcul exact avec vous.</p>
+  <p class="calc-note">Estimation sur 52 semaines par an. Le crédit d’impôt est calculé sur ce qui reste à votre charge : si vous touchez l’APA, la PCH ou une aide de la CAF, votre coût baisse encore.</p>
+  <!-- QUESTION CLIENT : proposez-vous l'avance immédiate du crédit d'impôt (Urssaf) ? Si oui, on l'ajoute ici. Ne rien afficher sans confirmation. -->
+</form>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose">
+    <h2>Comment marche le crédit d’impôt</h2>
+    <p>Vous payez nos factures. Chaque début d’année, on vous envoie une attestation fiscale. Vous la reportez dans votre déclaration de revenus et l’État vous rend 50 % des sommes payées.</p>
+    <ul>
+      <li>Vous êtes imposable : la somme est déduite de votre impôt.</li>
+      <li>Vous n’êtes pas imposable, en activité ou à la retraite : l’État vous la verse.</li>
+      <li>Le plafond est de 12 000 € de dépenses par an. Il monte de 1 500 € par enfant à charge ou par personne de plus de 65 ans dans le foyer (jusqu’à 15 000 €), et à 20 000 € en cas d’invalidité.</li>
+    </ul>
+    <!-- QUESTION CLIENT : avance immédiate du crédit d'impôt (Urssaf) proposée ? Ne rien écrire sans confirmation. -->
+    <div class="box"><p>Aucune charge à prévoir : le tarif comprend toutes les cotisations. Vous n’êtes pas employeur, c’est MC Home qui emploie l’intervenante.</p></div>
+
+    <h2>Les aides qui réduisent encore le prix</h2>
+    <p>On travaille avec les organismes qui financent l’aide à domicile, et on vous aide à monter les dossiers.</p>
+    <ul>
+      <li><strong>APA</strong>, versée par le Conseil départemental, pour les personnes âgées en perte d’autonomie.</li>
+      <li><strong>PCH</strong>, attribuée par la MDPH, pour les personnes en situation de handicap.</li>
+      <li><strong>CAF</strong>, notamment pour la garde des jeunes enfants.</li>
+      <li><strong>Caisses de retraite</strong> et <strong>mutuelles</strong>, selon votre contrat.</li>
+    </ul>
+    <p>Le crédit d’impôt se calcule sur ce qui reste à votre charge après ces aides.</p>
+
+    <h2>Sans engagement long</h2>
+    <p>Vous pouvez arrêter avec un préavis d’un mois maximum.</p>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Une question ? Appelez-nous.</h2>
+    <p class="lead">Ce sont les gérantes qui répondent, au téléphone, par SMS ou par mail. Pas de standard.</p>
+    <div class="btn-row">
+  <a class="btn" href="tel:+33618545231"><span class="nowrap">Appeler Marion</span> <span class="nowrap">06 18 54 52 31</span></a>
+  <a class="btn btn--ghost" href="tel:+33612152634"><span class="nowrap">Appeler Caroline</span> <span class="nowrap">06 12 15 26 34</span></a>
+</div>
+    <p class="small">Ou écrivez à <a href="mailto:info@mc-home.fr">info@mc-home.fr</a>.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h2>MC Home</h2>
+        <p>Entreprise familiale de services à la personne, à Cagnes-sur-Mer depuis 2013. Agréée qualité depuis le 15 septembre 2014.</p>
+        <address class="address">9 rue du Chevalier Martin<br>Résidence Le Sainte-Luce B<br>06800 Cagnes-sur-Mer<br>Sur rendez-vous</address>
+      </div>
+      <div>
+        <h2>Nous joindre</h2>
+        <ul>
+          <li>Marion : <a href="tel:+33618545231">06 18 54 52 31</a></li>
+          <li>Caroline : <a href="tel:+33612152634">06 12 15 26 34</a></li>
+          <li><a href="mailto:info@mc-home.fr">info@mc-home.fr</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Le site</h2>
+        <ul>
+          <li><a href="tarifs-et-aides.html">Tarifs et aides</a></li>
+          <li><a href="faq.html">Questions fréquentes</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-bottom">© MC Home SARL — Cagnes-sur-Mer, Nice et environs.</p>
+  </div>
+</footer>
+
+<nav class="call-bar" aria-label="Appeler MC Home">
+  <a href="tel:+33618545231">Appeler Marion<span>06 18 54 52 31</span></a>
+  <a href="tel:+33612152634">Appeler Caroline<span>06 12 15 26 34</span></a>
+</nav>
+</body>
+</html>
